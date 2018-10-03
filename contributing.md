@@ -31,7 +31,7 @@ As a rule of thumb, try to keep your Pull Requests small instead of huge PRs wit
 As a best practice, create local branches to work within. They should be created off of the `master` branch.
 
 #### Step 2: Code
-Make sure to run npm run format in 'frontend/' folder (is also done automatically during commit) and run 'pipenv run black ./' in 'backend/' folder (will try to automate soon). Our code style is [standard](https://github.com/standard/standard). 
+Make sure to run `npm run format` in 'frontend/' folder (is also done automatically during commit) and run `pipenv run black ./` in 'backend/' folder (will automate soon). Our code style is [standard](https://github.com/standard/standard). 
 
 ### Step 3: Commit
 Commits are how we keep track of code changes and thus should be explicit.
