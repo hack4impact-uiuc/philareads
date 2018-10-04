@@ -1,21 +1,17 @@
 import logo from './logo.svg';
 import React, { Component } from 'react';
 
-class Register extends Component {
+class Login extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>Sign up with us below!</p>
-          <form action="/login">
+          <p>Log in below!</p>
+          <form action="/home">
             <p>Username:</p>
             <input type="text" />
-            <p>Email:</p>
-            <input type="email" />
             <p>Password:</p>
-            <input type="password" />
-            <p>Confirm Password:</p>
             <input type="password" />
             <br />
             <input type="submit" />
@@ -26,4 +22,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default Login;
