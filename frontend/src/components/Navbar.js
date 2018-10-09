@@ -1,25 +1,3 @@
-// import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-//
-// class Navbar extends Component {
-//   render() {
-//     return (
-//       <div>
-//         {this.props.navOptions.map(({ route, name, component }) => {
-//           return (
-//             <Link to={route}>
-//               {name}
-//               &nbsp;&nbsp;&nbsp;
-//             </Link>
-//           );
-//         })}
-//       </div>
-//     );
-//   }
-// }
-//
-// export default Navbar;
-
 import React from 'react';
 import {
   Collapse,
@@ -28,11 +6,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from 'reactstrap';
 
 export default class Example extends React.Component {
@@ -53,29 +27,19 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href={this.props.homePage}>
+            Philadelphia Reads
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {this.props.navOptions.map(({ route, name, component }) => {
+                return (
+                  <NavItem>
+                    <NavLink href={route}>{name}</NavLink>
+                  </NavItem>
+                );
+              })}
             </Nav>
           </Collapse>
         </Navbar>
