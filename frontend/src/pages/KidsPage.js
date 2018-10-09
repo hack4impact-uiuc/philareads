@@ -39,7 +39,6 @@ class KidsPage extends Component {
   render() {
     return (
       <div>
-        <h1>Kids Page</h1>
         <Router>
           <div>
             <Navbar navOptions={this.navigationOptions} />
