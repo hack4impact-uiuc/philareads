@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import PReadsNavbar from '../components/PReadsNavbar';
 import Homefeed from '../components/Homefeed';
 import Exercises from '../components/Exercises';
 import Readings from '../components/Readings';
@@ -45,8 +45,12 @@ class KidsPage extends Component {
       <div>
         <Router>
           <div>
-            <Navbar navOptions={this.navigationOptions} homePage={'/kids'} />
+            <PReadsNavbar
+              navOptions={this.navigationOptions}
+              homePage={'/kids'}
+            />
             {this.navigationOptions.map(({ route, name, component }) => {
+              // Add all the routes and their component mappings
               return <Route exact path={route} component={component} />;
             })}
           </div>

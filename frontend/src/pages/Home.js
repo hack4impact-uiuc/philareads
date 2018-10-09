@@ -1,6 +1,6 @@
 import logo from '../logo.svg';
 import React, { Component } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/PReadsNavbar';
 
 class Home extends Component {
   render() {
