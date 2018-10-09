@@ -5,6 +5,7 @@ class Config:
     SECRET_KEY = "testkey"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_FILE = "api.log"
+    BCRYPT_LOG_ROUNDS = 6
 
 
 class DevelopmentConfig(Config):

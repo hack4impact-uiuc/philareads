@@ -1,7 +1,9 @@
 from api.core import Mixin
+import datetime
 from .base import db
+import bcrypt
+# from flask_bcrypt import Bcrypt
 import jwt
-
 
 class User(Mixin, db.Model):
     """User Table."""
@@ -11,18 +13,17 @@ class User(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    email = db.relationship("Email", backref="emails")
+    # email = db.relationship("Email", backref="emails")
 
     def __init__(self, name: str, password: str):
         self.name = name
-        self.password = bcrypt.generate_password_hash(
-            password, app.config.get('BCRYPT_LOG_ROUNDS')
-        ).decode()
+        salt = bcrypt.gensalt()
+        self.password = bcrypt.hashpw(password.encode(), salt)
 
     def __repr__(self):
-        return f"<Person {self.name}>"
+        return f"<User {self.name}>"
 
-    def encode_auth_token(self, user_id):
+    def encode_auth_token(self):
         """
         Generates the Auth Token
             :return: string
@@ -31,11 +32,12 @@ class User(Mixin, db.Model):
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=0),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': self.id,
+                'test': 'working'
             }
             return jwt.encode(
                 payload,
-                app.config.get('SECRET_KEY'),
+                "SECRET_KEY", #app.config.get('SECRET_KEY'),
                 algorithm='HS256'
             )
         except Exception as e:
@@ -49,7 +51,7 @@ class User(Mixin, db.Model):
         :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
+            payload = jwt.decode(auth_token, "SECRET_KEY") #app.config.get('SECRET_KEY')
             return payload['sub']
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'

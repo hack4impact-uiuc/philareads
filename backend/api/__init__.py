@@ -61,8 +61,10 @@ def create_app(test_config=None):
 
     # import and register blueprints
     from api.views import main
+    from api.views import register
 
     app.register_blueprint(main.main)
+    app.register_blueprint(register.register)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
