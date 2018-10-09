@@ -34,6 +34,6 @@ Related PRs: #<number>
 
 ## Screenshots
 <!--
-MAC: ctrl + shift + cmd + 3 or 4, then paste in the editor
-GIFs: Try using Kap
+Mac OS Screenshots: ctrl + shift + cmd + 3 or 4, then paste in the editor
+Mac OS GIFs: Try using Kap
 -->
