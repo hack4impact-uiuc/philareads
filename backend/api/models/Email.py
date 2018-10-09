@@ -10,7 +10,7 @@ class Email(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     email = db.Column(db.String, nullable=False)
     person = db.Column(
-        db.Integer, db.ForeignKey("person.id", ondelete="SET NULL"), nullable=True
+        db.Integer, db.ForeignKey("user.id", ondelete="SET NULL"), nullable=True
     )
 
     def __init__(self, email):
