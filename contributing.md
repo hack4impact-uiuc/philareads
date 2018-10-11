@@ -28,7 +28,7 @@ Pull Requests are the way concrete changes are made to the code, dependencies, d
 ### Process of Making Changes
 As a rule of thumb, try to keep your Pull Requests small instead of huge PRs with changes in 20 files. It is much easier to review smaller incremental changes.
 #### Step 1: Clone & Branch
-As a best practice, create local branches to work within. They should be created off of the `master` branch.
+As a best practice, create local branches to work within. They should be created off of the `master` branch. Branch names should follow this format `<initials>/<brief-description-of-task>_<issue-number>`
 
 #### Step 2: Code
 Make sure to run `npm run format` in 'frontend/' folder (is also done automatically during commit) and run `pipenv run black ./` in 'backend/' folder (will automate soon). Our code style is [standard](https://github.com/standard/standard). 
