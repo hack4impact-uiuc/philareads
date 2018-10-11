@@ -1,26 +1,29 @@
 import logo from '../logo.svg';
 import React, { Component } from 'react';
+import {
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  FormFeedback,
+  FormText
+} from 'reactstrap';
 
 class Register extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Sign up with us below!</p>
-          <form action="/login">
-            <p>Username:</p>
-            <input type="text" />
-            <p>Email:</p>
-            <input type="email" />
-            <p>Password:</p>
-            <input type="password" />
-            <p>Confirm Password:</p>
-            <input type="password" />
-            <br />
-            <input type="submit" />
-          </form>
-        </header>
+      <div className="container">
+        <h1>Sign Up!</h1>
+        <div className="row">
+          <div className="col-lg-6">
+            <Form>
+              <FormGroup>
+                <Label for="exampleEmail">Input without validation</Label>
+                <Input />
+              </FormGroup>
+            </Form>
+          </div>
+        </div>
       </div>
     );
   }
