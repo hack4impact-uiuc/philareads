@@ -5,6 +5,7 @@ import bcrypt
 from flask import current_app
 import jwt
 
+
 class User(Mixin, db.Model):
     """User Table."""
 
@@ -17,7 +18,9 @@ class User(Mixin, db.Model):
 
     def __init__(self, name: str, password: str, email: str):
         self.name = name
-        self.password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()).decode('utf8')
+        self.password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt()).decode(
+            "utf8"
+        )
         self.email = email
 
     def __repr__(self):
@@ -30,15 +33,14 @@ class User(Mixin, db.Model):
         """
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=0),
-                'iat': datetime.datetime.utcnow(),
-                'sub': self.id,
-                'test': 'working'
+                "exp": datetime.datetime.utcnow()
+                + datetime.timedelta(days=1, seconds=0),
+                "iat": datetime.datetime.utcnow(),
+                "sub": self.id,
+                "test": "working",
             }
             return jwt.encode(
-                payload,
-                current_app.config.get('SECRET_KEY'),
-                algorithm='HS256'
+                payload, current_app.config.get("SECRET_KEY"), algorithm="HS256"
             )
         except Exception as e:
             return e
@@ -51,9 +53,9 @@ class User(Mixin, db.Model):
         :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, current_app.config.get('SECRET_KEY'))
-            return payload['sub']
+            payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
+            return payload["sub"]
         except jwt.ExpiredSignatureError:
-            return 'Signature expired. Please log in again.'
+            return "Signature expired. Please log in again."
         except jwt.InvalidTokenError:
-            return 'Invalid token. Please log in again.'
+            return "Invalid token. Please log in again."

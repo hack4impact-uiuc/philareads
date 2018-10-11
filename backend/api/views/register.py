@@ -9,14 +9,12 @@ register = Blueprint("register", __name__)
 @register.route("/register", methods=["POST"])
 def register_user():
     # user = User.query.filter_by()
-    user = User(
-        name=request.form["name"],
-        password=request.form["password"]
-    )
+    user = User(name=request.form["name"], password=request.form["password"])
     db.session.add(user)
     db.session.commit()
     auth_token = user.encode_auth_token().decode()
     return create_response(data={"token": auth_token})
+
 
 # @register.route("/users", methods=["GET"])
 # def get_all_users():
