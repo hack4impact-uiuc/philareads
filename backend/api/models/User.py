@@ -2,7 +2,7 @@ from api.core import Mixin
 import datetime
 from .base import db
 import bcrypt
-# from flask_bcrypt import Bcrypt
+from flask import current_app
 import jwt
 
 class User(Mixin, db.Model):
@@ -13,15 +13,15 @@ class User(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    # email = db.relationship("Email", backref="emails")
+    email = db.Column(db.String, nullable=False, unique=True)
 
-    def __init__(self, name: str, password: str):
+    def __init__(self, name: str, password: str, email: str):
         self.name = name
-        salt = bcrypt.gensalt()
-        self.password = bcrypt.hashpw(password.encode(), salt)
+        self.password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()).decode('utf8')
+        self.email = email
 
     def __repr__(self):
-        return f"<User {self.name}>"
+        return f"<User name:{self.name}> password:{self.password} email:{self.email}"
 
     def encode_auth_token(self):
         """
@@ -37,7 +37,7 @@ class User(Mixin, db.Model):
             }
             return jwt.encode(
                 payload,
-                "SECRET_KEY", #app.config.get('SECRET_KEY'),
+                current_app.config.get('SECRET_KEY'),
                 algorithm='HS256'
             )
         except Exception as e:
@@ -51,7 +51,7 @@ class User(Mixin, db.Model):
         :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, "SECRET_KEY") #app.config.get('SECRET_KEY')
+            payload = jwt.decode(auth_token, current_app.config.get('SECRET_KEY'))
             return payload['sub']
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
