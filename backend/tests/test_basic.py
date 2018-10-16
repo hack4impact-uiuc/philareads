@@ -1,26 +1,59 @@
-from api.models import db, Person
+from api.models import db, User
+from flask import current_app
 
-# client passed from client - look into pytest for more info about fixtures
-# test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
+
 def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
 
-def test_get_person(client):
-    rs = client.get("/persons")
+def setup():
+    current_app.config["SECRET_KEY"] = "secret_key"
 
-    assert rs.status_code == 200
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-    assert ret_dict["result"]["persons"] == []
 
-    # create Person and test whether it returns a person
-    temp_person = Person(name="Tim")
-    db.session.add(temp_person)
+def test_double_register(client):
+    client.post(
+        "/register",
+        data=dict(name="double", password="password123", email="double@gmail.com"),
+    )
+
+    res = client.post(
+        "/register",
+        data=dict(name="double", password="password123", email="double@gmail.com"),
+    )
+
+    assert res.status_code == 409
+
+
+def test_register(client):
+    res = client.post(
+        "/register",
+        data=dict(name="rob", password="password123", email="rob_test@gmail.com"),
+    )
+
+    assert res.status_code == 201
+
+    user_in_db = User.query.filter_by(email="rob_test@gmail.com").first()
+    assert user_in_db is not None
+
+
+def test_successful_login(client):
+    user = User(name="bob", password="password123", email="test@gmail.com")
+
+    db.session.add(user)
     db.session.commit()
 
-    rs = client.get("/persons")
-    ret_dict = rs.json
-    assert len(ret_dict["result"]["persons"]) == 1
-    assert ret_dict["result"]["persons"][0]["name"] == "Tim"
+    login_res = client.post(
+        "/login", data=dict(name="bob", password="password123", email="test@gmail.com")
+    )
+
+    assert login_res.status_code == 200
+
+
+def test_nonexistent_user(client):
+    login_res = client.post(
+        "/login",
+        data=dict(name="tob", password="password123", email="doesnt_exist@gmail.com"),
+    )
+
+    assert login_res.status_code == 401
