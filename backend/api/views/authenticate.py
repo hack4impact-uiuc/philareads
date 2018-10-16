@@ -10,9 +10,9 @@ authenticate = Blueprint("authenticate", __name__)
 @authenticate.route("/register", methods=["POST"])
 def register_user():
     if (
-        request.form["email"] is None
-        or request.form["name"] is None
-        or request.form["password"] is None
+        (not "email" in request.form)
+        or (not "password" in request.form)
+        or (not "name" in request.form)
     ):
         return create_response(
             data={"status": "fail"}, message="Missing required information.", status=422
@@ -33,7 +33,12 @@ def register_user():
 
     db.session.add(user)
     db.session.commit()
-    auth_token = user.encode_auth_token().decode()
+    try:
+        auth_token = user.encode_auth_token().decode()
+    except:
+        return create_response(
+            message="Failed to generate auth_token", status=400, data={"status": "fail"}
+        )
     return create_response(data={"token": auth_token}, status=201)
 
 
@@ -51,11 +56,21 @@ def login_user():
         if bcrypt.checkpw(
             request.form["password"].encode("utf8"), user.password.encode("utf8")
         ):
-            auth_token = user.encode_auth_token()
-            responseObject = {"status": "success", "auth_token": auth_token.decode()}
-            return create_response(
-                message="Successfully logged in.", data=responseObject, status=200
-            )
+            try:
+                auth_token = user.encode_auth_token()
+                responseObject = {
+                    "status": "success",
+                    "auth_token": auth_token.decode(),
+                }
+                return create_response(
+                    message="Successfully logged in.", data=responseObject, status=200
+                )
+            except:
+                return create_response(
+                    message="Failed to generate auth_token",
+                    status=400,
+                    data={"status": "fail"},
+                )
 
     return create_response(
         data={"status": "fail"}, message="Failed to log in.", status=401

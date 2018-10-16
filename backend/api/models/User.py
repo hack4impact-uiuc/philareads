@@ -32,15 +32,13 @@ class User(Mixin, db.Model):
             :return: string
         """
         payload = {
-            "exp": datetime.datetime.utcnow()
-            + datetime.timedelta(days=1, seconds=0),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=0),
             "iat": datetime.datetime.utcnow(),
             "sub": self.id,
         }
         return jwt.encode(
             payload, current_app.config.get("SECRET_KEY"), algorithm="HS256"
         )
-
 
     @staticmethod
     def decode_auth_token(auth_token):
