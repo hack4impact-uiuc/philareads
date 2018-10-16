@@ -6,8 +6,10 @@ def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
+
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
+
 
 def test_double_register(client):
     client.post(
@@ -22,6 +24,7 @@ def test_double_register(client):
 
     assert res.status_code == 409
 
+
 def test_register(client):
     res = client.post(
         "/register",
@@ -32,6 +35,7 @@ def test_register(client):
 
     user_in_db = User.query.filter_by(email="rob_test@gmail.com").first()
     assert user_in_db is not None
+
 
 def test_successful_login(client):
     user = User(name="bob", password="password123", email="test@gmail.com")
@@ -45,9 +49,11 @@ def test_successful_login(client):
 
     assert login_res.status_code == 200
 
+
 def test_nonexistent_user(client):
     login_res = client.post(
-        "/login", data=dict(name="tob", password="password123", email="doesnt_exist@gmail.com")
+        "/login",
+        data=dict(name="tob", password="password123", email="doesnt_exist@gmail.com"),
     )
 
     assert login_res.status_code == 401
