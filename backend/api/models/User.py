@@ -31,19 +31,16 @@ class User(Mixin, db.Model):
         Generates the Auth Token
             :return: string
         """
-        try:
-            payload = {
-                "exp": datetime.datetime.utcnow()
-                + datetime.timedelta(days=1, seconds=0),
-                "iat": datetime.datetime.utcnow(),
-                "sub": self.id,
-                "test": "working",
-            }
-            return jwt.encode(
-                payload, current_app.config.get("SECRET_KEY"), algorithm="HS256"
-            )
-        except Exception as e:
-            return e
+        payload = {
+            "exp": datetime.datetime.utcnow()
+            + datetime.timedelta(days=1, seconds=0),
+            "iat": datetime.datetime.utcnow(),
+            "sub": self.id,
+        }
+        return jwt.encode(
+            payload, current_app.config.get("SECRET_KEY"), algorithm="HS256"
+        )
+
 
     @staticmethod
     def decode_auth_token(auth_token):
