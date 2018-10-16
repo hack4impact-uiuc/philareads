@@ -5,6 +5,7 @@ import {
   FormGroup,
   Input,
   Label,
+  Button,
   FormFeedback,
   FormText
 } from 'reactstrap';
@@ -16,10 +17,17 @@ class Register extends Component {
         <h1>Sign Up!</h1>
         <div className="row">
           <div className="col-lg-6">
-            <Form>
+            <Form method="POST">
               <FormGroup>
-                <Label for="exampleEmail">Input without validation</Label>
-                <Input />
+                <Label for="username">Username</Label>
+                <Input name="username" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input name="password" type="password" />
+              </FormGroup>
+              <FormGroup>
+                <Button type="submit">Submit</Button>
               </FormGroup>
             </Form>
           </div>
