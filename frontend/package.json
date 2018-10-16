@@ -9,6 +9,7 @@
     "bootstrap": "^4.1.3",
     "husky": "^1.1.0",
     "lint-staged": "^7.3.0",
+    "node-sass": "^4.9.3",
     "prettier": "^1.14.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -21,7 +22,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
+    "src/**/*.{js,jsx,json,scss}": [
       "prettier --single-quote --write",
       "git add"
     ]
@@ -30,7 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "format": "prettier --single-quote --write '{src,test}/**/*.{js,jsx,json,css}'",
+    "format": "prettier --single-quote --write '{src,test}/**/*.{js,jsx,json,scss}'",
     "format:check": "prettier --single-quote --list-different \"{src,test}/**/*.js\"",
     "eject": "react-scripts eject"
   },
