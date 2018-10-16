@@ -16,8 +16,9 @@ class Register extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      password: ''
+      name: '',
+      password: '',
+      email: ''
     };
   }
 
@@ -29,7 +30,8 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    register(this.state.username, this.state.password);
+    var form = document.querySelector('form');
+    register(new FormData(form));
   };
 
   render() {
@@ -38,10 +40,14 @@ class Register extends Component {
         <h1>Sign Up!</h1>
         <div className="row">
           <div className="col-lg-6">
-            <Form>
+            <Form name="form">
               <FormGroup>
-                <Label for="username">Username</Label>
-                <Input name="username" onChange={this.handleChange} />
+                <Label for="name">Name</Label>
+                <Input name="name" onChange={this.handleChange} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="email">Email</Label>
+                <Input name="email" onChange={this.handleChange} />
               </FormGroup>
               <FormGroup>
                 <Label for="password">Password</Label>
