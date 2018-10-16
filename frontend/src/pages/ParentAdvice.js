@@ -30,12 +30,13 @@ class ParentsPage extends Component {
       route: '/parents/results',
       name: 'Results',
       component: Results
-    },
-    {
-      route: '/parents/advice',
-      name: 'Advice',
-      component: Advice
     }
+    // ,
+    // {
+    //   route: '/parents/advice',
+    //   name: 'Advice',
+    //   component: Advice
+    // }
   ];
 
   adviceCards = [

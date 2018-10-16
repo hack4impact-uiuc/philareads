@@ -28,12 +28,13 @@ class ParentsPage extends Component {
       route: '/parents/results',
       name: 'Results',
       component: Results
-    },
-    {
-      route: '/parents/advice',
-      name: 'Advice',
-      component: Advice //should i be using the ParentsAdvice page or should i just delete that page completely
     }
+    // ,
+    // {
+    //   route: '/parents/advice',
+    //   name: 'Advice',
+    //   component: Advice //should i be using the ParentsAdvice page or should i just delete that page completely
+    // }
   ];
 
   render() {

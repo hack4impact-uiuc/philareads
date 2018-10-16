@@ -9,7 +9,9 @@ import {
   CardColumns,
   CardSubtitle,
   CardBody,
-  CardGroup
+  CardGroup,
+  CardHeader,
+  CardFooter
 } from 'reactstrap';
 
 class Advice extends Component {
@@ -20,6 +22,20 @@ class Advice extends Component {
       isOpen: false
     };
   }
+
+  renderFullOutCard = () => {
+    return (
+      <Card body id="full-out">
+        <CardHeader tag="h3">Woahhhh</CardHeader>
+        <CardBody>
+          <CardTitle>oooh lookie here</CardTitle>
+          <CardText>bitch this is card text</CardText>
+          <Button>Click me biiiih</Button>
+        </CardBody>
+        <CardFooter>Footer</CardFooter>
+      </Card>
+    );
+  };
 
   renderCards = () => {
     if (this.props.adviceCards === undefined) {
@@ -72,7 +88,10 @@ class Advice extends Component {
     return (
       <div>
         <div id="mainAdvice">
-          <CardGroup>{this.renderCards()}</CardGroup>
+          <CardGroup>
+            {this.renderCards()}
+            {this.renderFullOutCard()}
+          </CardGroup>
         </div>
       </div>
     );
