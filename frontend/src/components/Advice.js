@@ -45,7 +45,10 @@ class Advice extends Component {
   // ]
 
   renderCards = () => {
-    this.props.adviceCards.map(
+    if (this.props.adviceCards === undefined) {
+      return <div />;
+    }
+    return this.props.adviceCards.map(
       ({ title, subtitle, text, smallText, button, image, specialCard }) => {
         if (specialCard === true) {
           return (
@@ -95,10 +98,36 @@ class Advice extends Component {
 */
 
   render() {
+    console.log(this.props.adviceCards);
     return (
       <div>
         <div id="mainAdvice">
-          <CardGroup>{this.renderCards}</CardGroup>
+          <CardGroup>{this.renderCards()}</CardGroup>
+
+          {/* <CardGroup>
+          <Card>
+            <CardImg height="50%" src={ pats_cat }/>
+            <CardBody>
+              <CardTitle>First Advice</CardTitle>
+              <CardSubtitle>Advice Subtitles</CardSubtitle>
+              <CardText>bloopdi boop some description and stuffs let's see how this looks</CardText>
+              <Button>More</Button>
+            </CardBody>
+          </Card>
+          <Card body inverse style={{ backgroundColor: '#333', border: "1px solid blue"}}>
+            <CardImg src={ pretty_cat } />
+            <CardBody>
+              <CardTitle>First Advice</CardTitle>
+              <CardSubtitle>Advice Subtitles</CardSubtitle>
+              <CardText>
+                bloopdi boop some description and stuffs let's see how this looks
+                <br/>
+                <small className="text-muted">Last updated 3 mins ago</small>
+              </CardText>
+              <Button>More</Button>
+            </CardBody>
+          </Card>
+          </CardGroup> */}
         </div>
       </div>
     );
@@ -139,4 +168,49 @@ onclick, ondblclick, onmousedown, onmouseup, onmouseover, onmousemove, onmouseou
     <Button>More</Button>
   </CardBody>
 </Card>
+*/
+
+/*
+renderCards = () => {
+    this.props.adviceCards.map(
+      ({ title, subtitle, text, smallText, button, image, specialCard }) => {
+        if (specialCard === true) {
+          return (
+            <Card
+              body
+              inverse
+              style={{ backgroundColor: '#333', border: '1px solid blue' }}
+            >
+              <CardImg src={image} />
+              <CardBody>
+                <CardTitle>{title}</CardTitle>
+                <CardSubtitle>{subtitle}</CardSubtitle>
+                <CardText>
+                  {text}
+                  <br />
+                  <small className="text-muted">{smallText}</small>
+                </CardText>
+                <Button>{button}</Button>
+              </CardBody>
+            </Card>
+          );
+        } else {
+          return (
+            <Card>
+              <CardImg height="50%" src={image} />
+              <CardBody>
+                <CardTitle>{title}</CardTitle>
+                <CardSubtitle>{subtitle}</CardSubtitle>
+                <CardText>
+                  {text}
+                  <small className="text-muted">{smallText}</small>
+                </CardText>
+                <Button>{button}</Button>
+              </CardBody>
+            </Card>
+          );
+        }
+      }
+    );
+  };
 */

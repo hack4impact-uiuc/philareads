@@ -5,6 +5,7 @@ import Homefeed from '../components/Homefeed';
 import Exercises from '../components/Exercises';
 import Readings from '../components/Readings';
 import Results from '../components/Results';
+import Advice from '../components/Advice';
 
 class ParentsPage extends Component {
   navigationOptions = [
@@ -27,6 +28,11 @@ class ParentsPage extends Component {
       route: '/parents/results',
       name: 'Results',
       component: Results
+    },
+    {
+      route: '/parents/advice',
+      name: 'Advice',
+      component: Advice //should i be using the ParentsAdvice page or should i just delete that page completely
     }
   ];
 
