@@ -8,7 +8,7 @@ import {
   FormFeedback,
   FormText
 } from 'reactstrap';
-import register from '../utils/api.js';
+import { login } from '../utils/api.js';
 
 class Register extends Component {
   constructor(props) {
@@ -28,7 +28,8 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    register(this.state.username, this.state.password);
+    var form = document.querySelector('form');
+    login(new FormData(form));
   };
 
   render() {
@@ -39,19 +40,15 @@ class Register extends Component {
           <div className="col-lg-6">
             <Form>
               <FormGroup>
-                <Label for="username">Username</Label>
-                <Input name="username" />
+                <Label for="email">Email</Label>
+                <Input name="email" />
               </FormGroup>
               <FormGroup>
                 <Label for="password">Password</Label>
                 <Input name="password" type="password" />
               </FormGroup>
               <FormGroup>
-                <Button
-                  color="primary"
-                  type="submit"
-                  onSubmit={this.handleSubmit}
-                >
+                <Button color="primary" onClick={this.handleSubmit}>
                   Submit
                 </Button>
               </FormGroup>

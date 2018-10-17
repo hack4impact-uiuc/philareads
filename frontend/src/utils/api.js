@@ -6,7 +6,16 @@ const API_URL =
     : 'http://localhost:5000';
 
 function register(formData) {
-  return fetch(`${API_URL}/register`, {
+  var a = fetch(`${API_URL}/register`, {
+    method: 'POST',
+    body: formData
+  }).then(res => res.json());
+  console.log(a);
+  return a;
+}
+
+function login(formData) {
+  return fetch(`${API_URL}/login`, {
     method: 'POST',
     body: formData
   })
@@ -16,4 +25,4 @@ function register(formData) {
     });
 }
 
-export default register;
+export { register, login };

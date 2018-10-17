@@ -9,7 +9,7 @@ import {
   FormFeedback,
   FormText
 } from 'reactstrap';
-import register from '../utils/api.js';
+import { register } from '../utils/api.js';
 
 class Register extends Component {
   constructor(props) {
@@ -28,11 +28,12 @@ class Register extends Component {
     });
   };
 
-  handleSubmit = event => {
+  async handleSubmit(event) {
     event.preventDefault();
     var form = document.querySelector('form');
-    register(new FormData(form));
-  };
+    var s = await register(new FormData(form));
+    console.log(s);
+  }
 
   render() {
     return (
