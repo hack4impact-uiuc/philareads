@@ -44,49 +44,33 @@ class Advice extends Component {
       return <div />;
     }
     return this.props.adviceCards.map(
-      ({ title, subtitle, text, smallText, button, image, specialCard }) => {
-        if (specialCard === true) {
-          return (
-            <Col sm="6" md="4">
-              <Card
-                body
-                inverse
-                outline
-                style={{ backgroundColor: '#333', border: '1px solid blue' }}
-              >
-                <CardImg src={image} alt="Cat?" styling={{ height: '50px' }} />
-                <CardBody>
-                  <CardTitle>{title}</CardTitle>
-                  <CardSubtitle>{subtitle}</CardSubtitle>
-                  <CardText>
-                    {text}
-                    <br />
-                    <small className="text-muted">{smallText}</small>
-                  </CardText>
-                  <Button>{button}</Button>
-                </CardBody>
-              </Card>
-            </Col>
-          );
-        } else {
-          return (
-            <Col sm="6" md="4">
-              <Card outline>
-                <CardImg src={image} alt="Cat?" styling={{ height: '50px' }} />
-                <CardBody>
-                  <CardTitle>{title}</CardTitle>
-                  <CardSubtitle>{subtitle}</CardSubtitle>
-                  <CardText>
-                    {text}
-                    <br />
-                    <small className="text-muted">{smallText}</small>
-                  </CardText>
-                  <Button>{button}</Button>
-                </CardBody>
-              </Card>
-            </Col>
-          );
-        }
+      ({ title, subtitle, text, smallText, button, image }) => {
+        return (
+          <Col sm="6" md="4">
+            <Card
+              body
+              inverse
+              outline
+              style={{
+                backgroundColor: '#333',
+                border: '1px solid blue',
+                height: '100%'
+              }}
+            >
+              <CardImg src={image} alt="Cat?" />
+              <CardBody>
+                <CardTitle>{title}</CardTitle>
+                <CardSubtitle>{subtitle}</CardSubtitle>
+                <CardText>
+                  {text}
+                  <br />
+                  <small className="text-muted">{smallText}</small>
+                </CardText>
+                <Button>{button}</Button>
+              </CardBody>
+            </Card>
+          </Col>
+        );
       }
     );
   };

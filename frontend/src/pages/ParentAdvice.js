@@ -47,8 +47,7 @@ class ParentsPage extends Component {
       text: "pat's cat is so chubby but so cute. i want to play with it",
       smallText: '',
       button: 'More',
-      image: pats_cat,
-      specialCard: false
+      image: pats_cat
     },
     {
       title: 'This is quite a beautiful cat',
@@ -58,8 +57,7 @@ class ParentsPage extends Component {
         'i want a cat but im not responsible enough to take care of my own life how can i take care of another one',
       smallText: 'Last updated 3 mins ago',
       button: 'More',
-      image: pretty_cat,
-      specialCard: true
+      image: pretty_cat
     },
     {
       title: "I just don't want to be a terrible person anymore",
@@ -68,8 +66,7 @@ class ParentsPage extends Component {
         "there's a lot of goddamn text options in these cards idk if we need all of them lol",
       smallText: 'everyone dies. why hurry',
       button: 'sad',
-      image: i_love_kanye,
-      specialCard: false
+      image: i_love_kanye
     }
   ];
 
