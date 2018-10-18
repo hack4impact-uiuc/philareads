@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 class Catalog extends Component {
   state = {
@@ -17,11 +18,36 @@ class Catalog extends Component {
   };
 
   getFirstRow = () => {
-    return this.props.cards.slice(0, 3);
+    var page = this.state.page;
+    var start = (page - 1) * 6;
+    return this.props.cards.slice(start, start + 3);
   };
 
   getSecondRow = () => {
-    return this.props.cards.slice(3, 6);
+    var page = this.state.page;
+    var start = (page - 1) * 6;
+    return this.props.cards.slice(start + 3, start + 6);
+  };
+
+  changePage = value => {
+    this.setState({ page: value });
+    console.log(value);
+  };
+
+  renderPaginationItems = () => {
+    var length = this.props.cards.length;
+    var numPageItems = Math.ceil(length / 6);
+    let numArr = [];
+
+    for (var i = 1; i <= numPageItems; i++) {
+      numArr.push(i);
+    }
+
+    return numArr.map(i => (
+      <PaginationItem key={i}>
+        <PaginationLink onClick={() => this.changePage(i)}>{i}</PaginationLink>
+      </PaginationItem>
+    ));
   };
 
   render() {
@@ -53,6 +79,17 @@ class Catalog extends Component {
                 </Card>
               </Col>
             ))}
+          </Row>
+          <Row>
+            <Pagination size="lg" aria-label="Page navigation example">
+              <PaginationItem>
+                <PaginationLink previous href="#" />
+              </PaginationItem>
+              {this.renderPaginationItems()}
+              <PaginationItem>
+                <PaginationLink next href="#" />
+              </PaginationItem>
+            </Pagination>
           </Row>
         </Container>
       </div>
@@ -91,6 +128,22 @@ Catalog.defaultProps = {
       title: 'title6',
       subtitle: 'subtitle6',
       text: 'text6'
+    },
+    {
+      title: 'title7',
+      subtitle: 'subtitle7',
+      text: 'text7'
+    }
+  ],
+  pages: [
+    {
+      page: 1
+    },
+    {
+      page: 2
+    },
+    {
+      page: 3
     }
   ]
 };
