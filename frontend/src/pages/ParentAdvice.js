@@ -8,6 +8,7 @@ import Results from '../components/Results';
 import Advice from '../components/Advice';
 import pats_cat from './../images/pats_cat.PNG';
 import pretty_cat from './../images/pretty_cat.JPG';
+import i_love_kanye from './../images/i_love_kanye.jpg';
 
 class ParentsPage extends Component {
   navigationOptions = [
@@ -59,6 +60,16 @@ class ParentsPage extends Component {
       button: 'More',
       image: pretty_cat,
       specialCard: true
+    },
+    {
+      title: "I just don't want to be a terrible person anymore",
+      subtitle: "here's a picture of something that i have not decided on yet",
+      text:
+        "there's a lot of goddamn text options in these cards idk if we need all of them lol",
+      smallText: 'everyone dies. why hurry',
+      button: 'sad',
+      image: i_love_kanye,
+      specialCard: false
     }
   ];
 

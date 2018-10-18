@@ -11,7 +11,9 @@ import {
   CardBody,
   CardGroup,
   CardHeader,
-  CardFooter
+  CardFooter,
+  Row,
+  Col
 } from 'reactstrap';
 
 class Advice extends Component {
@@ -25,7 +27,7 @@ class Advice extends Component {
 
   renderFullOutCard = () => {
     return (
-      <Card body id="full-out">
+      <Card body id="full-out" style={{ border: '1px solid gray' }}>
         <CardHeader tag="h3">Woahhhh</CardHeader>
         <CardBody>
           <CardTitle>oooh lookie here</CardTitle>
@@ -45,38 +47,44 @@ class Advice extends Component {
       ({ title, subtitle, text, smallText, button, image, specialCard }) => {
         if (specialCard === true) {
           return (
-            <Card
-              body
-              inverse
-              style={{ backgroundColor: '#333', border: '1px solid blue' }}
-            >
-              <CardImg src={image} />
-              <CardBody>
-                <CardTitle>{title}</CardTitle>
-                <CardSubtitle>{subtitle}</CardSubtitle>
-                <CardText>
-                  {text}
-                  <br />
-                  <small className="text-muted">{smallText}</small>
-                </CardText>
-                <Button>{button}</Button>
-              </CardBody>
-            </Card>
+            <Col sm="6" md="4">
+              <Card
+                body
+                inverse
+                outline
+                style={{ backgroundColor: '#333', border: '1px solid blue' }}
+              >
+                <CardImg src={image} alt="Cat?" styling={{ height: '50px' }} />
+                <CardBody>
+                  <CardTitle>{title}</CardTitle>
+                  <CardSubtitle>{subtitle}</CardSubtitle>
+                  <CardText>
+                    {text}
+                    <br />
+                    <small className="text-muted">{smallText}</small>
+                  </CardText>
+                  <Button>{button}</Button>
+                </CardBody>
+              </Card>
+            </Col>
           );
         } else {
           return (
-            <Card>
-              <CardImg height="50%" src={image} />
-              <CardBody>
-                <CardTitle>{title}</CardTitle>
-                <CardSubtitle>{subtitle}</CardSubtitle>
-                <CardText>
-                  {text}
-                  <small className="text-muted">{smallText}</small>
-                </CardText>
-                <Button>{button}</Button>
-              </CardBody>
-            </Card>
+            <Col sm="6" md="4">
+              <Card outline>
+                <CardImg src={image} alt="Cat?" styling={{ height: '50px' }} />
+                <CardBody>
+                  <CardTitle>{title}</CardTitle>
+                  <CardSubtitle>{subtitle}</CardSubtitle>
+                  <CardText>
+                    {text}
+                    <br />
+                    <small className="text-muted">{smallText}</small>
+                  </CardText>
+                  <Button>{button}</Button>
+                </CardBody>
+              </Card>
+            </Col>
           );
         }
       }
@@ -87,9 +95,9 @@ class Advice extends Component {
     console.log(this.props.adviceCards);
     return (
       <div>
-        <div id="mainAdvice">
+        <div id="mainAdvice" class="container">
           <CardGroup>
-            {this.renderCards()}
+            <Row sm="10">{this.renderCards()}</Row>
             {this.renderFullOutCard()}
           </CardGroup>
         </div>
