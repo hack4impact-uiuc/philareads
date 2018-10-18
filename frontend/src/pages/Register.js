@@ -10,15 +10,16 @@ import {
   FormText
 } from 'reactstrap';
 import { register } from '../utils/api.js';
+import Cookies from 'universal-cookie';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: '',
       password: '',
-      email: ''
+      email: '',
+      jwt: this.getJWTCookie()
     };
   }
 
@@ -28,11 +29,21 @@ class Register extends Component {
     });
   };
 
-  async handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     var form = document.querySelector('form');
-    var s = await register(new FormData(form));
-    console.log(s);
+    const { success, result } = await register(new FormData(form));
+    console.log(result);
+    if (success) {
+      const cookies = new Cookies();
+      cookies.set('jwt', result['token']);
+      this.setState({ jwt: this.getJWTCookie() });
+    }
+  };
+
+  getJWTCookie() {
+    const cookies = new Cookies();
+    return cookies.get('jwt');
   }
 
   render() {
