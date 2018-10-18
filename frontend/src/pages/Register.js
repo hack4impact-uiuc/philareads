@@ -6,6 +6,7 @@ import {
   Input,
   Label,
   Button,
+  Alert,
   FormFeedback,
   FormText
 } from 'reactstrap';
@@ -19,7 +20,7 @@ class Register extends Component {
       name: '',
       password: '',
       email: '',
-      jwt: this.getJWTCookie()
+      isLoggedIn: this.isLoggedIn()
     };
   }
 
@@ -33,22 +34,31 @@ class Register extends Component {
     event.preventDefault();
     var form = document.querySelector('form');
     const { success, result } = await register(new FormData(form));
-    console.log(result);
     if (success) {
       const cookies = new Cookies();
       cookies.set('jwt', result['token']);
-      this.setState({ jwt: this.getJWTCookie() });
+      this.setState({ isLoggedIn: this.isLoggedIn() });
     }
   };
 
-  getJWTCookie() {
+  isLoggedIn() {
     const cookies = new Cookies();
-    return cookies.get('jwt');
+    return cookies.get('jwt') !== undefined;
   }
 
+  getLoggedInMessage() {
+    if (this.state.isLoggedIn) {
+      return <Alert>You are logged in!</Alert>;
+    } else {
+      return <Alert>You are not logged in!</Alert>;
+    }
+  }
   render() {
+    const message = this.getLoggedInMessage();
+
     return (
       <div className="container">
+        {message}
         <h1>Sign Up!</h1>
         <div className="row">
           <div className="col-lg-6">
