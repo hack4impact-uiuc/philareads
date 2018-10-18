@@ -50,10 +50,9 @@ class Advice extends Component {
             <Card
               body
               inverse
-              outline
               style={{
                 backgroundColor: '#333',
-                border: '1px solid blue',
+                border: '1px solid pink',
                 height: '100%'
               }}
             >
@@ -80,8 +79,10 @@ class Advice extends Component {
     return (
       <div>
         <div id="mainAdvice" class="container">
-          <CardGroup>
-            <Row sm="10">{this.renderCards()}</Row>
+          <CardGroup style={{ marginBottom: '50px' }}>
+            <Row sm="10" style={{ marginBottom: '50px' }}>
+              {this.renderCards()}
+            </Row>
             {this.renderFullOutCard()}
           </CardGroup>
         </div>
