@@ -19,7 +19,7 @@ function login(formData) {
     method: 'POST',
     body: formData
   })
-    .then(res => console.log(res.json()))
+    .then(res => res.json())
     .catch(e => {
       console.log(e);
     });

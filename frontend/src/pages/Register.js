@@ -10,6 +10,7 @@ import {
   FormFeedback,
   FormText
 } from 'reactstrap';
+import { Redirect } from 'react-router';
 import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 
@@ -38,6 +39,8 @@ class Register extends Component {
       const cookies = new Cookies();
       cookies.set('jwt', result['token']);
       this.setState({ isLoggedIn: this.isLoggedIn() });
+    } else {
+      // TODO: Display message if login wasn't successful
     }
   };
 
@@ -58,6 +61,8 @@ class Register extends Component {
 
     return (
       <div className="container">
+        {/* Redirect to the kids page if JWT exists*/}
+        {this.state.isLoggedIn && <Redirect to="/kids" />}
         {message}
         <h1>Sign Up!</h1>
         <div className="row">
