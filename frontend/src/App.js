@@ -6,8 +6,12 @@ import Login from './pages/Login';
 import './styles/App.scss';
 import KidsPage from './pages/KidsPage';
 import ParentsPage from './pages/ParentsPage';
+<<<<<<< HEAD
 import TestPage from './pages/TestPage';
 
+=======
+import Logout from './components/Logout';
+>>>>>>> Added logout functionality
 class App extends Component {
   render() {
     return (
@@ -18,7 +22,11 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route path="/kids" component={KidsPage} />
           <Route path="/parents" component={ParentsPage} />
+<<<<<<< HEAD
           <Route path="/questions" component={TestPage} />
+=======
+          <Route path="/logout" component={Logout} />
+>>>>>>> Added logout functionality
         </div>
       </Router>
     );
