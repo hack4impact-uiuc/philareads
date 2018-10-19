@@ -12,7 +12,7 @@ import {
 import { login } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
-
+import FormAlert from '../components/FormAlert';
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -50,9 +50,9 @@ class Register extends Component {
 
   getLoggedInMessage() {
     if (this.state.isLoggedIn) {
-      return <Alert>You are logged in!</Alert>;
+      return <FormAlert>You are logged in!</FormAlert>;
     } else {
-      return <Alert>You are not logged in!</Alert>;
+      return <FormAlert isRed={true}>You are not logged in!</FormAlert>;
     }
   }
 
@@ -77,7 +77,11 @@ class Register extends Component {
                 <Input name="password" type="password" />
               </FormGroup>
               <FormGroup>
-                <Button color="primary" onClick={this.handleSubmit}>
+                <Button
+                  color="primary"
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >
                   Submit
                 </Button>
               </FormGroup>
