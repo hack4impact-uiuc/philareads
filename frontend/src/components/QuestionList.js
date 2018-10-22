@@ -25,25 +25,13 @@ QuestionList.propTypes = {
         ...
     ]
     */
-  questions: PropTypes.arrayOf(propValue => {
-    let checkFailed = false;
-    propValue.forEach(question => {
-      // Verify existence of certain properties
-      if (
-        !(
-          'title' in question &&
-          'options' in question &&
-          'correctAnswer' in question
-        )
-      ) {
-        console.log('hi');
-        checkFailed = true;
-      }
-    });
-    if (checkFailed) {
-      return new Error();
-    }
-  }).isRequired
+  questions: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      options: PropTypes.arrayOf(PropTypes.string).isRequired,
+      correctAnswer: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 export default QuestionList;
