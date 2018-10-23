@@ -9,16 +9,17 @@ authenticate = Blueprint("authenticate", __name__)
 # function that is called when you visit /register
 @authenticate.route("/register", methods=["POST"])
 def register_user():
+    user_data = request.get_json()
     if (
-        (not "email" in request.form)
-        or (not "password" in request.form)
-        or (not "name" in request.form)
+        (not "email" in user_data)
+        or (not "password" in user_data)
+        or (not "name" in user_data)
     ):
         return create_response(
             data={"status": "fail"}, message="Missing required information.", status=422
         )
 
-    duplicate_user = User.query.filter_by(email=request.form["email"]).first()
+    duplicate_user = User.query.filter_by(email=user_data["email"]).first()
 
     if duplicate_user is not None:
         return create_response(
@@ -26,9 +27,7 @@ def register_user():
         )
 
     user = User(
-        name=request.form["name"],
-        password=request.form["password"],
-        email=request.form["email"],
+        name=user_data["name"], password=user_data["password"], email=user_data["email"]
     )
 
     db.session.add(user)
@@ -45,16 +44,17 @@ def register_user():
 # function that is called when you visit /login
 @authenticate.route("/login", methods=["POST"])
 def login_user():
-    if (not "email" in request.form) or (not "password" in request.form):
+    user_data = request.get_json()
+    if (not "email" in user_data) or (not "password" in user_data):
         return create_response(
             message="Missing required information.", data={"status": "fail"}, status=422
         )
 
-    user = User.query.filter_by(email=request.form["email"]).first()
+    user = User.query.filter_by(email=user_data["email"]).first()
 
     if user is not None:
         if bcrypt.checkpw(
-            request.form["password"].encode("utf8"), user.password.encode("utf8")
+            user_data["password"].encode("utf8"), user.password.encode("utf8")
         ):
             try:
                 auth_token = user.encode_auth_token()
