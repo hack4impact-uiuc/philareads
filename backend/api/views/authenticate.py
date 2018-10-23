@@ -27,9 +27,7 @@ def register_user():
         )
 
     user = User(
-        name=user_data["name"],
-        password=user_data["password"],
-        email=user_data["email"],
+        name=user_data["name"], password=user_data["password"], email=user_data["email"]
     )
 
     db.session.add(user)
