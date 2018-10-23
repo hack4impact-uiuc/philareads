@@ -10,8 +10,6 @@ authenticate = Blueprint("authenticate", __name__)
 @authenticate.route("/register", methods=["POST"])
 def register_user():
     user_data = request.get_json()
-    print("USER_DATA IS ")
-    print(user_data);
     if (
         (not "email" in user_data)
         or (not "password" in user_data)
