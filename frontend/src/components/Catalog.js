@@ -18,28 +18,40 @@ class Catalog extends Component {
   };
 
   getFirstRow = () => {
-    var page = this.state.page;
-    var start = (page - 1) * 6;
-    return this.props.cards.slice(start, start + 3);
+    let start = (this.state.page - 1) * this.props.cards_per_page;
+    return this.props.cards.slice(start, start + this.props.cards_per_row);
   };
 
   getSecondRow = () => {
-    var page = this.state.page;
-    var start = (page - 1) * 6;
-    return this.props.cards.slice(start + 3, start + 6);
+    let start = (this.state.page - 1) * this.props.cards_per_page;
+    return this.props.cards.slice(
+      start + this.props.cards_per_row,
+      start + this.props.cards_per_page
+    );
   };
 
   changePage = value => {
     this.setState({ page: value });
-    console.log(value);
   };
 
+  changePagePrev = () =>
+    this.setState(state => {
+      return { page: state.page == 1 ? state.page : state.page - 1 };
+    });
+
+  changePageNext = () =>
+    this.setState(state => {
+      let length = this.props.cards.length;
+      let numPageItems = Math.ceil(length / this.props.cards_per_page);
+      return { page: state.page == numPageItems ? state.page : state.page + 1 };
+    });
+
   renderPaginationItems = () => {
-    var length = this.props.cards.length;
-    var numPageItems = Math.ceil(length / 6);
+    let length = this.props.cards.length;
+    let numPageItems = Math.ceil(length / this.props.cards_per_page);
     let numArr = [];
 
-    for (var i = 1; i <= numPageItems; i++) {
+    for (let i = 1; i <= numPageItems; i++) {
       numArr.push(i);
     }
 
@@ -48,6 +60,22 @@ class Catalog extends Component {
         <PaginationLink onClick={() => this.changePage(i)}>{i}</PaginationLink>
       </PaginationItem>
     ));
+  };
+
+  renderPaginationPrev = () => {
+    return (
+      <PaginationItem>
+        <PaginationLink previous onClick={() => this.changePagePrev()} />
+      </PaginationItem>
+    );
+  };
+
+  renderPaginationNext = () => {
+    return (
+      <PaginationItem>
+        <PaginationLink next onClick={() => this.changePageNext()} />
+      </PaginationItem>
+    );
   };
 
   render() {
@@ -82,13 +110,9 @@ class Catalog extends Component {
           </Row>
           <Row>
             <Pagination size="lg" aria-label="Page navigation example">
-              <PaginationItem>
-                <PaginationLink previous href="#" />
-              </PaginationItem>
+              {this.renderPaginationPrev()}
               {this.renderPaginationItems()}
-              <PaginationItem>
-                <PaginationLink next href="#" />
-              </PaginationItem>
+              {this.renderPaginationNext()}
             </Pagination>
           </Row>
         </Container>
@@ -98,6 +122,8 @@ class Catalog extends Component {
 }
 
 Catalog.defaultProps = {
+  cards_per_row: 3,
+  cards_per_page: 6,
   cards: [
     {
       title: 'title',
@@ -133,17 +159,6 @@ Catalog.defaultProps = {
       title: 'title7',
       subtitle: 'subtitle7',
       text: 'text7'
-    }
-  ],
-  pages: [
-    {
-      page: 1
-    },
-    {
-      page: 2
-    },
-    {
-      page: 3
     }
   ]
 };

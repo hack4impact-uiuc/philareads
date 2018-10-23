@@ -43,6 +43,7 @@ class KidsPage extends Component {
       component: Results
     },
     {
+      // TODO: remove in future
       route: '/kids/catalog',
       name: 'Catalog',
       component: Catalog
