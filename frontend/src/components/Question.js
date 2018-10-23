@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, ListGroup, ListGroupItem } from 'reactstrap';
+import {
+  Card,
+  ListGroup,
+  ListGroupItem,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
 
 class Question extends Component {
   renderQuestion = () => {
@@ -10,8 +17,13 @@ class Question extends Component {
         <ListGroup>
           {this.props.options.map((option, i) => {
             return (
-              <ListGroupItem action color="">
-                {option}
+              <ListGroupItem>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" name="radio1" />
+                    {option}
+                  </Label>
+                </FormGroup>
               </ListGroupItem>
             );
           })}

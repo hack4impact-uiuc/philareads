@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Question from './Question';
+import { Form, FormGroup, Input } from 'reactstrap';
 
 class QuestionList extends Component {
   render() {
     return (
       <div>
-        {this.props.questions.map((question, i) => {
-          return <Question key={i} {...question} />;
-        })}
+        <Form>
+          {this.props.questions.map((question, i) => {
+            return <Question key={i} {...question} />;
+          })}
+        </Form>
       </div>
     );
   }
