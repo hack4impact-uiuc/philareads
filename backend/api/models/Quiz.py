@@ -12,10 +12,10 @@ class Quiz(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     questions = db.relationship("Question", backref="quiz", lazy=True)
-    book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=True)
 
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        self.name = name
 
     def __repr__(self):
-        return f"<Quiz> name is {self.name}"
+        return f"<Quiz> name is {self.name} questions are {self.questions}"
