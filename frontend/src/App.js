@@ -7,6 +7,7 @@ import logo from './logo.svg';
 import './styles/App.scss';
 import KidsPage from './pages/KidsPage';
 import ParentsPage from './pages/ParentsPage';
+import TestPage from './pages/TestPage';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route path="/kids" component={KidsPage} />
           <Route path="/parents" component={ParentsPage} />
+          <Route path="/questions" component={TestPage} />
         </div>
       </Router>
     );
