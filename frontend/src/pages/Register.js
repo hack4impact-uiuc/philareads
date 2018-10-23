@@ -7,12 +7,14 @@ import {
   Label,
   Button,
   Alert,
+  Card,
   FormFeedback,
   FormText
 } from 'reactstrap';
 import { Redirect } from 'react-router';
 import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
+import '../styles/Login.scss';
 
 class Register extends Component {
   constructor(props) {
@@ -24,6 +26,11 @@ class Register extends Component {
       isLoggedIn: this.isLoggedIn()
     };
   }
+
+  validateEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(this.state.email).toLowerCase());
+  };
 
   handleChange = event => {
     this.setState({
@@ -64,21 +71,31 @@ class Register extends Component {
         {/* Redirect to the kids page if JWT exists*/}
         {this.state.isLoggedIn && <Redirect to="/kids" />}
         {message}
-        <h1>Sign Up!</h1>
-        <div className="row">
-          <div className="col-lg-6">
-            <Form name="form">
+        <div className="text-center">
+          <Form className="form-signin" name="form">
+            <Card className="login-card">
+              <h1 className="h3 mb-3 font-weight-normal">Register</h1>
               <FormGroup>
-                <Label for="name">Name</Label>
-                <Input name="name" onChange={this.handleChange} />
-              </FormGroup>
-              <FormGroup>
-                <Label for="email">Email</Label>
-                <Input name="email" onChange={this.handleChange} />
-              </FormGroup>
-              <FormGroup>
-                <Label for="password">Password</Label>
                 <Input
+                  name="name"
+                  onChange={this.handleChange}
+                  placeholder="Full name"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  name="email"
+                  onChange={this.handleChange}
+                  className={
+                    'form-control ' +
+                    (this.validateEmail() ? 'is-valid' : 'is-invalid')
+                  }
+                  placeholder="Email"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  placeholder="Password"
                   name="password"
                   type="password"
                   onChange={this.handleChange}
@@ -89,8 +106,8 @@ class Register extends Component {
                   Submit
                 </Button>
               </FormGroup>
-            </Form>
-          </div>
+            </Card>
+          </Form>
         </div>
       </div>
     );
