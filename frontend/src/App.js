@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import logo from './logo.svg';
 import './styles/App.scss';
 import KidsPage from './pages/KidsPage';
 import ParentsPage from './pages/ParentsPage';
