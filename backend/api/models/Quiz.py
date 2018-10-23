@@ -16,6 +16,7 @@ class Quiz(Mixin, db.Model):
 
     def __init__(self, name):
         self.name = name
+        self.questions = []
 
     def __repr__(self):
         return f"<Quiz> name is {self.name} questions are {self.questions}"

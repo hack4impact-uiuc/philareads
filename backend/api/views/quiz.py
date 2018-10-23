@@ -1,15 +1,22 @@
 from flask import Flask, jsonify, request, Blueprint
+import pdb
 from api.models import Quiz, Question, db
 from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
 
+def invalid_quiz_data(user_data):
+    return (not "name" in user_data) or (not "questions" in user_data)
 
-# function that is called when you visit /register
 @quiz.route("/create_quiz", methods=["POST"])
 def create_quiz():
-    print("CALLED")
     user_data = request.get_json()
+
+    if invalid_quiz_data(user_data):
+        return create_response(
+            message="Failed to create new quiz", status=422, data={"status": "fail"}
+        )
+
     new_quiz = Quiz(user_data["name"])
 
     #write into database so that new_quiz has a PK
@@ -17,19 +24,18 @@ def create_quiz():
     db.session.commit()
 
     for q in user_data["questions"]:
-        print("creating the first question")
         db_ques = Question(q["text"], q["options"])
         db_ques.quiz_id = new_quiz.id
-        new_quiz.questions.append(new_quiz)
+        new_quiz.questions.append(db_ques)
         db.session.add(db_ques)
         db.session.commit()
-        print("during creating quiz has questions")
-        print(new_quiz.questions)
 
-    print("after creation, quiz has questions:")
-    print(new_quiz.questions)
+    return create_response(
+        message="Succesfuly created new quiz", status=200, data={"status": "success"}
+    )
 
 
-@quiz.route("/debug_quiz", methods=["POST", "GET"])
-def debug_quiz():
-    print(Quiz.query.all())
+# @quiz.route("/debug_quiz", methods=["POST", "GET"])
+# def debug_quiz():
+    # print("ALL QUIZZES ARE")
+    # print(Quiz.query.all())
