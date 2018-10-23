@@ -8,16 +8,21 @@ const API_URL =
 function register(formData) {
   var a = fetch(`${API_URL}/register`, {
     method: 'POST',
-    body: formData
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
   }).then(res => res.json());
-  console.log(a);
   return a;
 }
 
 function login(formData) {
   return fetch(`${API_URL}/login`, {
     method: 'POST',
-    body: formData
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
   })
     .then(res => res.json())
     .catch(e => {

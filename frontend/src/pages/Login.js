@@ -40,7 +40,11 @@ class Register extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     var form = document.querySelector('form');
-    const { success, result } = await login(new FormData(form));
+    const { success, result } = await login({
+      name: this.state.name,
+      password: this.state.password,
+      email: this.state.email
+    });
     if (success) {
       const cookies = new Cookies();
       cookies.set('jwt', result['token']);
