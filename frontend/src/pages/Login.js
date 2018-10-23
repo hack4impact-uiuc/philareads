@@ -6,6 +6,7 @@ import {
   Label,
   Alert,
   Button,
+  Card,
   FormFeedback,
   FormText
 } from 'reactstrap';
@@ -13,6 +14,7 @@ import { login } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
 import FormAlert from '../components/FormAlert';
+import '../styles/Login.scss';
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -64,20 +66,29 @@ class Register extends Component {
         {/* Redirect to the kids page if JWT exists*/}
         {this.state.isLoggedIn && <Redirect to="/kids" />}
         {message}
-        <h1>Login!</h1>
-        <div className="row">
-          <div className="col-lg-6">
-            <Form>
+
+        <div className="text-center">
+          <Form className="form-signin">
+            <Card className="login-card">
+              <h1 className="h3 mb-3 font-weight-normal">Sign in</h1>
               <FormGroup>
-                <Label for="email">Email</Label>
-                <Input name="email" />
+                <Label className="sr-only" for="email">
+                  Email
+                </Label>
+                <Input
+                  className="form-control"
+                  name="email"
+                  type="email"
+                  placeholder="Email address"
+                />
               </FormGroup>
               <FormGroup>
-                <Label for="password">Password</Label>
-                <Input name="password" type="password" />
+                {/* <Label for="password">Password</Label> */}
+                <Input name="password" type="password" placeholder="Password" />
               </FormGroup>
               <FormGroup>
                 <Button
+                  className="btn btn-lg btn-primary btn-block"
                   color="primary"
                   type="submit"
                   onClick={this.handleSubmit}
@@ -85,8 +96,8 @@ class Register extends Component {
                   Submit
                 </Button>
               </FormGroup>
-            </Form>
-          </div>
+            </Card>
+          </Form>
         </div>
       </div>
     );
