@@ -34,6 +34,7 @@ Related PRs: #<number>
 
 ## Screenshots
 <!--
-Mac OS Screenshots: ctrl + shift + cmd + 3 or 4, then paste in the editor
+Mac OS Screenshots: ctrl + shift + cmd + 3 (entire screen) or 4 (selection of screen), then paste in editor
 Mac OS GIFs: Try using Kap
+Linux/Windows: Ctrl + Alt + PrintScreen (of a window) or Ctrl + Shift + PrintScreen (selection of screen), then paste in editor
 -->
