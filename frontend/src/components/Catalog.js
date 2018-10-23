@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
+  Container,
+  Row,
+  Col,
+  Pagination,
+  PaginationItem,
+  PaginationLink
 } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import CatalogCard from './CatalogCard';
 
 class Catalog extends Component {
   state = {
@@ -18,16 +16,21 @@ class Catalog extends Component {
   };
 
   getFirstRow = () => {
-    let start = (this.state.page - 1) * this.props.cards_per_page;
-    return this.props.cards.slice(start, start + this.props.cards_per_row);
+    let start = (this.state.page - 1) * this.props.cardsPerPage;
+    return this.props.cards.slice(start, start + this.props.cardsPerRow);
   };
 
   getSecondRow = () => {
-    let start = (this.state.page - 1) * this.props.cards_per_page;
+    let start = (this.state.page - 1) * this.props.cardsPerPage;
     return this.props.cards.slice(
-      start + this.props.cards_per_row,
-      start + this.props.cards_per_page
+      start + this.props.cardsPerRow,
+      start + this.props.cardsPerPage
     );
+  };
+
+  getNumPageItems = () => {
+    let length = this.props.cards.length;
+    return Math.ceil(length / this.props.cardsPerPage);
   };
 
   changePage = value => {
@@ -41,17 +44,15 @@ class Catalog extends Component {
 
   changePageNext = () =>
     this.setState(state => {
-      let length = this.props.cards.length;
-      let numPageItems = Math.ceil(length / this.props.cards_per_page);
-      return { page: state.page == numPageItems ? state.page : state.page + 1 };
+      return {
+        page: state.page == this.getNumPageItems() ? state.page : state.page + 1
+      };
     });
 
   renderPaginationItems = () => {
-    let length = this.props.cards.length;
-    let numPageItems = Math.ceil(length / this.props.cards_per_page);
     let numArr = [];
 
-    for (let i = 1; i <= numPageItems; i++) {
+    for (let i = 1; i <= this.getNumPageItems(); i++) {
       numArr.push(i);
     }
 
@@ -85,26 +86,22 @@ class Catalog extends Component {
           <Row>
             {this.getFirstRow().map(x => (
               <Col lg="4">
-                <Card>
-                  <CardBody>
-                    <CardTitle>{x.title}</CardTitle>
-                    <CardSubtitle>{x.subtitle}</CardSubtitle>
-                    <CardText>{x.text}</CardText>
-                  </CardBody>
-                </Card>
+                <CatalogCard
+                  title={x.title}
+                  subtitle={x.subtitle}
+                  text={x.text}
+                />
               </Col>
             ))}
           </Row>
           <Row>
             {this.getSecondRow().map(x => (
               <Col lg="4">
-                <Card>
-                  <CardBody>
-                    <CardTitle>{x.title}</CardTitle>
-                    <CardSubtitle>{x.subtitle}</CardSubtitle>
-                    <CardText>{x.text}</CardText>
-                  </CardBody>
-                </Card>
+                <CatalogCard
+                  title={x.title}
+                  subtitle={x.subtitle}
+                  text={x.text}
+                />
               </Col>
             ))}
           </Row>
@@ -122,8 +119,8 @@ class Catalog extends Component {
 }
 
 Catalog.defaultProps = {
-  cards_per_row: 3,
-  cards_per_page: 6,
+  cardsPerRow: 3,
+  cardsPerPage: 6,
   cards: [
     {
       title: 'title',
@@ -161,6 +158,12 @@ Catalog.defaultProps = {
       text: 'text7'
     }
   ]
+};
+
+Catalog.propTypes = {
+  cardsPerRow: PropTypes.number,
+  cardsPerPage: PropTypes.number,
+  cards: PropTypes.array.isRequired
 };
 
 export default Catalog;
