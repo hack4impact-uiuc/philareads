@@ -3,4 +3,6 @@
 # to prevent circular dependencies
 from .User import User
 from .Question import Question
+from .Book import Book
+from .Quiz import Quiz
 from .base import db
