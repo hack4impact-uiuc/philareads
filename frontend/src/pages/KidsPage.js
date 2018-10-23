@@ -6,14 +6,11 @@ import Exercises from '../components/Exercises';
 import Readings from '../components/Readings';
 import Games from '../components/Games';
 import Results from '../components/Results';
-<<<<<<< cf2de9a05a0c1d85fc482fc885c45e625a8f444c
-=======
 import Home from './Home';
 import Register from './Register';
 import Login from './Login';
 import ParentsPage from './ParentsPage';
 import Catalog from '../components/Catalog';
->>>>>>> rendered 6 cards on initial page
 
 class KidsPage extends Component {
   navigationOptions = [
