@@ -26,6 +26,11 @@ class Register extends Component {
     };
   }
 
+  validateEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(this.state.email).toLowerCase());
+  };
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -76,7 +81,11 @@ class Register extends Component {
                   Email
                 </Label>
                 <Input
-                  className="form-control"
+                  onChange={this.handleChange}
+                  className={
+                    'form-control ' +
+                    (this.validateEmail() ? 'is-valid' : 'is-invalid')
+                  }
                   name="email"
                   type="email"
                   placeholder="Email address"
@@ -84,7 +93,12 @@ class Register extends Component {
               </FormGroup>
               <FormGroup>
                 {/* <Label for="password">Password</Label> */}
-                <Input name="password" type="password" placeholder="Password" />
+                <Input
+                  name="password"
+                  onChange={this.handleChange}
+                  type="password"
+                  placeholder="Password"
+                />
               </FormGroup>
               <FormGroup>
                 <Button
