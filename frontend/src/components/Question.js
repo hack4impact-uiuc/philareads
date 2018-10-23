@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Card, ListGroup, ListGroupItem } from 'reactstrap';
 
 class Question extends Component {
-  render() {
+  renderQuestion = () => {
     return (
-      <div>
+      <Card>
         <h3>{this.props.title}</h3>
-        <ul>
+        <ListGroup>
           {this.props.options.map((option, i) => {
-            return <li key={i}>{option}</li>;
+            return (
+              <ListGroupItem action color="">
+                {option}
+              </ListGroupItem>
+            );
           })}
-        </ul>
+        </ListGroup>
         <p>correct answer: {this.props.options[this.props.correctAnswer]}</p>
-      </div>
+      </Card>
     );
+  };
+
+  render() {
+    return <div>{this.renderQuestion()}</div>;
   }
 }
 
