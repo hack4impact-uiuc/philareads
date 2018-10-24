@@ -7,15 +7,15 @@
 <ul>
 <li>Merge parents advice page</li>
 <li>Start quiz component functionality</li>
-<li>Start work on search page w/ dummy data (PR by 10/29)</li>
+<li>Start work on search page w/ dummy data (Merge by 10/29)</li>
 <li>Finish Login/Signup integrated functionality</li>
 </ul>
 </div>
 <div style="flex: 1;">
 <b>Backend</b>
 <ul>
-<li>Start create quiz endpoint (PR by 10/29)</li>
-<li>Start get quiz endpoint (PR by 10/29)</li>
+<li>Start create quiz endpoint (Merge by 10/29)</li>
+<li>Start get quiz endpoint (Merge by 10/29)</li>
 <li>Get postgres tests working</li>
 </ul>
 </div>
@@ -46,8 +46,8 @@
 <div style="flex: 1;">
 <b>Frontend</b>
 <ul>
-<li>Start search page integration (Merged by 11/5)</li>
-<li>Continue quiz component functionality (Merged by 11/5)</li>
+<li>Start search page integration (Merge by 11/5)</li>
+<li>Continue quiz component functionality (Merge by 11/5)</li>
 <li>Finish quiz page integration</li>
 </ul>
 </div>
