@@ -18,6 +18,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install postgres
+          command: |
+            apt-get update && apt-get install postgresql-dev
+      - run:
           name: Waiting for Postgres to be ready
           command: |
             for i in `seq 1 10`;
