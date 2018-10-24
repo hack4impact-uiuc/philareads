@@ -3,7 +3,6 @@ jobs:
   backend_format:
     docker:
       - image: circleci/python:3.7
-      - image: circleci/postgres:10
     steps:
       - checkout
       - run:
@@ -15,6 +14,7 @@ jobs:
   backend_test:
     docker:
       - image: circleci/python:3.7
+      - image: circleci/postgres:10
     steps:
       - checkout
       - run:
