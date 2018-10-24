@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 
 from api import create_app
 
+
 @pytest.fixture(scope="session")
 def postgres():
     """
@@ -20,6 +21,7 @@ def postgres():
     """
     with testing.postgresql.Postgresql() as postgresql:
         yield postgresql
+
 
 # testing using sqlite, which may
 # not be the same as testing with
@@ -43,4 +45,3 @@ def client(postgres):
     # http://flask.pocoo.org/docs/1.0/api/#test-client
     client = app.test_client()
     yield client
-    
