@@ -17,6 +17,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install postgres
+          command: |
+            sudo apt-get -y update && sudo apt-get install postgresql
+      - run:
           command: |
             cd backend
             pipenv install --skip-lock
