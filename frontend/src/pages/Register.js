@@ -106,8 +106,12 @@ class Register extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Button color="primary" onClick={this.handleSubmit}>
-                  Submit
+                <Button
+                  className="btn btn-lg btn-primary btn-block"
+                  color="primary"
+                  onClick={this.handleSubmit}
+                >
+                  Register
                 </Button>
               </FormGroup>
             </Card>

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 function Logout(props) {
   const cookies = new Cookies();
   cookies.remove('jwt');
-  return <Redirect to="/login" />;
+  return <Redirect to="/" />;
 }
 
 export default Logout;

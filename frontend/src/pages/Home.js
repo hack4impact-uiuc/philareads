@@ -9,7 +9,6 @@ class Home extends Component {
           <a href="/register">Register</a>
           <a href="/login">Login</a>
           <a href="/kids">Kids</a>
-          <a href="/parents/advice">Parent Advice</a>
         </header>
       </div>
     );

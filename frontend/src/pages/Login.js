@@ -15,7 +15,9 @@ import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
 import FormAlert from '../components/FormAlert';
 import '../styles/Login.scss';
-class Register extends Component {
+import validateEmail from '../utils/validationHelpers';
+
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,11 +27,6 @@ class Register extends Component {
       isLoggedIn: this.isLoggedIn()
     };
   }
-
-  validateEmail = email => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(this.state.email).toLowerCase());
-  };
 
   handleChange = event => {
     this.setState({
@@ -88,7 +85,9 @@ class Register extends Component {
                   onChange={this.handleChange}
                   className={
                     'form-control ' +
-                    (this.validateEmail() ? 'is-valid' : 'is-invalid')
+                    (validateEmail(this.state.email)
+                      ? 'is-valid'
+                      : 'is-invalid')
                   }
                   name="email"
                   type="email"
@@ -111,7 +110,7 @@ class Register extends Component {
                   type="submit"
                   onClick={this.handleSubmit}
                 >
-                  Submit
+                  Login
                 </Button>
               </FormGroup>
             </Card>
@@ -122,4 +121,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default Login;
