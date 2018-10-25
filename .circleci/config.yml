@@ -14,23 +14,12 @@ jobs:
   backend_test:
     docker:
       - image: circleci/python:3.7
-      - image: circleci/postgres:10
     steps:
       - checkout
       - run:
           name: Install postgres
           command: |
             sudo apt-get -y update && sudo apt-get install postgresql
-      - run:
-          name: Waiting for Postgres to be ready
-          command: |
-            for i in `seq 1 10`;
-            do
-              nc -z localhost 5432 && echo Success && exit 0
-              echo -n .
-              sleep 1
-            done
-            echo Failed waiting for Postgres && exit 1
       - run:
           command: |
             cd backend
