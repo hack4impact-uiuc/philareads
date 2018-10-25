@@ -35,6 +35,7 @@ class Question extends Component {
       if (this.selectedAnswer === this.props.correctAnswer) {
         return 'success';
       }
+      return 'danger';
     }
     //idk what im doing help
   };
@@ -50,6 +51,7 @@ class Question extends Component {
           name="radio1"
           disabled
           color=""
+          // color={this.renderColor()}
         />
       );
     }
