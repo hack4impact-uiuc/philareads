@@ -30,7 +30,8 @@ def create_quiz():
         db_ques.quiz_id = new_quiz.id
         new_quiz.questions.append(db_ques)
         db.session.add(db_ques)
-        db.session.commit()
+
+    db.session.commit()
 
     return create_response(
         message="Succesfuly created new quiz", status=200, data={"status": "success"}
