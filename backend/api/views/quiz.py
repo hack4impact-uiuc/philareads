@@ -5,8 +5,10 @@ from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
 
+
 def invalid_quiz_data(user_data):
     return (not "name" in user_data) or (not "questions" in user_data)
+
 
 @quiz.route("/create_quiz", methods=["POST"])
 def create_quiz():
@@ -19,7 +21,7 @@ def create_quiz():
 
     new_quiz = Quiz(user_data["name"])
 
-    #write into database so that new_quiz has a PK
+    # write into database so that new_quiz has a PK
     db.session.add(new_quiz)
     db.session.commit()
 
@@ -37,5 +39,5 @@ def create_quiz():
 
 # @quiz.route("/debug_quiz", methods=["POST", "GET"])
 # def debug_quiz():
-    # print("ALL QUIZZES ARE")
-    # print(Quiz.query.all())
+# print("ALL QUIZZES ARE")
+# print(Quiz.query.all())
