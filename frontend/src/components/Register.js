@@ -1,5 +1,6 @@
 import logo from '../logo.svg';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {
   Form,
   FormGroup,
@@ -24,6 +25,7 @@ class Register extends Component {
     this.state = {
       name: '',
       password: '',
+      password_confirm: '',
       email: '',
       isLoggedIn: this.isLoggedIn(),
       errors: []
@@ -38,7 +40,13 @@ class Register extends Component {
 
   canSubmit() {
     var canSubmit = false;
-    if (validateEmail(this.state.email) && this.state.name.length > 0) {
+    if (
+      validateEmail(this.state.email) &&
+      this.state.name.length > 0 &&
+      this.state.password.length > 0 &&
+      this.state.password_confirm.length > 0 &&
+      this.state.password === this.state.password_confirm
+    ) {
       canSubmit = true;
     }
     return canSubmit;
@@ -108,6 +116,8 @@ class Register extends Component {
                   name="email"
                   type="email"
                   onChange={this.handleChange}
+                  ref="emailInput"
+                  onBlur={() => this.forceUpdate()}
                   className={
                     'form-control ' +
                     (this.state.email.length > 0 &&
@@ -117,6 +127,13 @@ class Register extends Component {
                   }
                   placeholder="Email"
                 />
+                {document.activeElement !==
+                  ReactDOM.findDOMNode(this.refs.emailInput) && (
+                  <FormFeedback invalid>
+                    That email doesn't look valid.
+                  </FormFeedback>
+                )}
+                <FormFeedback valid>Your email looks good!</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Input
@@ -125,6 +142,32 @@ class Register extends Component {
                   type="password"
                   onChange={this.handleChange}
                 />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  placeholder="Confirm Password"
+                  name="password_confirm"
+                  type="password"
+                  ref="passwordConfirm"
+                  onBlur={() => this.forceUpdate()}
+                  onChange={this.handleChange}
+                  className={
+                    'form-control ' +
+                    (this.state.password_confirm.length > 0 &&
+                      (this.state.password_confirm == this.state.password
+                        ? 'is-valid'
+                        : 'is-invalid'))
+                  }
+                />
+
+                {/* Find if the element is not in focus, and if so, render an error if invalid */}
+                {document.activeElement !==
+                  ReactDOM.findDOMNode(this.refs.passwordConfirm) && (
+                  <FormFeedback invalid>
+                    Looks like your password doesn't match.
+                  </FormFeedback>
+                )}
+                <FormFeedback valid>Great! Your password matches.</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Button
