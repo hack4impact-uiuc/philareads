@@ -7,11 +7,11 @@ class QuestionList extends Component {
   render() {
     return (
       <div>
-        <Form>
-          {this.props.questions.map((question, i) => {
-            return <Question key={i} {...question} />;
-          })}
-        </Form>
+        {/* <Form> */}
+        {this.props.questions.map((question, i) => {
+          return <Question key={i} {...question} />;
+        })}
+        {/* </Form> */}
       </div>
     );
   }
