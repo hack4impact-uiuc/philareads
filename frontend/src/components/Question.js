@@ -30,6 +30,15 @@ class Question extends Component {
     }
   };
 
+  renderColor = () => {
+    if (this.state.showCorrect === true) {
+      if (this.selectedAnswer === this.props.correctAnswer) {
+        return 'success';
+      }
+    }
+    //idk what im doing help
+  };
+
   renderInput = i => {
     if (this.state.showCorrect === true) {
       return (
@@ -40,6 +49,7 @@ class Question extends Component {
           type="radio"
           name="radio1"
           disabled
+          color=""
         />
       );
     }
