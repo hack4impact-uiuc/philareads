@@ -8,7 +8,7 @@
 <li>Finish Login/Signup integrated functionality</li>
 <li>Merge parents advice page</li>
 <li>Merge register/login pages</li>
-<li>Continue quiz component functionality for specific quiz question (PR by 10/29)</li>
+<li>Continue quiz component functionality for specific quiz question (Merge by 10/29)</li>
 <li>Start work on search page w/ dummy data (Merge by 10/29)</li>
 <li>Start work on scaffolding for quiz components state related to completion (Merge by 10/29)</li>
 </ul>
