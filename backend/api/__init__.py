@@ -62,9 +62,11 @@ def create_app(test_config=None):
     # import and register blueprints
     from api.views import main
     from api.views import authenticate
+    from api.views import quiz
 
     app.register_blueprint(main.main)
     app.register_blueprint(authenticate.authenticate)
+    app.register_blueprint(quiz.quiz)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
