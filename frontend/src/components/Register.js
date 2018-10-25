@@ -129,7 +129,7 @@ class Register extends Component {
                 />
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.emailInput) && (
-                  <FormFeedback invalid>
+                  <FormFeedback invalid="true">
                     That email doesn't look valid.
                   </FormFeedback>
                 )}
@@ -154,7 +154,7 @@ class Register extends Component {
                   className={
                     'form-control ' +
                     (this.state.password_confirm.length > 0 &&
-                      (this.state.password_confirm == this.state.password
+                      (this.state.password_confirm === this.state.password
                         ? 'is-valid'
                         : 'is-invalid'))
                   }
@@ -163,7 +163,7 @@ class Register extends Component {
                 {/* Find if the element is not in focus, and if so, render an error if invalid */}
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.passwordConfirm) && (
-                  <FormFeedback invalid>
+                  <FormFeedback invalid="true">
                     Looks like your password doesn't match.
                   </FormFeedback>
                 )}
