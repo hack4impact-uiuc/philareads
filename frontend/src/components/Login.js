@@ -51,6 +51,8 @@ class Login extends Component {
     }
   };
 
+  canSubmit() {}
+
   isLoggedIn() {
     const cookies = new Cookies();
     return cookies.get('jwt') !== undefined;
@@ -85,9 +87,10 @@ class Login extends Component {
                   onChange={this.handleChange}
                   className={
                     'form-control ' +
-                    (validateEmail(this.state.email)
-                      ? 'is-valid'
-                      : 'is-invalid')
+                    (this.state.email.length > 0 &&
+                      (validateEmail(this.state.email)
+                        ? 'is-valid'
+                        : 'is-invalid'))
                   }
                   name="email"
                   type="email"

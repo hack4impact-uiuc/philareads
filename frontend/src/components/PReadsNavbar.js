@@ -42,7 +42,7 @@ export default class PReadsNavbar extends React.Component {
               {this.props.navOptions.map(({ route, name, component }) => {
                 // Maps each route component to navigation links in the Bootstrap navbar
                 return (
-                  <NavItem>
+                  <NavItem key={name}>
                     <NavLink href={route}>{name}</NavLink>
                   </NavItem>
                 );

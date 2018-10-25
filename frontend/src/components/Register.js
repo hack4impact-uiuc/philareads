@@ -14,6 +14,7 @@ import {
 import { Redirect } from 'react-router';
 import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
+import validateEmail from '../utils/validationHelpers';
 import '../styles/Login.scss';
 
 class Register extends Component {
@@ -89,10 +90,14 @@ class Register extends Component {
               <FormGroup>
                 <Input
                   name="email"
+                  type="email"
                   onChange={this.handleChange}
                   className={
                     'form-control ' +
-                    (this.validateEmail() ? 'is-valid' : 'is-invalid')
+                    (this.state.email.length > 0 &&
+                      (validateEmail(this.state.email)
+                        ? 'is-valid'
+                        : 'is-invalid'))
                   }
                   placeholder="Email"
                 />

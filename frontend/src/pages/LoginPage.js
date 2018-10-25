@@ -51,7 +51,9 @@ class LoginPage extends Component {
             <PReadsNavbar navOptions={this.navigationOptions} homePage={'/'} />
             {this.navigationOptions.map(({ route, name, component }) => {
               // Add all the routes and their component mappings
-              return <Route exact path={route} component={component} />;
+              return (
+                <Route key={name} exact path={route} component={component} />
+              );
             })}
             <Route exact path={'/login'} component={Login} />;
           </div>
