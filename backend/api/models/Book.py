@@ -13,10 +13,12 @@ class Book(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
-    questions = db.relationship("Quiz", backref="book", lazy=True)
+    quizzes = db.relationship("Quiz", backref="book", lazy=True)
 
-    def __init__(self):
-        pass
+    def __init__(self, name: str, author: str):
+        self.name = name
+        self.author = author
+        self.quizzes = []
 
     def __repr__(self):
         return f"<Question> text is {self.text} options is {self.options}"
