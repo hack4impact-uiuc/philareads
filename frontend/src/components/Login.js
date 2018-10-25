@@ -95,7 +95,6 @@ class Login extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                {/* <Label for="password">Password</Label> */}
                 <Input
                   name="password"
                   onChange={this.handleChange}
