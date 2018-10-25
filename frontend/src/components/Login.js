@@ -24,7 +24,8 @@ class Login extends Component {
       name: '',
       password: '',
       email: '',
-      isLoggedIn: this.isLoggedIn()
+      isLoggedIn: this.isLoggedIn(),
+      errors: []
     };
   }
 
@@ -36,8 +37,9 @@ class Login extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    var form = document.querySelector('form');
-    const { success, result } = await login({
+    this.setState({ errors: [] });
+
+    const { message, success, result } = await login({
       name: this.state.name,
       password: this.state.password,
       email: this.state.email
@@ -48,10 +50,28 @@ class Login extends Component {
       this.setState({ isLoggedIn: this.isLoggedIn() });
     } else {
       // TODO: Display message if login wasn't successful
+      this.handleAPIErrors(message);
     }
   };
 
-  canSubmit() {}
+  handleAPIErrors(message) {
+    console.log(message);
+    this.setState({
+      errors: [
+        ...this.state.errors,
+        { message: message, key: this.state.errors.length }
+      ]
+    });
+  }
+
+  canSubmit() {
+    var canSubmit = false;
+    if (validateEmail(this.state.email)) {
+      // TODO: Add more validation
+      canSubmit = true;
+    }
+    return canSubmit;
+  }
 
   isLoggedIn() {
     const cookies = new Cookies();
@@ -59,16 +79,13 @@ class Login extends Component {
   }
 
   getLoggedInMessage() {
-    if (this.state.isLoggedIn) {
-      return <FormAlert>You are logged in!</FormAlert>;
-    } else {
-      return <FormAlert isRed={true}>You are not logged in!</FormAlert>;
-    }
+    return this.state.errors.map(({ message, key }) => {
+      return <FormAlert key={key}>{message}</FormAlert>;
+    });
   }
 
   render() {
     const message = this.getLoggedInMessage();
-
     return (
       <div className="container">
         {/* Redirect to the kids page if JWT exists*/}
@@ -107,6 +124,7 @@ class Login extends Component {
               </FormGroup>
               <FormGroup>
                 <Button
+                  disabled={!this.canSubmit()}
                   className="btn btn-lg btn-primary btn-block"
                   color="primary"
                   type="submit"

@@ -16,6 +16,7 @@ import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import validateEmail from '../utils/validationHelpers';
 import '../styles/Login.scss';
+import FormAlert from '../components/FormAlert';
 
 class Register extends Component {
   constructor(props) {
@@ -24,14 +25,10 @@ class Register extends Component {
       name: '',
       password: '',
       email: '',
-      isLoggedIn: this.isLoggedIn()
+      isLoggedIn: this.isLoggedIn(),
+      errors: []
     };
   }
-
-  validateEmail = email => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(this.state.email).toLowerCase());
-  };
 
   handleChange = event => {
     this.setState({
@@ -39,10 +36,17 @@ class Register extends Component {
     });
   };
 
+  canSubmit() {
+    var canSubmit = false;
+    if (validateEmail(this.state.email) && this.state.name.length > 0) {
+      canSubmit = true;
+    }
+    return canSubmit;
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
-    var form = document.querySelector('form');
-    const { success, result } = await register({
+    const { success, result, message } = await register({
       name: this.state.name,
       password: this.state.password,
       email: this.state.email
@@ -50,11 +54,25 @@ class Register extends Component {
     if (success) {
       const cookies = new Cookies();
       cookies.set('jwt', result['token']);
-      this.setState({ isLoggedIn: this.isLoggedIn() });
+      this.setState({ errors: [], isLoggedIn: this.isLoggedIn() });
     } else {
-      // TODO: Display message if login wasn't successful
+      // We can possibly remove this in future if we realize we're only needing to set
+      // at most one alert. This is currently in here to allow us to add/display multiple alerts
+      // but clear them out after POST requests.
+      this.setState({ errors: [] });
+      this.handleAPIErrors(message);
     }
   };
+
+  handleAPIErrors(message) {
+    console.log(message);
+    this.setState({
+      errors: [
+        ...this.state.errors,
+        { message: message, key: this.state.errors.length }
+      ]
+    });
+  }
 
   isLoggedIn() {
     const cookies = new Cookies();
@@ -62,11 +80,9 @@ class Register extends Component {
   }
 
   getLoggedInMessage() {
-    if (this.state.isLoggedIn) {
-      return <Alert>You are logged in!</Alert>;
-    } else {
-      return <Alert>You are not logged in!</Alert>;
-    }
+    return this.state.errors.map(({ message, key }) => {
+      return <FormAlert key={key}>{message}</FormAlert>;
+    });
   }
   render() {
     const message = this.getLoggedInMessage();
@@ -112,6 +128,7 @@ class Register extends Component {
               </FormGroup>
               <FormGroup>
                 <Button
+                  disabled={!this.canSubmit()}
                   className="btn btn-lg btn-primary btn-block"
                   color="primary"
                   onClick={this.handleSubmit}
