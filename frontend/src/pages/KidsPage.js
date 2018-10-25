@@ -7,6 +7,7 @@ import Readings from '../components/Readings';
 import Games from '../components/Games';
 import Results from '../components/Results';
 import Catalog from '../components/Catalog';
+import Search from './Search';
 
 class KidsPage extends Component {
   navigationOptions = [
@@ -40,6 +41,12 @@ class KidsPage extends Component {
       route: '/kids/catalog',
       name: 'Catalog',
       component: Catalog
+    },
+    {
+      // TODO: add search icon to navbar
+      route: '/kids/search',
+      name: 'Search',
+      component: Search
     }
   ];
 
