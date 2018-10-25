@@ -30,6 +30,30 @@ class Question extends Component {
     }
   };
 
+  renderInput = i => {
+    if (this.state.showCorrect === true) {
+      return (
+        <Input
+          key={i}
+          onClick={() => this.setState({ selectedAnswer: i })}
+          // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
+          type="radio"
+          name="radio1"
+          disabled
+        />
+      );
+    }
+    return (
+      <Input
+        key={i}
+        onClick={() => this.setState({ selectedAnswer: i })}
+        // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
+        type="radio"
+        name="radio1"
+      />
+    );
+  };
+
   renderQuestion = () => {
     return (
       <Card>
@@ -41,12 +65,14 @@ class Question extends Component {
                 <ListGroupItem>
                   <FormGroup check>
                     <Label check>
-                      <Input
+                      {/* <Input
                         key={i}
                         onClick={() => this.setState({ selectedAnswer: i })}
+                        // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
                         type="radio"
                         name="radio1"
-                      />
+                      /> */}
+                      {this.renderInput(i)}
                       {/* <Input key={i} type="radio" name="radio1" /> */}
                       {option}
                     </Label>
@@ -76,6 +102,21 @@ class Question extends Component {
   //     selectedAnswer: e.target.key
   //   })
   // }
+
+  // this one doesnt work
+  // selectAnswer(event) {
+  //   this.setState({
+  //     selectedAnswer: event.target.key
+  //   })
+  // }
+
+  /* example for ^^^^^^ selectAnswer()
+    handleChange(event) {
+      this.setState({
+        size: event.target.value
+      });
+    }
+  */
 
   render() {
     return (
