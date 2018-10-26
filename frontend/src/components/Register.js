@@ -1,16 +1,13 @@
-import logo from '../logo.svg';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
   Form,
   FormGroup,
   Input,
-  Label,
   Button,
   Alert,
   Card,
-  FormFeedback,
-  FormText
+  FormFeedback
 } from 'reactstrap';
 import { Redirect } from 'react-router';
 import { register } from '../utils/api.js';
@@ -116,6 +113,7 @@ class Register extends Component {
                 <Input
                   name="email"
                   type="email"
+                  autoComplete="email"
                   onChange={this.handleChange}
                   ref="emailInput"
                   onBlur={() => this.forceUpdate()}
@@ -141,6 +139,7 @@ class Register extends Component {
                   placeholder="Password"
                   name="password"
                   type="password"
+                  autoComplete="new-password"
                   onChange={this.handleChange}
                 />
               </FormGroup>
@@ -150,6 +149,7 @@ class Register extends Component {
                   name="password_confirm"
                   type="password"
                   ref="passwordConfirm"
+                  autoComplete="new-password"
                   onBlur={() => this.forceUpdate()}
                   onChange={this.handleChange}
                   className={

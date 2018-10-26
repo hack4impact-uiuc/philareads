@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Alert,
-  Button,
-  Card,
-  FormFeedback,
-  FormText
-} from 'reactstrap';
+import { Form, FormGroup, Input, Label, Alert, Button, Card } from 'reactstrap';
 import { login } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
@@ -113,6 +103,7 @@ class Login extends Component {
                   }
                   name="email"
                   type="email"
+                  autoComplete="email"
                   placeholder="Email address"
                 />
               </FormGroup>
@@ -122,6 +113,7 @@ class Login extends Component {
                   onChange={this.handleChange}
                   type="password"
                   placeholder="Password"
+                  autoComplete="current-password"
                 />
               </FormGroup>
               <FormGroup>
