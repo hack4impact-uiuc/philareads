@@ -13,7 +13,6 @@ import {
 import { login } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
-import FormAlert from '../components/FormAlert';
 import '../styles/Login.scss';
 import validateEmail from '../utils/validationHelpers';
 
@@ -80,7 +79,11 @@ class Login extends Component {
 
   getLoggedInMessage() {
     return this.state.errors.map(({ message, key }) => {
-      return <FormAlert key={key}>{message}</FormAlert>;
+      return (
+        <Alert key={key} color="danger">
+          {message}
+        </Alert>
+      );
     });
   }
 

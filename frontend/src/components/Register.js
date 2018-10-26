@@ -17,7 +17,6 @@ import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import validateEmail from '../utils/validationHelpers';
 import '../styles/Login.scss';
-import FormAlert from '../components/FormAlert';
 
 class Register extends Component {
   constructor(props) {
@@ -89,7 +88,11 @@ class Register extends Component {
 
   getLoggedInMessage() {
     return this.state.errors.map(({ message, key }) => {
-      return <FormAlert key={key}>{message}</FormAlert>;
+      return (
+        <Alert key={key} color="danger">
+          {message}
+        </Alert>
+      );
     });
   }
   render() {
