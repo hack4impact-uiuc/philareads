@@ -96,13 +96,11 @@ class Register extends Component {
     });
   }
   render() {
-    const message = this.getLoggedInMessage();
-
     return (
       <div className="container">
         {/* Redirect to the kids page if JWT exists*/}
         {this.state.isLoggedIn && <Redirect to="/kids" />}
-        {message}
+        {this.getLoggedInMessage()}
         <div className="text-center">
           <Form className="form-signin" name="form">
             <Card className="login-card">
