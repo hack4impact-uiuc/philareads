@@ -63,13 +63,13 @@ class Login extends Component {
     });
   }
 
-  canSubmit() {
-    var canSubmit = false;
-    if (validateEmail(this.state.email)) {
+  canSubmitWithoutError() {
+    var canSubmitWithoutError = false;
+    if (validateEmail(this.state.email) && this.state.password.length > 0) {
       // TODO: Add more validation
-      canSubmit = true;
+      canSubmitWithoutError = true;
     }
-    return canSubmit;
+    return canSubmitWithoutError;
   }
 
   isLoggedIn() {
@@ -126,7 +126,7 @@ class Login extends Component {
               </FormGroup>
               <FormGroup>
                 <Button
-                  disabled={!this.canSubmit()}
+                  disabled={!this.canSubmitWithoutError()}
                   className="btn btn-lg btn-primary btn-block"
                   color="primary"
                   type="submit"
