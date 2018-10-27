@@ -44,13 +44,9 @@ class Login extends Component {
   };
 
   handleAPIErrors(message) {
-    console.log(message);
-    this.setState({
-      errors: [
-        ...this.state.errors,
-        { message: message, key: this.state.errors.length }
-      ]
-    });
+    this.setState(state => ({
+      errors: [...state.errors, { message: message, key: state.errors.length }]
+    }));
   }
 
   canSubmitWithoutError() {
