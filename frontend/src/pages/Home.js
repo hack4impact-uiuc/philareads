@@ -6,16 +6,9 @@ class Home extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <a href="/register">Register</a>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <a href="/login">Login</a>
+          <a href="/kids">Kids</a>
         </header>
       </div>
     );

@@ -7,8 +7,8 @@ import Readings from '../components/Readings';
 import Games from '../components/Games';
 import Results from '../components/Results';
 import Catalog from '../components/Catalog';
-
-class KidsPage extends Component {
+import Login from '../components/Login';
+class LoginPage extends Component {
   navigationOptions = [
     {
       route: '/kids',
@@ -48,14 +48,14 @@ class KidsPage extends Component {
       <div>
         <Router>
           <div>
-            <PReadsNavbar
-              navOptions={this.navigationOptions}
-              homePage={'/kids'}
-            />
+            <PReadsNavbar navOptions={this.navigationOptions} homePage={'/'} />
             {this.navigationOptions.map(({ route, name, component }) => {
               // Add all the routes and their component mappings
-              return <Route exact path={route} component={component} />;
+              return (
+                <Route key={name} exact path={route} component={component} />
+              );
             })}
+            <Route exact path={'/login'} component={Login} />;
           </div>
         </Router>
       </div>
@@ -63,4 +63,4 @@ class KidsPage extends Component {
   }
 }
 
-export default KidsPage;
+export default LoginPage;

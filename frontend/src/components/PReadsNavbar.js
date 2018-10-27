@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import Cookies from 'universal-cookie';
 
 export default class PReadsNavbar extends React.Component {
   constructor(props) {
@@ -22,6 +23,12 @@ export default class PReadsNavbar extends React.Component {
       isOpen: !this.state.isOpen
     });
   };
+
+  isLoggedIn() {
+    const cookies = new Cookies();
+    return cookies.get('jwt') !== undefined;
+  }
+
   render() {
     return (
       <div>
@@ -35,11 +42,26 @@ export default class PReadsNavbar extends React.Component {
               {this.props.navOptions.map(({ route, name, component }) => {
                 // Maps each route component to navigation links in the Bootstrap navbar
                 return (
-                  <NavItem>
+                  <NavItem key={name}>
                     <NavLink href={route}>{name}</NavLink>
                   </NavItem>
                 );
               })}
+              {this.isLoggedIn() && (
+                <NavItem>
+                  <NavLink href={'/logout'}>Logout</NavLink>
+                </NavItem>
+              )}
+              {!this.isLoggedIn() && (
+                <NavItem>
+                  <NavLink href={'/login'}>Login</NavLink>
+                </NavItem>
+              )}
+              {!this.isLoggedIn() && (
+                <NavItem>
+                  <NavLink href={'/register'}>Register</NavLink>
+                </NavItem>
+              )}
             </Nav>
           </Collapse>
         </Navbar>
