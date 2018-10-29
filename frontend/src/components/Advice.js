@@ -28,13 +28,17 @@ class Advice extends Component {
   renderFullOutCard = () => {
     return (
       <Card body id="full-out" style={{ border: '1px solid gray' }}>
-        <CardHeader tag="h3">Woahhhh</CardHeader>
+        <CardHeader tag="h3">Any Questions?</CardHeader>
         <CardBody>
-          <CardTitle>oooh lookie here</CardTitle>
-          <CardText>bitch this is card text</CardText>
-          <Button>Click me biiiih</Button>
+          <CardTitle>
+            Do you have any questions that haven't been addressed yet?
+          </CardTitle>
+          <CardText>
+            Let us know below what you're curious about, and we'll respond ASAP
+          </CardText>
+          <Button>Submit</Button>
         </CardBody>
-        <CardFooter>Footer</CardFooter>
+        <CardFooter>Philadephia Reads (r)</CardFooter>
       </Card>
     );
   };

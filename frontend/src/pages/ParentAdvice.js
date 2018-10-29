@@ -6,9 +6,9 @@ import Exercises from '../components/Exercises';
 import Readings from '../components/Readings';
 import Results from '../components/Results';
 import Advice from '../components/Advice';
-import pats_cat from './../images/pats_cat.PNG';
-import pretty_cat from './../images/pretty_cat.JPG';
-import i_love_kanye from './../images/i_love_kanye.jpg';
+import philareads1 from './../images/phila_reads_cover.jpg';
+import philareads2 from './../images/phila_reads_2.jpg';
+import philareads3 from './../images/phila_reads_3.jpg';
 
 class ParentsPage extends Component {
   navigationOptions = [
@@ -42,31 +42,33 @@ class ParentsPage extends Component {
 
   adviceCards = [
     {
-      title: "Pat's Fat Cat",
-      subtitle: 'it is a tabby',
-      text: "pat's cat is so chubby but so cute. i want to play with it",
+      title: 'An Introduction',
+      subtitle:
+        'Philadelphia reads is raising a city of readers for a better tomorrow!',
+      text:
+        'The mission of Philadelphia READS is to “raise a city of readers” through quality out of school time programs focused to get children and youth to read on or above grade level by grade 4.',
       smallText: '',
       button: 'More',
-      image: pats_cat
+      image: philareads1
     },
     {
-      title: 'This is quite a beautiful cat',
-      subtitle:
-        "I found this cat's picture in the Catspotting facebook group and it was so nice i decided to save it on my phone.",
+      title: 'Need Advice?',
+      subtitle: "Here's our first tip!",
       text:
-        'i want a cat but im not responsible enough to take care of my own life how can i take care of another one',
+        "Being a part of your child's learning process is very effective. For example, read aloud with them and ask questions about stories as you read along. this will promote critical thinking and recollection quickly.",
       smallText: 'Last updated 3 mins ago',
       button: 'More',
-      image: pretty_cat
+      image: philareads2
     },
     {
-      title: "I just don't want to be a terrible person anymore",
-      subtitle: "here's a picture of something that i have not decided on yet",
+      title: 'Health Matters Too!',
+      subtitle:
+        'Reading every day will help your child get better and better over time, however health is also important!',
       text:
-        "there's a lot of goddamn text options in these cards idk if we need all of them lol",
-      smallText: 'everyone dies. why hurry',
-      button: 'sad',
-      image: i_love_kanye
+        "A healthy diet, exercise routine, and sleep schedule will help your child's brain be ready to intake more information and do some heavy brain lifting 😃",
+      smallText: '',
+      button: 'More',
+      image: philareads3
     }
   ];
 
