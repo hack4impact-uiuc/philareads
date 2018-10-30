@@ -66,9 +66,14 @@ class ParentsPage extends Component {
         'Reading every day will help your child get better and better over time, however health is also important!',
       text:
         "A healthy diet, exercise routine, and sleep schedule will help your child's brain be ready to intake more information and do some heavy brain lifting 😃",
-      smallText: '',
       button: 'More',
       image: philareads3
+    },
+    {
+      title: 'Example',
+      subtitle: 'This example has no buttons or corresponding images.',
+      text: "That's okay though. Images aren't necessary for making a card 🙂",
+      smallText: ''
     }
   ];
 

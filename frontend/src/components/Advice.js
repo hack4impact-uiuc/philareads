@@ -17,14 +17,6 @@ import {
 } from 'reactstrap';
 
 class Advice extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: false
-    };
-  }
-
   renderFullOutCard = () => {
     return (
       <Card body id="full-out" style={{ border: '1px solid gray' }}>
@@ -50,17 +42,21 @@ class Advice extends Component {
     return this.props.adviceCards.map(
       ({ title, subtitle, text, smallText, button, image }) => {
         return (
-          <Col sm="6" md="4">
+          <Col
+            sm="6"
+            md="4"
+            style={{ marginTop: '15px', marginBottom: '15px' }}
+          >
             <Card
               body
               inverse
               style={{
                 backgroundColor: '#333',
-                border: '1px solid pink',
+                border: '1px solid black',
                 height: '100%'
               }}
             >
-              <CardImg src={image} alt="Cat?" />
+              <CardImg src={image} alt="" />
               <CardBody>
                 <CardTitle>{title}</CardTitle>
                 <CardSubtitle>{subtitle}</CardSubtitle>
@@ -69,7 +65,8 @@ class Advice extends Component {
                   <br />
                   <small className="text-muted">{smallText}</small>
                 </CardText>
-                <Button>{button}</Button>
+                {button && <Button>{button}</Button>}
+                {/* <Button>{button}</Button> */}
               </CardBody>
             </Card>
           </Col>
