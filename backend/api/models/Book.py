@@ -21,4 +21,4 @@ class Book(Mixin, db.Model):
         self.quizzes = []
 
     def __repr__(self):
-        return f"<Question> text is {self.text} options is {self.options}"
+        return f"<Question>name is {self.name} author is {self.author} quizzes are {self.quizzes}"

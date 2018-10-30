@@ -25,16 +25,16 @@ def create_book():
 
 @book.route("/<book_name>/quizzes", methods=["GET"])
 def get_quizzes(book_name):
-    book = Book.query.filter_by(name=book_name)
+    book = Book.query.filter_by(name=book_name).first()
     if(book is None):
         return create_response(
             message="Book not found", status=400, data={"status": "failure"}
         )
 
-    print(book.name)
+    print("GETTING QUIZZES")
 
-    # for quiz in quizzes:
-    #     print(quiz.name)
+    for quiz in book.quizzes:
+        print(quiz)
 
     db.session.commit()
 
