@@ -20,6 +20,7 @@ class Question extends Component {
     };
   }
 
+  //changes state to indicate when to show correct answer
   renderAnswer = () => {
     if (this.state.showCorrect === true) {
       return (
@@ -30,14 +31,22 @@ class Question extends Component {
     }
   };
 
-  renderColor = () => {
+  returnColor = () => {
+    //function is functional; logic isn't right
+    console.log(this.state.selectedAnswer);
+    console.log(this.props.correctAnswer);
+
     if (this.state.showCorrect === true) {
-      if (this.selectedAnswer === this.props.correctAnswer) {
-        return 'success';
+      if (
+        this.state.selectedAnswer >= 0 &&
+        this.state.selectedAnswer < this.props.options.length
+      ) {
+        if (this.state.selectedAnswer === this.props.correctAnswer) {
+          return 'success';
+        }
       }
-      return 'danger';
     }
-    //idk what im doing help
+    return '';
   };
 
   renderInput = i => {
@@ -50,8 +59,7 @@ class Question extends Component {
           type="radio"
           name="radio1"
           disabled
-          color=""
-          // color={this.renderColor()}
+          color="danger"
         />
       );
     }
@@ -59,7 +67,6 @@ class Question extends Component {
       <Input
         key={i}
         onClick={() => this.setState({ selectedAnswer: i })}
-        // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
         type="radio"
         name="radio1"
       />
@@ -68,34 +75,36 @@ class Question extends Component {
 
   renderQuestion = () => {
     return (
-      <Card>
-        <h3>{this.props.title}</h3>
-        <Form>
-          <ListGroup>
-            {this.props.options.map((option, i) => {
-              return (
-                <ListGroupItem>
-                  <FormGroup check>
-                    <Label check>
-                      {/* <Input
-                        key={i}
-                        onClick={() => this.setState({ selectedAnswer: i })}
-                        // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
-                        type="radio"
-                        name="radio1"
-                      /> */}
-                      {this.renderInput(i)}
-                      {/* <Input key={i} type="radio" name="radio1" /> */}
-                      {option}
-                    </Label>
-                  </FormGroup>
-                </ListGroupItem>
-              );
-            })}
-          </ListGroup>
-        </Form>
-        {this.renderAnswer()}
-      </Card>
+      <div>
+        <Card>
+          <h3>{this.props.title}</h3>
+          <Form>
+            <ListGroup>
+              {this.props.options.map((option, i) => {
+                return (
+                  <ListGroupItem color={this.returnColor()}>
+                    <FormGroup check>
+                      <Label check>
+                        {/* <Input
+                          key={i}
+                          onClick={() => this.setState({ selectedAnswer: i })}
+                          // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
+                          type="radio"
+                          name="radio1"
+                        /> */}
+                        {this.renderInput(i)}
+                        {/* <Input key={i} type="radio" name="radio1" /> */}
+                        {option}
+                      </Label>
+                    </FormGroup>
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
+          </Form>
+          {this.renderAnswer()}
+        </Card>
+      </div>
     );
   };
 
