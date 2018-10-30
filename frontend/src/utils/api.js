@@ -26,4 +26,11 @@ function login(formData) {
   }).then(res => res.json());
 }
 
-export { register, login };
+function search(searchString) {
+  const query = `search_string=${searchString}`;
+  return fetch(`${API_URL}/books?${query}`, {
+    method: 'GET'
+  }).then(res => res.json());
+}
+
+export { register, login, search };

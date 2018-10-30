@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { search } from '../utils/api';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -10,12 +11,29 @@ class SearchBar extends Component {
     };
   }
 
-  // getInfo = () => {
-  //   // TODO: api call
-  // };
+  handleSearch = async () => {
+    // dummy data for search Results
+    // this.props.searchCallback([
+    //   {
+    //     name: "asl",
+    //     author: "asl",
+    //     grade: 1,
+    //     year: 1
+    //   },
+    //   {
+    //     name: "asl",
+    //     author: "asl",
+    //     grade: 1,
+    //     year: 1
+    //   }
+    // ]);
+    const { success, result, message } = await search(this.state.query);
 
-  search = () => {
-    console.log('searching');
+    if (success) {
+      this.props.searchCallback(result);
+    } else {
+      console.log(message);
+    }
   };
 
   render() {
@@ -36,7 +54,7 @@ class SearchBar extends Component {
             onKeyPress={event => {
               if (event.key === 'Enter') {
                 event.preventDefault();
-                this.search();
+                this.handleSearch();
               }
             }}
           />
