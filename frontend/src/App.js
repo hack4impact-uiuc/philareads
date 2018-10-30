@@ -5,8 +5,10 @@ import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import Logout from './components/Logout';
+import './styles/App.scss';
 import ParentsPage from './pages/ParentsPage';
+import BookPage from './pages/BookPage';
+import Logout from './components/Logout';
 import Search from './pages/Search';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
@@ -40,6 +42,7 @@ class App extends Component {
             component={ROYearGradeView}
           />
           <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
+          <Route path="/readingolympics/book/:id" component={BookPage} />
         </div>
       </Router>
     );
