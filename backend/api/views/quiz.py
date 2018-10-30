@@ -7,7 +7,7 @@ quiz = Blueprint("quiz", __name__)
 
 
 def invalid_quiz_data(user_data):
-    return (not "quiz_name" in user_data) or (not "book_name" in user_data) or (not "questions" in user_data)
+    return (not "quiz_name" in user_data) or (not "book_name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data)
 
 
 @quiz.route("/create_quiz", methods=["POST"])
@@ -20,6 +20,9 @@ def create_quiz():
         )
 
     new_quiz = Quiz(user_data["quiz_name"], user_data["book_name"])
+    linked_book = Book.get(user_data["book_id"])
+    new_quiz.book_id = linked_book.id
+    linked_book.quizzes.append(new_quiz)
 
     # write into database so that new_quiz has a PK
     db.session.add(new_quiz)
@@ -30,21 +33,6 @@ def create_quiz():
         db_ques.quiz_id = new_quiz.id
         new_quiz.questions.append(db_ques)
         db.session.add(db_ques)
-
-    db.session.commit()
-
-    book = Book.query.filter_by(name=user_data["book_name"]).first()
-    print("BOOK:")
-    print(book)
-    print(book.quizzes)
-    print(len(book.quizzes))
-    print(new_quiz)
-    book.quizzes.append(new_quiz)
-    db.session.add(book)
-    db.session.commit()
-    print(book.quizzes)
-    print(len(book.quizzes))
-    print(" ")
 
     return create_response(
         message="Succesfuly created new quiz", status=200, data={"status": "success"}
