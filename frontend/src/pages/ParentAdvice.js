@@ -78,7 +78,6 @@ class ParentsPage extends Component {
   ];
 
   render() {
-    console.log(this.adviceCards);
     return (
       <div>
         <h1>Parents Page</h1>

@@ -66,7 +66,6 @@ class Advice extends Component {
                   <small className="text-muted">{smallText}</small>
                 </CardText>
                 {button && <Button>{button}</Button>}
-                {/* <Button>{button}</Button> */}
               </CardBody>
             </Card>
           </Col>
