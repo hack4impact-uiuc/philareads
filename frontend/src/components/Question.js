@@ -16,7 +16,8 @@ class Question extends Component {
     super(props);
     this.state = {
       showCorrect: false,
-      selectedAnswer: -1 //possible answer choices: 0 to last answer
+      selectedAnswer: -1, //possible answer choices: 0 to last answer,
+      submitted: false
     };
   }
 
@@ -32,54 +33,23 @@ class Question extends Component {
   };
 
   returnColor = i => {
-    //function is functional; logic isn't right
-    console.log(this.state.selectedAnswer);
-    console.log(this.props.correctAnswer);
-
     let color = '';
-    if (this.state.selectedAnswer !== -1) {
-      console.log('i h8 u');
-      console.log(i);
-
-      console.log(i === this.state.selectedAnswer);
-      console.log(this.state.selectedAnswer === this.props.correctAnswer);
-
-      console.log(typeof i);
-      console.log(typeof this.state.selectedAnswer);
-      console.log(typeof this.props.correctAnswer);
-
+    if (this.state.selectedAnswer !== -1 && this.state.submitted) {
       if (
         i === this.state.selectedAnswer &&
         this.state.selectedAnswer === this.props.correctAnswer
       ) {
-        console.log('jk youre fine');
         color = 'success';
       } else if (
         i === this.state.selectedAnswer &&
         this.state.selectedAnswer !== this.props.correctAnswer
       ) {
-        console.log('f u');
         color = 'danger';
+      } else if (i === this.props.correctAnswer) {
+        color = 'success';
       }
     }
-    console.log(color);
     return color;
-
-    // with only this.state.showCorrect and this.props.correctAnswer
-    // let color = '';
-    // if (this.state.showCorrect === true) {
-    //   if (
-    //     this.state.selectedAnswer >= 0 &&
-    //     this.state.selectedAnswer < this.props.options.length
-    //   ) {
-    //     if (this.state.selectedAnswer === this.props.correctAnswer) {
-    //       color = 'success';
-    //     } else {
-    //       color = "failure";
-    //     }
-    //   }
-    // }
-    // return color;
   };
 
   renderInput = (i, option) => {
@@ -133,95 +103,15 @@ class Question extends Component {
     );
   };
 
-  // renderInput = i => {
-  //   if (this.state.showCorrect === true) {
-  //     return (
-  //       <Input
-  //         key={i}
-  //         onClick={() => this.setState({ selectedAnswer: i })}
-  //         // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
-  //         type="radio"
-  //         name="radio1"
-  //         disabled
-  //         color="danger"
-  //       />
-  //     );
-  //   }
-  //   return (
-  //     <Input
-  //       key={i}
-  //       onClick={() => this.setState({ selectedAnswer: i })}
-  //       type="radio"
-  //       name="radio1"
-  //     />
-  //   );
-  // };
-
-  // renderQuestion = () => {
-  //   return (
-  //     <div>
-  //       <Card>
-  //         <h3>{this.props.title}</h3>
-  //         <Form>
-  //           <ListGroup>
-  //             {this.props.options.map((option, i) => {
-  //               return (
-  //                 <ListGroupItem color={this.returnColor()}>
-  //                   <FormGroup check>
-  //                     <Label check>
-  //                       {/* <Input
-  //                         key={i}
-  //                         onClick={() => this.setState({ selectedAnswer: i })}
-  //                         // onClick={()=>this.selectAnswer()} //with the selectAnswer() that doesn't work
-  //                         type="radio"
-  //                         name="radio1"
-  //                       /> */}
-  //                       {this.renderInput(i)}
-  //                       {/* <Input key={i} type="radio" name="radio1" /> */}
-  //                       {option}
-  //                     </Label>
-  //                   </FormGroup>
-  //                 </ListGroupItem>
-  //               );
-  //             })}
-  //           </ListGroup>
-  //         </Form>
-  //         {this.renderAnswer()}
-  //       </Card>
-  //     </div>
-  //   );
-  // };
-
   submitClick = () => {
     if (this.state.showCorrect === false && this.state.selectedAnswer !== -1) {
       //and an option is clicked
       this.setState({
-        showCorrect: true
+        showCorrect: true,
+        submitted: true
       });
     }
   };
-
-  // not correctly update state to key
-  // selectAnswer = (e) => {
-  //   this.setState({
-  //     selectedAnswer: e.target.key
-  //   })
-  // }
-
-  // this one doesnt work
-  // selectAnswer(event) {
-  //   this.setState({
-  //     selectedAnswer: event.target.key
-  //   })
-  // }
-
-  /* example for ^^^^^^ selectAnswer()
-    handleChange(event) {
-      this.setState({
-        size: event.target.value
-      });
-    }
-  */
 
   render() {
     return (
