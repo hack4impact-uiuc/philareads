@@ -19,7 +19,7 @@ def create_quiz():
             message="Failed to create new quiz", status=422, data={"status": "fail"}
         )
 
-    new_quiz = Quiz(user_data["quiz_name"], user_data["book_name"])
+    new_quiz = Quiz(user_data["name"])
     linked_book = Book.get(user_data["book_id"])
     new_quiz.book_id = linked_book.id
     linked_book.quizzes.append(new_quiz)

@@ -1,17 +1,18 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request, Blueprint,json
 import pdb
 from api.models import Quiz, Question, db, Book
 from api.core import create_response, serialize_list, logger
 
 book = Blueprint("book", __name__)
 
-@book.route("/create_book", methods=["POST"])
+@book.route("/add_book", methods=["POST"])
 def create_book():
+    print("CREATE BOOK")
     user_data = request.get_json()
 
     if('name' not in user_data or 'author' not in user_data):
         return create_response(
-            message="Missing fields", status=400, data={"status": "failure"}
+            message="Missing name field and/or author field", status=400, data={"status": "failure"}
         )
 
     book =  Book(user_data["name"], user_data["author"])
@@ -23,21 +24,25 @@ def create_book():
     )
 
 
-@book.route("/<book_name>/quizzes", methods=["GET"])
-def get_quizzes(book_name):
-    book = Book.query.filter_by(name=book_name).first()
+@book.route("/<book_id>/quizzes", methods=["GET"])
+def get_quizzes(book_id):
+    book = Book.query.filter_by(id=book_id).first()
     if(book is None):
         return create_response(
             message="Book not found", status=400, data={"status": "failure"}
         )
 
+    quizList = []
+
     print("GETTING QUIZZES")
 
     for quiz in book.quizzes:
-        print(quiz)
+        quizList.append(quiz.to_dict())
 
-    db.session.commit()
+    print(quizList)
+    jsonStr = json.dumps(quizList)
+    print(jsonStr)
 
     return create_response(
-        message="Success", status=200, data={"status": "success"}
+        message="Quizzes corresponding to book_id returned", status=200, data={jsonify(Quizzes=jsonStr)}
     )
