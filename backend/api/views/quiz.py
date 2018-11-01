@@ -10,6 +10,10 @@ def invalid_quiz_data(user_data):
     if (not "name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data):
         return True
 
+# returns true if another quiz has the same name
+def duplicate_quiz(user_data):
+    dup_q = Quiz.query.filter_by(name=user_data["name"])
+    return not (dup_q is None)
 
 @quiz.route("/quiz", methods=["POST"])
 def create_quiz():
@@ -18,6 +22,11 @@ def create_quiz():
     if invalid_quiz_data(user_data):
         return create_response(
             message="Missing required quiz information", status=422, data={"status": "fail"}
+        )
+
+    if duplicate_quiz(user_data):
+        return create_response(
+            data={"status": "fail"}, message="Quiz already exists.", status=409
         )
 
     linked_book = Book.query.get(user_data["book_id"])
