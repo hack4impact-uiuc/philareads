@@ -9,19 +9,14 @@ import Results from '../components/Results';
 import Catalog from '../components/Catalog';
 import Login from '../components/Login';
 import BookInfo from '../components/BookInfo';
+import { getBookData } from '../utils/api';
 
 class BookPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookID: props.match.params.id
-    };
-
-    this.mockAPI = {
-      id: this.state.bookID,
-      name: 'Cracking the PM Interview',
-      author: 'Someone',
-      quizzes: []
+      bookID: props.match.params.id,
+      bookData: getBookData(props.match.params.id)
     };
   }
 
@@ -74,7 +69,7 @@ class BookPage extends Component {
             <Route exact path={'/login'} component={Login} />
           </div>
         </Router>
-        <BookInfo bookObject={this.mockAPI} />
+        <BookInfo bookObject={this.state.bookData} />
       </div>
     );
   }

@@ -57,4 +57,43 @@ function getROArchiveYears({ grade }) {
   }).then(res => res.json());
 }
 
-export { register, login, search, getBooksByYearGrade, getROArchiveYears };
+function getBookData(id) {
+  // return fetch(`${API_URL}/books?id=${id}`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(id)
+  // }).then(res => res.json());
+
+  const mockAPI = {
+    id: 84,
+    name: 'Cracking The PM Interview',
+    author: 'Gayle Laakmann McDowell',
+    grade: 8,
+    cover_url:
+      'https://images-na.ssl-images-amazon.com/images/I/418FvJBCq3L._SX331_BO1,204,203,200_.jpg',
+    reader_url: 'https://onlinereader.com/books/crackingpm.pdf',
+    year: 2018,
+    quizzes: [
+      {
+        id: 2,
+        name: 'Huck Finn',
+        questions: [
+          {
+            id: 84,
+            text: "Who wrote 'Huckleberry Finn'?",
+            options: [
+              'J.K. Rowling',
+              'Steinbeck',
+              'Tony Morrison',
+              'Mark Twain'
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  return mockAPI;
+}
+export { register, login, search, getBooksByYearGrade, getROArchiveYears, getBookData };
