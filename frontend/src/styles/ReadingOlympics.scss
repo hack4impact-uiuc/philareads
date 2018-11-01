@@ -1,0 +1,25 @@
+.left-main-col {
+  width: 70%;
+  margin: 20px;
+  // TODO: Fix float vs flex stuff
+  float: left;
+  padding: 10px;
+}
+
+.right-sidebar {
+  width: 30%;
+  margin: 20px;
+  float: right;
+  padding: 10px;
+}
+
+.card {
+  margin: 10px;
+}
+
+.page-title {
+  margin: auto;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
