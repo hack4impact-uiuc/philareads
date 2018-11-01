@@ -7,20 +7,21 @@ quiz = Blueprint("quiz", __name__)
 
 
 def invalid_quiz_data(user_data):
-    return (not "quiz_name" in user_data) or (not "book_name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data)
+    return (not "name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data)
 
 
-@quiz.route("/create_quiz", methods=["POST"])
+@quiz.route("/quiz", methods=["POST"])
 def create_quiz():
     user_data = request.get_json()
 
     if invalid_quiz_data(user_data):
         return create_response(
-            message="Failed to create new quiz", status=422, data={"status": "fail"}
+            message="Missing required quiz information", status=422, data={"status": "fail"}
         )
 
+    pdb.set_trace()
     new_quiz = Quiz(user_data["name"])
-    linked_book = Book.get(user_data["book_id"])
+    linked_book = Book.query.get(user_data["book_id"])
     new_quiz.book_id = linked_book.id
     linked_book.quizzes.append(new_quiz)
 

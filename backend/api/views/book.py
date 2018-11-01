@@ -5,9 +5,8 @@ from api.core import create_response, serialize_list, logger
 
 book = Blueprint("book", __name__)
 
-@book.route("/add_book", methods=["POST"])
+@book.route("/book", methods=["POST"])
 def create_book():
-    print("CREATE BOOK")
     user_data = request.get_json()
 
     if('name' not in user_data or 'author' not in user_data):
@@ -19,6 +18,7 @@ def create_book():
     db.session.add(book)
     db.session.commit()
 
+    print("CREATED WITH ID " + str(book.id))
     return create_response(
         message="Book added", status=200, data={"status": "success"}
     )
