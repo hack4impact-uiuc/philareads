@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { search } from '../utils/api';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faSearch);
 
 class SearchBar extends Component {
   constructor(props) {
@@ -38,10 +43,14 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Form inline>
+      <Form inline className="searchbar">
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label for="searchBar" className="mr-sm-2">
-            Search
+          <Label for="searchBar">
+            <FontAwesomeIcon
+              className="sm-search-icon"
+              icon="search"
+              size="1x"
+            />
           </Label>
           <Input
             type="text"
