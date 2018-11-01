@@ -7,7 +7,6 @@ book = Blueprint("book", __name__)
 
 @book.route("/book", methods=["POST"])
 def create_book():
-    print("CREATE BOOK")
     user_data = request.get_json()
 
     #check all fields are entered
@@ -36,6 +35,7 @@ def create_book():
     db.session.add(book)
     db.session.commit()
 
+    print("CREATED WITH ID " + str(book.id))
     return create_response(
         message="Book added", status=200, data={"status": "success"}
     )

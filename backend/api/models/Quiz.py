@@ -15,7 +15,7 @@ class Quiz(Mixin, db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=True)
 
     def __init__(self, name:str):
-        self.name = quiz_name
+        self.name = name
         self.questions = []
 
 
