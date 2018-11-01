@@ -26,7 +26,6 @@ def create_quiz():
             message="Book not found", status=422, data={"status": "fail"}
         )
 
-    pdb.set_trace()
     new_quiz = Quiz(user_data["name"])
     new_quiz.book_id = linked_book.id
     linked_book.quizzes.append(new_quiz)
