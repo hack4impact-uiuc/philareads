@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint,json
+from flask import Flask, jsonify, request, Blueprint, json
 import pdb
 from api.models import Quiz, Question, db, Book
 from api.core import create_response, serialize_list, logger
@@ -7,6 +7,7 @@ book = Blueprint("book", __name__)
 
 @book.route("/book", methods=["POST"])
 def create_book():
+    print("CREATE BOOK")
     user_data = request.get_json()
 
     #check all fields are entered
@@ -35,7 +36,6 @@ def create_book():
     db.session.add(book)
     db.session.commit()
 
-    print("CREATED WITH ID " + str(book.id))
     return create_response(
         message="Book added", status=200, data={"status": "success"}
     )
@@ -62,9 +62,12 @@ def get_quizzes(book_id):
         print(quiz)
         quizList.append(quiz.to_dict())
 
+    print("QUIZ LIST")
     print(quizList)
 
     jsonStr = json.dumps(quizList)
+
+    print("JSON STR")
     print(jsonStr)
 
     return create_response(
