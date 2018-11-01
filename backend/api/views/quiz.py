@@ -12,7 +12,7 @@ def invalid_quiz_data(user_data):
 
 # returns true if another quiz has the same name
 def duplicate_quiz(user_data):
-    dup_q = Quiz.query.filter_by(name=user_data["name"])
+    dup_q = Quiz.query.filter_by(name=user_data["name"]).first()
     return not (dup_q is None)
 
 @quiz.route("/quiz", methods=["POST"])
