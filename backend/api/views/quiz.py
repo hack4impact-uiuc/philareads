@@ -54,9 +54,3 @@ def create_quiz():
     return create_response(
         message="Succesfuly created new quiz", status=200, data={"status": "success"}
     )
-
-
-# @quiz.route("/debug_quiz", methods=["POST", "GET"])
-# def debug_quiz():
-# print("ALL QUIZZES ARE")
-# print(Quiz.query.all())
