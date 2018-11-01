@@ -10,10 +10,10 @@ def invalid_quiz_data(user_data):
     if (not "name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data):
         return True
 
-# returns true if another quiz has the same name
+# returns true if another quiz has the same name, and belongs to the same book
 def duplicate_quiz(user_data):
     dup_q = Quiz.query.filter_by(name=user_data["name"]).first()
-    return not (dup_q is None)
+    return ( not (dup_q is None)) and (dup_q.book_id == user_data["book_id"]])
 
 @quiz.route("/quiz", methods=["POST"])
 def create_quiz():
