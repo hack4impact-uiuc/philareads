@@ -21,7 +21,10 @@ class Question extends Component {
     };
   }
 
-  //changes state to indicate when to show correct answer
+  /**
+   * @returns HTML Component
+   * controls when/what to show when an answer for the question has been submitted
+   */
   renderAnswer = () => {
     if (this.state.showCorrect === true) {
       return (
@@ -32,6 +35,12 @@ class Question extends Component {
     }
   };
 
+  /**
+   * @return string color
+   * color only shows after a valid submission occurs, showing the
+   * incorrect and correct options
+   * @param i           index of possible answer option
+   */
   returnColor = i => {
     let color = '';
     if (this.state.selectedAnswer !== -1 && this.state.submitted) {
@@ -52,6 +61,13 @@ class Question extends Component {
     return color;
   };
 
+  /**
+   * @returns ListGrouItem
+   * each ListGroupItem tracks an individual radio button element along
+   * with the text, functioning, and color after submission
+   * @param i           index of possible answer choice
+   * @param option      the text of possible answer choice
+   */
   renderInput = (i, option) => {
     let input = (
       <Input
@@ -85,27 +101,35 @@ class Question extends Component {
     );
   };
 
+  /**
+   * @returns HTML Component
+   * renders an incomplete question component with just its question title,
+   * options as clickable radio buttons, and the correct answer as a card
+   */
   renderQuestion = () => {
     return (
       <div>
-        <Card>
-          <h3>{this.props.title}</h3>
-          <Form>
-            <ListGroup>
-              {this.props.options.map((option, i) => {
-                return this.renderInput(i, option);
-              })}
-            </ListGroup>
-          </Form>
-          {this.renderAnswer()}
-        </Card>
+        {/* <Card> */}
+        <h3>{this.props.title}</h3>
+        <Form>
+          <ListGroup>
+            {this.props.options.map((option, i) => {
+              return this.renderInput(i, option);
+            })}
+          </ListGroup>
+        </Form>
+        {this.renderAnswer()}
+        {/* </Card> */}
       </div>
     );
   };
 
+  /**
+   * void function
+   * controlls when correct answer is shown and result of user's chosen answer
+   */
   submitClick = () => {
     if (this.state.showCorrect === false && this.state.selectedAnswer !== -1) {
-      //and an option is clicked
       this.setState({
         showCorrect: true,
         submitted: true
@@ -113,13 +137,20 @@ class Question extends Component {
     }
   };
 
+  /**
+   * @returns a Card component
+   * the Card component represents the HTML part of the question component with a
+   * button together as a card
+   */
   render() {
     return (
       <div>
-        {this.renderQuestion()}
-        <Button outline onClick={() => this.submitClick()}>
-          Submit
-        </Button>
+        <Card>
+          {this.renderQuestion()}
+          <Button outline onClick={() => this.submitClick()}>
+            Submit
+          </Button>
+        </Card>
       </div>
     );
   }
