@@ -18,9 +18,9 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      preSearch: false,
+      preSearch: true,
       loading: false,
-      notFound: true,
+      notFound: false,
       results: []
     };
   }
