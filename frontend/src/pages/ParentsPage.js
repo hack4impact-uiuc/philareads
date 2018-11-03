@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import PReadsNavbar from '../components/PReadsNavbar';
-import Homefeed from '../components/Homefeed';
-import Exercises from '../components/Exercises';
-import Readings from '../components/Readings';
-import Results from '../components/Results';
 import Advice from '../components/Advice';
 import philareads1 from './../images/phila_reads_cover.jpg';
 import philareads2 from './../images/phila_reads_2.jpg';
