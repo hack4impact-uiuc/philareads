@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import PReadsNavbar from '../../components/PReadsNavbar';
@@ -11,11 +10,19 @@ import Results from '../../components/Results';
 import Catalog from '../../components/Catalog';
 import Login from '../../components/Login';
 import '../../styles/ReadingOlympics.scss';
+import { getROArchiveYears } from '../../utils/api';
 
 const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class ROHome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      years: [props.year]
+    };
+  }
+
   navigationOptions = [
     {
       route: '/kids',
@@ -44,6 +51,14 @@ class ROHome extends Component {
     }
   ];
 
+  componentDidMount() {
+    getROArchiveYears({}).then(resJson => {
+      this.setState({
+        years: resJson.result
+      });
+    });
+  }
+
   onClickMiddleSchool = () => {
     const { year } = this.props;
     this.props.history.push(`/ReadingOlympics/${year}/${pathToMiddle}`);
@@ -70,7 +85,9 @@ class ROHome extends Component {
       <Card className="archive">
         <CardBody>
           <CardTitle>Archive</CardTitle>
-          Get list of years and map them out here
+          {this.state.years.map(y => (
+            <Link to={`/ReadingOlympics/year/${y}`}>{y}</Link>
+          ))}
         </CardBody>
       </Card>
     );

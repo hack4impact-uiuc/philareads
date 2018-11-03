@@ -39,10 +39,17 @@ function getBooksByYearGrade({ year, grade }) {
       "getBooksByYearGrade did not receive a year or grade. You should use getBooks instead"
     );
   }
-  const query = `year=${year}&grade=${grade}`;
+  const query = `year=${year ? year : ""}&grade=${grade ? grade : ""}`;
   return fetch(`${API_URL}/books?${query}`, {
     method: "GET"
   }).then(res => res.json());
 }
 
-export { register, login, search, getBooksByYearGrade };
+function getROArchiveYears({ grade }) {
+  const query = `grade=${grade ? grade : ""}`;
+  return fetch(`${API_URL}/years?${query}`, {
+    method: "GET"
+  }).then(res => res.json());
+}
+
+export { register, login, search, getBooksByYearGrade, getROArchiveYears };
