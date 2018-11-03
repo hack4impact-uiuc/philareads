@@ -1,15 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: 'row';
+  flex-wrap: wrap-reverse;
+}
+
 .left-main-col {
-  width: 70%;
-  margin: 20px;
-  // TODO: Fix float vs flex stuff
-  float: left;
+  margin: 10px;
   padding: 10px;
+  flex-grow: 2;
 }
 
 .right-sidebar {
-  width: 30%;
-  margin: 20px;
-  float: right;
+  margin: 10px;
   padding: 10px;
 }
 
@@ -22,4 +24,8 @@
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.navigation-button {
+  margin: 30px 0px;
 }

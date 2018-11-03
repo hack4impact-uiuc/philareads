@@ -76,7 +76,6 @@ class ROYearView extends Component {
           <h1>{`Reading Olympics: ${this.props.match.params.year}`}</h1>
         </div>
         {this.state.books && <Catalog props={this.state.books} />}
-        {/* TODO: delay loading */}
       </div>
     );
   }

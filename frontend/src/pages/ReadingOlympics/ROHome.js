@@ -87,12 +87,13 @@ class ROHome extends Component {
         <div className="page-title">
           <h1>Reading Olympics</h1>
         </div>
-        <Container>
+        <Container className="container">
           <Col className="left-main-col book-list">
-            <Card className="search">
+            <Card className="main-content">
               <CardBody>
                 <h2>{this.props.year}</h2>
                 <Button
+                  className="navigation-button"
                   onClick={this.onClickMiddleSchool}
                   color="primary"
                   size="lg"
@@ -101,6 +102,7 @@ class ROHome extends Component {
                   Middle School Grades
                 </Button>
                 <Button
+                  className="navigation-button"
                   onClick={this.onClickIntermediate}
                   color="primary"
                   size="lg"
