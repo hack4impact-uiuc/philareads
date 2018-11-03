@@ -1,7 +1,5 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import PReadsNavbar from '../../components/PReadsNavbar';
 import Homefeed from '../../components/Homefeed';
 import Exercises from '../../components/Exercises';
@@ -9,24 +7,51 @@ import Readings from '../../components/Readings';
 import Games from '../../components/Games';
 import Results from '../../components/Results';
 import Catalog from '../../components/Catalog';
-import Login from '../../components/Login';
+import CatalogCardBook from '../../components/CatalogCardBook';
 import '../../styles/ReadingOlympics.scss';
 import { getBooksByYearGrade } from '../../utils/api';
-
-// TODO: Make this mapping work
-const mapURLParamToAPIParam = {
-  middle: ''
-};
-
-const mapURLParamToHumanString = {
-  middle: 'Middle School'
-};
+import { URLParamToString } from '../../utils/formatHelpers';
 
 class ROYearGradeView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       books: null
+      // For testing -- mock data
+      // books: [
+      //   {
+      //     name: 'Stargirl',
+      //     author: 'Jerry Spinelli',
+      //     id: '1',
+      //     grade: 'middle',
+      //     year: '2019',
+      //     description: 'Star and girl'
+      //   },
+      //   {
+      //     name: 'Love, Stargirl',
+      //     author: 'Jerry Spinelli',
+      //     id: '2',
+      //     grade: 'middle',
+      //     year: '2019',
+      //     description: "Star's perspective"
+      //   },
+      //   {
+      //     name: 'Eggs',
+      //     author: 'Jerry Spinelli',
+      //     id: '3',
+      //     grade: 'middle',
+      //     year: '2019',
+      //     description: 'Sunrise descriptions'
+      //   },
+      //   {
+      //     name: 'The Fox and the Star',
+      //     author: 'Joan Pitzburg',
+      //     id: '4',
+      //     grade: 'middle',
+      //     year: '2019',
+      //     description: 'Fox fox star star'
+      //   }
+      // ]
     };
   }
 
@@ -62,7 +87,6 @@ class ROYearGradeView extends Component {
     const { year, grade } = this.props.match.params;
     getBooksByYearGrade({ year, grade }).then(resJson => {
       this.setState({
-        // todo: convert this to card content
         books: resJson.result
       });
     });
@@ -70,6 +94,11 @@ class ROYearGradeView extends Component {
 
   onClickBook = bookId => {
     this.props.history.push(`/ReadingOlympics/book/${bookId}`);
+  };
+
+  renderCatalogCardBook = book => {
+    const onClick = () => this.onClickBook(book.id);
+    return <CatalogCardBook book={book} onClickBook={onClick} />;
   };
 
   render() {
@@ -81,12 +110,16 @@ class ROYearGradeView extends Component {
           </div>
         </Router>
         <div className="page-title">
-          <h1>{`Reading Olympics: ${this.props.match.params.grade} ${
-            this.props.match.params.year
-          }`}</h1>
+          <h1>{`Reading Olympics: ${URLParamToString(
+            this.props.match.params.grade
+          )} ${this.props.match.params.year}`}</h1>
         </div>
-        {this.state.books && <Catalog props={this.state.books} />}
-        {/* TODO: delay loading */}
+        {this.state.books && (
+          <Catalog
+            cards={this.state.books}
+            renderFunc={this.renderCatalogCardBook}
+          />
+        )}
       </div>
     );
   }
