@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import React, { Component } from 'react';
 
 class Home extends Component {
