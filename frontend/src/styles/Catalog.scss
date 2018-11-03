@@ -1,0 +1,12 @@
+.catalog {
+  margin-top: 20px;
+
+  > .row {
+    margin: 20px;
+  }
+
+  > .pagination {
+    margin-top: 20px;
+    justify-content: center;
+  }
+}
