@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import PReadsNavbar from '../../components/PReadsNavbar';
@@ -7,8 +7,6 @@ import Exercises from '../../components/Exercises';
 import Readings from '../../components/Readings';
 import Games from '../../components/Games';
 import Results from '../../components/Results';
-import Catalog from '../../components/Catalog';
-import Login from '../../components/Login';
 import '../../styles/ReadingOlympics.scss';
 import { getROArchiveYears } from '../../utils/api';
 
@@ -86,7 +84,9 @@ class ROHome extends Component {
         <CardBody>
           <CardTitle>Archive</CardTitle>
           {this.state.years.map(y => (
-            <Link to={`/ReadingOlympics/year/${y}`}>{y}</Link>
+            <Link key={y} to={`/ReadingOlympics/year/${y}`}>
+              {y}
+            </Link>
           ))}
         </CardBody>
       </Card>
