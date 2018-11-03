@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Container,
   Row,
@@ -6,10 +6,10 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink
-} from 'reactstrap';
-import PropTypes from 'prop-types';
-import CatalogCard from './CatalogCard';
-import '../styles/Catalog.scss';
+} from "reactstrap";
+import PropTypes from "prop-types";
+import CatalogCard from "./CatalogCard";
+import "../styles/Catalog.scss";
 
 class Catalog extends Component {
   state = {
@@ -40,13 +40,14 @@ class Catalog extends Component {
 
   changePagePrev = () =>
     this.setState(state => {
-      return { page: state.page == 1 ? state.page : state.page - 1 };
+      return { page: state.page === 1 ? state.page : state.page - 1 };
     });
 
   changePageNext = () =>
     this.setState(state => {
       return {
-        page: state.page == this.getNumPageItems() ? state.page : state.page + 1
+        page:
+          state.page === this.getNumPageItems() ? state.page : state.page + 1
       };
     });
 
@@ -80,32 +81,29 @@ class Catalog extends Component {
     );
   };
 
+  renderCard = card => {
+    return (
+      <Col lg="4" key={card.id}>
+        {this.props.renderFunc ? (
+          this.props.renderFunc(card)
+        ) : (
+          <CatalogCard
+            title={card.title}
+            subtitle={card.subtitle}
+            text={card.text}
+            onClickTitle={card.onClickTitle}
+          />
+        )}
+      </Col>
+    );
+  };
+
   render() {
     return (
       <div>
         <Container fluid={true} className="catalog">
-          <Row>
-            {this.getFirstRow().map(x => (
-              <Col lg="4">
-                <CatalogCard
-                  title={x.title}
-                  subtitle={x.subtitle}
-                  text={x.text}
-                />
-              </Col>
-            ))}
-          </Row>
-          <Row>
-            {this.getSecondRow().map(x => (
-              <Col lg="4">
-                <CatalogCard
-                  title={x.title}
-                  subtitle={x.subtitle}
-                  text={x.text}
-                />
-              </Col>
-            ))}
-          </Row>
+          <Row>{this.getFirstRow().map(this.renderCard)}</Row>
+          <Row>{this.getSecondRow().map(this.renderCard)}</Row>
           <Row className="pagination">
             <Pagination size="lg" aria-label="Page navigation example">
               {this.renderPaginationPrev()}
@@ -124,39 +122,46 @@ Catalog.defaultProps = {
   cardsPerPage: 6,
   cards: [
     {
-      title: 'title',
-      subtitle: 'subtitle',
-      text: 'text'
+      id: 1,
+      title: "title",
+      subtitle: "subtitle",
+      text: "text"
     },
     {
-      title: 'title2',
-      subtitle: 'subtitle2',
-      text: 'text2'
+      id: 2,
+      title: "title2",
+      subtitle: "subtitle2",
+      text: "text2"
     },
     {
-      title: 'title3',
-      subtitle: 'subtitle3',
-      text: 'text3'
+      id: 3,
+      title: "title3",
+      subtitle: "subtitle3",
+      text: "text3"
     },
     {
-      title: 'title4',
-      subtitle: 'subtitle4',
-      text: 'text4'
+      id: 4,
+      title: "title4",
+      subtitle: "subtitle4",
+      text: "text4"
     },
     {
-      title: 'title5',
-      subtitle: 'subtitle5',
-      text: 'text5'
+      id: 5,
+      title: "title5",
+      subtitle: "subtitle5",
+      text: "text5"
     },
     {
-      title: 'title6',
-      subtitle: 'subtitle6',
-      text: 'text6'
+      id: 6,
+      title: "title6",
+      subtitle: "subtitle6",
+      text: "text6"
     },
     {
-      title: 'title7',
-      subtitle: 'subtitle7',
-      text: 'text7'
+      id: 7,
+      title: "title7",
+      subtitle: "subtitle7",
+      text: "text7"
     }
   ]
 };
@@ -164,7 +169,8 @@ Catalog.defaultProps = {
 Catalog.propTypes = {
   cardsPerRow: PropTypes.number,
   cardsPerPage: PropTypes.number,
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  renderFunc: PropTypes.func
 };
 
 export default Catalog;
