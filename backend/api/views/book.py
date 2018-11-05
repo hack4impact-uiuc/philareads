@@ -92,5 +92,12 @@ def get_quizzes(book_id):
 
 @book.route("/books", methods=["GET"])
 def find_books():
-    all_books = Book.query.all()
-    pdb.set_trace()
+    user_data = request.args
+    filtered_books = Book.query
+    props = ["id", "name", "author", "grade", "year", "cover_url", "reader_url"]
+    for prop in props:
+        if prop in user_data:
+            kwarg = {f"{prop}": user_data[prop]}
+            filtered_books = filtered_books.filter_by(**kwarg)
+
+    return create_response(message="Hello", status=200)
