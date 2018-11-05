@@ -7,8 +7,13 @@ quiz = Blueprint("quiz", __name__)
 
 
 def invalid_quiz_data(user_data):
-    if (not "name" in user_data) or (not "questions" in user_data) or (not "book_id" in user_data):
+    if (
+        (not "name" in user_data)
+        or (not "questions" in user_data)
+        or (not "book_id" in user_data)
+    ):
         return True
+
 
 # returns true if another quiz has the same name, and belongs to the same book
 def duplicate_quiz(user_data):
@@ -18,13 +23,16 @@ def duplicate_quiz(user_data):
             return True
     return False
 
+
 @quiz.route("/quiz", methods=["POST"])
 def create_quiz():
     user_data = request.get_json()
 
     if invalid_quiz_data(user_data):
         return create_response(
-            message="Missing required quiz information", status=422, data={"status": "fail"}
+            message="Missing required quiz information",
+            status=422,
+            data={"status": "fail"},
         )
 
     if duplicate_quiz(user_data):
