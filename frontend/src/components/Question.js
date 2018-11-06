@@ -131,15 +131,15 @@ class Question extends Component {
    */
   submitClick = () => {
     if (!this.state.submitted && this.state.selectedAnswer !== -1) {
-      let correctAnswer;
+      let answeredCorrectly;
       if (this.state.selectedAnswer === this.props.correctAnswer) {
-        correctAnswer = 1;
+        answeredCorrectly = 1;
       } else {
-        correctAnswer = 0;
+        answeredCorrectly = 0;
       }
       this.setState({
         submitted: true,
-        answeredCorrectly: correctAnswer
+        answeredCorrectly: answeredCorrectly
       });
     }
   };
