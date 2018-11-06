@@ -5,18 +5,21 @@ from api.core import create_response, serialize_list, logger
 
 book = Blueprint("book", __name__)
 
+
 @book.route("/book", methods=["POST"])
 def create_book():
     print("CREATE BOOK")
     user_data = request.get_json()
 
-    #check all fields are entered
-    if('name' not in user_data or 'author' not in user_data):
+    # check all fields are entered
+    if "name" not in user_data or "author" not in user_data:
         return create_response(
-            message="Missing name field and/or author field", status=400, data={"status": "failure"}
+            message="Missing name field and/or author field",
+            status=400,
+            data={"status": "failure"},
         )
 
-    #check book if not already in database
+    # check book if not already in database
     matching_books = Book.query.filter_by(name=user_data["name"]).all()
     for book in matching_books:
         print("BOOK")
@@ -32,13 +35,11 @@ def create_book():
     print(matching_books)
 
     # add book to database
-    book =  Book(user_data["name"], user_data["author"])
+    book = Book(user_data["name"], user_data["author"])
     db.session.add(book)
     db.session.commit()
 
-    return create_response(
-        message="Book added", status=200, data={"status": "success"}
-    )
+    return create_response(message="Book added", status=200, data={"status": "success"})
 
 
 @book.route("/<book_id>/quizzes", methods=["GET"])
@@ -47,8 +48,8 @@ def get_quizzes(book_id):
     print("BOOK")
     print(book)
 
-    #check to see if book is valid
-    if(book is None):
+    # check to see if book is valid
+    if book is None:
         return create_response(
             message="Book not found", status=400, data={"status": "failure"}
         )
@@ -61,25 +62,18 @@ def get_quizzes(book_id):
     # add all quizzes associated with book
     for quiz in book.quizzes:
         temp_quiz = {}
-        # print("QUIZ")
         for question in quiz.questions:
-            # print("QUESTION LIST")
-            # print(question.to_dict())
             questionList.append(question.to_dict())
 
-        # print("QUESTION DICT")
-        # print(question.to_dict())
         temp_quiz["name"] = book.name
         temp_quiz["book_id"] = book_id
         temp_quiz["quizzes"] = questionList
         quizList.append(temp_quiz)
 
-    # print(quizList)
     jsonStr = json.dumps(quizList)
 
-    # print("JSON STR")
-    # print(jsonStr)
-
     return create_response(
-        message="Quizzes corresponding to book_id returned", status=200, data={'quizzes': jsonStr}
+        message="Quizzes corresponding to book_id returned",
+        status=200,
+        data={"quizzes": jsonStr},
     )

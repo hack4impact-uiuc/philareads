@@ -14,10 +14,9 @@ class Quiz(Mixin, db.Model):
     questions = db.relationship("Question", backref="quiz", lazy=True)
     book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=True)
 
-    def __init__(self, name:str):
+    def __init__(self, name: str):
         self.name = name
         self.questions = []
-
 
     def __repr__(self):
         return f"<Quiz> id:{self.id} name:{self.name} questions:{self.questions} book_id:{self.book_id}"
