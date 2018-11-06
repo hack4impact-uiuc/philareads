@@ -54,22 +54,32 @@ def get_quizzes(book_id):
         )
 
     quizList = []
+    questionList = []
 
     print("GETTING QUIZZES")
 
     # add all quizzes associated with book
     for quiz in book.quizzes:
-        print(quiz)
-        quizList.append(quiz.to_dict())
+        temp_quiz = {}
+        # print("QUIZ")
+        for question in quiz.questions:
+            # print("QUESTION LIST")
+            # print(question.to_dict())
+            questionList.append(question.to_dict())
 
-    print("QUIZ LIST")
-    print(quizList)
+        # print("QUESTION DICT")
+        # print(question.to_dict())
+        temp_quiz["name"] = book.name
+        temp_quiz["book_id"] = book_id
+        temp_quiz["quizzes"] = questionList
+        quizList.append(temp_quiz)
 
+    # print(quizList)
     jsonStr = json.dumps(quizList)
 
-    print("JSON STR")
-    print(jsonStr)
+    # print("JSON STR")
+    # print(jsonStr)
 
     return create_response(
-        message="Quizzes corresponding to book_id returned", status=200, data={jsonify(Quizzes=jsonStr)}
+        message="Quizzes corresponding to book_id returned", status=200, data={'quizzes': jsonStr}
     )
