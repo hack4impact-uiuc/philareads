@@ -21,7 +21,6 @@ def invalid_book_data(user_data):
 
 @book.route("/book", methods=["POST"])
 def create_book():
-    print("CREATE BOOK")
     user_data = request.get_json()
 
     # check all fields are entered
@@ -61,8 +60,6 @@ def create_book():
 @book.route("/<book_id>/quizzes", methods=["GET"])
 def get_quizzes(book_id):
     book = Book.query.filter_by(id=book_id).first()
-    print("BOOK")
-    print(book)
 
     # check to see if book is valid
     if book is None:
@@ -72,8 +69,6 @@ def get_quizzes(book_id):
 
     quizList = []
     questionList = []
-
-    print("GETTING QUIZZES")
 
     # add all quizzes associated with book
     for quiz in book.quizzes:
