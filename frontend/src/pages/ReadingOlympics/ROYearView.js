@@ -16,41 +16,6 @@ class ROYearView extends Component {
     super(props);
     this.state = {
       books: null
-      // For testing -- mock data
-      // books: [
-      //   {
-      //     name: "Stargirl",
-      //     author: "Jerry Spinelli",
-      //     id: "1",
-      //     grade: "middle",
-      //     year: "2019",
-      //     description: "Star and girl"
-      //   },
-      //   {
-      //     name: "Love, Stargirl",
-      //     author: "Jerry Spinelli",
-      //     id: "2",
-      //     grade: "middle",
-      //     year: "2019",
-      //     description: "Star's perspective"
-      //   },
-      //   {
-      //     name: "Eggs",
-      //     author: "Jerry Spinelli",
-      //     id: "3",
-      //     grade: "middle",
-      //     year: "2019",
-      //     description: "Sunrise descriptions"
-      //   },
-      //   {
-      //     name: "The Fox and the Star",
-      //     author: "Joan Pitzburg",
-      //     id: "4",
-      //     grade: "middle",
-      //     year: "2019",
-      //     description: "Fox fox star star"
-      //   }
-      // ]
     };
   }
 
