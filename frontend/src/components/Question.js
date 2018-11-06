@@ -15,7 +15,6 @@ class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCorrect: false,
       selectedAnswer: -1, //possible answer choices: 0 to last answer
       submitted: false
     };
@@ -26,7 +25,7 @@ class Question extends Component {
    * shows correct answer when answer has been submitted
    */
   renderAnswer = () => {
-    if (this.state.showCorrect === true) {
+    if (this.state.submitted === true) {
       return (
         <p>correct answer: {this.props.options[this.props.correctAnswer]}</p>
       );
@@ -80,7 +79,7 @@ class Question extends Component {
       />
     );
 
-    if (this.state.showCorrect === true) {
+    if (this.state.submitted === true) {
       input = (
         <Input
           key={i}
@@ -129,9 +128,8 @@ class Question extends Component {
    * controls when to show result of user's chosen answer and the correct answer
    */
   submitClick = () => {
-    if (this.state.showCorrect === false && this.state.selectedAnswer !== -1) {
+    if (this.state.submitted === false && this.state.selectedAnswer !== -1) {
       this.setState({
-        showCorrect: true,
         submitted: true
       });
     }
