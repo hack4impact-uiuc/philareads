@@ -11,6 +11,7 @@ import Login from '../components/Login';
 import CatalogCard from '../components/CatalogCard';
 import BookInfo from '../components/BookInfo';
 import { getBookData, getQuizzes } from '../utils/api';
+import { Button } from 'reactstrap';
 import '../styles/BookPage.scss';
 class BookPage extends Component {
   constructor(props) {
@@ -70,7 +71,10 @@ class BookPage extends Component {
       return <CatalogCard />;
     }
     return (
-      <CatalogCard title={card.title} subtitle="" text="" onClickTitle="" />
+      <Button color="success" className="btn btn-block ">
+        {card.title}
+      </Button>
+      // <CatalogCard title={card.title} subtitle="" text="" onClickTitle="" />
     );
   };
   render() {

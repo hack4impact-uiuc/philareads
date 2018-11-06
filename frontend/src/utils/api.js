@@ -112,6 +112,23 @@ function getQuizzes() {
           correct_option: 'Tom Sawyer'
         }
       ]
+    },
+
+    {
+      id: 5,
+      name: 'Acing the PM Interview',
+      questions: [
+        {
+          text: "Who wrote 'Acing the PM Interview'?",
+          options: ['J.K. Rowling', 'Steinbeck', 'Tony Morrison', 'Mark Twain'],
+          correct_option: 'J.K. Rowling'
+        },
+        {
+          text: 'Who is Acing the PM Interview?',
+          options: ['Tom Sawyer', 'His dad', 'A thing', 'His dog'],
+          correct_option: 'A thing'
+        }
+      ]
     }
   ];
   return mockAPI;
