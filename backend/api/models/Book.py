@@ -11,14 +11,41 @@ class Book(Mixin, db.Model):
     __tablename__ = "book"
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
+
     name = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
+    grade = db.Column(db.Integer, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    cover_url = db.Column(db.String, nullable=False)
+    reader_url = db.Column(db.String, nullable=False)
     quizzes = db.relationship("Quiz", backref="book", lazy=True)
 
-    def __init__(self, name: str, author: str):
+    def __init__(
+        self,
+        name: str,
+        author: str,
+        grade: int,
+        year: int,
+        cover_url: str,
+        reader_url: str,
+    ):
         self.name = name
         self.author = author
+        self.grade = grade
+        self.year = year
+        self.cover_url = cover_url
+        self.reader_url = reader_url
         self.quizzes = []
 
     def __repr__(self):
         return f"<Book> id:{self.id} name:{self.name} author:{self.author} quizzes:{self.quizzes}"
+
+    def serialize_to_json(self):
+        return {
+            "name": self.name,
+            "author": self.author,
+            "grade": self.grade,
+            "year": self.year,
+            "cover_url": self.cover_url,
+            "reader_url": self.reader_url,
+        }
