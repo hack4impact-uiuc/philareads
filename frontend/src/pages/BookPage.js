@@ -10,7 +10,7 @@ import Catalog from '../components/Catalog';
 import Login from '../components/Login';
 import BookInfo from '../components/BookInfo';
 import { getBookData } from '../utils/api';
-
+import '../styles/BookPage.scss';
 class BookPage extends Component {
   constructor(props) {
     super(props);
@@ -70,6 +70,7 @@ class BookPage extends Component {
           </div>
         </Router>
         <BookInfo bookObject={this.state.bookData} />
+        <Catalog />
       </div>
     );
   }
