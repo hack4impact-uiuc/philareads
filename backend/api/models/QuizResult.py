@@ -2,6 +2,7 @@ from api.core import Mixin
 from .base import db
 from flask import current_app
 from sqlalchemy import *
+from datetime import datetime
 
 
 class QuizResult(Mixin, db.Model):
@@ -12,11 +13,11 @@ class QuizResult(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     num_correct = db.Column(db.Integer)
     num_total = db.Column(db.Integer)
-    date_taken = db.Column(db.String, nullable=False)
+    date_taken = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer)
     questions = db.relationship("QuestionResult", backref="quizResult", lazy=True)
 
-    def __init__(self, num_correct: int, num_total: int, date_taken: str, user_id: int):
+    def __init__(self, num_correct: int, num_total: int, date_taken: datetime, user_id: int):
         self.num_correct = num_correct
         self.num_total = num_total
         self.date_taken = date_taken
