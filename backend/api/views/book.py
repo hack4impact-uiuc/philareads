@@ -18,6 +18,7 @@ def invalid_book_data(user_data):
     ):
         return True
 
+
 @book.route("/book", methods=["POST"])
 def create_book():
     print("CREATE BOOK")
@@ -90,7 +91,7 @@ def get_quizzes(book_id):
     return create_response(
         message="Quizzes corresponding to book_id returned",
         status=200,
-        data={jsonify(quizzes=jsonStr)}
+        data={jsonify(quizzes=jsonStr)},
     )
 
 
