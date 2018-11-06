@@ -18,7 +18,6 @@ def invalid_book_data(user_data):
     ):
         return True
 
-
 @book.route("/book", methods=["POST"])
 def create_book():
     print("CREATE BOOK")
@@ -38,7 +37,6 @@ def create_book():
         .filter_by(author=user_data["author"])
         .first()
     )
-
     if not (dup_book is None):
         return create_response(
             message="Duplicate book", status=409, data={"status": "failure"}
@@ -72,26 +70,27 @@ def get_quizzes(book_id):
         )
 
     quizList = []
+    questionList = []
 
     print("GETTING QUIZZES")
 
     # add all quizzes associated with book
     for quiz in book.quizzes:
-        print(quiz)
-        quizList.append(quiz.to_dict())
+        temp_quiz = {}
+        for question in quiz.questions:
+            questionList.append(question.to_dict())
 
-    print("QUIZ LIST")
-    print(quizList)
+        temp_quiz["name"] = book.name
+        temp_quiz["book_id"] = book_id
+        temp_quiz["quizzes"] = questionList
+        quizList.append(temp_quiz)
 
     jsonStr = json.dumps(quizList)
-
-    print("JSON STR")
-    print(jsonStr)
 
     return create_response(
         message="Quizzes corresponding to book_id returned",
         status=200,
-        data={jsonify(Quizzes=jsonStr)},
+        data={jsonify(quizzes=jsonStr)}
     )
 
 
