@@ -96,4 +96,25 @@ function getBookData(id) {
   };
   return mockAPI;
 }
-export { register, login, search, getBooksByYearGrade, getROArchiveYears, getBookData };
+function getQuizzes() {
+  const mockAPI = [
+    {
+      id: 2,
+      name: 'Huck Finn',
+      questions: [
+        {
+          text: "Who wrote 'Huckleberry Finn'?",
+          options: ['J.K. Rowling', 'Steinbeck', 'Tony Morrison', 'Mark Twain'],
+          correct_option: 'Mark Twain'
+        },
+        {
+          text: "Who is Huckleberry Finn's Best Friend?",
+          options: ['Tom Sawyer', 'His dad', 'Jake Wiggins', 'His dog'],
+          correct_option: 'Tom Sawyer'
+        }
+      ]
+    }
+  ];
+  return mockAPI;
+}
+export { register, login, search, getBooksByYearGrade, getROArchiveYears, getBookData, getQuizzes };
