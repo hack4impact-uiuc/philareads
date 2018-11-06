@@ -7,7 +7,6 @@ import './styles/App.scss';
 import KidsPage from './pages/KidsPage';
 import ParentsPage from './pages/ParentsPage';
 import TestPage from './pages/TestPage';
-
 import Logout from './components/Logout';
 class App extends Component {
   render() {

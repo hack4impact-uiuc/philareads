@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import CatalogCard from './CatalogCard';
+import '../styles/Catalog.scss';
 
 class Catalog extends Component {
   state = {
@@ -82,7 +83,7 @@ class Catalog extends Component {
   render() {
     return (
       <div>
-        <Container fluid={true}>
+        <Container fluid={true} className="catalog">
           <Row>
             {this.getFirstRow().map(x => (
               <Col lg="4">
@@ -105,7 +106,7 @@ class Catalog extends Component {
               </Col>
             ))}
           </Row>
-          <Row>
+          <Row className="pagination">
             <Pagination size="lg" aria-label="Page navigation example">
               {this.renderPaginationPrev()}
               {this.renderPaginationItems()}
