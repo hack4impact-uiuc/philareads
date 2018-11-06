@@ -8,13 +8,19 @@ class CatalogCard extends Component {
       <Card>
         <CardBody>
           <CardTitle>{this.props.title}</CardTitle>
-          <CardSubtitle>{this.props.subtitle}</CardSubtitle>
+          {this.props.subtitle !== '' && (
+            <CardSubtitle>{this.props.subtitle}</CardSubtitle>
+          )}
           <CardText>{this.props.text}</CardText>
         </CardBody>
       </Card>
     );
   }
 }
+
+CatalogCard.defaultProps = {
+  subtitle: ''
+};
 
 CatalogCard.propTypes = {
   title: PropTypes.string.isRequired,
