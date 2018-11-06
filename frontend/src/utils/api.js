@@ -56,7 +56,6 @@ function getROArchiveYears({ grade }) {
     method: 'GET'
   }).then(res => res.json());
 }
-
 function getBookData(id) {
   // return fetch(`${API_URL}/books?id=${id}`, {
   //   method: 'POST',
