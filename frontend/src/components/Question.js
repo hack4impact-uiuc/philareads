@@ -26,9 +26,9 @@ class Question extends Component {
    * shows correct answer when answer has been submitted
    */
   renderAnswer = () => {
-    if (this.state.submitted === true) {
+    if (this.state.submitted) {
       return (
-        <p>correct answer: {this.props.options[this.props.correctAnswer]}</p>
+        <p>Correct answer: {this.props.options[this.props.correctAnswer]}</p>
       );
     } else {
       return <br />;
@@ -64,7 +64,7 @@ class Question extends Component {
   };
 
   /**
-   * @returns ListGrouItem
+   * @returns ListGroupItem
    * each ListGroupItem contains a radio button element with matching
    * text, function, and correctness coloring after submission
    * @param i           index of answer choice
@@ -76,17 +76,17 @@ class Question extends Component {
         key={i}
         onClick={() => this.setState({ selectedAnswer: i })}
         type="radio"
-        name="radio1"
+        name={`options${i}`}
       />
     );
 
-    if (this.state.submitted === true) {
+    if (this.state.submitted) {
       input = (
         <Input
           key={i}
           onClick={() => this.setState({ selectedAnswer: i })}
           type="radio"
-          name="radio1"
+          name={`options${i}`}
           disabled
         />
       );
@@ -130,7 +130,7 @@ class Question extends Component {
    * sets correctness of this question's answer choice
    */
   submitClick = () => {
-    if (this.state.submitted === false && this.state.selectedAnswer !== -1) {
+    if (!this.state.submitted && this.state.selectedAnswer !== -1) {
       let correctAnswer;
       if (this.state.selectedAnswer === this.props.correctAnswer) {
         correctAnswer = 1;
