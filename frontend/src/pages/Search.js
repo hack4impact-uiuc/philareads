@@ -25,8 +25,21 @@ class Search extends Component {
     };
   }
 
+  setStateLoading = () => {
+    this.setState({ preSearch: false, loading: true, notFound: false });
+  };
+
+  setStateNotFound = () => {
+    this.setState({ preSearch: false, loading: false, notFound: true });
+  };
+
   setSearchResults = data => {
-    this.setState({ results: data });
+    this.setState({
+      preSearch: false,
+      loading: false,
+      notFound: false,
+      results: data
+    });
   };
 
   render() {
@@ -34,7 +47,12 @@ class Search extends Component {
       return (
         <Container fluid={true}>
           <Row>
-            <SearchBar searchCallback={this.setSearchResults} />
+            <SearchBar
+              preSearchCallback={this.setStatePreSearch}
+              loadCallback={this.setStateLoading}
+              notFoundCallback={this.setStateNotFound}
+              searchCallback={this.setSearchResults}
+            />
           </Row>
           <Row>
             <h4>Type in a book title or author to look for a book.</h4>
@@ -49,7 +67,12 @@ class Search extends Component {
       return (
         <Container fluid={true}>
           <Row>
-            <SearchBar searchCallback={this.setSearchResults} />
+            <SearchBar
+              preSearchCallback={this.setStatePreSearch}
+              loadCallback={this.setStateLoading}
+              notFoundCallback={this.setStateNotFound}
+              searchCallback={this.setSearchResults}
+            />
           </Row>
           <Row>
             <FontAwesomeIcon className="icon" icon="spinner" pulse size="8x" />
@@ -61,7 +84,12 @@ class Search extends Component {
       return (
         <Container fluid={true}>
           <Row>
-            <SearchBar searchCallback={this.setSearchResults} />
+            <SearchBar
+              preSearchCallback={this.setStatePreSearch}
+              loadCallback={this.setStateLoading}
+              notFoundCallback={this.setStateNotFound}
+              searchCallback={this.setSearchResults}
+            />
           </Row>
           <Row>
             <h4>No books found. Try a different search.</h4>
@@ -80,7 +108,12 @@ class Search extends Component {
     return (
       <Container fluid={true}>
         <Row>
-          <SearchBar searchCallback={this.setSearchResults} />
+          <SearchBar
+            preSearchCallback={this.setStatePreSearch}
+            loadCallback={this.setStateLoading}
+            notFoundCallback={this.setStateNotFound}
+            searchCallback={this.setSearchResults}
+          />
         </Row>
         <Row>
           <Col lg="4">

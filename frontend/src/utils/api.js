@@ -27,10 +27,28 @@ function login(formData) {
 }
 
 function search(searchString) {
-  const query = `search_string=${searchString}`;
-  return fetch(`${API_URL}/books?${query}`, {
-    method: 'GET'
-  }).then(res => res.json());
+  return {
+    success: true,
+    result: [
+      {
+        name: 'asl',
+        author: 'asl',
+        grade: 1,
+        year: 1
+      },
+      {
+        name: 'asl',
+        author: 'asl',
+        grade: 1,
+        year: 1
+      }
+    ],
+    message: ''
+  };
+  // const query = `search_string=${searchString}`;
+  // return fetch(`${API_URL}/books?${query}`, {
+  //   method: "GET"
+  // }).then(res => res.json());
 }
 
 export { register, login, search };

@@ -17,25 +17,15 @@ class SearchBar extends Component {
   }
 
   handleSearch = async () => {
-    // dummy data for search Results
-    // this.props.searchCallback([
-    //   {
-    //     name: "asl",
-    //     author: "asl",
-    //     grade: 1,
-    //     year: 1
-    //   },
-    //   {
-    //     name: "asl",
-    //     author: "asl",
-    //     grade: 1,
-    //     year: 1
-    //   }
-    // ]);
+    this.props.loadCallback();
     const { success, result, message } = await search(this.state.query);
 
     if (success) {
-      this.props.searchCallback(result);
+      if (result === []) {
+        this.props.notFoundCallback();
+      } else {
+        this.props.searchCallback(result);
+      }
     } else {
       console.log(message);
     }
@@ -74,6 +64,9 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
+  preSearchCallback: PropTypes.func.isRequired,
+  loadCallback: PropTypes.func.isRequired,
+  notFoundCallback: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired
 };
 
