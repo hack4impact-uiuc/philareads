@@ -63,10 +63,12 @@ def create_app(test_config=None):
     from api.views import main
     from api.views import authenticate
     from api.views import quiz
+    from api.views import book
 
     app.register_blueprint(main.main)
     app.register_blueprint(authenticate.authenticate)
     app.register_blueprint(quiz.quiz)
+    app.register_blueprint(book.book)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
