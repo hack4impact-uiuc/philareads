@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request, Blueprint, json
+from sqlalchemy import or_
 import pdb
 from api.models import Quiz, Question, db, Book
 from api.core import create_response, serialize_list, logger
 
 book = Blueprint("book", __name__)
+
 
 def invalid_book_data(user_data):
     if (
@@ -15,6 +17,7 @@ def invalid_book_data(user_data):
         or (not "reader_url" in user_data)
     ):
         return True
+
 
 @book.route("/book", methods=["POST"])
 def create_book():
@@ -30,9 +33,11 @@ def create_book():
         )
 
     # check book if not already in database
-    dup_book = Book.query.filter_by(name=user_data["name"]).filter_by(
-        author=user_data["author"]
-    ).first()
+    dup_book = (
+        Book.query.filter_by(name=user_data["name"])
+        .filter_by(author=user_data["author"])
+        .first()
+    )
 
     if not (dup_book is None):
         return create_response(
@@ -95,9 +100,21 @@ def find_books():
     user_data = request.args
     filtered_books = Book.query
     props = ["id", "name", "author", "grade", "year", "cover_url", "reader_url"]
+
     for prop in props:
         if prop in user_data:
             kwarg = {f"{prop}": user_data[prop]}
             filtered_books = filtered_books.filter_by(**kwarg)
 
-    return create_response(message="Hello", status=200)
+    if "search_string" in user_data:
+        tokens = user_data["search_string"].split(" ")
+        for search in tokens:
+            filtered_books = filtered_books.filter(
+                or_(Book.name.contains(search), Book.author.contains(search))
+            )
+
+    books_json = [bk.serialize_to_json() for bk in filtered_books.all()]
+
+    return create_response(
+            message="Hello", status=200, data={"results": books_json}
+    )
