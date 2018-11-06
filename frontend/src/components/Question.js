@@ -16,14 +16,14 @@ class Question extends Component {
     super(props);
     this.state = {
       showCorrect: false,
-      selectedAnswer: -1, //possible answer choices: 0 to last answer,
+      selectedAnswer: -1, //possible answer choices: 0 to last answer
       submitted: false
     };
   }
 
   /**
    * @returns HTML Component
-   * controls when/what to show when an answer for the question has been submitted
+   * shows correct answer when answer has been submitted
    */
   renderAnswer = () => {
     if (this.state.showCorrect === true) {
@@ -38,7 +38,9 @@ class Question extends Component {
   /**
    * @return string color
    * color only shows after a valid submission occurs, showing the
-   * incorrect and correct options
+   * incorrect and correct options.
+   * danger = red = incorrect
+   * success = green = correct
    * @param i           index of possible answer option
    */
   returnColor = i => {
@@ -63,10 +65,10 @@ class Question extends Component {
 
   /**
    * @returns ListGrouItem
-   * each ListGroupItem tracks an individual radio button element along
-   * with the text, functioning, and color after submission
-   * @param i           index of possible answer choice
-   * @param option      the text of possible answer choice
+   * each ListGroupItem contains a radio button element with matching
+   * text, function, and correctness coloring after submission
+   * @param i           index of answer choice
+   * @param option      the text of answer choice
    */
   renderInput = (i, option) => {
     let input = (
@@ -103,13 +105,12 @@ class Question extends Component {
 
   /**
    * @returns HTML Component
-   * renders an incomplete question component with just its question title,
-   * options as clickable radio buttons, and the correct answer as a card
+   * question component with just its question title, options as clickable
+   * radio buttons, and correct answer together
    */
   renderQuestion = () => {
     return (
       <div>
-        {/* <Card> */}
         <h3>{this.props.title}</h3>
         <Form>
           <ListGroup>
@@ -119,14 +120,13 @@ class Question extends Component {
           </ListGroup>
         </Form>
         {this.renderAnswer()}
-        {/* </Card> */}
       </div>
     );
   };
 
   /**
    * void function
-   * controlls when correct answer is shown and result of user's chosen answer
+   * controls when to show result of user's chosen answer and the correct answer
    */
   submitClick = () => {
     if (this.state.showCorrect === false && this.state.selectedAnswer !== -1) {
@@ -139,8 +139,7 @@ class Question extends Component {
 
   /**
    * @returns a Card component
-   * the Card component represents the HTML part of the question component with a
-   * button together as a card
+   * the Card component contains the question and button
    */
   render() {
     return (
