@@ -8,15 +8,17 @@ import Games from '../components/Games';
 import Results from '../components/Results';
 import Catalog from '../components/Catalog';
 import Login from '../components/Login';
+import CatalogCard from '../components/CatalogCard';
 import BookInfo from '../components/BookInfo';
-import { getBookData } from '../utils/api';
+import { getBookData, getQuizzes } from '../utils/api';
 import '../styles/BookPage.scss';
 class BookPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bookID: props.match.params.id,
-      bookData: getBookData(props.match.params.id)
+      bookData: getBookData(props.match.params.id),
+      quizData: getQuizzes(props.match.params.id)
     };
   }
 
@@ -54,6 +56,23 @@ class BookPage extends Component {
     }
   ];
 
+  getCards = () => {
+    var cards = [];
+    this.state.quizData.map(({ name }) => {
+      cards.push({ title: name });
+    });
+    return cards;
+  };
+  renderFunc = card => {
+    console.log(card);
+    if (card.id >= this.state.quizData.length) {
+      console.log(this.state.quizData.length);
+      return <CatalogCard />;
+    }
+    return (
+      <CatalogCard title={card.title} subtitle="" text="" onClickTitle="" />
+    );
+  };
   render() {
     return (
       <div>
@@ -70,7 +89,8 @@ class BookPage extends Component {
           </div>
         </Router>
         <BookInfo bookObject={this.state.bookData} />
-        <Catalog />
+        <h1 className="quiz-title">Quizzes</h1>
+        <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
       </div>
     );
   }
