@@ -59,19 +59,25 @@ class BookPage extends Component {
 
   getCards = () => {
     var cards = [];
-    this.state.quizData.map(({ name }) => {
-      cards.push({ title: name });
-    });
+    for (var i in this.state.quizData) {
+      cards.push({
+        title: this.state.quizData[i]['name'],
+        id: this.state.quizData[i]['id']
+      });
+    }
     return cards;
   };
+
+  selectQuiz = id => {
+    console.log(id);
+  };
   renderFunc = card => {
-    console.log(card);
-    if (card.id >= this.state.quizData.length) {
-      console.log(this.state.quizData.length);
-      return <CatalogCard />;
-    }
     return (
-      <Button color="success" className="btn btn-block ">
+      <Button
+        color="success"
+        className="btn btn-block"
+        onClick={() => this.selectQuiz(card.id)}
+      >
         {card.title}
       </Button>
       // <CatalogCard title={card.title} subtitle="" text="" onClickTitle="" />
