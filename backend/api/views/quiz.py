@@ -17,10 +17,12 @@ def invalid_quiz_data(user_data):
 
 # returns true if another quiz has the same name, and belongs to the same book
 def duplicate_quiz(user_data):
-    dups = Quiz.query.filter_by(name=user_data["name"]).all()
-    for quiz in dups:
-        if quiz.book_id == user_data["book_id"]:
+    book = Book.query.filter_by(id=user_data["book_id"]).first()
+
+    for quiz in book.quizzes:
+        if user_data["name"] == quiz.name:
             return True
+
     return False
 
 
