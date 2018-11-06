@@ -17,7 +17,9 @@ class QuizResult(Mixin, db.Model):
     user_id = db.Column(db.Integer)
     questions = db.relationship("QuestionResult", backref="quizResult", lazy=True)
 
-    def __init__(self, num_correct: int, num_total: int, date_taken: datetime, user_id: int):
+    def __init__(
+        self, num_correct: int, num_total: int, date_taken: datetime, user_id: int
+    ):
         self.num_correct = num_correct
         self.num_total = num_total
         self.date_taken = date_taken
