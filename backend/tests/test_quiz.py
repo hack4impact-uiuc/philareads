@@ -6,6 +6,8 @@ from flask import current_app, json
 
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
+
+
 sample_book_json = """
 
 {
@@ -64,10 +66,8 @@ def test_create_valid_quiz(client):
     print("creating book!")
     client.post("/book", data=sample_book_json, content_type="application/json")
     # pdb.set_trace()
-    res = client.post(
-        "/quiz", data=sample_good_json, content_type="application/json"
-    )
-# 
+    res = client.post("/quiz", data=sample_good_json, content_type="application/json")
+    #
     db_quiz = Quiz.query.filter_by(name="Gatsby Quiz")
     assert not (db_quiz is None)
     assert res.status_code == 200
