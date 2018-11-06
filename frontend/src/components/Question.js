@@ -16,7 +16,8 @@ class Question extends Component {
     super(props);
     this.state = {
       selectedAnswer: -1, //possible answer choices: 0 to last answer
-      submitted: false
+      submitted: false,
+      answeredCorrectly: -1 //default is unanswered; 0 incorrect; 1 correct
     };
   }
 
@@ -126,11 +127,19 @@ class Question extends Component {
   /**
    * void function
    * controls when to show result of user's chosen answer and the correct answer
+   * sets correctness of this question's answer choice
    */
   submitClick = () => {
     if (this.state.submitted === false && this.state.selectedAnswer !== -1) {
+      let correctAnswer;
+      if (this.state.selectedAnswer === this.props.correctAnswer) {
+        correctAnswer = 1;
+      } else {
+        correctAnswer = 0;
+      }
       this.setState({
-        submitted: true
+        submitted: true,
+        answeredCorrectly: correctAnswer
       });
     }
   };
