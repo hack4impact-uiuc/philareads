@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../styles/BookInfo.scss';
 import { Card, CardTitle, CardImg } from 'reactstrap';
-
 class BookInfo extends Component {
   render() {
     return (
@@ -19,14 +18,14 @@ class BookInfo extends Component {
             <div className="col col-lg-6">
               <h1 className="book-title">{this.props.bookObject.name}</h1>
               <h3 className="light-font book-author">
-                By <u>{this.props.bookObject.author}</u>
+                By {this.props.bookObject.author}
               </h3>
 
               <h3 className="light-font book-grade">
-                Grade: {this.props.bookObject.grade}
+                <b>Grade:</b> {this.props.bookObject.grade}
               </h3>
               <h3 className="light-font book-year">
-                Year: {this.props.bookObject.year}
+                <b>Year:</b> {this.props.bookObject.year}
               </h3>
               <h3 className="light-font">
                 Click <a href={this.props.bookObject.reader_url}>here</a> to
