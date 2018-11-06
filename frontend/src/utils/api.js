@@ -77,10 +77,10 @@ function getBooksByYearGrade({ year, grade }) {
       ]
     });
   });
-  const query = `year=${year ? year : ''}&grade=${grade ? grade : ''}`;
-  return fetch(`${API_URL}/books?${query}`, {
-    method: 'GET'
-  }).then(res => res.json());
+  // const query = `year=${year ? year : ''}&grade=${grade ? grade : ''}`;
+  // return fetch(`${API_URL}/books?${query}`, {
+  //   method: 'GET'
+  // }).then(res => res.json());
 }
 
 function getROArchiveYears({ grade }) {
