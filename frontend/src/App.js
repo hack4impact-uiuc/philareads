@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import "./styles/App.scss";
-import KidsPage from "./pages/KidsPage";
-import ParentsPage from "./pages/ParentsPage";
-import TestPage from "./pages/TestPage";
-import ROHome from "./pages/ReadingOlympics/ROHome";
-import ROYearGradeView from "./pages/ReadingOlympics/ROYearGradeView";
-import ROYearView from "./pages/ReadingOlympics/ROYearView";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import './styles/App.scss';
+import KidsPage from './pages/KidsPage';
+import ParentsPage from './pages/ParentsPage';
+import TestPage from './pages/TestPage';
+import ROHome from './pages/ReadingOlympics/ROHome';
+import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
+import ROYearView from './pages/ReadingOlympics/ROYearView';
 
-import Logout from "./components/Logout";
+import Logout from './components/Logout';
 class App extends Component {
   render() {
     return (

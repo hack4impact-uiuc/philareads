@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Container,
   Row,
@@ -6,10 +6,10 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink
-} from "reactstrap";
-import PropTypes from "prop-types";
-import CatalogCard from "./CatalogCard";
-import "../styles/Catalog.scss";
+} from 'reactstrap';
+import PropTypes from 'prop-types';
+import CatalogCard from './CatalogCard';
+import '../styles/Catalog.scss';
 
 class Catalog extends Component {
   state = {
@@ -123,45 +123,45 @@ Catalog.defaultProps = {
   cards: [
     {
       id: 1,
-      title: "title",
-      subtitle: "subtitle",
-      text: "text"
+      title: 'title',
+      subtitle: 'subtitle',
+      text: 'text'
     },
     {
       id: 2,
-      title: "title2",
-      subtitle: "subtitle2",
-      text: "text2"
+      title: 'title2',
+      subtitle: 'subtitle2',
+      text: 'text2'
     },
     {
       id: 3,
-      title: "title3",
-      subtitle: "subtitle3",
-      text: "text3"
+      title: 'title3',
+      subtitle: 'subtitle3',
+      text: 'text3'
     },
     {
       id: 4,
-      title: "title4",
-      subtitle: "subtitle4",
-      text: "text4"
+      title: 'title4',
+      subtitle: 'subtitle4',
+      text: 'text4'
     },
     {
       id: 5,
-      title: "title5",
-      subtitle: "subtitle5",
-      text: "text5"
+      title: 'title5',
+      subtitle: 'subtitle5',
+      text: 'text5'
     },
     {
       id: 6,
-      title: "title6",
-      subtitle: "subtitle6",
-      text: "text6"
+      title: 'title6',
+      subtitle: 'subtitle6',
+      text: 'text6'
     },
     {
       id: 7,
-      title: "title7",
-      subtitle: "subtitle7",
-      text: "text7"
+      title: 'title7',
+      subtitle: 'subtitle7',
+      text: 'text7'
     }
   ]
 };
