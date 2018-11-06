@@ -116,5 +116,5 @@ def find_books():
     books_json = [bk.serialize_to_json() for bk in filtered_books.all()]
 
     return create_response(
-            message="Hello", status=200, data={"results": books_json}
+        message="Successfully queried books", status=200, data={"results": books_json}
     )
