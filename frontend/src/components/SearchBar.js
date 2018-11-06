@@ -17,7 +17,11 @@ class SearchBar extends Component {
   }
 
   handleSearch = async () => {
+    if (this.state.query.trim() === '') {
+      return;
+    }
     this.props.loadCallback();
+
     const { success, result, message } = await search(this.state.query);
 
     if (success) {
