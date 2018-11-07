@@ -6,7 +6,6 @@ import LoginPage from './pages/LoginPage';
 import './styles/App.scss';
 import KidsPage from './pages/KidsPage';
 import ParentsPage from './pages/ParentsPage';
-import TestPage from './pages/TestPage';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
@@ -22,7 +21,6 @@ class App extends Component {
           <Route exact path="/login" component={LoginPage} />
           <Route path="/kids" component={KidsPage} />
           <Route path="/parents" component={ParentsPage} />
-          <Route path="/questions" component={TestPage} />
           <Route path="/logout" component={Logout} />
           <Route exact path="/ReadingOlympics" component={ROHome} />
           <Route
