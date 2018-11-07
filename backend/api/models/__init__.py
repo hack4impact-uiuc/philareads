@@ -5,4 +5,6 @@ from .User import User
 from .Question import Question
 from .Book import Book
 from .Quiz import Quiz
+from .QuizResult import QuizResult
+from .QuestionResult import QuestionResult
 from .base import db

@@ -6,13 +6,21 @@ from api.core import create_response, serialize_list, logger
 quiz = Blueprint("quiz", __name__)
 
 
+def invalid_model_helper(user_data, props):
+    for prop in props:
+        if prop not in user_data:
+            return False
+    return True
+
+def invalid_question_result_data(user_data):
+    return invalid_model_helper(user_data, ["user_answer", "correct_answer", "correct", "question_num"])
+
+def invalid_quiz_result_data(user_data):
+    return invalid_model_helper(user_data, ["quiz_id", "num_correct", "num_total", "date_taken", "user_id"])
+        
+
 def invalid_quiz_data(user_data):
-    if (
-        (not "name" in user_data)
-        or (not "questions" in user_data)
-        or (not "book_id" in user_data)
-    ):
-        return True
+    return invalid_model_helper(user_data, ["name", "questions", "book_id"])
 
 
 # returns true if another quiz has the same name, and belongs to the same book
@@ -66,4 +74,52 @@ def create_quiz():
 
     return create_response(
         message="Succesfuly created new quiz", status=200, data={"status": "success"}
+    )
+
+def create_question_result(quiz_result, user_data):
+    new_question_result = QuestionResult(user_data["user_answer"], user_data["correct_answer"], user_data["question_num"], user_data["correct"])
+    new_quiz_result.quiz_result_id = quiz_result.id
+    new_quiz.attempted_questions.append(new_quiz_result)
+    return new_quiz_result
+
+@quiz.route("/quiz_result", methods=["POST"])
+def create_quiz_result():
+    try:
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+
+    if invalid_quiz_result_data(user_data):
+        return create_response(
+            message="Missing required quiz result information",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    user = User.query.get(user_id)
+    user_data = request.get_json()
+    
+    new_quiz_result = QuizResult(user_id, user_data["quiz_id"], user_data["num_correct"], user_data["num_total"], user_data["date_taken"], user_id)
+    db.session.add(new_quiz_result)
+    db.session.commit()
+
+    for ques_res_data in user_data["attempted_questions"]:
+        if invalid_question_result_data(ques_res_data):
+            return create_response(
+                message="Missing required question result information",
+                status=422,
+                data={"status": "fail"},
+            )
+        db_question_result = create_question_result(new_quiz_result, ques_res_data)
+        db.session.add(db_question_result)
+
+    db.session.commit()
+    return create_response(
+        message="Successfully created quiz result", status=200, data={"status": "success"}
     )

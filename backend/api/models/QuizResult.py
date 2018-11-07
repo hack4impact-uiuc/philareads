@@ -14,17 +14,20 @@ class QuizResult(Mixin, db.Model):
     num_correct = db.Column(db.Integer)
     num_total = db.Column(db.Integer)
     date_taken = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.Integer)
-    questions = db.relationship("QuestionResult", backref="quizResult", lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
+    quiz_id = db.Column(db.Integer)
+    attempted_questions = db.relationship("QuestionResult", backref="quizResult", lazy=True)
 
     def __init__(
-        self, num_correct: int, num_total: int, date_taken: datetime, user_id: int
+            self, user_id: int, quiz_id: int, num_correct: int, num_total: int, date_taken: datetime
     ):
+        self.user_id = user_id
+        self.quiz_id = quiz_id
         self.num_correct = num_correct
         self.num_total = num_total
         self.date_taken = date_taken
         self.user_id = user_id
-        self.questions = []
+        self.attempted_questions = []
 
     def __repr__(self):
         return f"<QuizResult> id:{self.id} num_correct:{self.num_correct} num_total:{self.num_total} date_taken:{self.date_taken} user_id:{self.user_id}"
