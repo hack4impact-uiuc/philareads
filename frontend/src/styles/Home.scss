@@ -1,25 +1,17 @@
 #left {
-  // margin: 20px;
-  // padding: 30px;
-  // border: 50px;
-  // margin: 20px;
-  background-color: bisque;
-  align-content: center;
 }
 
 #right {
-  // background-color: black;
-}
-
-.col {
-  margin: 20px;
-  padding: 10px;
-  border-radius: 5px;
 }
 
 .card {
   margin: 30px;
   padding: 10px;
+  // align-items: center;
+}
+
+.parent {
+  background-color: bisque;
 }
 
 h1 {
@@ -29,4 +21,10 @@ h1 {
 .button {
   background-color: #007bff;
   color: white;
+}
+
+.image {
+  width: 100px;
+  // height: 100px;
+  align-self: center;
 }
