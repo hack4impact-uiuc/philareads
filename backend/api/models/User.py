@@ -15,6 +15,7 @@ class User(Mixin, db.Model):
     name = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
+    attempted_quizzes = db.relationship("QuizResult", backref="user", lazy=True)
 
     def __init__(self, name: str, password: str, email: str):
         self.name = name
@@ -47,10 +48,12 @@ class User(Mixin, db.Model):
         :param auth_token:
         :return: integer|string
         """
-        try:
-            payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
-            return payload["sub"]
-        except jwt.ExpiredSignatureError:
-            return "Signature expired. Please log in again."
-        except jwt.InvalidTokenError:
-            return "Invalid token. Please log in again."
+        payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
+        return payload["sub"]
+        # try:
+        # payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
+        # return payload["sub"]
+        # except jwt.ExpiredSignatureError:
+        # return "Signature expired. Please log in again."
+        # except jwt.InvalidTokenError:
+        # return "Invalid token. Please log in again."
