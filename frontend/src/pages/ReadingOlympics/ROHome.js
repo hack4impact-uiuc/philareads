@@ -17,7 +17,7 @@ class ROHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      years: [props.year]
+      years: []
     };
   }
 
@@ -52,7 +52,7 @@ class ROHome extends Component {
   componentDidMount() {
     getROArchiveYears({}).then(resJson => {
       this.setState({
-        years: resJson.result.results
+        years: resJson.result.years
       });
     });
   }

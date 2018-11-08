@@ -52,17 +52,9 @@ function getBooksByYearGrade({ year, grade }) {
 }
 
 function getROArchiveYears({ grade }) {
-  return new Promise((resolve, reject) => {
-    return resolve({
-      result: {
-        results: [2019, 2018, 2017]
-      }
-    });
-  });
-  // const query = `grade=${grade ? grade : ''}`;
-  // return fetch(`${API_URL}/years?${query}`, {
-  //   method: 'GET'
-  // }).then(res => res.json());
+  return fetch(`${API_URL}/years`, {
+    method: 'GET'
+  }).then(res => res.json());
 }
 
 export { register, login, search, getBooksByYearGrade, getROArchiveYears };
