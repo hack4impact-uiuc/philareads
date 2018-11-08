@@ -32,6 +32,16 @@ class SearchResults extends Component {
     return gradeArr;
   });
 
+  collectYears = memoize(books => {
+    let yearSet = new Set();
+    books.map(book => yearSet.add(book.year));
+    let yearArr = Array.from(yearSet);
+
+    // sort in descending order
+    yearArr.sort((a, b) => b - a);
+    return yearArr;
+  });
+
   renderResults = () => {
     return this.props.results.map(x => (
       <CatalogCard
@@ -44,11 +54,12 @@ class SearchResults extends Component {
 
   render() {
     const gradeArr = this.collectGrades(this.props.results);
+    const yearArr = this.collectYears(this.props.results);
     return (
       <Row>
         <Col lg="4">
           <div className="filter">
-            <Filter gradeArr={gradeArr} />
+            <Filter gradeArr={gradeArr} yearArr={yearArr} />
           </div>
         </Col>
         <Col lg="8">

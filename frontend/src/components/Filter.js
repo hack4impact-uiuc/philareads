@@ -34,6 +34,17 @@ class Filter extends Component {
     ));
   };
 
+  renderYears = () => {
+    return this.props.yearArr.map(x => (
+      <FormGroup>
+        <Label check>
+          <Input type="checkbox" />
+          {x}
+        </Label>
+      </FormGroup>
+    ));
+  };
+
   render() {
     return (
       <Card>
@@ -41,17 +52,8 @@ class Filter extends Component {
           <CardTitle>Filter By...</CardTitle>
           <CardSubtitle>Grade</CardSubtitle>
           <Form className="filters">{this.renderGrades()}</Form>
-          {/*<CardSubtitle>Years</CardSubtitle>
-            <Form className="filters">
-              {this.renderYears()}
-            </Form>
-              <Label check>
-                <Input type="checkbox" />
-                Year
-              </Label>
-            </FormGroup>
-          </Form>
-          */}
+          <CardSubtitle>Year</CardSubtitle>
+          <Form className="filters">{this.renderYears()}</Form>
         </CardBody>
       </Card>
     );
@@ -59,7 +61,8 @@ class Filter extends Component {
 }
 
 Filter.propTypes = {
-  gradeArr: PropTypes.array.isRequired
+  gradeArr: PropTypes.array.isRequired,
+  yearArr: PropTypes.array.isRequired
 };
 
 export default Filter;
