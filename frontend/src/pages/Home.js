@@ -3,14 +3,12 @@ import {
   Container,
   Row,
   Col,
-  CardGroup,
   Card,
   CardTitle,
   CardImg,
-  CardSubtitle,
-  CardText,
-  Button
+  CardText
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import intermediate from './../images/home_intermediate.png';
 import parents from './../images/home_parents.png';
 import exercises from './../images/home_exercises.png';
@@ -29,17 +27,17 @@ class Home extends Component {
                 <Card>
                   <CardTitle>Middle</CardTitle>
                   <CardText>Grades 1-3</CardText>
-                  <a href="ReadingOlympics/2019/middle">
+                  <Link to="/ReadingOlympics/2019/middle">
                     <span />
-                  </a>
+                  </Link>
                 </Card>
                 <Card>
                   <CardTitle>Intermediate</CardTitle>
                   <CardText>Grades 4-6</CardText>
                   <CardImg className="image" src={intermediate} />
-                  <a href="ReadingOlympics/2019/middle">
+                  <Link to="/ReadingOlympics/2019/intermediate">
                     <span />
-                  </a>
+                  </Link>
                 </Card>
               </Card>
             </Col>
@@ -51,25 +49,25 @@ class Home extends Component {
                   child's leaning experience with the Reading Olympics.
                 </CardText>
                 <CardImg className="image" src={parents} />
-                <a href="parents">
+                <Link to="/parents">
                   <span />
-                </a>
+                </Link>
               </Card>
               <Card>
                 <CardTitle>Exercising/Archives</CardTitle>
                 <CardText>Start your reading exercises here!</CardText>
                 <CardImg className="image" src={exercises} />
-                <a href="#">
+                <Link to="/#">
                   <span />
-                </a>
+                </Link>
               </Card>
               <Card>
                 <CardTitle>Search</CardTitle>
                 <CardText>Search for your books here!</CardText>
                 <CardImg className="image" src={search} />
-                <a href="search">
+                <Link to="/search">
                   <span />
-                </a>
+                </Link>
               </Card>
             </Col>
           </Row>
