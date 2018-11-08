@@ -1,8 +1,8 @@
-from flask import Flask, jsonify, request, Blueprint,json
+from flask import Flask, jsonify, request, Blueprint, json
 import datetime
 import pdb
 import jwt
-from api.models import Quiz, Question, db, Book,User,QuestionResult, QuizResult
+from api.models import Quiz, Question, db, Book, User, QuestionResult, QuizResult
 from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
@@ -85,6 +85,7 @@ def create_quiz():
         message="Succesfully created new quiz", status=200, data={"status": "success"}
     )
 
+
 @quiz.route("/<user_id>/quiz_results", methods=["GET"])
 def get_quiz_results(user_id):
     user_id_from_token = User.decode_auth_token(request.cookies.get("jwt"))
@@ -107,9 +108,9 @@ def get_quiz_results(user_id):
 
     for qr in user.attempted_quizzes:
         temp_quiz = {}
-        #quiz_result_id or quiz_id???
+        # quiz_result_id or quiz_id???
         temp_quiz["quiz_result_id"] = qr.id
-        temp_quiz["num_correct"] =qr.num_correct
+        temp_quiz["num_correct"] = qr.num_correct
         temp_quiz["num_total"] = qr.num_total
         temp_quiz["date_taken"] = qr.date_taken
         quiz = Quiz.query.filter_by(id=qr.quiz_id).first()
@@ -122,7 +123,9 @@ def get_quiz_results(user_id):
     jsonStr = json.dumps(quizList)
 
     return create_response(
-        message="Succesfully returned quiz results", status=200, data={"Quiz results": jsonStr}
+        message="Succesfully returned quiz results",
+        status=200,
+        data={"Quiz results": jsonStr},
     )
 
 
