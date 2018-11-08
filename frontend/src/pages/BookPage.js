@@ -79,7 +79,6 @@ class BookPage extends Component {
       quizIndex: index,
       currentQuestions: this.state.quizData[index]['questions']
     });
-    console.log(this.state.quizData[index]);
   };
   renderFunc = card => {
     return (
@@ -111,7 +110,7 @@ class BookPage extends Component {
         <BookInfo bookObject={this.state.bookData} />
         <h1 className="quiz-title">Quizzes</h1>
         <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
-        <h1 className="quiz-title">Quiz</h1>
+        {this.state.quizID != -1 && <h1 className="quiz-title">Quiz</h1>}
         <QuizViewer
           quizID={this.state.quizID}
           questionList={this.state.currentQuestions}

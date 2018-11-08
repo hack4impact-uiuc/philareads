@@ -5,27 +5,25 @@ class QuizViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentQuestion: -1
+      currentQuestion: 0
     };
   }
-
+  getQuestionObject() {
+    return this.props.questionList[this.state.currentQuestion];
+  }
   render() {
     return (
       <div>
-        {this.props.questionList.map((question, i) => {
-          const correctAnswer = question['options'].indexOf(
-            question['correct_option']
-          );
-          console.log('Hi');
-          return (
-            <Question
-              key={`${this.props.quizID},${i}`}
-              title={question['text']}
-              options={question['options']}
-              correctAnswer={correctAnswer}
-            />
-          );
-        })}
+        {this.props.questionList.length > 0 && (
+          <Question
+            key={`${this.props.quizID},${this.state.currentQuestion}`}
+            title={this.getQuestionObject()['text']}
+            options={this.getQuestionObject()['options']}
+            correctAnswer={this.getQuestionObject()['options'].indexOf(
+              this.getQuestionObject()['correct_option']
+            )}
+          />
+        )}
       </div>
     );
   }
