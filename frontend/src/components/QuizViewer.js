@@ -11,8 +11,6 @@ class QuizViewer extends Component {
     };
   }
   getQuestionObject() {
-    console.log(this.state.currentQuestion);
-    console.log('Hello');
     return this.props.questionList[this.state.currentQuestion];
   }
   render() {
@@ -32,10 +30,12 @@ class QuizViewer extends Component {
         {this.props.questionList.length > 0 && (
           <Pagination aria-label="Page navigation example">
             {this.props.questionList.map((question, i) => (
-              <PaginationItem key={`${this.props.quizID},${i}`}>
+              <PaginationItem size="lg" key={`${this.props.quizID},${i}`}>
                 <PaginationLink
                   onClick={() => this.setState({ currentQuestion: i })}
-                />
+                >
+                  {i + 1}
+                </PaginationLink>
               </PaginationItem>
             ))}
           </Pagination>

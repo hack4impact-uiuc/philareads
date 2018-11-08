@@ -76,7 +76,7 @@ class Question extends Component {
         key={i}
         onClick={() => this.setState({ selectedAnswer: i })}
         type="radio"
-        name={`options${i}`}
+        name="options"
       />
     );
 
@@ -86,7 +86,7 @@ class Question extends Component {
           key={i}
           onClick={() => this.setState({ selectedAnswer: i })}
           type="radio"
-          name={`options${i}`}
+          name="options"
           disabled
         />
       );
