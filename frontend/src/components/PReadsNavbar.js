@@ -63,7 +63,7 @@ export default class PReadsNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
               {this.navigationOptions.map(({ route, name }) => {
-                // Add all the routes and their component mappings
+                // Maps each route component to navigation links in the Bootstrap navbar
                 return (
                   <NavItem key={name}>
                     <NavLink href={route}>{name}</NavLink>
