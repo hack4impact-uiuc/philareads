@@ -33,4 +33,28 @@ function search(searchString) {
   }).then(res => res.json());
 }
 
-export { register, login, search };
+function getBooksByYearGrade({ year, grade }) {
+  if (year === undefined && grade === undefined) {
+    console.log(
+      'getBooksByYearGrade did not receive a year or grade. You should use getBooks instead'
+    );
+  }
+  let query = '';
+  if (year !== undefined) {
+    query += `year=${year ? year : ''}&`;
+  }
+  if (grade !== undefined) {
+    query += `grade=${grade ? grade : ''}`;
+  }
+  return fetch(`${API_URL}/books?${query}`, {
+    method: 'GET'
+  }).then(res => res.json());
+}
+
+function getROArchiveYears({ grade }) {
+  return fetch(`${API_URL}/years`, {
+    method: 'GET'
+  }).then(res => res.json());
+}
+
+export { register, login, search, getBooksByYearGrade, getROArchiveYears };

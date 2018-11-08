@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: 'row';
+  flex-wrap: wrap-reverse;
+}
+
+.left-main-col {
+  margin: 10px;
+  padding: 10px;
+  flex-grow: 2;
+}
+
+.right-sidebar {
+  margin: 10px;
+  padding: 10px;
+}
+
+.card {
+  margin: 10px;
+}
+
+.page-title {
+  margin: auto;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navigation-button {
+  margin: 30px 0px;
+}
+
+.book-image-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.book-image {
+  max-height: 300px;
+  width: auto;
+}
