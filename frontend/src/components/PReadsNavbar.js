@@ -11,6 +11,29 @@ import {
 import Cookies from 'universal-cookie';
 
 export default class PReadsNavbar extends React.Component {
+  navigationOptions = [
+    {
+      route: '/',
+      name: 'Home'
+    },
+    {
+      route: '/ReadingOlympics',
+      name: 'Reading Olympics'
+    },
+    {
+      route: '/parents',
+      name: 'For Parents'
+    },
+    {
+      route: '/profile',
+      name: 'Profile'
+    },
+    {
+      route: '/search',
+      name: 'Search'
+    }
+  ];
+
   constructor(props) {
     super(props);
 
@@ -39,7 +62,7 @@ export default class PReadsNavbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
-              {this.props.navOptions.map(({ route, name, component }) => {
+              {this.navigationOptions.map(({ route, name }) => {
                 // Maps each route component to navigation links in the Bootstrap navbar
                 return (
                   <NavItem key={name}>

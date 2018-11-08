@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -20,6 +21,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <Route path="/" component={PReadsNavbar} />
           <Route exact path="/" component={Home} />
           {/*Authentication pages*/}
           <Route path="/register" component={RegisterPage} />
