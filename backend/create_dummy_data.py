@@ -13,7 +13,7 @@ sample_user = {
 r = requests.post(API_URL + "register", json=sample_user)
 result = r.json()["result"]
 print(result)
-user_token = result["token"]
+user_token = result["auth_token"]
 
 # sample book
 sample_book = {
