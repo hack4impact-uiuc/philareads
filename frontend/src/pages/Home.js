@@ -6,6 +6,7 @@ import {
   CardGroup,
   Card,
   CardTitle,
+  CardImg,
   CardSubtitle,
   CardText,
   Button
@@ -19,43 +20,28 @@ class Home extends Component {
         <Container>
           <Row>
             <Col id="left">
+              <h1>Reading Olympics</h1>
               <Card>
-                <CardTitle>Reading Olympics</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </CardText>
-                <Button className="button">Button</Button>
+                <CardTitle>Middle</CardTitle>
+              </Card>
+              <Card>
+                <CardTitle>Intermediate</CardTitle>
+                <CardImg
+                  top
+                  width="75%"
+                  src="https://chinesepod.com/img/channel/intermediate.png"
+                />
               </Card>
             </Col>
             <Col id="right">
               <Card>
                 <CardTitle>For Parents</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </CardText>
-                <Button className="button">Button</Button>
               </Card>
               <Card>
                 <CardTitle>Exercising/Archives</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </CardText>
-                <Button className="button">Button</Button>
               </Card>
               <Card>
                 <CardTitle>Search</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </CardText>
-                <Button className="button">Button</Button>
               </Card>
             </Col>
           </Row>

@@ -4,19 +4,26 @@
   // border: 50px;
   // margin: 20px;
   background-color: bisque;
+  align-content: center;
 }
 
 #right {
-  background-color: black;
+  // background-color: black;
 }
 
 .col {
   margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .card {
   margin: 30px;
   padding: 10px;
+}
+
+h1 {
+  margin: 30px;
 }
 
 .button {
