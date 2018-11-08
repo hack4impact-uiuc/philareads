@@ -1,12 +1,6 @@
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
-import PReadsNavbar from '../../components/PReadsNavbar';
-import Homefeed from '../../components/Homefeed';
-import Exercises from '../../components/Exercises';
-import Readings from '../../components/Readings';
-import Games from '../../components/Games';
-import Results from '../../components/Results';
 import '../../styles/ReadingOlympics.scss';
 import { getROArchiveYears } from '../../utils/api';
 
@@ -20,34 +14,6 @@ class ROHome extends Component {
       years: []
     };
   }
-
-  navigationOptions = [
-    {
-      route: '/kids',
-      name: 'Home',
-      component: Homefeed
-    },
-    {
-      route: '/kids/exercises',
-      name: 'Exercises',
-      component: Exercises
-    },
-    {
-      route: '/kids/readings',
-      name: 'Readings',
-      component: Readings
-    },
-    {
-      route: '/kids/games',
-      name: 'Games',
-      component: Games
-    },
-    {
-      route: '/kids/results',
-      name: 'Results',
-      component: Results
-    }
-  ];
 
   componentDidMount() {
     getROArchiveYears({}).then(resJson => {
@@ -97,11 +63,6 @@ class ROHome extends Component {
   render() {
     return (
       <div>
-        <Router>
-          <div>
-            <PReadsNavbar navOptions={this.navigationOptions} />
-          </div>
-        </Router>
         <div className="page-title">
           <h1>Reading Olympics</h1>
         </div>

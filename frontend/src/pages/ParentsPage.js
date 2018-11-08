@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import PReadsNavbar from '../components/PReadsNavbar';
 import Advice from '../components/Advice';
 import philareads1 from './../images/phila_reads_cover.jpg';
 import philareads2 from './../images/phila_reads_2.jpg';
@@ -56,12 +54,9 @@ class ParentsPage extends Component {
     return (
       <div>
         <h1>Parents Page</h1>
-        <Router>
-          <div>
-            <PReadsNavbar navOptions={this.navigationOptions} />
-            <Advice adviceCards={this.adviceCards} />
-          </div>
-        </Router>
+        <div>
+          <Advice adviceCards={this.adviceCards} />
+        </div>
       </div>
     );
   }
