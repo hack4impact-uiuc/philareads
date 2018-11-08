@@ -76,8 +76,8 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
-        {/* Redirect to the kids page if JWT exists*/}
-        {this.state.isLoggedIn && <Redirect to="/kids" />}
+        {/* Redirect to home if JWT exists*/}
+        {this.state.isLoggedIn && <Redirect to="/" />}
         {this.getLoggedInMessage()}
 
         <div className="text-center">
