@@ -120,8 +120,13 @@ function getQuizzes() {
       questions: [
         {
           text: "Who wrote 'Acing the PM Interview'?",
-          options: ['J.K. Rowling', 'Steinbeck', 'Tony Morrison', 'Mark Twain'],
-          correct_option: 'J.K. Rowling'
+          options: [
+            'Acing the PM Interview',
+            'Steinbeck',
+            'Tony Morrison',
+            'Mark Twain'
+          ],
+          correct_option: 'Acing the PM Interview'
         },
         {
           text: 'Who is Acing the PM Interview?',

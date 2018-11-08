@@ -10,6 +10,7 @@ import Catalog from '../components/Catalog';
 import Login from '../components/Login';
 import CatalogCard from '../components/CatalogCard';
 import BookInfo from '../components/BookInfo';
+import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes } from '../utils/api';
 import { Button } from 'reactstrap';
 import '../styles/BookPage.scss';
@@ -19,7 +20,10 @@ class BookPage extends Component {
     this.state = {
       bookID: props.match.params.id,
       bookData: getBookData(props.match.params.id),
-      quizData: getQuizzes(props.match.params.id)
+      quizData: getQuizzes(props.match.params.id),
+      quizIndex: -1,
+      quizID: -1,
+      currentQuestions: []
     };
   }
 
@@ -62,21 +66,27 @@ class BookPage extends Component {
     for (var i in this.state.quizData) {
       cards.push({
         title: this.state.quizData[i]['name'],
-        id: this.state.quizData[i]['id']
+        id: this.state.quizData[i]['id'],
+        index: i
       });
     }
     return cards;
   };
 
-  selectQuiz = id => {
-    console.log(id);
+  selectQuiz = (id, index) => {
+    this.setState({
+      quizID: id,
+      quizIndex: index,
+      currentQuestions: this.state.quizData[index]['questions']
+    });
+    console.log(this.state.quizData[index]);
   };
   renderFunc = card => {
     return (
       <Button
         color="success"
         className="btn btn-block"
-        onClick={() => this.selectQuiz(card.id)}
+        onClick={() => this.selectQuiz(card.id, card.index)}
       >
         {card.title}
       </Button>
@@ -101,6 +111,11 @@ class BookPage extends Component {
         <BookInfo bookObject={this.state.bookData} />
         <h1 className="quiz-title">Quizzes</h1>
         <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
+        <h1 className="quiz-title">Quiz</h1>
+        <QuizViewer
+          quizID={this.state.quizID}
+          questionList={this.state.currentQuestions}
+        />
       </div>
     );
   }

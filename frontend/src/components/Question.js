@@ -92,7 +92,7 @@ class Question extends Component {
       );
     }
     return (
-      <ListGroupItem color={this.returnColor(i)}>
+      <ListGroupItem key={i} color={this.returnColor(i)}>
         <FormGroup check>
           <Label check>
             {input}
