@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import {
+  Card,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Row,
+  Col
+} from 'reactstrap';
 import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
+import Filter from './Filter';
 
 class SearchResults extends Component {
   renderResults = () => {
@@ -15,13 +24,23 @@ class SearchResults extends Component {
   };
   render() {
     return (
-      <Card>
-        <CardBody>
-          <CardTitle>Search Results</CardTitle>
-          <CardText>List of books outputted from search</CardText>
-          {this.renderResults()}
-        </CardBody>
-      </Card>
+      <Row>
+        <Col lg="4">
+          <div className="filter">
+            <Filter />
+          </div>
+        </Col>
+        <Col lg="8">
+          <div className="results">
+            <Card>
+              <CardBody>
+                <CardTitle>Search Results</CardTitle>
+                {this.renderResults()}
+              </CardBody>
+            </Card>
+          </div>
+        </Col>
+      </Row>
     );
   }
 }

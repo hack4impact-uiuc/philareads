@@ -115,14 +115,7 @@ class Search extends Component {
             searchCallback={this.setSearchResults}
           />
         </Row>
-        <Row>
-          <Col lg="4">
-            <Filter />
-          </Col>
-          <Col lg="8">
-            <SearchResults results={this.state.results} />
-          </Col>
-        </Row>
+        <SearchResults results={this.state.results} />
       </Container>
     );
   }
