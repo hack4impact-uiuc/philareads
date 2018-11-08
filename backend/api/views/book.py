@@ -111,6 +111,7 @@ def find_books():
         message="Successfully queried books", status=200, data={"results": books_json}
     )
 
+
 @book.route("/years", methods=["GET"])
 def get_years():
     years = [year_tuple[0] for year_tuple in db.session.query(Book.year).distinct()]
@@ -118,4 +119,3 @@ def get_years():
     return create_response(
         message="Successfully gathered years", status=200, data={"years": years}
     )
-    
