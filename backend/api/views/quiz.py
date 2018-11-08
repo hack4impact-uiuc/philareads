@@ -30,7 +30,6 @@ def invalid_quiz_result_data(user_data):
 def invalid_quiz_data(user_data):
     return invalid_model_helper(user_data, ["name", "questions", "book_id"])
 
-
 # returns true if another quiz has the same name, and belongs to the same book
 def duplicate_quiz(user_data):
     book = Book.query.filter_by(id=user_data["book_id"]).first()
@@ -119,6 +118,14 @@ def create_quiz_result():
             data={"status": "fail"},
         )
 
+    python_date = datetime.datetime.strptime(user_data["date_taken"], '%Y-%m-%dT%H:%M:%S.%fZ')
+    dup_quiz_result = QuizResult.filter_by(date_taken=python_date).filter_by(user_id=user_id).filter_by(quiz_id=user_data["quiz_id"]).first()
+    if dup_quiz_result is not None:
+        return create_response(
+            data={"status": "fail"}, message="Quiz result already exists.", status=409
+        )
+
+
     user = User.query.get(user_id)
 
     new_quiz_result = QuizResult(
@@ -126,7 +133,7 @@ def create_quiz_result():
         user_data["quiz_id"],
         user_data["num_correct"],
         user_data["num_total"],
-        datetime.datetime.strptime(user_data["date_taken"], '%Y-%m-%dT%H:%M:%S.%fZ'),
+        python_date
     )
     db.session.add(new_quiz_result)
     db.session.commit()
