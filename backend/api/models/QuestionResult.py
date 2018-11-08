@@ -17,6 +17,7 @@ class QuestionResult(Mixin, db.Model):
     # question_id added
     question_id = db.Column(db.Integer)
     quiz_result_id = db.Column(db.Integer, db.ForeignKey("quizResult.id"), nullable=True)
+    question_num = db.Column(db.Integer)
 
     def __init__(
         self, user_answer: str, correct_answer: str, question_num: int, correct: bool
