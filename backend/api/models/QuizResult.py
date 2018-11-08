@@ -36,4 +36,4 @@ class QuizResult(Mixin, db.Model):
         self.attempted_questions = []
 
     def __repr__(self):
-        return f"<QuizResult> id:{self.id} num_correct:{self.num_correct} num_total:{self.num_total} date_taken:{self.date_taken} user_id:{self.user_id}"
+        return f"<QuizResult> id:{self.id} num_correct:{self.num_correct} num_total:{self.num_total} date_taken:{self.date_taken} user_id:{self.user_id} quiz_id:{self.quiz_id}"
