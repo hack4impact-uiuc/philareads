@@ -30,6 +30,14 @@ class App extends Component {
           <Route path="/search" component={Search} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin" component={AdminPage} />
+          {/*Reading Olympics pages*/}
+          <Route exact path="/ReadingOlympics" component={ROHome} />
+          <Route
+            exact
+            path="/ReadingOlympics/:year/:grade(middle|intermediate)"
+            component={ROYearGradeView}
+          />
+          <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
         </div>
       </Router>
     );
