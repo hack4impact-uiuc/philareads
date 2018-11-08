@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request, Blueprint
+import datetime
 import pdb
-from api.models import Quiz, Question, db, Book
+import jwt
+from api.models import Quiz, Question, db, Book, User, QuestionResult, QuizResult
 from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
@@ -21,7 +23,7 @@ def invalid_question_result_data(user_data):
 
 def invalid_quiz_result_data(user_data):
     return invalid_model_helper(
-        user_data, ["quiz_id", "num_correct", "num_total", "date_taken", "user_id"]
+        user_data, ["quiz_id", "num_correct", "num_total", "date_taken", "attempted_questions"]
     )
 
 
@@ -83,22 +85,23 @@ def create_quiz():
     )
 
 
-def create_question_result(quiz_result, user_data):
+def create_question_result(new_quiz_result, user_data):
     new_question_result = QuestionResult(
         user_data["user_answer"],
         user_data["correct_answer"],
         user_data["question_num"],
         user_data["correct"],
     )
-    new_quiz_result.quiz_result_id = quiz_result.id
-    new_quiz.attempted_questions.append(new_quiz_result)
-    return new_quiz_result
+    new_question_result.quiz_result_id = new_quiz_result.id
+    new_quiz_result.attempted_questions.append(new_question_result)
+    return new_question_result
 
 
 @quiz.route("/quiz_result", methods=["POST"])
 def create_quiz_result():
     try:
         user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        print(f"user_id is {user_id}")
     except jwt.ExpiredSignatureError:
         return create_response(
             message="Expired token", status=401, data={"status": "fail"}
@@ -108,6 +111,7 @@ def create_quiz_result():
             message="Invalid token", status=401, data={"status": "fail"}
         )
 
+    user_data = request.get_json()
     if invalid_quiz_result_data(user_data):
         return create_response(
             message="Missing required quiz result information",
@@ -116,15 +120,13 @@ def create_quiz_result():
         )
 
     user = User.query.get(user_id)
-    user_data = request.get_json()
 
     new_quiz_result = QuizResult(
         user_id,
         user_data["quiz_id"],
         user_data["num_correct"],
         user_data["num_total"],
-        user_data["date_taken"],
-        user_id,
+        datetime.datetime.strptime(user_data["date_taken"], '%Y-%m-%dT%H:%M:%S.%fZ'),
     )
     db.session.add(new_quiz_result)
     db.session.commit()

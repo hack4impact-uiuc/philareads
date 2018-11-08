@@ -33,7 +33,6 @@ class QuizResult(Mixin, db.Model):
         self.num_correct = num_correct
         self.num_total = num_total
         self.date_taken = date_taken
-        self.user_id = user_id
         self.attempted_questions = []
 
     def __repr__(self):

@@ -19,7 +19,7 @@ class QuestionResult(Mixin, db.Model):
     )
 
     def __init__(
-        self, user_answer: str, correct_answer: str, correct: bool, question_num: int
+        self, user_answer: str, correct_answer: str, question_num: int, correct: bool
     ):
         self.user_answer = user_answer
         self.correct_answer = correct_answer
