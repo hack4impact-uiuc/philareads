@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Row,
-  Col
-} from 'reactstrap';
+import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
 import Filter from './Filter';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Card,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
@@ -11,7 +10,6 @@ import {
   Input
 } from 'reactstrap';
 import '../styles/Filter.scss';
-import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
 
 class Filter extends Component {

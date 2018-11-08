@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 import SearchBar from '../components/SearchBar';
-import Filter from '../components/Filter';
 import SearchResults from '../components/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
