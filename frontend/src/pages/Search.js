@@ -44,7 +44,7 @@ class Search extends Component {
   render() {
     if (this.state.preSearch) {
       return (
-        <Container fluid={true}>
+        <Container fluid={true} className="search">
           <Row>
             <SearchBar
               loadCallback={this.setStateLoading}
@@ -63,7 +63,7 @@ class Search extends Component {
     }
     if (this.state.loading) {
       return (
-        <Container fluid={true}>
+        <Container fluid={true} className="search">
           <Row>
             <SearchBar
               loadCallback={this.setStateLoading}
@@ -79,7 +79,7 @@ class Search extends Component {
     }
     if (this.state.notFound) {
       return (
-        <Container fluid={true}>
+        <Container fluid={true} className="search">
           <Row>
             <SearchBar
               loadCallback={this.setStateLoading}
@@ -102,7 +102,7 @@ class Search extends Component {
     }
 
     return (
-      <Container fluid={true}>
+      <Container fluid={true} className="search">
         <Row>
           <SearchBar
             loadCallback={this.setStateLoading}
