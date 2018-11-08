@@ -23,7 +23,6 @@ class BookPage extends Component {
       quizData: getQuizzes(props.match.params.id),
       quizIndex: -1,
       quizID: -1,
-      bookData: {},
       currentQuestions: []
     };
     this.fetchBookData();
@@ -115,7 +114,7 @@ class BookPage extends Component {
             <Route exact path={'/login'} component={Login} />
           </div>
         </Router>
-        {this.bookData === {} && (
+        {this.state.bookData === undefined && (
           <Row>
             <FontAwesomeIcon
               className="icon spinner"
@@ -125,12 +124,12 @@ class BookPage extends Component {
             />
           </Row>
         )}
-        {this.bookData !== {} && (
+        {this.state.bookData !== undefined && (
           <div>
             <BookInfo bookObject={this.state.bookData} />
             <h1 className="quiz-title">Quizzes</h1>
             <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
-            {this.state.quizID != -1 && <h1 className="quiz-title">Quiz</h1>}
+            {this.state.quizID !== -1 && <h1 className="quiz-title">Quiz</h1>}
             <QuizViewer
               quizID={this.state.quizID}
               questionList={this.state.currentQuestions}
