@@ -34,60 +34,35 @@ function search(searchString) {
 }
 
 function getBooksByYearGrade({ year, grade }) {
-  if (year === null && grade === null) {
+  if (year === undefined && grade === undefined) {
     console.log(
       'getBooksByYearGrade did not receive a year or grade. You should use getBooks instead'
     );
   }
-  return new Promise((resolve, reject) => {
-    return resolve({
-      result: [
-        {
-          name: 'Stargirl',
-          author: 'Jerry Spinelli',
-          id: '1',
-          grade: 'middle',
-          year: '2019',
-          description: 'Star and girl'
-        },
-        {
-          name: 'Love, Stargirl',
-          author: 'Jerry Spinelli',
-          id: '2',
-          grade: 'middle',
-          year: '2019',
-          description: "Star's perspective"
-        },
-        {
-          name: 'Eggs',
-          author: 'Jerry Spinelli',
-          id: '3',
-          grade: 'middle',
-          year: '2019',
-          description: 'Sunrise descriptions'
-        },
-        {
-          name: 'The Fox and the Star',
-          author: 'Joan Pitzburg',
-          id: '4',
-          grade: 'middle',
-          year: '2019',
-          description: 'Fox fox star star'
-        }
-      ]
-    });
-  });
-  // const query = `year=${year ? year : ''}&grade=${grade ? grade : ''}`;
-  // return fetch(`${API_URL}/books?${query}`, {
-  //   method: 'GET'
-  // }).then(res => res.json());
+  let query = '';
+  if (year !== undefined) {
+    query += `year=${year ? year : ''}&`;
+  }
+  if (grade !== undefined) {
+    query += `grade=${grade ? grade : ''}`;
+  }
+  return fetch(`${API_URL}/books?${query}`, {
+    method: 'GET'
+  }).then(res => res.json());
 }
 
 function getROArchiveYears({ grade }) {
-  const query = `grade=${grade ? grade : ''}`;
-  return fetch(`${API_URL}/years?${query}`, {
-    method: 'GET'
-  }).then(res => res.json());
+  return new Promise((resolve, reject) => {
+    return resolve({
+      result: {
+        results: [2019, 2018, 2017]
+      }
+    });
+  });
+  // const query = `grade=${grade ? grade : ''}`;
+  // return fetch(`${API_URL}/years?${query}`, {
+  //   method: 'GET'
+  // }).then(res => res.json());
 }
 
 export { register, login, search, getBooksByYearGrade, getROArchiveYears };

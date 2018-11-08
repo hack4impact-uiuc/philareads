@@ -51,9 +51,13 @@ class ROYearView extends Component {
     getBooksByYearGrade({
       year: this.props.match.params.year
     }).then(resJson => {
-      this.setState({
-        books: resJson.result
-      });
+      if (resJson.success) {
+        this.setState({
+          books: resJson.result.results
+        });
+      } else {
+        console.log(resJson.message);
+      }
     });
   }
 

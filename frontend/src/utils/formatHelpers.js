@@ -7,4 +7,13 @@ function URLParamToString(param) {
   }
 }
 
-export { URLParamToString };
+function URLParamToQueryParam(param) {
+  if (param === 'middle') {
+    return 4;
+  }
+  if (param === 'intermediate') {
+    return 8;
+  }
+}
+
+export { URLParamToString, URLParamToQueryParam };

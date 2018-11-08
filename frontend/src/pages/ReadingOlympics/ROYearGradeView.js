@@ -10,7 +10,10 @@ import Catalog from '../../components/Catalog';
 import CatalogCardBook from '../../components/CatalogCardBook';
 import '../../styles/ReadingOlympics.scss';
 import { getBooksByYearGrade } from '../../utils/api';
-import { URLParamToString } from '../../utils/formatHelpers';
+import {
+  URLParamToString,
+  URLParamToQueryParam
+} from '../../utils/formatHelpers';
 
 class ROYearGradeView extends Component {
   constructor(props) {
@@ -50,11 +53,17 @@ class ROYearGradeView extends Component {
 
   componentDidMount() {
     const { year, grade } = this.props.match.params;
-    getBooksByYearGrade({ year, grade }).then(resJson => {
-      this.setState({
-        books: resJson.result
-      });
-    });
+    getBooksByYearGrade({ year, grade: URLParamToQueryParam(grade) }).then(
+      resJson => {
+        if (resJson.success) {
+          this.setState({
+            books: resJson.result.results
+          });
+        } else {
+          console.log(resJson.message);
+        }
+      }
+    );
   }
 
   onClickBook = bookId => {
