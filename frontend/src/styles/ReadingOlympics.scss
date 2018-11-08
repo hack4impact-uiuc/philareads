@@ -30,7 +30,12 @@
   margin: 30px 0px;
 }
 
-.book-image {
+.book-image-container {
   text-align: center;
   margin-bottom: 10px;
+}
+
+.book-image {
+  max-height: 300px;
+  width: auto;
 }

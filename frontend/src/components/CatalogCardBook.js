@@ -19,16 +19,25 @@ library.add(faBook);
 class CatalogCardBook extends Component {
   renderBookImage = () => {
     const { onClickBook } = this.props;
-    const { imageSrc } = this.props.book;
-    if (imageSrc === undefined || imageSrc === null || imageSrc === '') {
+    const { cover_url } = this.props.book;
+    if (cover_url === undefined || cover_url === null || cover_url === '') {
       return (
-        <div className="book-image">
+        <div className="book-image-container">
           <FontAwesomeIcon className="book-icon" icon="book" size="8x" />
         </div>
       );
     }
 
-    return <CardImg src={imageSrc} onClick={onClickBook} alt="" />;
+    return (
+      <div className="book-image-container">
+        <CardImg
+          className="book-image"
+          src={cover_url}
+          onClick={onClickBook}
+          alt=""
+        />
+      </div>
+    );
   };
 
   render() {
