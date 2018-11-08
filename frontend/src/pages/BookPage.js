@@ -12,21 +12,29 @@ import CatalogCard from '../components/CatalogCard';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes } from '../utils/api';
-import { Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Row } from 'reactstrap';
 import '../styles/BookPage.scss';
 class BookPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bookID: props.match.params.id,
-      bookData: getBookData(props.match.params.id),
       quizData: getQuizzes(props.match.params.id),
       quizIndex: -1,
       quizID: -1,
+      bookData: {},
       currentQuestions: []
     };
+    this.fetchBookData();
   }
 
+  fetchBookData = async () => {
+    const { message, success, result } = await getBookData(
+      this.props.match.params.id
+    );
+    this.setState({ bookData: result['results'][0] });
+  };
   navigationOptions = [
     {
       route: '/kids',
@@ -107,14 +115,28 @@ class BookPage extends Component {
             <Route exact path={'/login'} component={Login} />
           </div>
         </Router>
-        <BookInfo bookObject={this.state.bookData} />
-        <h1 className="quiz-title">Quizzes</h1>
-        <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
-        {this.state.quizID != -1 && <h1 className="quiz-title">Quiz</h1>}
-        <QuizViewer
-          quizID={this.state.quizID}
-          questionList={this.state.currentQuestions}
-        />
+        {this.bookData === {} && (
+          <Row>
+            <FontAwesomeIcon
+              className="icon spinner"
+              icon="spinner"
+              pulse
+              size="10x"
+            />
+          </Row>
+        )}
+        {this.bookData !== {} && (
+          <div>
+            <BookInfo bookObject={this.state.bookData} />
+            <h1 className="quiz-title">Quizzes</h1>
+            <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
+            {this.state.quizID != -1 && <h1 className="quiz-title">Quiz</h1>}
+            <QuizViewer
+              quizID={this.state.quizID}
+              questionList={this.state.currentQuestions}
+            />
+          </div>
+        )}
       </div>
     );
   }
