@@ -57,7 +57,7 @@ class Register extends Component {
     });
     if (success) {
       const cookies = new Cookies();
-      cookies.set('jwt', result['token']);
+      cookies.set('jwt', result['auth_token']);
       this.setState({ errors: [], isLoggedIn: this.isLoggedIn() });
     } else {
       // We can possibly remove this in future if we realize we're only needing to set
