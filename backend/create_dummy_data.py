@@ -46,3 +46,23 @@ sample_quiz = {
 }
 r = requests.post(API_URL + "quiz", json=sample_quiz)
 print(r.json())
+
+# sample quiz 2
+sample_quiz = {
+    "name": "Huck Finn Quiz 2",
+    "book_id": 1,
+    "questions": [
+        {
+            "text": "Who wrote Chuckleberry Finn?",
+            "options": ["Mark Twain", "JK Rofling", "Steinbeck", "Tony Morrison"],
+            "correct_option": "Mark Twain",
+        },
+        {
+            "text": "Who is Chuckleberry Finn's Best Friend?",
+            "options": ["Tom Sawyer", "His dad", "Jake Wiggins", "His cat"],
+            "correct_option": "Tom Sawyer",
+        },
+    ],
+}
+r = requests.post(API_URL + "quiz", json=sample_quiz)
+print(r.json())
