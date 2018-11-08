@@ -1,8 +1,8 @@
 function URLParamToString(param) {
-  if (param === 'middle') {
+  if (param === 'middle' || param === 4) {
     return 'Middle School';
   }
-  if (param === 'intermediate') {
+  if (param === 'intermediate' || param === 8) {
     return 'Intermediate Level';
   }
 }
