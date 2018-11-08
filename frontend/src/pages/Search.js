@@ -48,7 +48,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -68,7 +67,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -85,7 +83,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -109,7 +106,6 @@ class Search extends Component {
       <Container fluid={true}>
         <Row>
           <SearchBar
-            preSearchCallback={this.setStatePreSearch}
             loadCallback={this.setStateLoading}
             notFoundCallback={this.setStateNotFound}
             searchCallback={this.setSearchResults}

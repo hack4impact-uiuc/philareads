@@ -72,7 +72,6 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  preSearchCallback: PropTypes.func.isRequired,
   loadCallback: PropTypes.func.isRequired,
   notFoundCallback: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired
