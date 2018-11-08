@@ -52,7 +52,7 @@ class ROHome extends Component {
   componentDidMount() {
     getROArchiveYears({}).then(resJson => {
       this.setState({
-        years: resJson.result
+        years: resJson.result.results
       });
     });
   }
@@ -86,6 +86,7 @@ class ROHome extends Component {
           {this.state.years.map(y => (
             <Link key={y} to={`/ReadingOlympics/year/${y}`}>
               {y}
+              <br />
             </Link>
           ))}
         </CardBody>
