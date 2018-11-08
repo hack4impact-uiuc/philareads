@@ -58,7 +58,7 @@ function getROArchiveYears({ grade }) {
 }
 function getBookData(id) {
   console.log('Getting book data');
-  return fetch(`${API_URL}/books`, {
+  return fetch(`${API_URL}/books?id=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -138,4 +138,12 @@ function getQuizzes() {
   ];
   return mockAPI;
 }
-export { register, login, search, getBooksByYearGrade, getROArchiveYears, getBookData, getQuizzes };
+export {
+  register,
+  login,
+  search,
+  getBooksByYearGrade,
+  getROArchiveYears,
+  getBookData,
+  getQuizzes
+};
