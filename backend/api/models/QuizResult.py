@@ -16,10 +16,17 @@ class QuizResult(Mixin, db.Model):
     date_taken = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
     quiz_id = db.Column(db.Integer)
-    attempted_questions = db.relationship("QuestionResult", backref="quizResult", lazy=True)
+    attempted_questions = db.relationship(
+        "QuestionResult", backref="quizResult", lazy=True
+    )
 
     def __init__(
-            self, user_id: int, quiz_id: int, num_correct: int, num_total: int, date_taken: datetime
+        self,
+        user_id: int,
+        quiz_id: int,
+        num_correct: int,
+        num_total: int,
+        date_taken: datetime,
     ):
         self.user_id = user_id
         self.quiz_id = quiz_id

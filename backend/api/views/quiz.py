@@ -12,12 +12,18 @@ def invalid_model_helper(user_data, props):
             return True
     return False
 
+
 def invalid_question_result_data(user_data):
-    return invalid_model_helper(user_data, ["user_answer", "correct_answer", "correct", "question_num"])
+    return invalid_model_helper(
+        user_data, ["user_answer", "correct_answer", "correct", "question_num"]
+    )
+
 
 def invalid_quiz_result_data(user_data):
-    return invalid_model_helper(user_data, ["quiz_id", "num_correct", "num_total", "date_taken", "user_id"])
-        
+    return invalid_model_helper(
+        user_data, ["quiz_id", "num_correct", "num_total", "date_taken", "user_id"]
+    )
+
 
 def invalid_quiz_data(user_data):
     return invalid_model_helper(user_data, ["name", "questions", "book_id"])
@@ -76,11 +82,18 @@ def create_quiz():
         message="Succesfuly created new quiz", status=200, data={"status": "success"}
     )
 
+
 def create_question_result(quiz_result, user_data):
-    new_question_result = QuestionResult(user_data["user_answer"], user_data["correct_answer"], user_data["question_num"], user_data["correct"])
+    new_question_result = QuestionResult(
+        user_data["user_answer"],
+        user_data["correct_answer"],
+        user_data["question_num"],
+        user_data["correct"],
+    )
     new_quiz_result.quiz_result_id = quiz_result.id
     new_quiz.attempted_questions.append(new_quiz_result)
     return new_quiz_result
+
 
 @quiz.route("/quiz_result", methods=["POST"])
 def create_quiz_result():
@@ -104,8 +117,15 @@ def create_quiz_result():
 
     user = User.query.get(user_id)
     user_data = request.get_json()
-    
-    new_quiz_result = QuizResult(user_id, user_data["quiz_id"], user_data["num_correct"], user_data["num_total"], user_data["date_taken"], user_id)
+
+    new_quiz_result = QuizResult(
+        user_id,
+        user_data["quiz_id"],
+        user_data["num_correct"],
+        user_data["num_total"],
+        user_data["date_taken"],
+        user_id,
+    )
     db.session.add(new_quiz_result)
     db.session.commit()
 
@@ -121,5 +141,7 @@ def create_quiz_result():
 
     db.session.commit()
     return create_response(
-        message="Successfully created quiz result", status=200, data={"status": "success"}
+        message="Successfully created quiz result",
+        status=200,
+        data={"status": "success"},
     )
