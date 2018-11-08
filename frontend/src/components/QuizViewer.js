@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Question from '../components/Question';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+
 class QuizViewer extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +11,8 @@ class QuizViewer extends Component {
     };
   }
   getQuestionObject() {
+    console.log(this.state.currentQuestion);
+    console.log('Hello');
     return this.props.questionList[this.state.currentQuestion];
   }
   render() {
@@ -23,6 +27,18 @@ class QuizViewer extends Component {
               this.getQuestionObject()['correct_option']
             )}
           />
+        )}
+
+        {this.props.questionList.length > 0 && (
+          <Pagination aria-label="Page navigation example">
+            {this.props.questionList.map((question, i) => (
+              <PaginationItem key={`${this.props.quizID},${i}`}>
+                <PaginationLink
+                  onClick={() => this.setState({ currentQuestion: i })}
+                />
+              </PaginationItem>
+            ))}
+          </Pagination>
         )}
       </div>
     );
