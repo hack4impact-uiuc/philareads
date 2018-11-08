@@ -38,7 +38,7 @@ def register_user():
         return create_response(
             message="Failed to generate auth_token", status=400, data={"status": "fail"}
         )
-    return create_response(data={"token": auth_token}, status=201)
+    return create_response(data={"auth_token": auth_token}, status=201)
 
 
 # function that is called when you visit /login
