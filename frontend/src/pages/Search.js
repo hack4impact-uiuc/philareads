@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 import SearchBar from '../components/SearchBar';
-import Filter from '../components/Filter';
 import SearchResults from '../components/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,7 +47,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -68,7 +66,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -85,7 +82,6 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              preSearchCallback={this.setStatePreSearch}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
@@ -109,20 +105,12 @@ class Search extends Component {
       <Container fluid={true}>
         <Row>
           <SearchBar
-            preSearchCallback={this.setStatePreSearch}
             loadCallback={this.setStateLoading}
             notFoundCallback={this.setStateNotFound}
             searchCallback={this.setSearchResults}
           />
         </Row>
-        <Row>
-          <Col lg="4">
-            <Filter />
-          </Col>
-          <Col lg="8">
-            <SearchResults results={this.state.results} />
-          </Col>
-        </Row>
+        <SearchResults results={this.state.results} />
       </Container>
     );
   }

@@ -13,6 +13,7 @@
     "husky": "^1.1.0",
     "i": "^0.3.6",
     "lint-staged": "^7.3.0",
+    "memoize-one": "^4.0.3",
     "node-sass": "^4.9.3",
     "npm": "^6.4.1",
     "prettier": "^1.14.3",

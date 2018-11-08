@@ -22,13 +22,17 @@ class SearchBar extends Component {
     }
     this.props.loadCallback();
 
-    const { success, result, message } = await search(this.state.query);
+    const {
+      success,
+      result: { results },
+      message
+    } = await search(this.state.query);
 
     if (success) {
-      if (result === []) {
+      if (results.length === 0) {
         this.props.notFoundCallback();
       } else {
-        this.props.searchCallback(result);
+        this.props.searchCallback(results);
       }
     } else {
       console.log(message);
@@ -68,7 +72,6 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  preSearchCallback: PropTypes.func.isRequired,
   loadCallback: PropTypes.func.isRequired,
   notFoundCallback: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired
