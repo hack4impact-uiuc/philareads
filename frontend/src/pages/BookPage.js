@@ -14,7 +14,6 @@ import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Row } from 'reactstrap';
-import '../styles/BookPage.scss';
 class BookPage extends Component {
   constructor(props) {
     super(props);
