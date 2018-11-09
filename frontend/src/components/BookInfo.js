@@ -5,7 +5,7 @@ import { Card, CardTitle, CardImg } from 'reactstrap';
 class BookInfo extends Component {
   render() {
     return (
-      <div className="blue-gradient">
+      <div className="blue-gradient book-info">
         <div className="container">
           <div className="row book-info-row  font-white">
             <div className="col col-lg-3">
