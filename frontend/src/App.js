@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import './styles/App.scss';
 import ParentsPage from './pages/ParentsPage';
 import BookPage from './pages/BookPage';
+import QuizPage from './pages/QuizPage';
 import Logout from './components/Logout';
 import Search from './pages/Search';
 import ProfilePage from './pages/ProfilePage';
@@ -42,7 +43,11 @@ class App extends Component {
             component={ROYearGradeView}
           />
           <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
-          <Route path="/readingolympics/book/:id" component={BookPage} />
+          <Route exact path="/ReadingOlympics/book/:id" component={BookPage} />
+          <Route
+            path="/ReadingOlympics/book/:id/:quizID"
+            component={QuizPage}
+          />
         </div>
       </Router>
     );
