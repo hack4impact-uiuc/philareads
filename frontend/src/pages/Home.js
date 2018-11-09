@@ -19,7 +19,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Container>
+        <Container className="homepage">
           <Row>
             <Col id="left">
               <Card className="parent">
