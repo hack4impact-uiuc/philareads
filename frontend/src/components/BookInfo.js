@@ -29,7 +29,7 @@ class BookInfo extends Component {
               </h3>
               <h3 className="light-font">
                 Click <a href={this.props.bookObject.reader_url}>here</a> to
-                download the book!
+                download the book.
               </h3>
             </div>
           </div>

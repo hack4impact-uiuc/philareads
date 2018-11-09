@@ -81,7 +81,11 @@ class BookPage extends Component {
           <div>
             <BookInfo bookObject={this.state.bookData} />
             <h1 className="quiz-title">Quizzes</h1>
-            <Catalog renderFunc={this.renderFunc} cards={this.getCards()} />
+            <Catalog
+              className="quiz-catalog"
+              renderFunc={this.renderFunc}
+              cards={this.getCards()}
+            />
           </div>
         )}
       </div>
