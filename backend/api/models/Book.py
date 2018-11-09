@@ -42,6 +42,7 @@ class Book(Mixin, db.Model):
 
     def serialize_to_json(self):
         return {
+            "id": self.id,
             "name": self.name,
             "author": self.author,
             "grade": self.grade,
