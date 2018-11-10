@@ -290,6 +290,8 @@ boycalledbat1_quiz = {
         },
     ],
 }
+r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz)
+print(r.json())
 
 # ruby on outside quiz
 rubyonoutside1_quiz = {
