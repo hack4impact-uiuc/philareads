@@ -267,3 +267,61 @@ wishtree3_quiz = {
 }
 r = requests.post(API_URL + "quiz", json=wishtree3_quiz)
 print(r.json())
+
+# boy called bat quiz
+boycalledbat1_quiz = {
+    "name": "A Boy Called Bat Quiz 1",
+    "book_id": 3,
+    "questions": [
+        {
+            "text": "What grade is Bat in?",
+            "options": ["2nd", "4th", "1st", "3rd"],
+            "correct_option": "3rd",
+        },
+        {
+            "text": "What is Bat's mother's occupation?",
+            "options": [
+                "Veterinarian",
+                "Nurse",
+                "Teacher",
+                "Scientist"
+            ],
+            "correct_option": "Veterinarian",
+        },
+        {
+            "text": "What is name of Bat's skunk?",
+            "options": ["Winnie", "Thor", "Bongo", "Stripe"],
+            "correct_option": "Thor",
+        },
+    ],
+}
+
+# ruby on outside quiz
+rubyonoutside1_quiz = {
+    "name": "Ruby on the Outside Quiz 1",
+    "book_id": 4,
+    "questions": [
+        {
+            "text": "How old is Ruby at the start of the book?",
+            "options": ["8", "15", "10", "11"],
+            "correct_option": "11",
+        },
+        {
+            "text": "Why can't Ruby see her mother? Where is she?",
+            "options": [
+                "Hospital",
+                "DMV",
+                "Prison",
+                "Dev night"
+            ],
+            "correct_option": "Prison",
+        },
+        {
+            "text": "What is the name of Ruby's new friend?",
+            "options": ["Madeline", "Maggie", "Margalit", "Margaret"],
+            "correct_option": "Margalit",
+        },
+    ],
+}
+r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
+print(r.json())
