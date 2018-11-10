@@ -27,6 +27,7 @@ huckfinn_book = {
 r = requests.post(API_URL + "book", json=huckfinn_book)
 print(r.json())
 
+# grade 8 books
 wishtree_book = {
     "name": "Wishtree",
     "author": "Katherine Applegate",
@@ -176,4 +177,79 @@ sample_quiz = {
     ],
 }
 r = requests.post(API_URL + "quiz", json=sample_quiz)
+print(r.json())
+
+# wish tree quiz
+wishtree1_quiz = {
+    "name": "Wish Tree Quiz 1",
+    "book_id": 2,
+    "questions": [
+        {
+            "text": "In the beginning the narrator is introduced as?",
+            "options": ["Samar", "Red, a 200-year-old oak tree", "Bongo", "Francesca"],
+            "correct_option": "Red, a 200-year-old oak tree",
+        },
+        {
+            "text": "Which time of year do people write down their wishes for Red?",
+            "options": ["June 1st", "Christmas", "May 1st", "Every Monday Morning"],
+            "correct_option": "May 1st",
+        },
+        {
+            "text": "What does Samar wish for?",
+            "options": ["An A on CS 233 Exam", "A friend", "Her mother to recover from sickness", "Acceptance into the philaReads dev team"],
+            "correct_option": "A friend",
+        },
+    ],
+}
+r = requests.post(API_URL + "quiz", json=wishtree1_quiz)
+print(r.json())
+
+# wish tree quiz
+wishtree2_quiz = {
+    "name": "Wish Tree Quiz 2",
+    "book_id": 2,
+    "questions": [
+        {
+            "text": "What is the name of the Irish orphan that arrived in 1848",
+            "options": ["Maeve", "Ciara", "Anna", "Siobhan"],
+            "correct_option": "Maeve",
+        },
+        {
+            "text": "What does the name of the adopted child 'Amadora' mean?",
+            "options": ["Gift of life", "Gift of hope", "Gift of love", "Gift of strength"],
+            "correct_option": "Gift of love",
+        },
+        {
+            "text": "The arborists choose to do what to Red?",
+            "options": ["Chop it down", "Write wishes on it", "Preserve it"],
+            "correct_option": "Chop it down",
+        },
+    ],
+}
+r = requests.post(API_URL + "quiz", json=wishtree2_quiz)
+print(r.json())
+
+# wish tree quiz
+wishtree3_quiz = {
+    "name": "Wish Tree Quiz 3",
+    "book_id": 2,
+    "questions": [
+        {
+            "text": "In response to the arborists what does Stephen and his classmates write on Red",
+            "options": ["STAY", "GOODBYE", "FAREWELL", "DONT LEAVE"],
+            "correct_option": "STAY",
+        },
+        {
+            "text": "What does Francesca read to ultimately change her mind about chopping down Red",
+            "options": ["Maeve's journal", "A letter written by Stephen's classmates", "The wishes on Red"],
+            "correct_option": "Maeve's journal",
+        },
+        {
+            "text": "In the end who does Samar become good friends with?",
+            "options": ["Red", "Francesca", "Bongo", "Stephen"],
+            "correct_option": "Stephen",
+        },
+    ],
+}
+r = requests.post(API_URL + "quiz", json=wishtree3_quiz)
 print(r.json())
