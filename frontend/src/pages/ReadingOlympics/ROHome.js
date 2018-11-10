@@ -62,7 +62,7 @@ class ROHome extends Component {
 
   render() {
     return (
-      <div>
+      <div className="reading-olympics">
         <div className="page-title">
           <h1>Reading Olympics</h1>
         </div>
