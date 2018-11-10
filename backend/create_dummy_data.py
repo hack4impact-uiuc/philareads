@@ -196,7 +196,12 @@ wishtree1_quiz = {
         },
         {
             "text": "What does Samar wish for?",
-            "options": ["An A on CS 233 Exam", "A friend", "Her mother to recover from sickness", "Acceptance into the philaReads dev team"],
+            "options": [
+                "An A on CS 233 Exam",
+                "A friend",
+                "Her mother to recover from sickness",
+                "Acceptance into the philaReads dev team",
+            ],
             "correct_option": "A friend",
         },
     ],
@@ -216,7 +221,12 @@ wishtree2_quiz = {
         },
         {
             "text": "What does the name of the adopted child 'Amadora' mean?",
-            "options": ["Gift of life", "Gift of hope", "Gift of love", "Gift of strength"],
+            "options": [
+                "Gift of life",
+                "Gift of hope",
+                "Gift of love",
+                "Gift of strength",
+            ],
             "correct_option": "Gift of love",
         },
         {
@@ -241,7 +251,11 @@ wishtree3_quiz = {
         },
         {
             "text": "What does Francesca read to ultimately change her mind about chopping down Red",
-            "options": ["Maeve's journal", "A letter written by Stephen's classmates", "The wishes on Red"],
+            "options": [
+                "Maeve's journal",
+                "A letter written by Stephen's classmates",
+                "The wishes on Red",
+            ],
             "correct_option": "Maeve's journal",
         },
         {
