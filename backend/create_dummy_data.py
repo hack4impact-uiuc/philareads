@@ -280,12 +280,7 @@ boycalledbat1_quiz = {
         },
         {
             "text": "What is Bat's mother's occupation?",
-            "options": [
-                "Veterinarian",
-                "Nurse",
-                "Teacher",
-                "Scientist"
-            ],
+            "options": ["Veterinarian", "Nurse", "Teacher", "Scientist"],
             "correct_option": "Veterinarian",
         },
         {
@@ -308,12 +303,7 @@ rubyonoutside1_quiz = {
         },
         {
             "text": "Why can't Ruby see her mother? Where is she?",
-            "options": [
-                "Hospital",
-                "DMV",
-                "Prison",
-                "Dev night"
-            ],
+            "options": ["Hospital", "DMV", "Prison", "Dev night"],
             "correct_option": "Prison",
         },
         {
