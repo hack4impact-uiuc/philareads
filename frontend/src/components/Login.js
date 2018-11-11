@@ -83,7 +83,6 @@ class Login extends Component {
         <div className="text-center">
           <Form className="form-signin">
             <Card className="login-card">
-              <h1 className="h3 mb-3 font-weight-normal">Sign in</h1>
               <FormGroup>
                 <Label className="sr-only" for="email">
                   Email

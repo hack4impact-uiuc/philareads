@@ -85,16 +85,19 @@ class Search extends Component {
     }
 
     return (
-      <Container fluid={true} className="search">
-        <Row>
-          <SearchBar
-            loadCallback={this.setStateLoading}
-            notFoundCallback={this.setStateNotFound}
-            searchCallback={this.setSearchResults}
-          />
-        </Row>
-        {body}
-      </Container>
+      <div className="search">
+        <h1 className="page-title">Search</h1>
+        <Container fluid={true}>
+          <Row>
+            <SearchBar
+              loadCallback={this.setStateLoading}
+              notFoundCallback={this.setStateNotFound}
+              searchCallback={this.setSearchResults}
+            />
+          </Row>
+          {body}
+        </Container>
+      </div>
     );
   }
 }
