@@ -21,9 +21,10 @@
     margin-top: 30px;
   }
 
-  h4 {
+  .alt-state {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
     margin-top: 80px;
   }
 
@@ -34,5 +35,9 @@
   .results {
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+
+  .search-result {
+    margin: 24px;
   }
 }

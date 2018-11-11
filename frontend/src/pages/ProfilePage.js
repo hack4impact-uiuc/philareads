@@ -4,7 +4,7 @@ class ProfilePage extends Component {
   render() {
     return (
       <div>
-        <h1>Profile Page</h1>
+        <h1 className="page-title">Profile Page</h1>
         <div>
           Features:
           <ul>

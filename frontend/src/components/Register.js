@@ -97,7 +97,6 @@ class Register extends Component {
         <div className="text-center">
           <Form className="form-signin" name="form">
             <Card className="login-card">
-              <h1 className="h3 mb-3 font-weight-normal">Register</h1>
               <FormGroup>
                 <Input
                   name="name"
