@@ -94,7 +94,7 @@ class Question extends Component {
   renderQuestion = () => {
     return (
       <div>
-        <h3>{this.props.title}</h3>
+        <h3>{`${this.props.questionNumber}. ${this.props.title}`}</h3>
         <Form>
           <ListGroup>
             {this.props.options.map((option, i) => {
@@ -168,7 +168,8 @@ Question.propTypes = {
   setQuestionProps: PropTypes.func.isRequired,
   selectedAnswer: PropTypes.number.isRequired, //possible answer choices: 0 to last answer
   submitted: PropTypes.bool.isRequired,
-  answeredCorrectly: PropTypes.number.isRequired //default is unanswered; 0 incorrect; 1 correct
+  answeredCorrectly: PropTypes.number.isRequired, //default is unanswered; 0 incorrect; 1 correct
+  questionNumber: PropTypes.number.isRequired
 };
 
 export default Question;

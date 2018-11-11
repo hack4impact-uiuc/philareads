@@ -104,6 +104,7 @@ class QuizViewer extends Component {
             selectedAnswer={this.getQuestionProps()['selectedAnswer']}
             submitted={this.getQuestionProps()['submitted']}
             answeredCorrectly={this.getQuestionProps()['answeredCorrectly']}
+            questionNumber={this.state.currentQuestion + 1}
           />
         )}
 
