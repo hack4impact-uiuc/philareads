@@ -185,7 +185,7 @@ wishtree1_quiz = {
     "book_id": 2,
     "questions": [
         {
-            "text": "In the beginning the narrator is introduced as?",
+            "text": "In the beginning, the narrator is introduced as?",
             "options": ["Samar", "Red, a 200-year-old oak tree", "Bongo", "Francesca"],
             "correct_option": "Red, a 200-year-old oak tree",
         },
@@ -230,7 +230,7 @@ wishtree2_quiz = {
             "correct_option": "Gift of love",
         },
         {
-            "text": "The arborists choose to do what to Red?",
+            "text": "What did the arborists choose to do with Red?",
             "options": ["Chop it down", "Write wishes on it", "Preserve it"],
             "correct_option": "Chop it down",
         },
@@ -245,7 +245,7 @@ wishtree3_quiz = {
     "book_id": 2,
     "questions": [
         {
-            "text": "In response to the arborists what does Stephen and his classmates write on Red",
+            "text": "In response to the arborists, what does Stephen and his classmates write on Red",
             "options": ["STAY", "GOODBYE", "FAREWELL", "DONT LEAVE"],
             "correct_option": "STAY",
         },
@@ -259,7 +259,7 @@ wishtree3_quiz = {
             "correct_option": "Maeve's journal",
         },
         {
-            "text": "In the end who does Samar become good friends with?",
+            "text": "In the end, who does Samar become good friends with?",
             "options": ["Red", "Francesca", "Bongo", "Stephen"],
             "correct_option": "Stephen",
         },
@@ -284,7 +284,7 @@ boycalledbat1_quiz = {
             "correct_option": "Veterinarian",
         },
         {
-            "text": "What is name of Bat's skunk?",
+            "text": "What is the name of Bat's skunk?",
             "options": ["Winnie", "Thor", "Bongo", "Stripe"],
             "correct_option": "Thor",
         },
