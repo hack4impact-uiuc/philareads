@@ -37,7 +37,7 @@ class ROYearView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="reading-olympics">
         <div className="page-title">
           <h1>{`Reading Olympics: ${this.props.match.params.year}`}</h1>
         </div>
