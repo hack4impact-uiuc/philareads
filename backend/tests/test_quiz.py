@@ -28,15 +28,18 @@ sample_good_json = """
     "questions": [
         {
             "text": "Who is gatsby?",
-            "options": ["A person", "A cow", "A dog"]
+            "options": ["A person", "A cow", "A dog"],
+            "correct_option": "A person"
+        },
+        {
+            "text": "Who is dogsby?",
+            "options": ["A person", "A rat", "A dog"],
+            "correct_option": "A dog"
         },
         {
             "text": "Who is cowsby?",
-            "options": ["A person", "A rat", "A dog"]
-        },
-        {
-            "text": "Who is cowsby?",
-            "options": ["A person", "A cow", "A dog"]
+            "options": ["A person", "A cow", "A dog"],
+            "correct_option": "A cow"
         }
     ]
 } """
@@ -51,7 +54,7 @@ sample_bad_json_data = """
             "options": ["A person", "A cow", "A dog"]
         },
         {
-            "text": "Who is cowsby?",
+            "text": "Who is dogsby?",
             "options": ["A person", "A rat", "A dog"]
         },
         {
