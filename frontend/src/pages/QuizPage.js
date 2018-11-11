@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Row } from 'reactstrap';
+import { Row } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -34,7 +33,6 @@ class QuizPage extends Component {
     const { id, quizID } = this.props.match.params;
     const { message, success, result } = await getQuizzes(id);
     if (success) {
-      console.log('A single quiz');
       this.setState({
         quizData: result['quizzes'].filter(
           quiz => quiz['quizzes'][0]['quiz_id'].toString() === quizID
@@ -46,7 +44,6 @@ class QuizPage extends Component {
   };
 
   getQuestions = () => {
-    console.log(this.state.quizData);
     return this.state.quizData['quizzes'];
   };
 

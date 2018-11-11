@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import PReadsNavbar from '../components/PReadsNavbar';
-import Homefeed from '../components/Homefeed';
-import Exercises from '../components/Exercises';
-import Readings from '../components/Readings';
-import Games from '../components/Games';
-import Results from '../components/Results';
 import Catalog from '../components/Catalog';
-import Login from '../components/Login';
-import CatalogCard from '../components/CatalogCard';
 import BookInfo from '../components/BookInfo';
-import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Row } from 'reactstrap';
@@ -51,7 +41,7 @@ class BookPage extends Component {
 
   getCards = () => {
     let cards = [];
-    this.state.quizData.map((quiz, idx) => {
+    this.state.quizData.forEach((quiz, idx) => {
       cards.push({
         title: quiz['name'],
         id: quiz['quizzes'][0]['quiz_id'],

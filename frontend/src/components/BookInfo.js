@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../styles/BookInfo.scss';
-import { Card, CardTitle, CardImg } from 'reactstrap';
 class BookInfo extends Component {
   render() {
     return (
