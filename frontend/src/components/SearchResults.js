@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
@@ -35,13 +36,19 @@ class SearchResults extends Component {
   });
 
   renderResults = () => {
-    return this.props.results.map(x => (
-      <CatalogCard
-        key={x.id}
-        title={x.name}
-        text={`${x.author}, ${x.grade}, ${x.year}`}
-      />
-    ));
+    return this.props.results.map(book => {
+      return (
+        <Card key={book.id} className="search-result">
+          <CardBody>
+            <CardTitle>{book.name}</CardTitle>
+            <CardText>{`${book.author}, ${book.grade}, ${book.year}`}</CardText>
+          </CardBody>
+          <Link to={`/ReadingOlympics/book/${book.id}`}>
+            <span />
+          </Link>
+        </Card>
+      );
+    });
   };
 
   render() {
@@ -58,7 +65,7 @@ class SearchResults extends Component {
           <div className="results">
             <Card>
               <CardBody>
-                <CardTitle>Search Results</CardTitle>
+                <h4>Search Results</h4>
                 {this.renderResults()}
               </CardBody>
             </Card>
