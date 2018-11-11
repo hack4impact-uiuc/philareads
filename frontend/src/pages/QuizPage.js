@@ -23,7 +23,13 @@ class QuizPage extends Component {
       this.props.match.params.id
     );
     if (success) {
-      this.setState({ bookData: result['results'][0] });
+      if (result['results'].length > 0) {
+        this.setState({ bookData: result['results'][0] });
+      } else {
+        // User somehow navigated to a book page of invalid ID.
+        // Redirect them to the homepage
+        this.props.history.push('/');
+      }
     } else {
       console.log(message);
     }
