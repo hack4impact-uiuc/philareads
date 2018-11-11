@@ -162,7 +162,7 @@ def get_question_results(quiz_result_id):
         )
 
     quest_list = []
-
+    quiz_questions = Quiz.query.get(quiz_result.quiz_id).questions
     for attempt_quest in quiz_result.attempted_questions:
         quest_dict = {}
         quest_dict["user_answer"] = attempt_quest.user_answer
@@ -170,7 +170,9 @@ def get_question_results(quiz_result_id):
         quest_dict["correct"] = attempt_quest.correct
         # grab the original question options
         question = Question.query.filter_by(id=attempt_quest.id).first()
-        quest_dict["question_options"] = question.options
+        quest_dict["question_options"] = quiz_questions[
+            attempt_quest.question_num
+        ].options
         quest_list.append(quest_dict)
 
     return create_response(
