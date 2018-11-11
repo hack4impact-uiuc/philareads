@@ -56,6 +56,7 @@ function getROArchiveYears({ grade }) {
     method: 'GET'
   }).then(res => res.json());
 }
+
 function getBookData(id) {
   console.log('Getting book data');
   return fetch(`${API_URL}/books?id=${id}`, {
@@ -64,80 +65,18 @@ function getBookData(id) {
       'Content-Type': 'application/json'
     }
   }).then(res => res.json());
-
-  //   const mockAPI = {
-  //     id: 84,
-  //     name: 'Cracking The PM Interview',
-  //     author: 'Gayle Laakmann McDowell',
-  //     grade: 8,
-  //     cover_url:
-  //       'https://images-na.ssl-images-amazon.com/images/I/418FvJBCq3L._SX331_BO1,204,203,200_.jpg',
-  //     reader_url: 'https://onlinereader.com/books/crackingpm.pdf',
-  //     year: 2018,
-  //     quizzes: [
-  //       {
-  //         id: 2,
-  //         name: 'Huck Finn',
-  //         questions: [
-  //           {
-  //             id: 84,
-  //             text: "Who wrote 'Huckleberry Finn'?",
-  //             options: [
-  //               'J.K. Rowling',
-  //               'Steinbeck',
-  //               'Tony Morrison',
-  //               'Mark Twain'
-  //             ]
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   };
-  //   return mockAPI;
 }
-function getQuizzes() {
-  const mockAPI = [
-    {
-      id: 2,
-      name: 'Huck Finn',
-      questions: [
-        {
-          text: "Who wrote 'Huckleberry Finn'?",
-          options: ['J.K. Rowling', 'Steinbeck', 'Tony Morrison', 'Mark Twain'],
-          correct_option: 'Mark Twain'
-        },
-        {
-          text: "Who is Huckleberry Finn's Best Friend?",
-          options: ['Tom Sawyer', 'His dad', 'Jake Wiggins', 'His dog'],
-          correct_option: 'Tom Sawyer'
-        }
-      ]
-    },
 
-    {
-      id: 5,
-      name: 'Acing the PM Interview',
-      questions: [
-        {
-          text: "Who wrote 'Acing the PM Interview'?",
-          options: [
-            'Acing the PM Interview',
-            'Steinbeck',
-            'Tony Morrison',
-            'Mark Twain'
-          ],
-          correct_option: 'Acing the PM Interview'
-        },
-        {
-          text: 'Who is Acing the PM Interview?',
-          options: ['Tom Sawyer', 'His dad', 'A thing', 'His dog'],
-          correct_option: 'A thing'
-        }
-      ]
+function getQuizzes(bookID) {
+  console.log('Getting quiz data');
+  return fetch(`${API_URL}/${bookID}/quizzes`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
     }
-  ];
-  return mockAPI;
+  }).then(res => res.json());
 }
+
 export {
   register,
   login,

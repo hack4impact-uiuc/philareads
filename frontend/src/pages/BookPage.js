@@ -19,31 +19,45 @@ class BookPage extends Component {
     super(props);
     this.state = {
       bookID: props.match.params.id,
-      quizData: getQuizzes(props.match.params.id),
       quizIndex: -1,
       quizID: -1,
       currentQuestions: []
     };
     this.fetchBookData();
+    this.fetchQuizData();
   }
 
   fetchBookData = async () => {
     const { message, success, result } = await getBookData(
       this.props.match.params.id
     );
-    console.log(result);
-    this.setState({ bookData: result['results'][0] });
+    if (success) {
+      this.setState({ bookData: result['results'][0] });
+    } else {
+      console.log(message);
+    }
+  };
+
+  fetchQuizData = async () => {
+    const { message, success, result } = await getQuizzes(
+      this.props.match.params.id
+    );
+    if (success) {
+      this.setState({ quizData: result['quizzes'] });
+    } else {
+      console.log(message);
+    }
   };
 
   getCards = () => {
-    var cards = [];
-    for (var i in this.state.quizData) {
+    let cards = [];
+    this.state.quizData.map((quiz, idx) => {
       cards.push({
-        title: this.state.quizData[i]['name'],
-        id: this.state.quizData[i]['id'],
-        index: i
+        title: quiz['name'],
+        id: quiz['quizzes'][0]['quiz_id'],
+        index: idx
       });
-    }
+    });
     return cards;
   };
 
@@ -52,6 +66,7 @@ class BookPage extends Component {
       `/ReadingOlympics/book/${this.props.match.params.id}/${id}`
     );
   };
+
   renderFunc = card => {
     return (
       <Button
@@ -63,10 +78,17 @@ class BookPage extends Component {
       </Button>
     );
   };
+
+  dataLoaded = () => {
+    return (
+      this.state.bookData !== undefined && this.state.quizData !== undefined
+    );
+  };
+
   render() {
     return (
       <div>
-        {this.state.bookData === undefined && (
+        {!this.dataLoaded() && (
           <Row>
             <FontAwesomeIcon
               className="icon spinner"
@@ -76,7 +98,7 @@ class BookPage extends Component {
             />
           </Row>
         )}
-        {this.state.bookData !== undefined && (
+        {this.dataLoaded() && (
           <div>
             <BookInfo bookObject={this.state.bookData} />
             <h1 className="quiz-title">Quizzes</h1>
