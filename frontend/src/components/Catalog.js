@@ -101,7 +101,15 @@ class Catalog extends Component {
   render() {
     return (
       <div>
-        <Container fluid={true} className="catalog">
+        <Container
+          fluid={true}
+          className={
+            'catalog' +
+            (this.props.className !== undefined
+              ? ' ' + this.props.className
+              : '')
+          }
+        >
           <Row>{this.getFirstRow().map(this.renderCard)}</Row>
           <Row>{this.getSecondRow().map(this.renderCard)}</Row>
           <Row className="pagination">

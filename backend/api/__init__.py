@@ -20,7 +20,7 @@ class RequestFormatter(logging.Formatter):
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    CORS(app)  # add CORS
+    CORS(app, supports_credentials=True)  # add CORS
 
     # check environment variables to see which config to load
     env = os.environ.get("FLASK_ENV", "dev")

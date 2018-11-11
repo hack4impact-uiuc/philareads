@@ -6,14 +6,13 @@ const API_URL =
     : 'http://localhost:5000';
 
 function register(formData) {
-  var a = fetch(`${API_URL}/register`, {
+  return fetch(`${API_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(formData)
   }).then(res => res.json());
-  return a;
 }
 
 function login(formData) {
@@ -57,4 +56,45 @@ function getROArchiveYears({ grade }) {
   }).then(res => res.json());
 }
 
-export { register, login, search, getBooksByYearGrade, getROArchiveYears };
+function getBookData(id) {
+  console.log('Getting book data');
+  return fetch(`${API_URL}/books?id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json());
+}
+
+function getQuizzes(bookID) {
+  console.log('Getting quiz data');
+  return fetch(`${API_URL}/${bookID}/quizzes`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json());
+}
+
+function postQuizResults(quizResultsData) {
+  console.log('Posting quiz results');
+  return fetch(`${API_URL}/quiz_result`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(quizResultsData)
+  }).then(res => res.json());
+}
+
+export {
+  register,
+  login,
+  search,
+  getBooksByYearGrade,
+  getROArchiveYears,
+  getBookData,
+  getQuizzes,
+  postQuizResults
+};
