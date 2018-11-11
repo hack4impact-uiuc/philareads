@@ -42,53 +42,36 @@ class Search extends Component {
   };
 
   render() {
+    let body = <SearchResults results={this.state.results} />;
+
     if (this.state.preSearch) {
-      return (
-        <Container fluid={true} className="search">
+      body = (
+        <div>
           <Row>
-            <SearchBar
-              loadCallback={this.setStateLoading}
-              notFoundCallback={this.setStateNotFound}
-              searchCallback={this.setSearchResults}
-            />
-          </Row>
-          <Row>
-            <h4>Type in a book title or author to look for a book.</h4>
+            <h4 className="alt-state">
+              Type in a book title or author to search for a book.
+            </h4>
           </Row>
           <Row>
             <FontAwesomeIcon className="search-icon" icon="search" size="8x" />
           </Row>
-        </Container>
+        </div>
       );
     }
     if (this.state.loading) {
-      return (
-        <Container fluid={true} className="search">
-          <Row>
-            <SearchBar
-              loadCallback={this.setStateLoading}
-              notFoundCallback={this.setStateNotFound}
-              searchCallback={this.setSearchResults}
-            />
-          </Row>
-          <Row>
-            <FontAwesomeIcon className="icon" icon="spinner" pulse size="8x" />
-          </Row>
-        </Container>
+      body = (
+        <Row>
+          <FontAwesomeIcon className="icon" icon="spinner" pulse size="8x" />
+        </Row>
       );
     }
     if (this.state.notFound) {
-      return (
-        <Container fluid={true} className="search">
+      body = (
+        <div>
           <Row>
-            <SearchBar
-              loadCallback={this.setStateLoading}
-              notFoundCallback={this.setStateNotFound}
-              searchCallback={this.setSearchResults}
-            />
-          </Row>
-          <Row>
-            <h4>No books found. Try a different search.</h4>
+            <h4 className="alt-state">
+              No books found. Try a different search.
+            </h4>
           </Row>
           <Row>
             <FontAwesomeIcon
@@ -97,7 +80,7 @@ class Search extends Component {
               size="8x"
             />
           </Row>
-        </Container>
+        </div>
       );
     }
 
@@ -110,7 +93,7 @@ class Search extends Component {
             searchCallback={this.setSearchResults}
           />
         </Row>
-        <SearchResults results={this.state.results} />
+        {body}
       </Container>
     );
   }
