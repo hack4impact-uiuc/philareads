@@ -9,12 +9,50 @@ class QuizViewer extends Component {
       currentQuestion: 0
     };
   }
+
   getQuestionObject() {
     return this.props.questionList[this.state.currentQuestion];
   }
+
+  changePagePrev = () =>
+    this.setState(state => {
+      return {
+        currentQuestion:
+          state.currentQuestion === 0
+            ? state.currentQuestion
+            : state.currentQuestion - 1
+      };
+    });
+
+  changePageNext = () =>
+    this.setState(state => {
+      return {
+        currentQuestion:
+          state.currentQuestion === this.props.questionList.length - 1
+            ? state.currentQuestion
+            : state.currentQuestion + 1
+      };
+    });
+
+  renderPaginationPrev = () => {
+    return (
+      <PaginationItem>
+        <PaginationLink previous onClick={this.changePagePrev} />
+      </PaginationItem>
+    );
+  };
+
+  renderPaginationNext = () => {
+    return (
+      <PaginationItem>
+        <PaginationLink next onClick={this.changePageNext} />
+      </PaginationItem>
+    );
+  };
+
   render() {
     return (
-      <div>
+      <div className="quiz-viewer">
         {this.props.questionList.length > 0 && (
           <Question
             key={`${this.props.quizID},${this.state.currentQuestion}`}
@@ -27,17 +65,21 @@ class QuizViewer extends Component {
         )}
 
         {this.props.questionList.length > 0 && (
-          <Pagination aria-label="Page navigation example">
-            {this.props.questionList.map((question, i) => (
-              <PaginationItem size="lg" key={`${this.props.quizID},${i}`}>
-                <PaginationLink
-                  onClick={() => this.setState({ currentQuestion: i })}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-          </Pagination>
+          <div className="pagination">
+            <Pagination size="lg" aria-label="Question navigation">
+              {this.renderPaginationPrev()}
+              {this.props.questionList.map((question, i) => (
+                <PaginationItem key={`${this.props.quizID},${i}`}>
+                  <PaginationLink
+                    onClick={() => this.setState({ currentQuestion: i })}
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              {this.renderPaginationNext()}
+            </Pagination>
+          </div>
         )}
       </div>
     );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
+  CardBody,
   ListGroup,
   ListGroupItem,
   FormGroup,
@@ -152,10 +153,12 @@ class Question extends Component {
     return (
       <div>
         <Card>
-          {this.renderQuestion()}
-          <Button outline onClick={() => this.submitClick()}>
-            Submit
-          </Button>
+          <CardBody>
+            {this.renderQuestion()}
+            <Button outline onClick={() => this.submitClick()}>
+              Submit
+            </Button>
+          </CardBody>
         </Card>
       </div>
     );
