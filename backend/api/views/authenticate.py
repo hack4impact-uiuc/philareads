@@ -76,9 +76,35 @@ def login_user():
         data={"status": "fail"}, message="Failed to log in.", status=401
     )
 
-
-# @authenticate.route("/users", methods=["GET"])
-# def get_all_users():
-#     users = User.query.all()
-#     logger.info(users)
-#     return create_response(data={"users": users})
+@authenticate.route("/<user_id>/user", methods=["GET"]):
+def user_info(user_id):
+    try:
+        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+    if int(token_user_id) != int(user_id):  # validate user's identity
+        return create_response(
+            message="Invalid token for selected user",
+            status=401,
+            data={"status": "fail"},
+        )
+    
+    user = User.query.get(user_id)
+    if user is None:
+        return create_response(
+            message="User not found", status=401, data={"status": "fail"}
+        )
+    user_data = {
+        "name": user.name,
+        "email": user.email,
+        "grade": user.grade
+    }
+    return create_response(
+        message="Success", status=200, data={"user": user_data}
+    )
