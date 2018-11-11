@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Question from '../components/Question';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 class QuizViewer extends Component {
   constructor(props) {
@@ -81,6 +81,17 @@ class QuizViewer extends Component {
   render() {
     return (
       <div className="quiz-viewer">
+        <h1 className="quiz-title">
+          {this.props.quizName}
+          <Button
+            outline
+            color="primary"
+            onClick={() => this.props.finishAttempt(this.state.questionProps)}
+            className="finish-attempt"
+          >
+            Finish Attempt
+          </Button>
+        </h1>
         {this.props.questionList.length > 0 && (
           <Question
             key={`${this.props.quizID},${this.state.currentQuestion}`}

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
-import { getBookData, getQuizzes } from '../utils/api';
+import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row } from 'reactstrap';
+import { Button, Row } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -53,6 +53,30 @@ class QuizPage extends Component {
     );
   };
 
+  finishAttempt = questionProps => {
+    const num_total = questionProps.length;
+    const num_correct = questionProps.reduce(
+      (acc, qnProp) => (qnProp['answeredCorrectly'] ? acc + 1 : acc),
+      0
+    );
+    const questionResults = questionProps.map((qnProp, idx) => {
+      return {
+        user_answer: '',
+        correct_answer: '',
+        correct: qnProp['answeredCorrectly'],
+        question_num: idx
+      };
+    });
+    let quizResults = {
+      quiz_id: this.state.quizID,
+      num_correct: num_correct,
+      num_total: num_total,
+      date_taken: 'temp_string',
+      attempted_questions: questionResults
+    };
+    postQuizResults(quizResults);
+  };
+
   render() {
     return (
       <div>
@@ -69,10 +93,11 @@ class QuizPage extends Component {
         {this.dataLoaded() && (
           <div>
             <BookInfo bookObject={this.state.bookData} />
-            <h1 className="quiz-title">{this.state.quizData['name']}</h1>
             <QuizViewer
               quizID={this.props.match.params.quizID}
               questionList={this.getQuestions()}
+              quizName={this.state.quizData['name']}
+              finishAttempt={this.finishAttempt}
             />
           </div>
         )}

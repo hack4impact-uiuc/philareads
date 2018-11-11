@@ -149,7 +149,7 @@ class Question extends Component {
               disabled={this.props.submitted}
               outline={this.props.submitted}
               color={this.getButtonColor()}
-              onClick={() => this.submitClick()}
+              onClick={this.submitClick}
               className="submit-question"
             >
               Submit
