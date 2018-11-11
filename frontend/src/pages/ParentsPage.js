@@ -3,7 +3,7 @@ import Advice from '../components/Advice';
 import philareads1 from './../images/phila_reads_cover.jpg';
 import philareads2 from './../images/phila_reads_2.jpg';
 import philareads3 from './../images/phila_reads_3.jpg';
-
+import '../styles/ParentsPage.scss';
 class ParentsPage extends Component {
   navigationOptions = [
     {
@@ -52,8 +52,8 @@ class ParentsPage extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Parents Page</h1>
+      <div className="parents-page">
+        <h1 class="page-title">Parents Page</h1>
         <div>
           <Advice adviceCards={this.adviceCards} />
         </div>
