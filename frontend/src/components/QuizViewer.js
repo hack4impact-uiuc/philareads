@@ -6,6 +6,13 @@ class QuizViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      questionProps: this.props.questionList.map(question => {
+        return {
+          selectedAnswer: -1,
+          submitted: false,
+          answeredCorrectly: -1
+        };
+      }),
       currentQuestion: 0
     };
   }
@@ -13,6 +20,27 @@ class QuizViewer extends Component {
   getQuestionObject() {
     return this.props.questionList[this.state.currentQuestion];
   }
+
+  getQuestionProps() {
+    return this.state.questionProps[this.state.currentQuestion];
+  }
+
+  setQuestionProps = stateObject => {
+    const { currentQuestion } = this.state;
+    this.setState(state => {
+      const { questionProps } = state;
+      return {
+        questionProps: [
+          ...questionProps.slice(0, currentQuestion),
+          {
+            ...questionProps[currentQuestion],
+            ...stateObject
+          },
+          ...questionProps.slice(currentQuestion + 1)
+        ]
+      };
+    });
+  };
 
   changePagePrev = () =>
     this.setState(state => {
@@ -61,6 +89,10 @@ class QuizViewer extends Component {
             correctAnswer={this.getQuestionObject()['options'].indexOf(
               this.getQuestionObject()['correct_option']
             )}
+            setQuestionProps={this.setQuestionProps}
+            selectedAnswer={this.getQuestionProps()['selectedAnswer']}
+            submitted={this.getQuestionProps()['submitted']}
+            answeredCorrectly={this.getQuestionProps()['answeredCorrectly']}
           />
         )}
 

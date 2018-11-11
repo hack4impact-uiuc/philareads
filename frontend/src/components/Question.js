@@ -13,21 +13,12 @@ import {
 } from 'reactstrap';
 
 class Question extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedAnswer: -1, //possible answer choices: 0 to last answer
-      submitted: false,
-      answeredCorrectly: -1 //default is unanswered; 0 incorrect; 1 correct
-    };
-  }
-
   /**
    * @returns HTML Component
    * shows correct answer when answer has been submitted
    */
   renderAnswer = () => {
-    if (this.state.submitted) {
+    if (this.props.submitted) {
       return (
         <p>Correct answer: {this.props.options[this.props.correctAnswer]}</p>
       );
@@ -46,15 +37,15 @@ class Question extends Component {
    */
   returnColor = i => {
     let color = '';
-    if (this.state.selectedAnswer !== -1 && this.state.submitted) {
+    if (this.props.selectedAnswer !== -1 && this.props.submitted) {
       if (
-        i === this.state.selectedAnswer &&
-        this.state.selectedAnswer === this.props.correctAnswer
+        i === this.props.selectedAnswer &&
+        this.props.selectedAnswer === this.props.correctAnswer
       ) {
         color = 'success';
       } else if (
-        i === this.state.selectedAnswer &&
-        this.state.selectedAnswer !== this.props.correctAnswer
+        i === this.props.selectedAnswer &&
+        this.props.selectedAnswer !== this.props.correctAnswer
       ) {
         color = 'danger';
       } else if (i === this.props.correctAnswer) {
@@ -75,23 +66,14 @@ class Question extends Component {
     let input = (
       <Input
         key={i}
-        onClick={() => this.setState({ selectedAnswer: i })}
+        onClick={() => this.props.setQuestionProps({ selectedAnswer: i })}
         type="radio"
         name="options"
+        checked={this.props.selectedAnswer === i}
+        disabled={this.props.submitted}
       />
     );
 
-    if (this.state.submitted) {
-      input = (
-        <Input
-          key={i}
-          onClick={() => this.setState({ selectedAnswer: i })}
-          type="radio"
-          name="options"
-          disabled
-        />
-      );
-    }
     return (
       <ListGroupItem key={i} color={this.returnColor(i)}>
         <FormGroup check>
@@ -131,18 +113,26 @@ class Question extends Component {
    * sets correctness of this question's answer choice
    */
   submitClick = () => {
-    if (!this.state.submitted && this.state.selectedAnswer !== -1) {
+    if (!this.props.submitted && this.props.selectedAnswer !== -1) {
       let answeredCorrectly;
-      if (this.state.selectedAnswer === this.props.correctAnswer) {
+      if (this.props.selectedAnswer === this.props.correctAnswer) {
         answeredCorrectly = 1;
       } else {
         answeredCorrectly = 0;
       }
-      this.setState({
+      this.props.setQuestionProps({
         submitted: true,
         answeredCorrectly: answeredCorrectly
       });
     }
+  };
+
+  getButtonColor = () => {
+    let color = 'secondary';
+    if (!this.props.submitted && this.props.selectedAnswer !== -1) {
+      color = 'primary';
+    }
+    return color;
   };
 
   /**
@@ -155,7 +145,13 @@ class Question extends Component {
         <Card>
           <CardBody>
             {this.renderQuestion()}
-            <Button outline onClick={() => this.submitClick()}>
+            <Button
+              disabled={this.props.submitted}
+              outline={this.props.submitted}
+              color={this.getButtonColor()}
+              onClick={() => this.submitClick()}
+              className="submit-question"
+            >
               Submit
             </Button>
           </CardBody>
@@ -168,7 +164,11 @@ class Question extends Component {
 Question.propTypes = {
   title: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  correctAnswer: PropTypes.number.isRequired
+  correctAnswer: PropTypes.number.isRequired,
+  setQuestionProps: PropTypes.func.isRequired,
+  selectedAnswer: PropTypes.number.isRequired, //possible answer choices: 0 to last answer
+  submitted: PropTypes.bool.isRequired,
+  answeredCorrectly: PropTypes.number.isRequired //default is unanswered; 0 incorrect; 1 correct
 };
 
 export default Question;
