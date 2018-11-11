@@ -66,7 +66,7 @@ class Question extends Component {
     let input = (
       <Input
         key={i}
-        onClick={() => this.props.setQuestionProps({ selectedAnswer: i })}
+        onChange={() => this.props.setQuestionProps({ selectedAnswer: i })}
         type="radio"
         name="options"
         checked={this.props.selectedAnswer === i}
