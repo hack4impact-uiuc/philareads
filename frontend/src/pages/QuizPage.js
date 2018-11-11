@@ -12,37 +12,54 @@ class QuizPage extends Component {
     super(props);
     this.state = {
       bookID: props.match.params.id,
-      quizData: getQuizzes(props.match.params.id),
       quizID: props.match.params.quizID,
       currentQuestions: []
     };
     this.fetchBookData();
+    this.fetchQuizData();
   }
 
   fetchBookData = async () => {
     const { message, success, result } = await getBookData(
       this.props.match.params.id
     );
-    console.log(result);
-    this.setState({ bookData: result['results'][0] });
+    if (success) {
+      this.setState({ bookData: result['results'][0] });
+    } else {
+      console.log(message);
+    }
   };
 
-  getCards = () => {
-    var cards = [];
-    for (var i in this.state.quizData) {
-      cards.push({
-        title: this.state.quizData[i]['name'],
-        id: this.state.quizData[i]['id'],
-        index: i
+  fetchQuizData = async () => {
+    const { id, quizID } = this.props.match.params;
+    const { message, success, result } = await getQuizzes(id);
+    if (success) {
+      console.log('A single quiz');
+      this.setState({
+        quizData: result['quizzes'].filter(
+          quiz => quiz['quizzes'][0]['quiz_id'].toString() === quizID
+        )[0]
       });
+    } else {
+      console.log(message);
     }
-    return cards;
+  };
+
+  getQuestions = () => {
+    console.log(this.state.quizData);
+    return this.state.quizData['quizzes'];
+  };
+
+  dataLoaded = () => {
+    return (
+      this.state.bookData !== undefined && this.state.quizData !== undefined
+    );
   };
 
   render() {
     return (
       <div>
-        {this.state.bookData === undefined && (
+        {!this.dataLoaded() && (
           <Row>
             <FontAwesomeIcon
               className="icon spinner"
@@ -52,15 +69,13 @@ class QuizPage extends Component {
             />
           </Row>
         )}
-        {this.state.bookData !== undefined && (
+        {this.dataLoaded() && (
           <div>
             <BookInfo bookObject={this.state.bookData} />
-            <h1 className="quiz-title">
-              Quiz {this.props.match.params.quizID}
-            </h1>
+            <h1 className="quiz-title">{this.state.quizData['name']}</h1>
             <QuizViewer
               quizID={this.props.match.params.quizID}
-              questionList={this.state.currentQuestions}
+              questionList={this.getQuestions()}
             />
           </div>
         )}
