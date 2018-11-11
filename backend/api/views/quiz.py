@@ -88,7 +88,22 @@ def create_quiz():
 
 @quiz.route("/<user_id>/quiz_results", methods=["GET"])
 def get_quiz_results(user_id):
-    user_id_from_token = User.decode_auth_token(request.cookies.get("jwt"))
+    try:
+        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+    if int(token_user_id) != int(user_id):  # validate user's identity
+        return create_response(
+            message="Invalid token for selected user",
+            status=401,
+            data={"status": "fail"},
+        )
 
     user = User.query.filter_by(id=user_id).first()
 
@@ -98,17 +113,10 @@ def get_quiz_results(user_id):
             message="User not found", status=200, data={"status": "fail"}
         )
 
-    # tried to request another user's data
-    if int(user_id) is not int(user_id_from_token):
-        return create_response(
-            message="Invalid request", status=200, data={"status": "fail"}
-        )
-
     quizList = []
 
     for qr in user.attempted_quizzes:
         temp_quiz = {}
-        # quiz_result_id or quiz_id???
         temp_quiz["quiz_result_id"] = qr.id
         temp_quiz["num_correct"] = qr.num_correct
         temp_quiz["num_total"] = qr.num_total
@@ -120,20 +128,27 @@ def get_quiz_results(user_id):
         temp_quiz["quiz_name"] = quiz.name
         quizList.append(temp_quiz)
 
-    jsonStr = json.dumps(quizList)
-
     return create_response(
         message="Succesfully returned quiz results",
         status=200,
-        data={"Quiz results": jsonStr},
+        data={"quizzes": quizList},
     )
 
 
 @quiz.route("/<quiz_result_id>/question_results", methods=["GET"])
 def get_question_results(quiz_result_id):
-    quiz_result = QuizResult.query.filter_by(id=quiz_result_id).first()
-    user_id_from_token = User.decode_auth_token(request.cookies.get("jwt"))
+    try:
+        user_id_from_token = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
 
+    quiz_result = QuizResult.query.filter_by(id=quiz_result_id).first()
     if quiz_result is None:
         return create_response(
             message="Invalid quiz result id", status=200, data={"status": "fail"}
@@ -141,7 +156,9 @@ def get_question_results(quiz_result_id):
 
     if quiz_result.user_id is not user_id_from_token:
         return create_response(
-            message="Invalid request", status=200, data={"status": "fail"}
+            message="Invalid request, user should not this quiz result",
+            status=200,
+            data={"status": "fail"},
         )
 
     quest_list = []
@@ -151,15 +168,15 @@ def get_question_results(quiz_result_id):
         quest_dict["user_answer"] = attempt_quest.user_answer
         quest_dict["correct_answer"] = attempt_quest.correct_answer
         quest_dict["correct"] = attempt_quest.correct
-
+        # grab the original question options
         question = Question.query.filter_by(id=attempt_quest.id).first()
         quest_dict["question_options"] = question.options
         quest_list.append(quest_dict)
 
-    jsonStr = json.dumps(quest_list)
-
     return create_response(
-        message="Succesfully returned quiz results", status=200, data=quest_dict
+        message="Succesfully returned quiz results",
+        status=200,
+        data={"questions": quest_list},
     )
 
 
