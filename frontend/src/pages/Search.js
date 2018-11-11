@@ -25,8 +25,9 @@ class Search extends Component {
     };
   }
 
-  setStateLoading = () => {
+  setStateLoading = query => {
     this.setState({ preSearch: false, loading: true, notFound: false });
+    this.props.history.push(`/search?query=${query}`);
   };
 
   setStateNotFound = () => {

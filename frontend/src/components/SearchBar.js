@@ -20,7 +20,7 @@ class SearchBar extends Component {
     if (this.state.query.trim() === '') {
       return;
     }
-    this.props.loadCallback();
+    this.props.loadCallback(this.state.query);
 
     const {
       success,
