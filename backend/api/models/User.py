@@ -23,6 +23,7 @@ class User(Mixin, db.Model):
             "utf8"
         )
         self.email = email
+        self.quiz_results = []
 
     def __repr__(self):
         return f"<User name:{self.name}> password:{self.password} email:{self.email}"
