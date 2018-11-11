@@ -3,7 +3,7 @@ import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Row } from 'reactstrap';
+import { Row } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -54,24 +54,37 @@ class QuizPage extends Component {
   };
 
   finishAttempt = questionProps => {
+    const {
+      quizID,
+      quizData: { quizzes: questionData }
+    } = this.state;
+
     const num_total = questionProps.length;
     const num_correct = questionProps.reduce(
-      (acc, qnProp) => (qnProp['answeredCorrectly'] ? acc + 1 : acc),
+      (acc, qnProp) => (qnProp['answeredCorrectly'] === 1 ? acc + 1 : acc),
       0
     );
     const questionResults = questionProps.map((qnProp, idx) => {
+      const user_answer =
+        qnProp['selectedAnswer'] === -1
+          ? ''
+          : questionData[idx]['options'][qnProp['selectedAnswer']];
       return {
-        user_answer: '',
-        correct_answer: '',
-        correct: qnProp['answeredCorrectly'],
+        user_answer: user_answer,
+        correct_answer: questionData[idx]['correct_option'],
+        correct: qnProp['answeredCorrectly'] === 1,
         question_num: idx
       };
     });
+
+    let currentDate = new Date();
+    const date_taken = currentDate.toISOString();
+
     let quizResults = {
-      quiz_id: this.state.quizID,
+      quiz_id: quizID,
       num_correct: num_correct,
       num_total: num_total,
-      date_taken: 'temp_string',
+      date_taken: date_taken,
       attempted_questions: questionResults
     };
     postQuizResults(quizResults);
