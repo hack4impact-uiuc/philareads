@@ -19,6 +19,14 @@ def invalid_book_data(user_data):
         return True
 
 
+@book.route("/book_from_csv", methods=["POST"])
+def create_book_from_csv():
+    pdb.set_trace()
+    return create_response(
+        message="Successfully created a book from csv file",
+        status=200
+    )
+
 @book.route("/book", methods=["POST"])
 def create_book():
     user_data = request.get_json()
