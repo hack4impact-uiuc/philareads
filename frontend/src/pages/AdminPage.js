@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import Dropzone from 'react-dropzone';
 
 class AdminPage extends Component {
+  onDrop(files) {
+    this.setState({
+      files
+    });
+  }
   render() {
     return (
       <div>
@@ -14,6 +20,7 @@ class AdminPage extends Component {
             <li>Change parent advice information</li>
           </ul>
         </div>
+        <Dropzone onDrop={this.onDrop.bind(this)} />
       </div>
     );
   }
