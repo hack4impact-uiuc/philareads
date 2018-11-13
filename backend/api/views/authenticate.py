@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Blueprint
 from api.models import User, db
 from api.core import create_response, serialize_list, logger
 import bcrypt
+import jwt
 
 authenticate = Blueprint("authenticate", __name__)
 
@@ -76,10 +77,10 @@ def login_user():
         data={"status": "fail"}, message="Failed to log in.", status=401
     )
 
-@authenticate.route("/<user_id>/user", methods=["GET"]):
-def user_info(user_id):
+@authenticate.route("/user", methods=["GET"])
+def user_info():
     try:
-        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
     except jwt.ExpiredSignatureError:
         return create_response(
             message="Expired token", status=401, data={"status": "fail"}
@@ -87,12 +88,6 @@ def user_info(user_id):
     except jwt.InvalidTokenError:
         return create_response(
             message="Invalid token", status=401, data={"status": "fail"}
-        )
-    if int(token_user_id) != int(user_id):  # validate user's identity
-        return create_response(
-            message="Invalid token for selected user",
-            status=401,
-            data={"status": "fail"},
         )
     
     user = User.query.get(user_id)
@@ -103,7 +98,6 @@ def user_info(user_id):
     user_data = {
         "name": user.name,
         "email": user.email,
-        "grade": user.grade
     }
     return create_response(
         message="Success", status=200, data={"user": user_data}
