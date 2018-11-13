@@ -77,6 +77,7 @@ def login_user():
         data={"status": "fail"}, message="Failed to log in.", status=401
     )
 
+
 @authenticate.route("/user", methods=["GET"])
 def user_info():
     try:
@@ -89,16 +90,11 @@ def user_info():
         return create_response(
             message="Invalid token", status=401, data={"status": "fail"}
         )
-    
+
     user = User.query.get(user_id)
     if user is None:
         return create_response(
             message="User not found", status=401, data={"status": "fail"}
         )
-    user_data = {
-        "name": user.name,
-        "email": user.email,
-    }
-    return create_response(
-        message="Success", status=200, data={"user": user_data}
-    )
+    user_data = {"name": user.name, "email": user.email}
+    return create_response(message="Success", status=200, data={"user": user_data})
