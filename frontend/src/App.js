@@ -14,6 +14,7 @@ import Search from './pages/Search';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/admin/AdminPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
+import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
@@ -35,7 +36,13 @@ class App extends Component {
           <Route path="/parents" component={ParentsPage} />
           <Route path="/search" component={Search} />
           <Route path="/profile" component={ProfilePage} />
+          {/*Admin pages*/}
           <Route exact path="/admin" component={AdminPage} />
+          <Route
+            exact
+            path="/admin/book/csv_upload"
+            component={AdminCSVUploadPage}
+          />
           <Route path="/admin/book/add" component={AdminAddBookPage} />
           {/*Reading Olympics pages*/}
           <Route exact path="/ReadingOlympics" component={ROHome} />

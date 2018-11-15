@@ -15,6 +15,9 @@ class AdminNavigator extends Component {
             Books
             <ul>
               <li>
+                <a href="/admin/book/csv_upload">Upload CSV</a>
+              </li>
+              <li>
                 <a href="/admin/book/add">Add</a>
               </li>
               <li>
