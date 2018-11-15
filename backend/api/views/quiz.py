@@ -86,10 +86,10 @@ def create_quiz():
     )
 
 
-@quiz.route("/quiz_results", methods=["GET"])
-def get_quiz_results():
+@quiz.route("/<user_id>/quiz_results", methods=["GET"])
+def get_quiz_results(user_id):
     try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
     except jwt.ExpiredSignatureError:
         return create_response(
             message="Expired token", status=401, data={"status": "fail"}
@@ -98,6 +98,13 @@ def get_quiz_results():
         return create_response(
             message="Invalid token", status=401, data={"status": "fail"}
         )
+    if int(token_user_id) != int(user_id):  # validate user's identity
+        return create_response(
+            message="Invalid token for selected user",
+            status=401,
+            data={"status": "fail"},
+        )
+
     user = User.query.filter_by(id=user_id).first()
 
     # invalid user
