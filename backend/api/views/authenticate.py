@@ -77,8 +77,47 @@ def login_user():
     )
 
 
-# @authenticate.route("/users", methods=["GET"])
-# def get_all_users():
-#     users = User.query.all()
-#     logger.info(users)
-#     return create_response(data={"users": users})
+@authenticate.route("/upgrade_user", methods=["POST"])
+def upgrade_user():
+    try:
+        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+
+    current_user = User.query.get(token_user_id)
+
+    if not current_user.is_admin:  # they don't have privileges to upgrade another user
+        return create_response(
+            message="Not an existing admin", status=402, data={"status": "fail"}
+        )
+
+    user_data = request.get_json()
+
+    if "user_email" not in user_data:
+        return create_response(
+            message="Missing email of user to upgrade",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    user_to_upgrade = User.query.filter_by(email=user_data["user_email"]).first()
+
+    if user_to_upgrade is None:
+        return create_response(
+            message="User with corresponding email not found",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    user_to_upgrade.is_admin = True
+    db.session.commit()
+
+    return create_response(
+        message="Successfully upgraded user", status=200, data={"status": "success"}
+    )
