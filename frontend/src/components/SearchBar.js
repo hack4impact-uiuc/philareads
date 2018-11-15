@@ -35,12 +35,8 @@ class SearchBar extends Component {
         this.props.searchCallback(results);
       }
     } else {
-      this.renderAlert(message);
+      this.props.alertCallback(message);
     }
-  };
-
-  renderAlert = message => {
-    return <Alert color="danger">{message}</Alert>;
   };
 
   render() {
@@ -78,7 +74,8 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   loadCallback: PropTypes.func.isRequired,
   notFoundCallback: PropTypes.func.isRequired,
-  searchCallback: PropTypes.func.isRequired
+  searchCallback: PropTypes.func.isRequired,
+  alertCallback: PropTypes.func.isRequired
 };
 
 export default SearchBar;

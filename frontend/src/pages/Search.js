@@ -17,11 +17,11 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      preSearch: false,
+      preSearch: true,
       loading: false,
       notFound: false,
       results: [],
-      alert: true
+      alert: false
     };
   }
 
@@ -98,13 +98,13 @@ class Search extends Component {
     return (
       <div className="search">
         {header}
-        <h1 className="page-title">Search</h1>
         <Container fluid={true}>
           <Row>
             <SearchBar
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
+              alertCallback={this.setStateAlert}
             />
           </Row>
           {body}
