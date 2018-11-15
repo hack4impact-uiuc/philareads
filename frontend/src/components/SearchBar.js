@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { search } from '../utils/api';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -35,8 +35,12 @@ class SearchBar extends Component {
         this.props.searchCallback(results);
       }
     } else {
-      console.log(message);
+      this.renderAlert(message);
     }
+  };
+
+  renderAlert = message => {
+    return <Alert color="danger">{message}</Alert>;
   };
 
   render() {
