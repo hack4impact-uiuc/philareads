@@ -14,10 +14,10 @@ class AdminPage extends Component {
     return (
       <Container>
         <Row>
-          <Col md="2">
+          <Col lg="2">
             <AdminNavigator />
           </Col>
-          <Col md="10" className="admin-home">
+          <Col lg="10" className="admin-home">
             <h1>Admin Home</h1>
             Features:
             <ul>
