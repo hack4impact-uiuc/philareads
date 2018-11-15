@@ -12,7 +12,7 @@ class AdminPage extends Component {
   }
   render() {
     return (
-      <Container>
+      <Container fluid>
         <Row>
           <Col lg="2">
             <AdminNavigator />
