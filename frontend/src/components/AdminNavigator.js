@@ -8,7 +8,7 @@ class AdminNavigator extends Component {
   }
   render() {
     return (
-      <Card>
+      <Card className="admin-navigator">
         <CardBody>
           <CardTitle>Navigation</CardTitle>
           <CardText>
