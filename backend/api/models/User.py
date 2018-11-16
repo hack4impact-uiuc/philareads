@@ -3,6 +3,8 @@ import datetime
 from .base import db
 import bcrypt
 from flask import current_app
+from sqlalchemy import *
+from sqlalchemy.dialects.postgresql import ARRAY
 import jwt
 
 
@@ -16,6 +18,7 @@ class User(Mixin, db.Model):
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
     attempted_quizzes = db.relationship("QuizResult", backref="user", lazy=True)
+    badges = db.Column("options", ARRAY(Integer))
 
     def __init__(self, name: str, password: str, email: str):
         self.name = name
@@ -23,7 +26,8 @@ class User(Mixin, db.Model):
             "utf8"
         )
         self.email = email
-        self.quiz_results = []
+        self.attempted_quizzes = []
+        self.badges = []
 
     def __repr__(self):
         return f"<User name:{self.name}> password:{self.password} email:{self.email}"
