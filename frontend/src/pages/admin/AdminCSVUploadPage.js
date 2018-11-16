@@ -43,9 +43,9 @@ class AdminCSVUploadPage extends Component {
               onDrop={this.onDrop}
             >
               {!this.state.hasAddedFiles ? (
-                <h2>Drop files or click here</h2>
+                <h4>Drop files or click here</h4>
               ) : (
-                <h2>{this.state.file.name}</h2>
+                <h4>{this.state.file.name}</h4>
               )}
             </Dropzone>
             <Button

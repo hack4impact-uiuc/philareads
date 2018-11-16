@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
 import { Container, Row, Col } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';

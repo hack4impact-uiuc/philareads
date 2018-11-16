@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardBody, CardText } from 'reactstrap';
+import { Card, CardTitle, CardBody } from 'reactstrap';
 class AdminNavigator extends Component {
   onDrop(files) {
     this.setState({
@@ -11,31 +11,27 @@ class AdminNavigator extends Component {
       <Card className="admin-navigator">
         <CardBody>
           <CardTitle>Navigation</CardTitle>
-          <CardText>
-            Books
-            <ul>
-              <li>
-                <a href="/admin/book/csv_upload">Upload CSV</a>
-              </li>
-              <li>
-                <a href="/admin/book/add">Add</a>
-              </li>
-              <li>
-                <a href="/admin/book/edit">Edit</a>
-              </li>
-            </ul>
-          </CardText>
-          <CardText>
-            Quizzes
-            <ul>
-              <li>
-                <a href="/admin/quiz/add">Add</a>
-              </li>
-              <li>
-                <a href="/admin/quiz/edit">Edit</a>
-              </li>
-            </ul>
-          </CardText>
+          Books
+          <ul>
+            <li>
+              <a href="/admin/book/csv_upload">Upload CSV</a>
+            </li>
+            <li>
+              <a href="/admin/book/add">Add</a>
+            </li>
+            <li>
+              <a href="/admin/book/edit">Edit</a>
+            </li>
+          </ul>
+          Quizzes
+          <ul>
+            <li>
+              <a href="/admin/quiz/add">Add</a>
+            </li>
+            <li>
+              <a href="/admin/quiz/edit">Edit</a>
+            </li>
+          </ul>
         </CardBody>
       </Card>
     );
