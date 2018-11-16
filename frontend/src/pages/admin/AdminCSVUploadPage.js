@@ -1,24 +1,62 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
-import '../../styles/admin/AdminHome.scss';
+import '../../styles/admin/AdminCSVUpload.scss';
 class AdminCSVUploadPage extends Component {
-  onDrop(files) {
-    this.setState({
-      files
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasAddedFiles: false,
+      file: null
+    };
   }
+  onDrop = files => {
+    console.log(files);
+    this.setState({
+      hasAddedFiles: true,
+      file: files[0]
+    });
+    console.log('hello');
+  };
+
+  handleSubmit = () => {};
   render() {
     return (
-      <Container fluid>
+      <Container fluid className="csv-upload">
         <Row>
           <Col lg="2">
             <AdminNavigator />
           </Col>
           <Col lg="10" className="admin-home">
-            <h1>Admin CSV Upload Page</h1>
+            <h1>Admin CSV Upload</h1>
+            <hr />
+            {/* TODO: Insert actual CSV template */}
+            <p>
+              Please click <a href="/">here</a> to download the CSV template.
+            </p>
+
+            <Dropzone
+              className="csv-drop"
+              acceptClassName="accept"
+              onDrop={this.onDrop}
+            >
+              {!this.state.hasAddedFiles ? (
+                <h2>Drop files or click here</h2>
+              ) : (
+                <h2>{this.state.file.name}</h2>
+              )}
+            </Dropzone>
+            <Button
+              color="primary"
+              block
+              className="dropzone-submit"
+              disabled={!this.state.hasAddedFiles}
+              onClick={this.handleSubmit}
+            >
+              Submit
+            </Button>
           </Col>
         </Row>
       </Container>
