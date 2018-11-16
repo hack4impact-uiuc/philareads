@@ -21,7 +21,7 @@ class Search extends Component {
       loading: false,
       notFound: false,
       results: [],
-      alert: false
+      alert: null
     };
   }
 
@@ -42,9 +42,9 @@ class Search extends Component {
     });
   };
 
-  setStateAlert = () => {
+  setStateAlert = message => {
     this.setState({
-      alert: true
+      alert: message
     });
   };
 
@@ -91,8 +91,8 @@ class Search extends Component {
         </div>
       );
     }
-    if (this.state.alert) {
-      header = <Alert color="danger">hi</Alert>;
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
     }
 
     return (
