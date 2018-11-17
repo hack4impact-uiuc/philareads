@@ -1,6 +1,6 @@
 import requests
 
-API_URL = "http://localhost:5000/"
+API_URL = "https://preads-dev.herokuapp.com/"
 
 # sample user
 sample_user = {
