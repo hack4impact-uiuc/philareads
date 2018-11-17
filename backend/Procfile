@@ -1,2 +1,2 @@
-web: gunicorn api:app
+web: pipenv run gunicorn manage:app 
 worker: python manage.py runworker
