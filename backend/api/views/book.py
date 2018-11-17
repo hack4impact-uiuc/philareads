@@ -22,7 +22,7 @@ def invalid_book_data(user_data):
 @book.route("/book", methods=["POST"])
 def create_book():
     user_data = request.get_json()
-
+    
     # check all fields are entered
     if "name" not in user_data or "author" not in user_data:
         return create_response(
@@ -41,6 +41,7 @@ def create_book():
         return create_response(
             message="Duplicate book", status=409, data={"status": "failure"}
         )
+    
 
     # add book to database
     book = Book(
@@ -51,9 +52,12 @@ def create_book():
         user_data["cover_url"],
         user_data["reader_url"],
     )
+    
     db.session.add(book)
     db.session.commit()
-
+    
+    
+    
     return create_response(message="Book added", status=200, data={"status": "success"})
 
 

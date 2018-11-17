@@ -88,6 +88,18 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function createBook(bookData) {
+  console.log('Posting quiz results');
+  return fetch(`${API_URL}/book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -96,5 +108,6 @@ export {
   getROArchiveYears,
   getBookData,
   getQuizzes,
+  createBook,
   postQuizResults
 };
