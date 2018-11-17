@@ -8,7 +8,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "postgresql://testusr:password@127.0.0.1:5432/testdb"
+    SQLALCHEMY_DATABASE_URI = "postgres://vnddrsbqdqwlcg:e8e140ed3dc91cfd8ee0ed5d96b682cbce780d3c9df641f6149deb224a8cba78@ec2-50-19-249-121.compute-1.amazonaws.com:5432/df77q7prer3css"
     # SQLALCHEMY_DATABASE_URI = 'postgres://127.0.0.1:5432'
     DEBUG = True
 
