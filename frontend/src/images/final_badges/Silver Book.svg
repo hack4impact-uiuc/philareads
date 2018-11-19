@@ -1,24 +1,12 @@
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="100" cy="100" r="100" fill="white"/>
 <circle cx="100" cy="100" r="100" fill="url(#paint0_linear)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M56 35C50.4772 35 46 39.4772 46 45V155.938C46 161.46 50.4772 165.938 56 165.938H143.436C148.959 165.938 153.436 161.46 153.436 155.938V45L153.436 64.0972L124.339 35H56Z" fill="#FFFBEB"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M124.339 54.0972C124.339 59.6201 128.816 64.0972 134.339 64.0972H153.436L124.339 35V54.0972Z" fill="#ECE1B4"/>
-<mask id="path-5-inside-1" fill="white">
-<rect x="60" y="90" width="15" height="15" rx="1"/>
-</mask>
-<rect x="60" y="90" width="15" height="15" rx="1" stroke="#ECE1B4" stroke-width="4" mask="url(#path-5-inside-1)"/>
-<mask id="path-6-inside-2" fill="white">
-<rect x="60" y="115" width="15" height="15" rx="1"/>
-</mask>
-<rect x="60" y="115" width="15" height="15" rx="1" stroke="#ECE1B4" stroke-width="4" mask="url(#path-6-inside-2)"/>
-<mask id="path-7-inside-3" fill="white">
-<rect x="60" y="140" width="15" height="15" rx="1"/>
-</mask>
-<rect x="60" y="140" width="15" height="15" rx="1" stroke="#ECE1B4" stroke-width="4" mask="url(#path-7-inside-3)"/>
-<rect x="80" y="94" width="50" height="7" rx="1" fill="#ECE1B4"/>
-<rect x="80" y="119" width="50" height="7" rx="1" fill="#ECE1B4"/>
-<rect x="80" y="144" width="50" height="7" rx="1" fill="#ECE1B4"/>
-<path d="M76.1201 69.5068H66.4375L63.918 75H60.2412L71.4326 50.9619L82.2285 75H78.4932L76.1201 69.5068ZM74.7285 66.2988L71.374 58.6084L67.8584 66.2988H74.7285ZM83.8105 64.5996V61.875H90.2559V55.5469H92.9658V61.875H99.4111V64.5996H92.9658V70.9277H90.2559V64.5996H83.8105Z" fill="#FF4343"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M149 164C149 166.761 146.761 169 144 169H59C58.9352 169 58.8706 168.999 58.8064 168.996C58.7045 168.999 58.6024 169 58.5 169C51.7639 169 46.2723 163.672 46.0098 157H46L46 156.5L46 62.5045C46 62.503 46 62.5015 46 62.5V55V54.5V47.5C46 37.835 53.835 30 63.5 30C71.2436 30 77.8125 35.0295 80.1182 42L144 42C146.761 42 149 44.2386 149 47L149 164Z" fill="#1B4426"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M60.7627 162H142V147H60.7627H60.2331V147.017C56.1929 147.28 53 150.53 53 154.5C53 158.47 56.1929 161.72 60.2331 161.983V162H60.7627Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M149 147C151.761 147 154 144.761 154 142L154 35C154 32.2386 151.761 30 149 30H143.598H140.087L67 30L67 147H140.087H143.598H149Z" fill="#6E9579"/>
+<rect x="70" y="147" width="7" height="117" transform="rotate(180 70 147)" fill="#3E6649"/>
+<rect x="82" y="55" width="60" height="29" fill="#A6BFAD"/>
+<rect x="100" y="89" width="24.3704" height="7.83333" fill="#A6BFAD"/>
 <defs>
 <linearGradient id="paint0_linear" x1="0" y1="100" x2="200" y2="100" gradientUnits="userSpaceOnUse">
 <stop stop-color="#A5A6A8"/>
