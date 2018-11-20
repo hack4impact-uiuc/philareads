@@ -32,7 +32,7 @@ class AdminBookForm extends Component {
   componentDidUpdate(previousProps) {
     if (
       this.props.currentBook != null &&
-      this.state.title !== this.props.currentBook.name
+      this.state.id !== this.props.currentBook.id
     ) {
       this.setState(
         {
@@ -41,9 +41,17 @@ class AdminBookForm extends Component {
           cover_url: this.props.currentBook.cover_url,
           reader_url: this.props.currentBook.reader_url,
           year: this.props.currentBook.year,
-          grade: this.props.currentBook.grade
+          grade: this.props.currentBook.grade,
+          id: this.props.currentBook.id
         },
-        () => this.testImage()
+        () => {
+          this.testImage();
+          // Can't reuse the testBookURL method since it relies on an event
+          var patt = new RegExp(
+            /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/
+          );
+          this.setState({ bookURLValid: patt.test(this.state.reader_url) });
+        }
       );
     }
   }
@@ -252,9 +260,13 @@ class AdminBookForm extends Component {
           <Button
             onClick={this.handleSubmit}
             disabled={!this.canSubmitWithoutError()}
-            color="primary"
+            color="warning"
           >
-            Add Book
+            Edit Book
+          </Button>
+          <Button disabled={!this.props.currentBook} color="danger">
+            Delete{' '}
+            {this.props.currentBook && '"' + this.props.currentBook.name + '"'}
           </Button>
         </FormGroup>
       </Form>
