@@ -86,10 +86,10 @@ def create_quiz():
     )
 
 
-@quiz.route("/<user_id>/quiz_results", methods=["GET"])
-def get_quiz_results(user_id):
+@quiz.route("/quiz_results", methods=["GET"])
+def get_quiz_results():
     try:
-        token_user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
     except jwt.ExpiredSignatureError:
         return create_response(
             message="Expired token", status=401, data={"status": "fail"}
@@ -98,13 +98,6 @@ def get_quiz_results(user_id):
         return create_response(
             message="Invalid token", status=401, data={"status": "fail"}
         )
-    if int(token_user_id) != int(user_id):  # validate user's identity
-        return create_response(
-            message="Invalid token for selected user",
-            status=401,
-            data={"status": "fail"},
-        )
-
     user = User.query.filter_by(id=user_id).first()
 
     # invalid user
@@ -162,7 +155,7 @@ def get_question_results(quiz_result_id):
         )
 
     quest_list = []
-
+    quiz_questions = Quiz.query.get(quiz_result.quiz_id).questions
     for attempt_quest in quiz_result.attempted_questions:
         quest_dict = {}
         quest_dict["user_answer"] = attempt_quest.user_answer
@@ -170,7 +163,9 @@ def get_question_results(quiz_result_id):
         quest_dict["correct"] = attempt_quest.correct
         # grab the original question options
         question = Question.query.filter_by(id=attempt_quest.id).first()
-        quest_dict["question_options"] = question.options
+        quest_dict["question_options"] = quiz_questions[
+            attempt_quest.question_num
+        ].options
         quest_list.append(quest_dict)
 
     return create_response(
