@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Blueprint
 from api.models import User, db
 from api.core import create_response, serialize_list, logger
 import bcrypt
+import jwt
 
 authenticate = Blueprint("authenticate", __name__)
 
@@ -76,7 +77,6 @@ def login_user():
         data={"status": "fail"}, message="Failed to log in.", status=401
     )
 
-
 @authenticate.route("/upgrade_user", methods=["POST"])
 def upgrade_user():
     try:
@@ -121,3 +121,25 @@ def upgrade_user():
     return create_response(
         message="Successfully upgraded user", status=200, data={"status": "success"}
     )
+
+@authenticate.route("/user", methods=["GET"])
+def user_info():
+    try:
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+
+    user = User.query.get(user_id)
+    if user is None:
+        return create_response(
+            message="User not found", status=401, data={"status": "fail"}
+        )
+        
+    user_data = {"name": user.name, "email": user.email}
+    return create_response(message="Success", status=200, data= user_data)
