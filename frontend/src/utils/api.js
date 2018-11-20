@@ -88,6 +88,21 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function getUserInfo() {
+  // console.log('Getting user data');
+  // return fetch(`${API_URL}/user`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   credentials: 'include',
+  //   body: JSON.stringify(quizResultsData)
+  // }).then(res => res.json());
+  const dict = {
+    name: 'David Chang',
+    email: 'davidchang@chegg.com'
+  };
+  return dict;
 function createBook(bookData) {
   console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
@@ -134,4 +149,6 @@ export {
   postQuizResults,
   getAllBooks,
   deleteBook
+  postQuizResults,
+  getUserInfo
 };
