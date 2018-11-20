@@ -24,9 +24,10 @@ def get_user():
             message="User not found", status=400, data={"status": "fail"}
         )
 
-    user_dict = {"name": user.name, "email":user.email}
+    user_dict = {"name": user.name, "email": user.email}
 
     return create_response(data={"user": user_dict}, status=201)
+
 
 # function that edits user model
 @user.route("/edit_user", methods=["POST"])
@@ -63,7 +64,5 @@ def edit_user():
     db.session.commit()
 
     return create_response(
-        message="Successfully updated user",
-        status=200,
-        data={"status": "success"},
+        message="Successfully updated user", status=200, data={"status": "success"}
     )
