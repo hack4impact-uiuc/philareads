@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button
-} from 'reactstrap';
+import { Form, FormGroup, Input, Label, Button, Alert } from 'reactstrap';
 import '../styles/admin/AdminBookForm.scss';
 import { createBook } from '../utils/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,7 +14,8 @@ class AdminBookForm extends Component {
       year: '',
       grade: '',
       reader_url: '',
-      submitClicked: false,
+      errors: [],
+      numSubmits: 0,
       shouldShowLoading: false,
       coverURLValid: true
     };
@@ -80,7 +72,7 @@ class AdminBookForm extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errors: [], shouldShowLoading: true });
+    this.setState({ shouldShowLoading: true });
 
     const { message, success, result } = await createBook({
       name: this.state.title,
@@ -95,14 +87,26 @@ class AdminBookForm extends Component {
       console.log(result);
     } else {
       // TODO: Display message if login wasn't successful
-      console.log(result);
+
+      this.setState(state => ({
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
+      }));
       // this.handleAPIErrors(message);
+      console.log(console.log(this.state.errors));
     }
   };
 
   render() {
     return (
       <Form className="book-form">
+        {this.state.errors.map(({ message, key }) => {
+          return (
+            <Alert key={key} color="danger">
+              {message}
+            </Alert>
+          );
+        })}
         <FormGroup>
           <Label>Book Title</Label>
           <Input
