@@ -24,7 +24,6 @@ class AdminBookForm extends Component {
       reader_url: '',
       errors: [],
       numSubmits: 0,
-      success: null,
       coverURLValid: null,
       bookURLValid: null
     };
@@ -101,7 +100,7 @@ class AdminBookForm extends Component {
       reader_url: this.state.reader_url
     });
     if (success) {
-      this.setState({ success: true });
+      this.props.handleSuccess();
     } else {
       this.setState(state => ({
         errors: [{ message: message, key: state.numSubmits }],
