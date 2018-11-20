@@ -59,9 +59,11 @@ class AdminBookForm extends Component {
       var patt = new RegExp('.(jpeg|jpg|gif|png)$');
       if (!patt.test(e.target.value)) {
         reject('error');
-        console.log('invalid url');
       }
-    }).catch(e => this.setState({ coverURLValid: false }));
+    }).then(
+      e => this.setState({ coverURLValid: true }),
+      e => this.setState({ coverURLValid: false })
+    );
   };
 
   canSubmitWithoutError() {
@@ -136,10 +138,10 @@ class AdminBookForm extends Component {
         <FormGroup>
           <Label>Grade</Label>
           <Input
-            type="number"
+            type="text"
             name="grade"
-            min="1"
-            max="12"
+            maxLength="2"
+            pattern="[0-9]{2}"
             onChange={this.handleChange}
             placeholder="Ex: 8"
           />
