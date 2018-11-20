@@ -95,7 +95,9 @@ def upgrade_user():
 
     if not current_user.is_admin:  # they don't have privileges to upgrade another user
         return create_response(
-            message="Not an existing admin", status=402, data={"status": "fail"}
+            message="You must be an admin to upgrade another user to admin status",
+            status=402,
+            data={"status": "fail"},
         )
 
     user_data = request.get_json()
