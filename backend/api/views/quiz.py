@@ -2,7 +2,17 @@ from flask import Flask, jsonify, request, Blueprint, json
 import datetime
 import pdb
 import jwt
-from api.models import Quiz, Question, db, Book, User, QuestionResult, QuizResult, Badge, give_user_badges
+from api.models import (
+    Quiz,
+    Question,
+    db,
+    Book,
+    User,
+    QuestionResult,
+    QuizResult,
+    Badge,
+    give_user_badges,
+)
 from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
