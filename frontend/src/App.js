@@ -20,6 +20,7 @@ import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
 
 import './styles/App.scss';
+import AdminEditBookPage from './pages/admin/AdminEditBookPage';
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
             component={AdminCSVUploadPage}
           />
           <Route path="/admin/book/add" component={AdminAddBookPage} />
+          <Route path="/admin/book/edit" component={AdminEditBookPage} />
           {/*Reading Olympics pages*/}
           <Route exact path="/ReadingOlympics" component={ROHome} />
           <Route

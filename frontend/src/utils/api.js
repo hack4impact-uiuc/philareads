@@ -100,6 +100,17 @@ function createBook(bookData) {
   }).then(res => res.json());
 }
 
+function getAllBooks() {
+  console.log('Getting all books');
+  return fetch(`${API_URL}/books`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -109,5 +120,6 @@ export {
   getBookData,
   getQuizzes,
   createBook,
-  postQuizResults
+  postQuizResults,
+  getAllBooks
 };

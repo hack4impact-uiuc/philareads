@@ -29,6 +29,22 @@ class AdminBookForm extends Component {
     };
   }
 
+  componentDidUpdate(previousProps) {
+    if (
+      this.props.currentBook != null &&
+      this.state.title !== this.props.currentBook.name
+    ) {
+      this.setState({
+        title: this.props.currentBook.name,
+        author: this.props.currentBook.author,
+        cover_url: this.props.currentBook.cover_url,
+        reader_url: this.props.currentBook.reader_url,
+        year: this.props.currentBook.year,
+        grade: this.props.currentBook.grade
+      });
+      this.testImage();
+    }
+  }
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -43,7 +59,7 @@ class AdminBookForm extends Component {
     this.setState({ bookURLValid: patt.test(e.target.value) });
   };
 
-  testImage = async e => {
+  testImage = () => {
     return new Promise(function(resolve, reject) {
       var timeout = 5000;
       var timer,
@@ -63,7 +79,7 @@ class AdminBookForm extends Component {
         reject('timeout');
       }, timeout);
 
-      img.src = e.target.value;
+      img.src = this.state.cover_url;
     }).then(
       e => this.setState({ coverURLValid: true }),
       e => this.setState({ coverURLValid: false })
@@ -126,6 +142,7 @@ class AdminBookForm extends Component {
             name="title"
             onChange={this.handleChange}
             placeholder="Ex: The Adventures of Huckleberry Finn"
+            value={this.state.title}
           />
         </FormGroup>
         <FormGroup>
@@ -135,6 +152,7 @@ class AdminBookForm extends Component {
             name="author"
             onChange={this.handleChange}
             placeholder="Ex: Mark Twain"
+            value={this.state.author}
           />
         </FormGroup>
 
@@ -153,6 +171,7 @@ class AdminBookForm extends Component {
             pattern="[0-9]{4}"
             required
             placeholder="Ex: 2018"
+            value={this.state.year}
           />
           <FormFeedback invalid="true">
             The year has to be a number.
@@ -173,6 +192,7 @@ class AdminBookForm extends Component {
             pattern="[0-9]{2}"
             onChange={this.handleChange}
             placeholder="Ex: 8"
+            value={this.state.grade}
           />
           <FormFeedback invalid="true">
             The grade has to be a number.
@@ -192,6 +212,7 @@ class AdminBookForm extends Component {
             }
             onBlur={this.testImage}
             onChange={this.handleChange}
+            value={this.state.cover_url}
             placeholder="Ex: http://google.com/file.png"
           />
           <FormFeedback invalid="true">
@@ -211,6 +232,7 @@ class AdminBookForm extends Component {
             }
             name="reader_url"
             onChange={this.testBookURL}
+            value={this.state.reader_url}
             placeholder="Ex: http://book.com/file.pdf"
           />
           <FormFeedback invalid="true">
