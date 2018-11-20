@@ -77,6 +77,7 @@ def login_user():
         data={"status": "fail"}, message="Failed to log in.", status=401
     )
 
+
 @authenticate.route("/upgrade_user", methods=["POST"])
 def upgrade_user():
     try:
@@ -122,6 +123,7 @@ def upgrade_user():
         message="Successfully upgraded user", status=200, data={"status": "success"}
     )
 
+
 @authenticate.route("/user", methods=["GET"])
 def user_info():
     try:
@@ -140,6 +142,6 @@ def user_info():
         return create_response(
             message="User not found", status=401, data={"status": "fail"}
         )
-        
+
     user_data = {"name": user.name, "email": user.email}
-    return create_response(message="Success", status=200, data= user_data)
+    return create_response(message="Success", status=200, data=user_data)
