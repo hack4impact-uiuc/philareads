@@ -34,15 +34,17 @@ class AdminBookForm extends Component {
       this.props.currentBook != null &&
       this.state.title !== this.props.currentBook.name
     ) {
-      this.setState({
-        title: this.props.currentBook.name,
-        author: this.props.currentBook.author,
-        cover_url: this.props.currentBook.cover_url,
-        reader_url: this.props.currentBook.reader_url,
-        year: this.props.currentBook.year,
-        grade: this.props.currentBook.grade
-      });
-      this.testImage();
+      this.setState(
+        {
+          title: this.props.currentBook.name,
+          author: this.props.currentBook.author,
+          cover_url: this.props.currentBook.cover_url,
+          reader_url: this.props.currentBook.reader_url,
+          year: this.props.currentBook.year,
+          grade: this.props.currentBook.grade
+        },
+        () => this.testImage()
+      );
     }
   }
   handleChange = event => {
@@ -60,6 +62,9 @@ class AdminBookForm extends Component {
   };
 
   testImage = () => {
+    var cover_url = this.state.cover_url;
+    console.log(cover_url);
+
     return new Promise(function(resolve, reject) {
       var timeout = 5000;
       var timer,
@@ -78,11 +83,13 @@ class AdminBookForm extends Component {
         img.src = '//!!!!/test.jpg';
         reject('timeout');
       }, timeout);
-
-      img.src = this.state.cover_url;
+      img.src = cover_url;
     }).then(
       e => this.setState({ coverURLValid: true }),
-      e => this.setState({ coverURLValid: false })
+      e => {
+        console.log(this.state.cover_url);
+        return this.setState({ coverURLValid: false });
+      }
     );
   };
 
