@@ -88,6 +88,23 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function getUserInfo() {
+  // console.log('Getting user data');
+  // return fetch(`${API_URL}/user`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   credentials: 'include',
+  //   body: JSON.stringify(quizResultsData)
+  // }).then(res => res.json());
+  const dict = {
+    name: 'David Chang',
+    email: 'davidchang@chegg.com'
+  };
+  return dict;
+}
+
 export {
   register,
   login,
@@ -96,5 +113,6 @@ export {
   getROArchiveYears,
   getBookData,
   getQuizzes,
-  postQuizResults
+  postQuizResults,
+  getUserInfo
 };
