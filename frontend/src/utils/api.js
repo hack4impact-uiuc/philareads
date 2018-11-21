@@ -89,8 +89,19 @@ function postQuizResults(quizResultsData) {
 }
 
 function createBook(bookData) {
-  console.log('Posting quiz results');
+  console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
+function deleteBook(bookData) {
+  return fetch(`${API_URL}/delete_book`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -121,5 +132,6 @@ export {
   getQuizzes,
   createBook,
   postQuizResults,
-  getAllBooks
+  getAllBooks,
+  deleteBook
 };

@@ -204,7 +204,7 @@ class AdminBookForm extends Component {
                 (isNaN(this.state.grade) ? 'is-invalid' : 'is-valid'))
             }
             maxLength="2"
-            pattern="[0-9]{2}"
+            pattern="[0-9]{1,2}"
             onChange={this.handleChange}
             placeholder="Ex: 8"
             value={this.state.grade}
@@ -264,7 +264,11 @@ class AdminBookForm extends Component {
           >
             Edit Book
           </Button>
-          <Button disabled={!this.props.currentBook} color="danger">
+          <Button
+            disabled={!this.props.currentBook}
+            onClick={this.props.handleDeletePress}
+            color="danger"
+          >
             Delete{' '}
             {this.props.currentBook && '"' + this.props.currentBook.name + '"'}
           </Button>

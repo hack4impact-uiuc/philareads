@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminBookForm from '../../components/AdminBookForm';
+import AdminDeleteModal from '../../components/AdminDeleteModal';
 import AdminNavigator from '../../components/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
-import { getAllBooks } from '../../utils/api';
-
+import { getAllBooks, deleteBook } from '../../utils/api';
 class AdminEditBookPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       success: null,
       books: [],
-      currentSelectedBook: null
+      currentSelectedBook: null,
+      deleteButtonPressed: false
     };
     this.getBooks();
   }
@@ -58,9 +59,39 @@ class AdminEditBookPage extends Component {
       </select>
     );
   }
+
+  handleDeletePress = e => {
+    e.preventDefault();
+    this.setState({ deleteButtonPressed: true });
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      deleteButtonPressed: !prevState.deleteButtonPressed
+    }));
+  };
+
+  deleteBook = async () => {
+    this.toggleModal();
+    const { message, success, result } = await deleteBook();
+    if (success) {
+      this.setState({ success: true });
+    } else {
+      this.setState(state => ({
+        errors: [{ message: message, key: state.numSubmits }]
+      }));
+      //TODO: display errors if fetch doesn't work
+    }
+  };
   render() {
     return (
       <Container fluid>
+        <AdminDeleteModal
+          handleYesDelete={this.deleteBook}
+          isOpen={this.state.deleteButtonPressed}
+          book={this.state.currentSelectedBook}
+          toggleModal={this.toggleModal}
+        />
         <Row>
           <Col lg="2">
             <AdminNavigator />
@@ -71,13 +102,14 @@ class AdminEditBookPage extends Component {
             {this.getDropdown()}
             {this.state.success ? (
               <Alert color="success">
-                Book was successfully created. Would you like to{' '}
-                <a href="/admin/book/add"> create another? </a>
+                Book was successfully modified. Would you like to{' '}
+                <a href="/admin/book/add"> edit another? </a>
               </Alert>
             ) : (
               <AdminBookForm
                 currentBook={this.state.currentSelectedBook}
                 handleSuccess={this.handleSuccess}
+                handleDeletePress={this.handleDeletePress}
               />
             )}
           </Col>
