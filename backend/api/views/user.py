@@ -65,3 +65,24 @@ def edit_user():
     return create_response(
         message="Successfully updated user", status=200, data={"status": "success"}
     )
+
+@user.route("/check_password", methods=["POST"])
+def check_password():
+    user_data = request.get_json()
+    user = User.query.filter_by(id=user_data["id"]).first()
+
+    if user is None:
+        return create_response(
+            message="Invalid user", status=400, data={"status": "fail"}
+        )
+    print("sup")
+    if bcrypt.checkpw(
+        user_data["input"].encode("utf8"), user.password.encode("utf8")
+    ):
+        return create_response(
+            message="Valid password", status=200, data={"output": "True"}
+        )
+    else:
+        return create_response(
+            message="Invalid password", status=200, data={"output": "False"}
+        )
