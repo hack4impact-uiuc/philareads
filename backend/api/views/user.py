@@ -43,7 +43,7 @@ def edit_user():
         message="Successfully updated user", status=200, data={"status": "success"}
     )
 
-@user.route("/check_password", methods=["POST"])
+@user.route("/edit_password", methods=["POST"])
 def check_password():
     user_data = request.get_json()
 
