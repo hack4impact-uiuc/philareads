@@ -5,28 +5,28 @@ import bcrypt
 
 user = Blueprint("user", __name__)
 
-# function that returns all user info
-@user.route("/user", methods=["GET"])
-def get_user():
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
-
-    user = User.query.filter_by(id=user_id).first()
-    print(user)
-
-    # invalid user
-    if user is None:
-        return create_response(
-            message="User not found", status=400, data={"status": "fail"}
-        )
-
-    user_dict = {"name": user.name, "email": user.email}
-
-    return create_response(data={"user": user_dict}, status=201)
+# # function that returns all user info
+# @user.route("/user", methods=["GET"])
+# def get_user():
+#     try:
+#         user_id = User.decode_auth_token(request.cookies.get("jwt"))
+#     except:
+#         return create_response(
+#             message="Invalid token", status=401, data={"status": "fail"}
+#         )
+#
+#     user = User.query.filter_by(id=user_id).first()
+#     print(user)
+#
+#     # invalid user
+#     if user is None:
+#         return create_response(
+#             message="User not found", status=400, data={"status": "fail"}
+#         )
+#
+#     user_dict = {"name": user.name, "email": user.email, "pw": user.password}
+#
+#     return create_response(data={"user": user_dict}, status=201)
 
 # function that edits user model
 @user.route("/edit_user", methods=["POST"])
@@ -69,20 +69,52 @@ def edit_user():
 @user.route("/check_password", methods=["POST"])
 def check_password():
     user_data = request.get_json()
-    user = User.query.filter_by(id=user_data["id"]).first()
+
+    print("here")
+
+    try:
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+
+    print("here2")
+
+    user = User.query.filter_by(id=user_id).first()
+
+    print("here3")
 
     if user is None:
         return create_response(
             message="Invalid user", status=400, data={"status": "fail"}
         )
-    print("sup")
+
+    print("here4")
+
     if bcrypt.checkpw(
-        user_data["input"].encode("utf8"), user.password.encode("utf8")
+        user_data["old_password"].encode("utf8"), user.password.encode("utf8")
     ):
-        return create_response(
-            message="Valid password", status=200, data={"output": "True"}
-        )
+        user.password = user_data["new_password"]
+        db.session.commit()
+
+        try:
+            auth_token = user.encode_auth_token()
+            responseObject = {
+                "status": "success",
+                "auth_token": auth_token.decode(),
+            }
+            return create_response(
+                message="Successfully updated password.", data=responseObject, status=200
+            )
+        except:
+            return create_response(
+                message="Failed to generate auth_token",
+                status=400,
+                data={"status": "fail"},
+            )
+
     else:
         return create_response(
-            message="Invalid password", status=200, data={"output": "False"}
+            message="Invalid password", status=400, data={"status": "failure"}
         )
