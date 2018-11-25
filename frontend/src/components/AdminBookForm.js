@@ -270,18 +270,21 @@ class AdminBookForm extends Component {
           <Button
             onClick={this.handleSubmit}
             disabled={!this.canSubmitWithoutError()}
-            color="warning"
+            color={this.props.type === 'Edit' ? 'warning' : 'primary'}
           >
-            Edit Book
+            {this.props.type} Book
           </Button>
-          <Button
-            disabled={!this.props.currentBook}
-            onClick={this.props.handleDeletePress}
-            color="danger"
-          >
-            Delete{' '}
-            {this.props.currentBook && '"' + this.props.currentBook.name + '"'}
-          </Button>
+          {this.props.type === 'Edit' && (
+            <Button
+              disabled={!this.props.currentBook}
+              onClick={this.props.handleDeletePress}
+              color="danger"
+            >
+              Delete{' '}
+              {this.props.currentBook &&
+                '"' + this.props.currentBook.name + '"'}
+            </Button>
+          )}
         </FormGroup>
       </Form>
     );

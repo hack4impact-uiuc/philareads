@@ -31,7 +31,7 @@ class AdminAddBookPage extends Component {
                 <a href="/admin/book/add"> create another? </a>
               </Alert>
             ) : (
-              <AdminBookForm handleSuccess={this.handleSuccess} />
+              <AdminBookForm type="Add" handleSuccess={this.handleSuccess} />
             )}
           </Col>
         </Row>

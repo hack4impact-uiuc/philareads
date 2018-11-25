@@ -108,6 +108,7 @@ class AdminEditBookPage extends Component {
             ) : (
               this.state.currentSelectedBook !== null && (
                 <AdminBookForm
+                  type="Edit"
                   currentBook={this.state.currentSelectedBook}
                   handleSuccess={this.handleSuccess}
                   handleDeletePress={this.handleDeletePress}
