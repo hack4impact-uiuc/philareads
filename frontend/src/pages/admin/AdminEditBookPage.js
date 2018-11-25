@@ -96,7 +96,7 @@ class AdminEditBookPage extends Component {
           <Col lg="2">
             <AdminNavigator />
           </Col>
-          <Col md="6" className="admin-edit">
+          <Col lg="6" className="admin-edit">
             <h1>Edit Book</h1>
             <hr />
             {this.getDropdown()}

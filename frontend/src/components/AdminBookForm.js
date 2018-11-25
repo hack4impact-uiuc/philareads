@@ -6,6 +6,8 @@ import {
   Label,
   Button,
   Alert,
+  Col,
+  Row,
   FormFeedback
 } from 'reactstrap';
 import '../styles/admin/AdminBookForm.scss';
@@ -176,47 +178,50 @@ class AdminBookForm extends Component {
           />
         </FormGroup>
 
-        <FormGroup>
-          <Label>Year</Label>
-          <Input
-            type="text"
-            name="year"
-            className={
-              'form-control ' +
-              (this.state.year !== '' &&
-                (isNaN(this.state.year) ? 'is-invalid' : 'is-valid'))
-            }
-            onChange={this.handleChange}
-            maxLength="4"
-            pattern="[0-9]{4}"
-            required
-            placeholder="Ex: 2018"
-            value={this.state.year}
-          />
-          <FormFeedback invalid="true">
-            The year has to be a number.
-          </FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Grade</Label>
-          <Input
-            type="text"
-            name="grade"
-            className={
-              'form-control ' +
-              (this.state.grade !== '' &&
-                (isNaN(this.state.grade) ? 'is-invalid' : 'is-valid'))
-            }
-            maxLength="2"
-            pattern="[0-9]{1,2}"
-            onChange={this.handleChange}
-            placeholder="Ex: 8"
-            value={this.state.grade}
-          />
-          <FormFeedback invalid="true">
-            The grade has to be a number.
-          </FormFeedback>
+        <FormGroup inline={true} className="no-margin">
+          <Row>
+            <Col lg="6" className="year-grade">
+              <Label>Year</Label>
+              <Input
+                type="text"
+                name="year"
+                className={
+                  'form-control ' +
+                  (this.state.year !== '' &&
+                    (isNaN(this.state.year) ? 'is-invalid' : 'is-valid'))
+                }
+                onChange={this.handleChange}
+                maxLength="4"
+                pattern="[0-9]{4}"
+                required
+                placeholder="Ex: 2018"
+                value={this.state.year}
+              />
+              <FormFeedback invalid="true">
+                The year has to be a number.
+              </FormFeedback>
+            </Col>
+            <Col lg="6" className="year-grade">
+              <Label>Grade</Label>
+              <Input
+                type="text"
+                name="grade"
+                className={
+                  'form-control ' +
+                  (this.state.grade !== '' &&
+                    (isNaN(this.state.grade) ? 'is-invalid' : 'is-valid'))
+                }
+                maxLength="2"
+                pattern="[0-9]{1,2}"
+                onChange={this.handleChange}
+                placeholder="Ex: 8"
+                value={this.state.grade}
+              />
+              <FormFeedback invalid="true">
+                The grade has to be a number.
+              </FormFeedback>
+            </Col>
+          </Row>
         </FormGroup>
 
         <FormGroup>

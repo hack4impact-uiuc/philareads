@@ -22,7 +22,7 @@ class AdminAddBookPage extends Component {
           <Col lg="2">
             <AdminNavigator />
           </Col>
-          <Col md="6" className="admin-home">
+          <Col lg="6" className="admin-home">
             <h1>Add Book</h1>
             <hr />
             {this.state.success ? (
