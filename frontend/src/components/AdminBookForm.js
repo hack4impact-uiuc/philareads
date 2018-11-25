@@ -10,7 +10,6 @@ import {
 } from 'reactstrap';
 import '../styles/admin/AdminBookForm.scss';
 import { createBook } from '../utils/api.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class AdminBookForm extends Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class AdminBookForm extends Component {
     };
   }
 
-  componentDidUpdate(previousProps) {
+  updateStateForProps = () => {
     if (
       this.props.currentBook != null &&
       this.state.id !== this.props.currentBook.id
@@ -54,7 +53,15 @@ class AdminBookForm extends Component {
         }
       );
     }
+  };
+  componentDidUpdate(previousProps) {
+    this.updateStateForProps();
   }
+
+  componentDidMount() {
+    this.updateStateForProps();
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -71,7 +78,6 @@ class AdminBookForm extends Component {
 
   testImage = () => {
     var cover_url = this.state.cover_url;
-    console.log(cover_url);
 
     return new Promise(function(resolve, reject) {
       var timeout = 5000;
@@ -95,7 +101,6 @@ class AdminBookForm extends Component {
     }).then(
       e => this.setState({ coverURLValid: true }),
       e => {
-        console.log(this.state.cover_url);
         return this.setState({ coverURLValid: false });
       }
     );

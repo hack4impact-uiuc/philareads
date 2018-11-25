@@ -106,11 +106,13 @@ class AdminEditBookPage extends Component {
                 <a href="/admin/book/add"> edit another? </a>
               </Alert>
             ) : (
-              <AdminBookForm
-                currentBook={this.state.currentSelectedBook}
-                handleSuccess={this.handleSuccess}
-                handleDeletePress={this.handleDeletePress}
-              />
+              this.state.currentSelectedBook !== null && (
+                <AdminBookForm
+                  currentBook={this.state.currentSelectedBook}
+                  handleSuccess={this.handleSuccess}
+                  handleDeletePress={this.handleDeletePress}
+                />
+              )
             )}
           </Col>
         </Row>
