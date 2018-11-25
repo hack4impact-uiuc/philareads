@@ -82,7 +82,7 @@ def check_password():
                 "auth_token": auth_token.decode(),
             }
             return create_response(
-                message="Successfully updated password.", data=responseObject, status=200
+                message="Successfully changed the password", data=responseObject, status=200
             )
         except:
             return create_response(
