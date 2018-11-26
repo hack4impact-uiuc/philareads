@@ -43,6 +43,7 @@ def edit_user():
         message="Successfully updated user", status=200, data={"status": "success"}
     )
 
+
 @user.route("/edit_password", methods=["POST"])
 def check_password():
     user_data = request.get_json()
@@ -77,12 +78,11 @@ def check_password():
 
         try:
             auth_token = user.encode_auth_token()
-            responseObject = {
-                "status": "success",
-                "auth_token": auth_token.decode(),
-            }
+            responseObject = {"status": "success", "auth_token": auth_token.decode()}
             return create_response(
-                message="Successfully changed the password", data=responseObject, status=200
+                message="Successfully changed the password",
+                data=responseObject,
+                status=200,
             )
         except:
             return create_response(
