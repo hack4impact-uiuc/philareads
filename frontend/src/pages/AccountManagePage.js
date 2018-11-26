@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AccountManage from '../components/AccountManage';
-import { getUserData, postUserData } from '../utils/api';
+import { getUserData, postUserData, updatePassword } from '../utils/api';
 import { Button } from 'reactstrap';
 
 class AccountManagePage extends Component {
@@ -11,7 +11,13 @@ class AccountManagePage extends Component {
       email: '',
       current_password: '',
       new_password: '',
-      repeated_new_password: ''
+      repeated_new_password: '',
+      match_error: '',
+      curr_password_error: '',
+      message: '',
+      status: '',
+      password_success: true,
+      data: ''
     };
     this.fetchUserData();
   }
@@ -29,8 +35,37 @@ class AccountManagePage extends Component {
     postUserData(userData);
   };
 
-  handlePasswordChange = () => {
-    console.log(this.state.password);
+  handlePasswordChange = async () => {
+    this.setState({ password_success: true });
+
+    if (this.state.new_password === this.state.repeated_new_password) {
+      this.setState({ match_error: '' });
+    } else {
+      this.setState({
+        match_error: 'Passwords do not match',
+        password_success: false
+      });
+    }
+
+    const { message, status, data } = await updatePassword();
+    this.setState({ message: message, status: status, data: data });
+
+    if (status === 200) {
+      this.setState({ curr_password_error: '' });
+    } else {
+      this.setState({
+        curr_password_error: 'Invalid Password',
+        password_success: false
+      });
+    }
+
+    if (this.state.password_success === true) {
+      let passwordData = {
+        old_password: this.state.current_password,
+        new_password: this.state.new_password
+      };
+      postUserData(passwordData);
+    }
   };
 
   render() {
@@ -96,6 +131,9 @@ class AccountManagePage extends Component {
                         this.setState({ current_password: txt.target.value })
                       }
                     />
+                    <div className="invalid-feedback d-block">
+                      {this.state.curr_password_error}
+                    </div>
                   </div>
 
                   <h5> New Password </h5>
@@ -122,6 +160,9 @@ class AccountManagePage extends Component {
                         })
                       }
                     />
+                    <div className="invalid-feedback d-block">
+                      {this.state.match_error}
+                    </div>
                   </div>
                   <Button
                     className="btn btn-lg btn-dark btn-block"
