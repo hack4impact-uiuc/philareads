@@ -88,7 +88,7 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
-function getUserInfo() {
+function getUserData() {
   // console.log('Getting user data');
   // return fetch(`${API_URL}/user`, {
   //   method: 'POST',
@@ -137,6 +137,18 @@ function getAllBooks() {
   }).then(res => res.json());
 }
 
+function postUserData(userData) {
+  console.log('Updating user info');
+  return fetch(`${API_URL}/edit_user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(quizResultsData)
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -150,5 +162,6 @@ export {
   getAllBooks,
   deleteBook
   postQuizResults,
-  getUserInfo
+  getUserData,
+  postUserData
 };

@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import AccountManage from '../components/AccountManage';
 import { getUserInfo } from '../utils/api';
+import { Button } from 'reactstrap';
 
 class AccountManagePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      email: ''
+      email: '',
+      current_password: '',
+      new_password: '',
+      repeated_new_password: ''
     };
     this.fetchUserData();
   }
 
   fetchUserData = async () => {
-    const { name, email } = await getUserInfo();
+    const { name, email } = await getUserData();
     this.setState({ name: name, email: email });
+  };
+
+  handleProfileChange = () => {
+    let userData = {
+      name: this.state.name,
+      email: this.state.email
+    };
+    postUserData(userData);
+  };
+
+  handlePasswordChange = () => {
+    console.log(this.state.password);
   };
 
   render() {
@@ -27,6 +43,7 @@ class AccountManagePage extends Component {
                 <h3 className="text-center mb-4">Edit your profile</h3>
                 <fieldset>
                   <div className="form-group has-error">
+                    <h5> Name </h5>
                     <input
                       className="form-control input-lg"
                       defaultValue={this.state.name}
@@ -38,6 +55,7 @@ class AccountManagePage extends Component {
                     />
                   </div>
                   <div className="form-group has-error">
+                    <h5> Email </h5>
                     <input
                       className="form-control input-lg"
                       defaultValue={this.state.email}
@@ -48,12 +66,14 @@ class AccountManagePage extends Component {
                       }
                     />
                   </div>
-
-                  <input
+                  <Button
                     className="btn btn-lg btn-dark btn-block"
-                    value="Update Profile"
-                    type="submit"
-                  />
+                    onClick={this.handleProfileChange}
+                    size="lg"
+                    block
+                  >
+                    Update Profile
+                  </Button>
                 </fieldset>
               </div>
             </div>
@@ -72,6 +92,9 @@ class AccountManagePage extends Component {
                       className="form-control input-lg"
                       name="current_password"
                       type="text"
+                      onChange={txt =>
+                        this.setState({ current_password: txt.target.value })
+                      }
                     />
                   </div>
 
@@ -81,6 +104,9 @@ class AccountManagePage extends Component {
                       className="form-control input-lg"
                       name="new_password"
                       type="text"
+                      onChange={txt =>
+                        this.setState({ new_password: txt.target.value })
+                      }
                     />
                   </div>
 
@@ -90,14 +116,21 @@ class AccountManagePage extends Component {
                       className="form-control input-lg"
                       name="repeated_new_password"
                       type="text"
+                      onChange={txt =>
+                        this.setState({
+                          repeated_new_password: txt.target.value
+                        })
+                      }
                     />
                   </div>
-
-                  <input
+                  <Button
                     className="btn btn-lg btn-dark btn-block"
-                    value="Update Password"
-                    type="submit"
-                  />
+                    onClick={this.handlePasswordChange}
+                    size="lg"
+                    block
+                  >
+                    Update Password
+                  </Button>
                 </fieldset>
               </div>
             </div>
