@@ -84,7 +84,7 @@ function postQuizResults(quizResultsData) {
       'Content-Type': 'application/json'
     },
     credentials: 'include',
-    body: JSON.stringify(quizResultsData)
+    body: JSON.stringify(userData)
   }).then(res => res.json());
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AccountManage from '../components/AccountManage';
-import { getUserInfo } from '../utils/api';
+import { getUserData, postUserData } from '../utils/api';
 import { Button } from 'reactstrap';
 
 class AccountManagePage extends Component {
