@@ -1,0 +1,29 @@
+.book-form {
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #95a5a6;
+  border-style: solid;
+  font-weight: 600;
+
+  label {
+    margin-bottom: 0.3rem;
+  }
+  // When screen size is < large, tidy up margins
+  @media only screen and (max-width: 992px) {
+    .year-grade {
+      margin-bottom: 1rem;
+    }
+    .no-margin {
+      margin-bottom: 0px;
+    }
+  }
+
+  .btn {
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+}

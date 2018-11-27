@@ -88,6 +88,40 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function createBook(bookData) {
+  console.log('Creating/posting new book');
+  return fetch(`${API_URL}/book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
+function deleteBook(bookData) {
+  return fetch(`${API_URL}/delete_book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
+function getAllBooks() {
+  console.log('Getting all books');
+  return fetch(`${API_URL}/books`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -96,5 +130,8 @@ export {
   getROArchiveYears,
   getBookData,
   getQuizzes,
-  postQuizResults
+  createBook,
+  postQuizResults,
+  getAllBooks,
+  deleteBook
 };

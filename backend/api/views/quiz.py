@@ -2,7 +2,17 @@ from flask import Flask, jsonify, request, Blueprint, json
 import datetime
 import pdb
 import jwt
-from api.models import Quiz, Question, db, Book, User, QuestionResult, QuizResult
+from api.models import (
+    Quiz,
+    Question,
+    db,
+    Book,
+    User,
+    QuestionResult,
+    QuizResult,
+    Badge,
+    give_user_badges,
+)
 from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
@@ -47,6 +57,7 @@ def duplicate_quiz(user_data):
 def create_quiz():
     user_data = request.get_json()
 
+    print("Got to 50")
     if invalid_quiz_data(user_data):
         return create_response(
             message="Missing required quiz information",
@@ -54,15 +65,15 @@ def create_quiz():
             data={"status": "fail"},
         )
 
-    if duplicate_quiz(user_data):
-        return create_response(
-            data={"status": "fail"}, message="Quiz already exists.", status=409
-        )
-
     linked_book = Book.query.get(user_data["book_id"])
     if linked_book is None:
         return create_response(
             message="Book not found", status=422, data={"status": "fail"}
+        )
+
+    if duplicate_quiz(user_data):
+        return create_response(
+            data={"status": "fail"}, message="Quiz already exists.", status=409
         )
 
     new_quiz = Quiz(user_data["name"])
@@ -244,9 +255,19 @@ def create_quiz_result():
         db_question_result = create_question_result(new_quiz_result, ques_res_data)
         db.session.add(db_question_result)
 
+    new_badges = give_user_badges(user, new_quiz_result)
+    user.attempted_quizzes.append(new_quiz_result)
     db.session.commit()
-    return create_response(
-        message="Successfully created quiz result",
-        status=200,
-        data={"status": "success"},
-    )
+
+    if len(new_badges) == 0:
+        return create_response(
+            message="Successfully created quiz result",
+            status=200,
+            data={"status": "success"},
+        )
+    else:
+        return create_response(
+            message="Successfully created quiz result; new badges earned",
+            status=200,
+            data={"results": new_badges},
+        )

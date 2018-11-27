@@ -3,7 +3,25 @@ import datetime
 from .base import db
 import bcrypt
 from flask import current_app
+from sqlalchemy import *
+from sqlalchemy.dialects.postgresql import ARRAY
 import jwt
+from sqlalchemy.ext.mutable import Mutable
+
+
+class MutableList(Mutable, list):
+    def append(self, value):
+        list.append(self, value)
+        self.changed()
+
+    @classmethod
+    def coerce(cls, key, value):
+        if not isinstance(value, MutableList):
+            if isinstance(value, list):
+                return MutableList(value)
+            return Mutable.coerce(key, value)
+        else:
+            return value
 
 
 class User(Mixin, db.Model):
@@ -16,6 +34,7 @@ class User(Mixin, db.Model):
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
     attempted_quizzes = db.relationship("QuizResult", backref="user", lazy=True)
+    badges = db.Column("options", MutableList.as_mutable(ARRAY(Integer)))
     is_admin = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, name: str, password: str, email: str):
@@ -24,11 +43,21 @@ class User(Mixin, db.Model):
             "utf8"
         )
         self.email = email
-        self.quiz_results = []
+        self.attempted_quizzes = []
+        self.badges = []
         self.is_admin = False
 
     def __repr__(self):
         return f"<User name:{self.name}> password:{self.password} email:{self.email}"
+
+    def serialize_to_json(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "badge_ids": self.badges,
+            "is_admin": self.is_admin,
+        }
 
     def encode_auth_token(self):
         """

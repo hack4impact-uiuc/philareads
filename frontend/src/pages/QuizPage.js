@@ -3,7 +3,7 @@ import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row } from 'reactstrap';
+import { Row, Alert } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -12,7 +12,8 @@ class QuizPage extends Component {
     this.state = {
       bookID: props.match.params.id,
       quizID: props.match.params.quizID,
-      currentQuestions: []
+      currentQuestions: [],
+      alert: null
     };
     this.fetchBookData();
     this.fetchQuizData();
@@ -31,7 +32,7 @@ class QuizPage extends Component {
         this.props.history.push('/');
       }
     } else {
-      console.log(message);
+      this.setState({ alert: message });
     }
   };
 
@@ -45,7 +46,7 @@ class QuizPage extends Component {
         )[0]
       });
     } else {
-      console.log(message);
+      this.setState({ alert: message });
     }
   };
 
@@ -97,6 +98,10 @@ class QuizPage extends Component {
   };
 
   render() {
+    let header;
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
+    }
     return (
       <div>
         {!this.dataLoaded() && (
@@ -111,6 +116,7 @@ class QuizPage extends Component {
         )}
         {this.dataLoaded() && (
           <div>
+            {header}
             <BookInfo bookObject={this.state.bookData} />
             <QuizViewer
               quizID={this.props.match.params.quizID}

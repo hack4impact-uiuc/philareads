@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row } from 'reactstrap';
+import { Container, Row, Alert } from 'reactstrap';
 import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -20,7 +20,8 @@ class Search extends Component {
       preSearch: true,
       loading: false,
       notFound: false,
-      results: []
+      results: [],
+      alert: null
     };
   }
 
@@ -41,8 +42,15 @@ class Search extends Component {
     });
   };
 
+  setStateAlert = message => {
+    this.setState({
+      alert: message
+    });
+  };
+
   render() {
     let body = <SearchResults results={this.state.results} />;
+    let header;
 
     if (this.state.preSearch) {
       body = (
@@ -83,16 +91,20 @@ class Search extends Component {
         </div>
       );
     }
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
+    }
 
     return (
       <div className="search">
-        <h1 className="page-title">Search</h1>
+        {header}
         <Container fluid={true}>
           <Row>
             <SearchBar
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
+              alertCallback={this.setStateAlert}
             />
           </Row>
           {body}

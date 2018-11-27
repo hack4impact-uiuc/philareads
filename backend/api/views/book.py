@@ -3,6 +3,8 @@ from sqlalchemy import or_
 import pdb
 from api.models import Quiz, Question, db, Book
 from api.core import create_response, serialize_list, logger
+import io
+import csv
 
 book = Blueprint("book", __name__)
 
@@ -17,6 +19,40 @@ def invalid_book_data(user_data):
         or (not "reader_url" in user_data)
     ):
         return True
+
+
+@book.route("/book_from_csv", methods=["POST"])
+def create_book_from_csv():
+    uploaded_csv = request.files["File"]
+    if not uploaded_csv:
+        return create_response(message="Missing CSV file", status=409)
+
+    stream = io.StringIO(uploaded_csv.stream.read().decode("UTF8"), newline=None)
+    parsed_data = csv.reader(stream)
+    header = next(parsed_data)
+    header = [col.replace(" ", "_") for col in next(parsed_data)]
+    for row in parsed_data:
+        row_dict = {
+            key.lower(): value for key, value in zip(header, row)
+        }  # resilient to future changes of column positions
+        if invalid_book_data(row_dict):
+            return create_response(message=f"Invalid book data {row}", status=409)
+
+        book = Book(
+            row_dict["name"],
+            row_dict["author"],
+            row_dict["grade"],
+            row_dict["year"],
+            row_dict["cover_url"],
+            row_dict["reader_url"],
+        )
+
+        db.session.add(book)
+
+    db.session.commit()
+    return create_response(
+        message="Successfully created a book from csv file", status=200
+    )
 
 
 @book.route("/book", methods=["POST"])
