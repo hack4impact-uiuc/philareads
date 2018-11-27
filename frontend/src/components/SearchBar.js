@@ -12,14 +12,22 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: this.props.initialSearchString
     };
+  }
+
+  componentDidMount() {
+    if (this.state.query !== '') {
+      this.handleSearch();
+    }
   }
 
   handleSearch = async () => {
     if (this.state.query.trim() === '') {
       return;
     }
+    // TODO: Try to retrieve from cache
+
     this.props.loadCallback(this.state.query);
 
     const {
@@ -32,6 +40,7 @@ class SearchBar extends Component {
       if (results.length === 0) {
         this.props.notFoundCallback();
       } else {
+        // TODO: Add to cache
         this.props.searchCallback(results);
       }
     } else {

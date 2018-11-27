@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Alert } from 'reactstrap';
+import queryString from 'query-string';
 import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -21,9 +22,16 @@ class Search extends Component {
       loading: false,
       notFound: false,
       results: [],
+      searchString: this.getQuery(),
       alert: null
     };
   }
+
+  getQuery = () => {
+    const query = queryString.parse(this.props.location.search);
+    // Provide empty string as default value
+    return query.query || '';
+  };
 
   setStateLoading = query => {
     this.setState({ preSearch: false, loading: true, notFound: false });
@@ -102,6 +110,7 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
+              initialSearchString={this.state.searchString}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
