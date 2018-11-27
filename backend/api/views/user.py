@@ -45,6 +45,7 @@ def edit_user():
     )
 
 
+# function that edits user password
 @user.route("/edit_password", methods=["POST"])
 def check_password():
     user_data = request.get_json()
@@ -83,7 +84,8 @@ def check_password():
         )
 
 
-@authenticate.route("/user", methods=["GET"])
+# function returns user data
+@user.route("/user", methods=["GET"])
 def user_info():
     try:
         user_id = User.decode_auth_token(request.cookies.get("jwt"))
