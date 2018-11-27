@@ -10,8 +10,8 @@ class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grades: [],
-      years: []
+      gradeFilters: [],
+      yearFilters: []
     };
   }
 
@@ -35,8 +35,44 @@ class SearchResults extends Component {
     return yearArr;
   });
 
+  setGradeFilters = filterEvent => {
+    let grade = parseInt(filterEvent.target.parentElement.innerText);
+    let gradeFilterArr = this.state.gradeFilters;
+    let idx = gradeFilterArr.indexOf(grade);
+    if (idx == -1) {
+      gradeFilterArr.push(grade);
+    } else {
+      gradeFilterArr.splice(idx, 1);
+    }
+    this.setState({ gradeFilters: gradeFilterArr });
+  };
+
+  setYearFilters = filterEvent => {
+    let year = parseInt(filterEvent.target.parentElement.innerText);
+    let yearFilterArr = this.state.yearFilters;
+    let idx = yearFilterArr.indexOf(year);
+    if (idx == -1) {
+      yearFilterArr.push(year);
+    } else {
+      yearFilterArr.splice(idx, 1);
+    }
+    this.setState({ yearFilters: yearFilterArr });
+  };
+
+  shouldDisplayBook = book => {
+    const { gradeFilters, yearFilters } = this.state;
+    if (gradeFilters.length !== 0 && gradeFilters.indexOf(book.grade) === -1) {
+      return false;
+    }
+    if (yearFilters.length !== 0 && yearFilters.indexOf(book.year) === -1) {
+      return false;
+    }
+    return true;
+  };
+
   renderResults = () => {
-    return this.props.results.map(book => {
+    let filteredResults = this.props.results.filter(this.shouldDisplayBook);
+    return filteredResults.map(book => {
       return (
         <Card key={book.id} className="search-result">
           <CardBody>
@@ -58,7 +94,12 @@ class SearchResults extends Component {
       <Row>
         <Col lg="4">
           <div className="filter">
-            <Filter gradeArr={gradeArr} yearArr={yearArr} />
+            <Filter
+              gradeArr={gradeArr}
+              yearArr={yearArr}
+              gradeFilterCallback={this.setGradeFilters}
+              yearFilterCallback={this.setYearFilters}
+            />
           </div>
         </Col>
         <Col lg="8">

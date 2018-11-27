@@ -35,6 +35,7 @@ class User(Mixin, db.Model):
     email = db.Column(db.String, nullable=False, unique=True)
     attempted_quizzes = db.relationship("QuizResult", backref="user", lazy=True)
     badges = db.Column("options", MutableList.as_mutable(ARRAY(Integer)))
+    is_admin = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, name: str, password: str, email: str):
         self.name = name
@@ -44,6 +45,7 @@ class User(Mixin, db.Model):
         self.email = email
         self.attempted_quizzes = []
         self.badges = []
+        self.is_admin = False
 
     def __repr__(self):
         return f"<User name:{self.name}> password:{self.password} email:{self.email}"
