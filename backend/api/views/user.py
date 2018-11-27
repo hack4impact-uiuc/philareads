@@ -72,10 +72,35 @@ def check_password():
 
         db.session.commit()
         return create_response(
-            message="Successfully changed the password", data=responseObject, status=200
+            message="Successfully changed the password",
+            data={"status": "success"},
+            status=200,
         )
 
     else:
         return create_response(
             message="Invalid password", status=400, data={"status": "failure"}
         )
+
+
+@authenticate.route("/user", methods=["GET"])
+def user_info():
+    try:
+        user_id = User.decode_auth_token(request.cookies.get("jwt"))
+    except jwt.ExpiredSignatureError:
+        return create_response(
+            message="Expired token", status=401, data={"status": "fail"}
+        )
+    except jwt.InvalidTokenError:
+        return create_response(
+            message="Invalid token", status=401, data={"status": "fail"}
+        )
+
+    user = User.query.get(user_id)
+    if user is None:
+        return create_response(
+            message="User not found", status=401, data={"status": "fail"}
+        )
+
+    user_data = {"name": user.name, "email": user.email}
+    return create_response(message="Success", status=200, data=user_data)
