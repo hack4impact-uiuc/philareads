@@ -12,7 +12,7 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: this.props.initialSearchString
+      query: this.props.initialQuery
     };
   }
 
@@ -23,24 +23,34 @@ class SearchBar extends Component {
   }
 
   handleSearch = async () => {
-    if (this.state.query.trim() === '') {
+    const query = this.state.query.trim();
+
+    if (query === '') {
       return;
     }
-    // TODO: Try to retrieve from cache
 
-    this.props.loadCallback(this.state.query);
+    if (window.localStorage.getItem('lastQuery') === query) {
+      const results = JSON.parse(
+        window.localStorage.getItem('lastQueryResult')
+      );
+      this.props.searchCallback(results);
+      return;
+    }
+
+    this.props.loadCallback(query);
 
     const {
       success,
       result: { results },
       message
-    } = await search(this.state.query);
+    } = await search(query);
 
     if (success) {
       if (results.length === 0) {
         this.props.notFoundCallback();
       } else {
-        // TODO: Add to cache
+        window.localStorage.setItem('lastQuery', query);
+        window.localStorage.setItem('lastQueryResult', JSON.stringify(results));
         this.props.searchCallback(results);
       }
     } else {

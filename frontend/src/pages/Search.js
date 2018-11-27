@@ -22,15 +22,15 @@ class Search extends Component {
       loading: false,
       notFound: false,
       results: [],
-      searchString: this.getQuery(),
+      query: this.getQuery(),
       alert: null
     };
   }
 
   getQuery = () => {
-    const query = queryString.parse(this.props.location.search);
+    const queryParams = queryString.parse(this.props.location.search);
     // Provide empty string as default value
-    return query.query || '';
+    return queryParams.query || '';
   };
 
   setStateLoading = query => {
@@ -110,7 +110,7 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
-              initialSearchString={this.state.searchString}
+              initialQuery={this.state.query}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
