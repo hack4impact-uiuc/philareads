@@ -71,7 +71,7 @@ class PerfectQuizBadge(Badge):
         )
 
     def can_receive(self, user, quiz_result):
-        return quiz_result["num_correct"] == quiz_result["num_total"]
+        return quiz_result.num_correct == quiz_result.num_total
 
 
 all_badges = [FirstQuizBadge(), FifthQuizBadge(), PerfectQuizBadge()]
@@ -80,7 +80,7 @@ all_badges = [FirstQuizBadge(), FifthQuizBadge(), PerfectQuizBadge()]
 def give_user_badges(user, quiz_result):
     new_badges = []
     for b in all_badges:
-        if b.can_receive(user, quiz_result):
+        if b.can_receive(user, quiz_result) and (b.id not in user.badges):
             user.badges.append(b.id)
             new_badges.append(b.serialize_to_json())
 
