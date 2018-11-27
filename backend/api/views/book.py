@@ -36,11 +36,7 @@ def create_book_from_csv():
             key.lower(): value for key, value in zip(header, row)
         }  # resilient to future changes of column positions
         if invalid_book_data(row_dict):
-            return create_response(
-                message=f"Invalid book data {row}",
-                status=409,
-                data={"status": "failure"},
-            )
+            return create_response(message=f"Invalid book data {row}", status=409)
 
         book = Book(
             row_dict["name"],
