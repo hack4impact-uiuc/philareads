@@ -50,6 +50,15 @@ class User(Mixin, db.Model):
     def __repr__(self):
         return f"<User name:{self.name}> password:{self.password} email:{self.email}"
 
+    def serialize_to_json(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "badge_ids": self.badges,
+            "is_admin": self.is_admin,
+        }
+
     def encode_auth_token(self):
         """
         Generates the Auth Token
