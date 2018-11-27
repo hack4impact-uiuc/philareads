@@ -3,7 +3,8 @@ import Catalog from '../components/Catalog';
 import BookInfo from '../components/BookInfo';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Row } from 'reactstrap';
+import { Button, Row, Alert } from 'reactstrap';
+
 class BookPage extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,8 @@ class BookPage extends Component {
       bookID: props.match.params.id,
       quizIndex: -1,
       quizID: -1,
-      currentQuestions: []
+      currentQuestions: [],
+      alert: null
     };
     this.fetchBookData();
     this.fetchQuizData();
@@ -30,7 +32,7 @@ class BookPage extends Component {
         this.props.history.push('/');
       }
     } else {
-      console.log(message);
+      this.setState({ alert: message });
     }
   };
 
@@ -41,7 +43,7 @@ class BookPage extends Component {
     if (success) {
       this.setState({ quizData: result['quizzes'] });
     } else {
-      console.log(message);
+      this.setState({ alert: message });
     }
   };
 
@@ -82,6 +84,10 @@ class BookPage extends Component {
   };
 
   render() {
+    let header;
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
+    }
     return (
       <div>
         {!this.dataLoaded() && (
@@ -96,6 +102,7 @@ class BookPage extends Component {
         )}
         {this.dataLoaded() && (
           <div>
+            {header}
             <BookInfo bookObject={this.state.bookData} />
             <h1 className="quiz-title">Quizzes</h1>
             <Catalog
