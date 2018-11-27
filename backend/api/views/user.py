@@ -48,8 +48,6 @@ def edit_user():
 def check_password():
     user_data = request.get_json()
 
-    print("here")
-
     try:
         user_id = User.decode_auth_token(request.cookies.get("jwt"))
     except:
@@ -57,38 +55,25 @@ def check_password():
             message="Invalid token", status=401, data={"status": "fail"}
         )
 
-    print("here2")
-
     user = User.query.filter_by(id=user_id).first()
-
-    print("here3")
 
     if user is None:
         return create_response(
             message="Invalid user", status=400, data={"status": "fail"}
         )
 
-    print("here4")
-
     if bcrypt.checkpw(
         user_data["old_password"].encode("utf8"), user.password.encode("utf8")
     ):
-        user.password = user_data["new_password"]
-        db.session.commit()
+        user.password = bcrypt.hashpw(user_data["new_password"].encode("utf8"), bcrypt.gensalt()).decode(
+            "utf8"
+        )
 
-        try:
-            auth_token = user.encode_auth_token()
-            responseObject = {"status": "success", "auth_token": auth_token.decode()}
-            return create_response(
+        db.session.commit()
+        return create_response(
                 message="Successfully changed the password",
                 data=responseObject,
                 status=200,
-            )
-        except:
-            return create_response(
-                message="Failed to generate auth_token",
-                status=400,
-                data={"status": "fail"},
             )
 
     else:
