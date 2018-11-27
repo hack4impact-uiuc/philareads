@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
 import pdb
 from api.models import Quiz, Question, db, Book
-from api.core import create_response, serialize_list, logger, authenticated_route
+from api.core import create_response, serialize_list, logger, authenticated_route, invalid_model_helper
 import io
 import csv
 
@@ -159,6 +159,23 @@ def get_years():
 @book.route("/delete_book", methods=["POST"])
 @authenticated_route
 def delete_quiz(user_id):
+    user = User.query.get(user_id)
+    if not user.is_admin:
+        return create_response(
+            message="Your account is not an admin", status=403, data={"status": "fail"}
+        )
+
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["book_id"]):
+        return create_response(
+            message="Missing book id",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    book_to_delete = Book.query.get(user_data["book_id"])
+    db.session.delete(book_to_delete)
+    db.session.commit()
     return create_response(
-        message=f"Your id is {user_id}", status=200, data={"status": "success"}
+        message="Successfully deleted book", status=200, data={"status": "success"}
     )

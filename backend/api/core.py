@@ -84,3 +84,9 @@ def authenticated_route(route):
         return route(user_id, *args, **kwargs)
 
     return wrapper_wroute
+
+def invalid_model_helper(user_data, props):
+    for prop in props:
+        if prop not in user_data:
+            return True
+    return False

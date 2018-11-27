@@ -17,14 +17,6 @@ from api.core import create_response, serialize_list, logger
 
 quiz = Blueprint("quiz", __name__)
 
-
-def invalid_model_helper(user_data, props):
-    for prop in props:
-        if prop not in user_data:
-            return True
-    return False
-
-
 def invalid_question_result_data(user_data):
     return invalid_model_helper(
         user_data, ["user_answer", "correct_answer", "correct", "question_num"]
