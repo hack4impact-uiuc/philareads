@@ -17,7 +17,7 @@ def edit_user():
             message="Invalid token", status=401, data={"status": "fail"}
         )
 
-    user = User.query.filter_by(id=user_id).first()
+    user = User.query.get(user_id)
 
     if user is None:
         return create_response(
