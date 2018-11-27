@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
 import pdb
 from api.models import Quiz, Question, db, Book
-from api.core import create_response, serialize_list, logger
+from api.core import create_response, serialize_list, logger, authenticated_route
 import io
 import csv
 
@@ -154,4 +154,11 @@ def get_years():
     years = sorted(years, reverse=True)
     return create_response(
         message="Successfully gathered years", status=200, data={"years": years}
+    )
+
+@book.route("/delete_book", methods=["POST"])
+@authenticated_route
+def delete_quiz(user_id):
+    return create_response(
+        message=f"Your id is {user_id}", status=200, data={"status": "success"}
     )

@@ -1,7 +1,8 @@
 from typing import Tuple, List
-
+import functools
+import jwt
 from werkzeug.local import LocalProxy
-from flask import current_app, jsonify
+from flask import current_app, jsonify, request
 from flask.wrappers import Response
 
 # logger object for all views to use
@@ -65,3 +66,21 @@ def all_exception_handler(error: Exception) -> Tuple[Response, int]:
     :returns Tuple of a Flask Response and int
     """
     return create_response(message=str(error), status=500)
+
+def authenticated_route(route):
+    from api.models import User
+    @functools.wraps(route)
+    def wrapper_wroute(*args, **kwargs):
+        try:
+            user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        except jwt.ExpiredSignatureError:
+            return create_response(
+                message="Expired token", status=401, data={"status": "fail"}
+            )
+        except jwt.InvalidTokenError:
+            return create_response(
+                message="Invalid token", status=401, data={"status": "fail"}
+            )
+        return route(user_id, *args, **kwargs)
+
+    return wrapper_wroute
