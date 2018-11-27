@@ -19,17 +19,18 @@ def edit_user():
 
     user = User.query.filter_by(id=user_id).first()
 
-    # invalid user
     if user is None:
         return create_response(
             message="User not found", status=400, data={"status": "fail"}
         )
 
+    # name or email not included in json
     if ("name" not in user_data) or ("email" not in user_data):
         return create_response(
             message="Missing fields", status=400, data={"status": "fail"}
         )
 
+    # name or email left blank
     if (len(user_data["name"]) == 0) or (len(user_data["email"]) == 0):
         return create_response(
             message="Empty fields", status=400, data={"status": "fail"}
@@ -65,16 +66,14 @@ def check_password():
     if bcrypt.checkpw(
         user_data["old_password"].encode("utf8"), user.password.encode("utf8")
     ):
-        user.password = bcrypt.hashpw(user_data["new_password"].encode("utf8"), bcrypt.gensalt()).decode(
-            "utf8"
-        )
+        user.password = bcrypt.hashpw(
+            user_data["new_password"].encode("utf8"), bcrypt.gensalt()
+        ).decode("utf8")
 
         db.session.commit()
         return create_response(
-                message="Successfully changed the password",
-                data=responseObject,
-                status=200,
-            )
+            message="Successfully changed the password", data=responseObject, status=200
+        )
 
     else:
         return create_response(
