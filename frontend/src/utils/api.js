@@ -88,6 +88,9 @@ function postQuizResults(quizResultsData) {
 }
 
 function getUserData() {
+  console.log('Getting user data');
+
+  return fetch(`${API_URL}/user`, {
   // console.log('Getting user data');
   // return fetch(`${API_URL}/user`, {
   //   method: 'POST',
@@ -135,6 +138,12 @@ function getAllBooks() {
     },
     credentials: 'include'
   }).then(res => res.json());
+
+  // const dict = {
+  //   name: 'David Chang',
+  //   email: 'davidchang@chegg.com'
+  // };
+  // return dict;
 }
 
 function postUserData(userData) {
@@ -149,21 +158,22 @@ function postUserData(userData) {
 }
 
 function updatePassword(passwordData) {
-  // return fetch(`${API_URL}/edit_password`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   credentials: 'include',
-  //   body: JSON.stringify(passwordData)
-  // }).then(res => res.json());
+  console.log(JSON.stringify(passwordData));
+  return fetch(`${API_URL}/edit_password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(passwordData)
+  }).then(res => res.json());
 
-  const dict = {
-    message: 'Invalid password',
-    status: 400,
-    data: { status: 'failure' }
-  };
-  return dict;
+  // const dict = {
+  //   message: 'Invalid password',
+  //   status: 400,
+  //   data: { status: 'failure' }
+  // };
+  // return dict;
 }
 
 export {

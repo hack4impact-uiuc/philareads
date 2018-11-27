@@ -23,8 +23,11 @@ class AccountManagePage extends Component {
   }
 
   fetchUserData = async () => {
-    const { name, email } = await getUserData();
-    this.setState({ name: name, email: email });
+    const { message, success, result } = await getUserData();
+    this.setState({ name: result['name'], email: result['email'] });
+    console.log(message);
+    console.log(success);
+    console.log(result);
   };
 
   handleProfileChange = () => {
@@ -47,24 +50,26 @@ class AccountManagePage extends Component {
       });
     }
 
-    const { message, status, data } = await updatePassword();
+    let passwordData = {
+      old_password: this.state.current_password,
+      new_password: this.state.new_password
+    };
+
+    //updatePassword(passwordData);
+
+    const { message, status, data } = await updatePassword(passwordData);
     this.setState({ message: message, status: status, data: data });
 
-    if (status === 200) {
-      this.setState({ curr_password_error: '' });
-    } else {
+    if (status === 400) {
       this.setState({
         curr_password_error: 'Invalid Password',
         password_success: false
       });
-    }
-
-    if (this.state.password_success === true) {
-      let passwordData = {
-        old_password: this.state.current_password,
-        new_password: this.state.new_password
-      };
-      postUserData(passwordData);
+    } else {
+      this.setState({
+        curr_password_error: '',
+        password_success: true
+      });
     }
   };
 
