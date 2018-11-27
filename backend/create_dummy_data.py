@@ -15,6 +15,21 @@ result = r.json()["result"]
 print(result)
 user_token = result["auth_token"]
 
+# make david chang the admin
+print("making David Chang an admin")
+from api import create_app
+from api.models import db, User
+
+app = create_app()
+app.app_context().push()
+david_chang = User.query.get(1)
+# verify that david chang exists
+if david_chang is not None:
+    david_chang.is_admin = True
+    db.session.commit()
+else:
+    print("David Chang was not created correctly :(")
+
 # sample books
 huckfinn_book = {
     "name": "The Adventures of Huckleberry Finn",
