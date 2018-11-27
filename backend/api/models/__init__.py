@@ -10,3 +10,4 @@ from .QuestionResult import QuestionResult
 from .base import db
 from .QuizResult import QuizResult
 from .QuestionResult import QuestionResult
+from .Badge import give_user_badges
