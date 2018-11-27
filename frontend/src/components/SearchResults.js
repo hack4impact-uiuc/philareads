@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
 import memoize from 'memoize-one';
@@ -39,7 +38,7 @@ class SearchResults extends Component {
     let grade = parseInt(filterEvent.target.parentElement.innerText);
     let gradeFilterArr = this.state.gradeFilters;
     let idx = gradeFilterArr.indexOf(grade);
-    if (idx == -1) {
+    if (idx === -1) {
       gradeFilterArr.push(grade);
     } else {
       gradeFilterArr.splice(idx, 1);
@@ -51,7 +50,7 @@ class SearchResults extends Component {
     let year = parseInt(filterEvent.target.parentElement.innerText);
     let yearFilterArr = this.state.yearFilters;
     let idx = yearFilterArr.indexOf(year);
-    if (idx == -1) {
+    if (idx === -1) {
       yearFilterArr.push(year);
     } else {
       yearFilterArr.splice(idx, 1);
