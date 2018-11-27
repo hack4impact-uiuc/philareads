@@ -1,0 +1,23 @@
+.csv-upload {
+  margin-right: 20px;
+  .csv-drop {
+    position: relative;
+    display: flex;
+    height: 200px;
+    overflow: hidden;
+    border-width: 2px;
+    border-color: rgb(102, 102, 102);
+    border-style: dashed;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  .accept {
+    background-color: rgba(0, 255, 0, 0.3);
+  }
+  .dropzone-submit {
+    margin: 20px auto;
+    margin-bottom: 20px;
+    width: 50%;
+  }
+}
