@@ -13,19 +13,11 @@ import '../styles/Filter.scss';
 import PropTypes from 'prop-types';
 
 class Filter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      grades: [],
-      years: []
-    };
-  }
-
   renderGrades = () => {
     return this.props.gradeArr.map(x => (
       <FormGroup>
         <Label check>
-          <Input type="checkbox" />
+          <Input type="checkbox" onChange={this.props.gradeFilterCallback} />
           {x}
         </Label>
       </FormGroup>
@@ -36,7 +28,7 @@ class Filter extends Component {
     return this.props.yearArr.map(x => (
       <FormGroup>
         <Label check>
-          <Input type="checkbox" />
+          <Input type="checkbox" onChange={this.props.yearFilterCallback} />
           {x}
         </Label>
       </FormGroup>
@@ -60,7 +52,9 @@ class Filter extends Component {
 
 Filter.propTypes = {
   gradeArr: PropTypes.array.isRequired,
-  yearArr: PropTypes.array.isRequired
+  yearArr: PropTypes.array.isRequired,
+  gradeFilterCallback: PropTypes.func.isRequired,
+  yearFilterCallback: PropTypes.func.isRequired
 };
 
 export default Filter;
