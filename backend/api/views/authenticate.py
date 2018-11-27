@@ -145,5 +145,5 @@ def user_info():
             message="User not found", status=401, data={"status": "fail"}
         )
 
-    user_data = {"name": user.name, "email": user.email}
+    user_data = user.serialize_to_json()
     return create_response(message="Success", status=200, data=user_data)
