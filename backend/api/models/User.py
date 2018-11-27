@@ -8,6 +8,7 @@ from sqlalchemy.dialects.postgresql import ARRAY
 import jwt
 from sqlalchemy.ext.mutable import Mutable
 
+
 class MutableList(Mutable, list):
     def append(self, value):
         list.append(self, value)
@@ -21,6 +22,7 @@ class MutableList(Mutable, list):
             return Mutable.coerce(key, value)
         else:
             return value
+
 
 class User(Mixin, db.Model):
     """User Table."""
