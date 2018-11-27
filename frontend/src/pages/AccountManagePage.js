@@ -15,19 +15,14 @@ class AccountManagePage extends Component {
       match_error: '',
       curr_password_error: '',
       message: '',
-      status: '',
-      password_success: true,
-      data: ''
+      password_success: true
     };
     this.fetchUserData();
   }
 
   fetchUserData = async () => {
-    const { message, success, result } = await getUserData();
+    const { result } = await getUserData();
     this.setState({ name: result['name'], email: result['email'] });
-    console.log(message);
-    console.log(success);
-    console.log(result);
   };
 
   handleProfileChange = () => {
@@ -55,20 +50,18 @@ class AccountManagePage extends Component {
       new_password: this.state.new_password
     };
 
-    //updatePassword(passwordData);
+    const { message } = await updatePassword(passwordData);
+    this.setState({ message: message });
 
-    const { message, status, data } = await updatePassword(passwordData);
-    this.setState({ message: message, status: status, data: data });
-
-    if (status === 400) {
-      this.setState({
-        curr_password_error: 'Invalid Password',
-        password_success: false
-      });
-    } else {
+    if (message === 'Successfully changed the password') {
       this.setState({
         curr_password_error: '',
         password_success: true
+      });
+    } else {
+      this.setState({
+        curr_password_error: 'Invalid Password',
+        password_success: false
       });
     }
   };
@@ -129,7 +122,7 @@ class AccountManagePage extends Component {
                   <h5> Current Password </h5>
                   <div className="form-group has-error">
                     <input
-                      className="form-control input-lg"
+                      className={'form-control input-lg' + false}
                       name="current_password"
                       type="text"
                       onChange={txt =>
