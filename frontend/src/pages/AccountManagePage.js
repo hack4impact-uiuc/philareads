@@ -15,7 +15,8 @@ class AccountManagePage extends Component {
       match_error: '',
       curr_password_error: '',
       message: '',
-      password_success: true
+      password_success: '',
+      profile_success: ''
     };
     this.fetchUserData();
   }
@@ -31,10 +32,11 @@ class AccountManagePage extends Component {
       email: this.state.email
     };
     postUserData(userData);
+    this.setState({ profile_success: 'Profile successfully updated!' });
   };
 
   handlePasswordChange = async () => {
-    this.setState({ password_success: true });
+    this.setState({ password_success: '' });
 
     if (this.state.new_password === this.state.repeated_new_password) {
       this.setState({ match_error: '' });
@@ -53,15 +55,14 @@ class AccountManagePage extends Component {
     const { message } = await updatePassword(passwordData);
     this.setState({ message: message });
 
-    if (message === 'Successfully changed the password') {
+    if (message === 'Successfully changed the password!') {
       this.setState({
         curr_password_error: '',
-        password_success: true
+        password_success: 'Password succesfully updated!'
       });
     } else {
       this.setState({
-        curr_password_error: 'Invalid Password',
-        password_success: false
+        curr_password_error: 'Invalid Password'
       });
     }
   };
@@ -107,6 +108,10 @@ class AccountManagePage extends Component {
                   >
                     Update Profile
                   </Button>
+                  <br />
+                  <div className="invalid-feedback d-block" align="center">
+                    <h5>{this.state.profile_success}</h5>
+                  </div>
                 </fieldset>
               </div>
             </div>
@@ -124,13 +129,13 @@ class AccountManagePage extends Component {
                     <input
                       className={'form-control input-lg' + false}
                       name="current_password"
-                      type="text"
+                      type="password"
                       onChange={txt =>
                         this.setState({ current_password: txt.target.value })
                       }
                     />
                     <div className="invalid-feedback d-block">
-                      {this.state.curr_password_error}
+                      <h6>{this.state.curr_password_error}</h6>
                     </div>
                   </div>
 
@@ -139,7 +144,7 @@ class AccountManagePage extends Component {
                     <input
                       className="form-control input-lg"
                       name="new_password"
-                      type="text"
+                      type="password"
                       onChange={txt =>
                         this.setState({ new_password: txt.target.value })
                       }
@@ -151,7 +156,7 @@ class AccountManagePage extends Component {
                     <input
                       className="form-control input-lg"
                       name="repeated_new_password"
-                      type="text"
+                      type="password"
                       onChange={txt =>
                         this.setState({
                           repeated_new_password: txt.target.value
@@ -159,7 +164,7 @@ class AccountManagePage extends Component {
                       }
                     />
                     <div className="invalid-feedback d-block">
-                      {this.state.match_error}
+                      <h6>{this.state.match_error}</h6>
                     </div>
                   </div>
                   <Button
@@ -170,6 +175,10 @@ class AccountManagePage extends Component {
                   >
                     Update Password
                   </Button>
+                  <br />
+                  <div className="invalid-feedback d-block" align="center">
+                    <h5>{this.state.password_success}</h5>
+                  </div>
                 </fieldset>
               </div>
             </div>

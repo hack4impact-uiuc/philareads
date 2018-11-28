@@ -6,16 +6,20 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
+  UncontrolledDropdown
 } from 'reactstrap';
 import Cookies from 'universal-cookie';
 
 export default class PReadsNavbar extends React.Component {
   navigationOptions = [
-    {
-      route: '/',
-      name: 'Home'
-    },
+    // {
+    //   route: '/',
+    //   name: 'Home'
+    // },
     {
       route: '/ReadingOlympics',
       name: 'Reading Olympics'
@@ -23,10 +27,6 @@ export default class PReadsNavbar extends React.Component {
     {
       route: '/parents',
       name: 'For Parents'
-    },
-    {
-      route: '/profile',
-      name: 'Profile'
     },
     {
       route: '/search',
@@ -56,8 +56,8 @@ export default class PReadsNavbar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href={this.props.homePage}>
-            Philadelphia Reads
+          <NavbarBrand href={'/'} style={{ color: 'black' }}>
+            Philadephia Reads
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -70,11 +70,6 @@ export default class PReadsNavbar extends React.Component {
                   </NavItem>
                 );
               })}
-              {this.isLoggedIn() && (
-                <NavItem>
-                  <NavLink href={'/logout'}>Logout</NavLink>
-                </NavItem>
-              )}
               {!this.isLoggedIn() && (
                 <NavItem>
                   <NavLink href={'/login'}>Login</NavLink>
@@ -85,12 +80,23 @@ export default class PReadsNavbar extends React.Component {
                   <NavLink href={'/register'}>Register</NavLink>
                 </NavItem>
               )}
-              {this.isLoggedIn() && (
-                <NavItem>
-                  <NavLink href={'/account'}>Account</NavLink>
-                </NavItem>
-              )}
             </Nav>
+
+            {this.isLoggedIn() && (
+              <UncontrolledDropdown>
+                <DropdownToggle tag="a" className="nav-link" caret>
+                  Account
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem tag="a" href="/account">
+                    Settings
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="/logout">
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
           </Collapse>
         </Navbar>
       </div>
