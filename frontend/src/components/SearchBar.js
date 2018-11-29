@@ -12,32 +12,40 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: this.props.initialQuery
+      query: this.props.initialQuery.trim()
     };
   }
 
-  componentDidMount() {
-    if (this.state.query !== '') {
-      this.handleSearch();
+  componentDidUpdate(prevProps) {
+    const propQuery = this.props.initialQuery.trim();
+    if (propQuery !== prevProps.initialQuery.trim()) {
+      const callbackFunc =
+        propQuery === ''
+          ? this.props.resetCallback
+          : () => this.handleSearch(false);
+      this.setState({ query: propQuery }, callbackFunc);
     }
   }
 
-  handleSearch = async () => {
+  componentDidMount() {
+    if (this.state.query.trim() !== '') {
+      // Setting results to something prevents the "Perform a search!" screen from flashing
+      const emptyResults = [];
+      this.props.searchCallback(emptyResults);
+      this.handleSearch(false);
+    }
+  }
+
+  handleSearch = async (showLoadingState = true) => {
     const query = this.state.query.trim();
 
     if (query === '') {
       return;
     }
 
-    if (window.localStorage.getItem('lastQuery') === query) {
-      const results = JSON.parse(
-        window.localStorage.getItem('lastQueryResult')
-      );
-      this.props.searchCallback(results);
-      return;
+    if (showLoadingState) {
+      this.props.loadCallback(query);
     }
-
-    this.props.loadCallback(query);
 
     const {
       success,
@@ -49,8 +57,6 @@ class SearchBar extends Component {
       if (results.length === 0) {
         this.props.notFoundCallback();
       } else {
-        window.localStorage.setItem('lastQuery', query);
-        window.localStorage.setItem('lastQueryResult', JSON.stringify(results));
         this.props.searchCallback(results);
       }
     } else {
@@ -91,6 +97,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
+  resetCallback: PropTypes.func.isRequired,
   loadCallback: PropTypes.func.isRequired,
   notFoundCallback: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired,

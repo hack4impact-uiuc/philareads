@@ -18,33 +18,36 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      preSearch: true,
+      promptUser: true,
       loading: false,
       notFound: false,
       results: [],
-      query: this.getQuery(),
       alert: null
     };
   }
 
-  getQuery = () => {
-    const queryParams = queryString.parse(this.props.location.search);
+  static getDerivedStateFromProps(props, state) {
+    const queryParams = queryString.parse(props.location.search);
     // Provide empty string as default value
-    return queryParams.query || '';
+    return { query: queryParams.query || '' };
+  }
+
+  setStatePromptUser = query => {
+    this.setState({ promptUser: true, loading: false, notFound: false });
   };
 
   setStateLoading = query => {
-    this.setState({ preSearch: false, loading: true, notFound: false });
+    this.setState({ promptUser: false, loading: true, notFound: false });
     this.props.history.push(`/search?query=${query}`);
   };
 
   setStateNotFound = () => {
-    this.setState({ preSearch: false, loading: false, notFound: true });
+    this.setState({ promptUser: false, loading: false, notFound: true });
   };
 
   setSearchResults = data => {
     this.setState({
-      preSearch: false,
+      promptUser: false,
       loading: false,
       notFound: false,
       results: data
@@ -61,7 +64,7 @@ class Search extends Component {
     let body = <SearchResults results={this.state.results} />;
     let header;
 
-    if (this.state.preSearch) {
+    if (this.state.promptUser) {
       body = (
         <div>
           <Row>
@@ -111,6 +114,7 @@ class Search extends Component {
           <Row>
             <SearchBar
               initialQuery={this.state.query}
+              resetCallback={this.setStatePromptUser}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}
