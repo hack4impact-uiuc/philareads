@@ -13,7 +13,7 @@ from api.models import (
     Badge,
     give_user_badges,
 )
-from api.core import create_response, serialize_list, logger, invalid_model_helper
+from api.core import create_response, serialize_list, logger, invalid_model_helper, admin_route
 
 quiz = Blueprint("quiz", __name__)
 
@@ -263,3 +263,28 @@ def create_quiz_result():
             status=200,
             data={"results": new_badges},
         )
+
+@quiz.route("/delete_quiz", methods=["POST"])
+@authenticated_route
+def delete_quiz(user_id):
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["quiz_id"]):
+        return create_response(
+            message="Missing quiz id",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    quiz_to_delete = Quiz.query.get(user_data["quiz_id"])
+    if quiz_to_delete is None:
+        return create_response(
+            message="Quiz not found",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    db.session.delete(quiz_to_delete)
+    db.session.commit()
+    return create_response(
+        message="Successfully deleted quiz", status=200, data={"status": "success"}
+    )
