@@ -147,3 +147,37 @@ def user_info():
 
     user_data = {"name": user.name, "email": user.email}
     return create_response(message="Success", status=200, data=user_data)
+
+@authenticate.route("/register_admin", methods=["POST"])
+def register_admin():
+    user_data = request.get_json()
+    if (
+        (not "email" in user_data)
+        or (not "password" in user_data)
+        or (not "name" in user_data)
+    ):
+        return create_response(
+            data={"status": "fail"}, message="Missing required information.", status=422
+        )
+
+    duplicate_user = User.query.filter_by(email=user_data["email"]).first()
+
+    if duplicate_user is not None:
+        return create_response(
+            data={"status": "fail"}, message="User already exists.", status=409
+        )
+
+    user = User(
+        name=user_data["name"], password=user_data["password"], email=user_data["email"]
+    )
+    user.is_admin = True
+
+    db.session.add(user)
+    db.session.commit()
+    try:
+        auth_token = user.encode_auth_token().decode()
+    except:
+        return create_response(
+            message="Failed to generate auth_token", status=400, data={"status": "fail"}
+        )
+    return create_response(data={"auth_token": auth_token}, status=201)

@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
-import pdb
-from api.models import Quiz, Question, db, Book
+from api.models import Quiz, Question, db, Book, User
 from api.core import create_response, serialize_list, logger, authenticated_route, invalid_model_helper
 import io
 import csv
@@ -174,6 +173,13 @@ def delete_quiz(user_id):
         )
 
     book_to_delete = Book.query.get(user_data["book_id"])
+    if book_to_delete is None:
+        return create_response(
+            message="Book not found",
+            status=422,
+            data={"status": "fail"},
+        )
+
     db.session.delete(book_to_delete)
     db.session.commit()
     return create_response(
