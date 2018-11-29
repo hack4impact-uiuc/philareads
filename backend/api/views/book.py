@@ -1,7 +1,13 @@
 from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
 from api.models import Quiz, Question, db, Book, User
-from api.core import create_response, serialize_list, logger, admin_route, invalid_model_helper
+from api.core import (
+    create_response,
+    serialize_list,
+    logger,
+    admin_route,
+    invalid_model_helper,
+)
 import io
 import csv
 
@@ -155,23 +161,20 @@ def get_years():
         message="Successfully gathered years", status=200, data={"years": years}
     )
 
+
 @book.route("/delete_book", methods=["POST"])
 @admin_route
 def delete_quiz(user_id):
     user_data = request.get_json()
     if invalid_model_helper(user_data, ["book_id"]):
         return create_response(
-            message="Missing book id",
-            status=422,
-            data={"status": "fail"},
+            message="Missing book id", status=422, data={"status": "fail"}
         )
 
     book_to_delete = Book.query.get(user_data["book_id"])
     if book_to_delete is None:
         return create_response(
-            message="Book not found",
-            status=422,
-            data={"status": "fail"},
+            message="Book not found", status=422, data={"status": "fail"}
         )
 
     db.session.delete(book_to_delete)

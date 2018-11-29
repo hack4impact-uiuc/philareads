@@ -148,6 +148,7 @@ def user_info():
     user_data = {"name": user.name, "email": user.email}
     return create_response(message="Success", status=200, data=user_data)
 
+
 # DELETE THE FOLLOWING ROUTE -- JUST FOR DEBUGGING TO CREATE AN ADMIN ACCOUNT EASILY
 @authenticate.route("/register_admin", methods=["POST"])
 def register_admin():

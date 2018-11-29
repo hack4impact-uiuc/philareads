@@ -67,8 +67,10 @@ def all_exception_handler(error: Exception) -> Tuple[Response, int]:
     """
     return create_response(message=str(error), status=500)
 
+
 def authenticated_route(route):
     from api.models import User
+
     @functools.wraps(route)
     def wrapper_wroute(*args, **kwargs):
         try:
@@ -85,8 +87,10 @@ def authenticated_route(route):
 
     return wrapper_wroute
 
+
 def admin_route(route):
     from api.models import User
+
     @functools.wraps(route)
     def wrapper_wroute(*args, **kwargs):
         try:
@@ -102,11 +106,14 @@ def admin_route(route):
         user = User.query.get(user_id)
         if not user.is_admin:
             return create_response(
-                message="Your account is not an admin", status=403, data={"status": "fail"}
+                message="Your account is not an admin",
+                status=403,
+                data={"status": "fail"},
             )
         return route(user_id, *args, **kwargs)
 
     return wrapper_wroute
+
 
 def invalid_model_helper(user_data, props):
     for prop in props:
