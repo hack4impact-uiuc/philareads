@@ -122,6 +122,16 @@ function getAllBooks() {
   }).then(res => res.json());
 }
 
+function getBadges() {
+  return fetch(`${API_URL}/badges`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,

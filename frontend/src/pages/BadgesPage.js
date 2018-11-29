@@ -9,22 +9,59 @@ import {
   CardTitle,
   Progress
 } from 'reactstrap';
-import Blank_Book from '../images/final_badges/Blank_Book.svg';
-import Blank_Quiz from '../images/final_badges/Blank_Quiz.svg';
-import Blank_Perfect from '../images/final_badges/Blank_Perfect.svg';
-import Bronze_Book from '../images/final_badges/Bronze_Book.svg';
-import Bronze_Quiz from '../images/final_badges/Bronze_Book.svg';
-import Bronze_Perfect from '../images/final_badges/Blank_Perfect.svg';
-
+import { badgeMap } from '../utils/badgeMap.js';
 import '../styles/BadgesPage.scss';
 
 class BadgesPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      badges: []
+      badgesInProgress: [
+        { graphic: badgeMap['blank_book'], currentCount: 3, targetCount: 5 }
+      ],
+      badgesEarned: [
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] },
+        { year: 2018, graphic: badgeMap['silver_quiz'] }
+      ]
     };
   }
+
+  renderInProgressBadges = () => {
+    return this.state.badgesInProgress.map(badge => {
+      return (
+        <Row className="bar">
+          <Col lg="3" align="center">
+            <img src={badge.graphic} width="50" />
+          </Col>
+          <Col lg="9" align="center">
+            <Progress value={(badge.currentCount / badge.targetCount) * 100} />
+          </Col>
+        </Row>
+      );
+    });
+  };
+
+  renderEarnedBadges = () => {
+    return this.state.badgesEarned.map(badge => {
+      return (
+        <div class="earned-badge">
+          <img src={badge.graphic} width="50" class="completed-badge" />
+          <p align="center">{badge.year}</p>
+        </div>
+      );
+    });
+  };
 
   render() {
     return (
@@ -44,44 +81,14 @@ class BadgesPage extends Component {
               <Card>
                 <CardBody>
                   <CardTitle>In Progress</CardTitle>
-                  <Row className="bar">
-                    <Col lg="3" align="center">
-                      <img src={Blank_Book} width="50" />
-                    </Col>
-                    <Col lg="9" align="center">
-                      <Progress value="25" />
-                    </Col>
-                  </Row>
-                  <br />
-                  <Row className="bar">
-                    <Col lg="3" align="center">
-                      <img src={Blank_Quiz} width="50" />
-                    </Col>
-                    <Col lg="9" align="center">
-                      <Progress value="50" />
-                    </Col>
-                  </Row>
-                  <br />
-                  <Row className="bar">
-                    <Col lg="3" align="center">
-                      <img src={Blank_Perfect} width="50" />
-                    </Col>
-                    <Col lg="9" align="center">
-                      <Progress value="75" />
-                    </Col>
-                  </Row>
+                  {this.renderInProgressBadges()}
                   <br />
                   <CardTitle>Completed</CardTitle>
-                  <Row>
-                    <Col lg="1" align="center">
-                      <img
-                        src={Bronze_Quiz}
-                        width="50"
-                        class="completed-badge"
-                      />
-                      <p>2018</p>
-                    </Col>
-                  </Row>
+                  <div className="earned-badges">
+                    <Row className="row-badges">
+                      {this.renderEarnedBadges()}
+                    </Row>
+                  </div>
                 </CardBody>
               </Card>
             </Col>
