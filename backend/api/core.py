@@ -85,6 +85,29 @@ def authenticated_route(route):
 
     return wrapper_wroute
 
+def admin_route(route):
+    from api.models import User
+    @functools.wraps(route)
+    def wrapper_wroute(*args, **kwargs):
+        try:
+            user_id = User.decode_auth_token(request.cookies.get("jwt"))
+        except jwt.ExpiredSignatureError:
+            return create_response(
+                message="Expired token", status=401, data={"status": "fail"}
+            )
+        except jwt.InvalidTokenError:
+            return create_response(
+                message="Invalid token", status=401, data={"status": "fail"}
+            )
+        user = User.query.get(user_id)
+        if not user.is_admin:
+            return create_response(
+                message="Your account is not an admin", status=403, data={"status": "fail"}
+            )
+        return route(user_id, *args, **kwargs)
+
+    return wrapper_wroute
+
 def invalid_model_helper(user_data, props):
     for prop in props:
         if prop not in user_data:

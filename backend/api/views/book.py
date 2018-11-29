@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
 from api.models import Quiz, Question, db, Book, User
-from api.core import create_response, serialize_list, logger, authenticated_route, invalid_model_helper
+from api.core import create_response, serialize_list, logger, admin_route, invalid_model_helper
 import io
 import csv
 
@@ -156,14 +156,8 @@ def get_years():
     )
 
 @book.route("/delete_book", methods=["POST"])
-@authenticated_route
+@admin_route
 def delete_quiz(user_id):
-    user = User.query.get(user_id)
-    if not user.is_admin:
-        return create_response(
-            message="Your account is not an admin", status=403, data={"status": "fail"}
-        )
-
     user_data = request.get_json()
     if invalid_model_helper(user_data, ["book_id"]):
         return create_response(
