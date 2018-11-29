@@ -77,13 +77,14 @@ function getQuizzes(bookID) {
 }
 
 function postQuizResults(quizResultsData) {
+  console.log('Posting quiz results');
   return fetch(`${API_URL}/quiz_result`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     credentials: 'include',
-    body: JSON.stringify(userData)
+    body: JSON.stringify(quizResultsData)
   }).then(res => res.json());
 }
 
@@ -91,21 +92,21 @@ function getUserData() {
   console.log('Getting user data');
 
   return fetch(`${API_URL}/user`, {
-  // console.log('Getting user data');
-  // return fetch(`${API_URL}/user`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   credentials: 'include',
-  //   body: JSON.stringify(quizResultsData)
-  // }).then(res => res.json());
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify()
+  }).then(res => res.json());
 
-  const dict = {
-    name: 'David Chang',
-    email: 'davidchang@chegg.com'
-  };
-  return dict;
+  // const dict = {
+  //   name: 'David Chang',
+  //   email: 'davidchang@chegg.com'
+  // };
+  // return dict;
+}
+
 function createBook(bookData) {
   console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
@@ -153,7 +154,7 @@ function postUserData(userData) {
       'Content-Type': 'application/json'
     },
     credentials: 'include',
-    body: JSON.stringify(quizResultsData)
+    body: JSON.stringify(userData)
   }).then(res => res.json());
 }
 
@@ -187,8 +188,7 @@ export {
   createBook,
   postQuizResults,
   getAllBooks,
-  deleteBook
-  postQuizResults,
+  deleteBook,
   getUserData,
   postUserData,
   updatePassword

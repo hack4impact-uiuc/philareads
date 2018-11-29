@@ -55,7 +55,7 @@ class AccountManagePage extends Component {
     const { message } = await updatePassword(passwordData);
     this.setState({ message: message });
 
-    if (message === 'Successfully changed the password!') {
+    if (message === 'Successfully changed the password') {
       this.setState({
         curr_password_error: '',
         password_success: 'Password succesfully updated!'
