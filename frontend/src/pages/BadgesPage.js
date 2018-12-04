@@ -11,38 +11,62 @@ import {
 } from 'reactstrap';
 import { badgeMap } from '../utils/badgeMap.js';
 import '../styles/BadgesPage.scss';
+import { getBadges } from '../utils/api';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
+library.add(faSpinner);
 
 class BadgesPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      badgesInProgress: [
-        { graphic: badgeMap['blank_book'], currentCount: 3, targetCount: 5 }
-      ],
-      badgesEarned: [
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] },
-        { year: 2018, graphic: badgeMap['silver_quiz'] }
-      ]
+      badgesInProgress: [],
+      badgesEarned: [],
+      alert: [],
+      loading: false
     };
+
+    this.getBadges();
   }
+
+  getBadges = async () => {
+    this.setStateLoading();
+    const {
+      success,
+      result: { results },
+      message
+    } = await getBadges();
+    console.log(results);
+
+    if (success) {
+      this.setState({
+        badgesInProgress: results.badgesInProgress,
+        badgesEarned: results.badgesEarned
+      });
+    } else {
+      this.setStateAlert(message);
+    }
+  };
+
+  setStateLoading = () => {
+    this.setState({ loading: true });
+  };
+
+  setStateAlert = message => {
+    this.setState({
+      alert: message
+    });
+  };
 
   renderInProgressBadges = () => {
     return this.state.badgesInProgress.map(badge => {
       return (
         <Row className="bar">
-          <Col lg="3" align="center">
-            <img src={badge.graphic} width="50" />
+          <Col lg="3" align="center" className="ip-badge">
+            <img src={badgeMap[badge.graphic]} width="50" />
           </Col>
           <Col lg="9" align="center">
             <Progress value={(badge.currentCount / badge.targetCount) * 100} />
@@ -56,7 +80,11 @@ class BadgesPage extends Component {
     return this.state.badgesEarned.map(badge => {
       return (
         <div class="earned-badge">
-          <img src={badge.graphic} width="50" class="completed-badge" />
+          <img
+            src={badgeMap[badge.graphic]}
+            width="50"
+            class="completed-badge"
+          />
           <p align="center">{badge.year}</p>
         </div>
       );
@@ -72,8 +100,12 @@ class BadgesPage extends Component {
             <Col lg="3">
               <Card>
                 <CardBody>
-                  <CardText>Badges</CardText>
-                  <CardText>Quiz History</CardText>
+                  <CardText>
+                    <Link to="/profile/badges">Badges</Link>
+                  </CardText>
+                  <CardText>
+                    <Link to="/profile/quiz-history">Quiz History</Link>
+                  </CardText>
                 </CardBody>
               </Card>
             </Col>

@@ -123,13 +123,52 @@ function getAllBooks() {
 }
 
 function getBadges() {
-  return fetch(`${API_URL}/badges`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+  return {
+    success: true,
+    result: {
+      results: {
+        badgesEarned: [
+          {
+            year: 2018,
+            graphic: 'gold_quiz'
+          }
+        ],
+        badgesInProgress: [
+          {
+            type: 'completed-books',
+            year: 2018,
+            graphic: 'diamond_book',
+            currentCount: 3,
+            targetCount: 5
+          },
+          {
+            type: 'completed-quizzes',
+            year: 2018,
+            graphic: 'diamond_quiz',
+            currentCount: 2,
+            targetCount: 5
+          },
+          {
+            type: 'perfect-quizzes',
+            year: 2018,
+            graphic: 'diamond_perfect',
+            currentCount: 1,
+            targetCount: 5
+          }
+        ]
+      }
     },
-    credentials: 'include'
-  }).then(res => res.json());
+
+    message: 'hi'
+  };
+
+  // return fetch(`${API_URL}/badges`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   credentials: 'include'
+  // }).then(res => res.json());
 }
 
 export {
@@ -143,5 +182,6 @@ export {
   createBook,
   postQuizResults,
   getAllBooks,
-  deleteBook
+  deleteBook,
+  getBadges
 };

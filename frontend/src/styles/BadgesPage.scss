@@ -3,12 +3,6 @@
     align-items: center;
   }
 
-  .square {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-  }
-
   .completed-badge {
     align-self: center;
   }
@@ -16,5 +10,10 @@
   .earned-badge {
     margin-left: 15px;
     margin-right: 15px;
+  }
+
+  .ip-badge {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }

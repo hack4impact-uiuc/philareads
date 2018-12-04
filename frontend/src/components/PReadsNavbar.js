@@ -25,7 +25,7 @@ export default class PReadsNavbar extends React.Component {
       name: 'For Parents'
     },
     {
-      route: '/profile',
+      route: '/profile/badges',
       name: 'Profile'
     },
     {
