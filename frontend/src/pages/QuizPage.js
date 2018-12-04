@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
+import QuizRedo from '../components/QuizRedo';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Alert } from 'reactstrap';
@@ -13,11 +14,18 @@ class QuizPage extends Component {
       bookID: props.match.params.id,
       quizID: props.match.params.quizID,
       currentQuestions: [],
+      showEndModal: false,
       alert: null
     };
     this.fetchBookData();
     this.fetchQuizData();
   }
+
+  toggle = () => {
+    this.setState({
+      showEndModal: false
+    });
+  };
 
   fetchBookData = async () => {
     const { message, success, result } = await getBookData(
@@ -94,7 +102,18 @@ class QuizPage extends Component {
       date_taken: date_taken,
       attempted_questions: questionResults
     };
+
+    this.setState({
+      showEndModal: true
+    });
+    // this.toggleModal();
     postQuizResults(quizResults);
+  };
+
+  closeModal = () => {
+    this.setState({
+      showEndModal: !this.state.showEndModal
+    });
   };
 
   render() {
@@ -123,6 +142,11 @@ class QuizPage extends Component {
               questionList={this.getQuestions()}
               quizName={this.state.quizData['name']}
               finishAttempt={this.finishAttempt}
+            />
+            <QuizRedo
+              closeModal={this.closeModal}
+              finishAttempt={this.finishAttempt}
+              showEndModal={this.state.showEndModal}
             />
           </div>
         )}
