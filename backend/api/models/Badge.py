@@ -27,6 +27,16 @@ class Badge:
             "graphic": self.graphic,
         }
 
+class NthQuizBadge(Badge):
+    def __init__(self, quantity):
+        badge_id = int(str(1) + str(quantity))
+        Badge.__init__(
+            self,
+            badge_id,
+            f"{quantity} Quiz(zes) Completed!",
+            f"This award is given after completing {quantity} Quiz(zes)",
+            ""
+        )
 
 class FirstQuizBadge(Badge):
     def __init__(self):
