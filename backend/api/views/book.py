@@ -113,6 +113,8 @@ def get_quizzes(book_id):
     quizList = []
     # add all quizzes associated with book
     for quiz in book.quizzes:
+        if not quiz.published:
+            continue
         temp_quiz = {}
         questionList = []
         for question in quiz.questions:

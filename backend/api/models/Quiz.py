@@ -18,9 +18,11 @@ class Quiz(Mixin, db.Model):
     quiz_results = db.relationship(
         "QuizResult", cascade="all,delete", backref="quiz", lazy=True
     )
+    published = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, pub: bool):
         self.name = name
+        self.published = pub
         self.questions = []
 
     def __repr__(self):

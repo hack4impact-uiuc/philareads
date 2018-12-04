@@ -38,7 +38,7 @@ def invalid_quiz_result_data(user_data):
 
 
 def invalid_quiz_data(user_data):
-    return invalid_model_helper(user_data, ["name", "questions", "book_id"])
+    return invalid_model_helper(user_data, ["name", "questions", "book_id", "published"])
 
 
 # returns true if another quiz has the same name, and belongs to the same book
@@ -67,7 +67,7 @@ def create_quiz_helper(user_data):
     if duplicate_quiz(user_data):
         return dict(data={"status": "fail"}, message="Quiz already exists.", status=409)
 
-    new_quiz = Quiz(user_data["name"])
+    new_quiz = Quiz(user_data["name"], user_data["published"])
     new_quiz.book_id = linked_book.id
     linked_book.quizzes.append(new_quiz)
 
@@ -306,7 +306,6 @@ def delete_quiz(user_id):
 
 @quiz.route("/edit_quiz", methods=["POST"])
 def edit_quiz():
-    pdb.set_trace()
     user_data = request.get_json()
     did_delete = delete_quiz_by_id(user_data)
     if not did_delete:
