@@ -9,17 +9,18 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+const secondsBeforeRedirect = 10;
+
 class RegisterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeRemaining: 10
+      timeRemaining: secondsBeforeRedirect
     };
   }
 
   componentDidMount() {
-    const ten_seconds = 10000;
-    this.redirect = setTimeout(this.redirect, ten_seconds);
+    this.redirect = setTimeout(this.redirect, secondsBeforeRedirect * 1000);
     this.ticker = setInterval(this.updateTimeRemaining, 1000);
   }
 
@@ -28,7 +29,7 @@ class RegisterPage extends Component {
       clearTimeout(this.redirect);
     }
     if (this.ticker) {
-      clearTimeout(this.ticker);
+      clearInterval(this.ticker);
     }
   }
 
