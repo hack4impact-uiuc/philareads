@@ -55,8 +55,6 @@ def duplicate_quiz(user_data):
 @quiz.route("/quiz", methods=["POST"])
 def create_quiz():
     user_data = request.get_json()
-
-    print("Got to 50")
     if invalid_quiz_data(user_data):
         return create_response(
             message="Missing required quiz information",
@@ -292,3 +290,7 @@ def delete_quiz(user_id):
     return create_response(
         message="Successfully deleted quiz", status=200, data={"status": "success"}
     )
+
+@quiz.route("/edit_quiz", methods=["POST"])
+def edit_quiz():
+    pass

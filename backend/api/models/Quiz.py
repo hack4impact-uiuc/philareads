@@ -11,8 +11,9 @@ class Quiz(Mixin, db.Model):
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    questions = db.relationship("Question", backref="quiz", lazy=True)
+    questions = db.relationship("Question", cascade="all,delete", backref="quiz", lazy=True)
     book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=True)
+    quiz_results = db.relationship("QuizResult", cascade="all,delete", backref="quiz", lazy=True)
 
     def __init__(self, name: str):
         self.name = name
