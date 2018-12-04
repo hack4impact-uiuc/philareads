@@ -38,7 +38,9 @@ def invalid_quiz_result_data(user_data):
 
 
 def invalid_quiz_data(user_data):
-    return invalid_model_helper(user_data, ["name", "questions", "book_id", "published"])
+    return invalid_model_helper(
+        user_data, ["name", "questions", "book_id", "published"]
+    )
 
 
 # returns true if another quiz has the same name, and belongs to the same book
@@ -316,6 +318,8 @@ def edit_quiz():
         )
 
     res = create_quiz_helper(request.get_json())
+    if res["message"].startswith("Suc"):
+        res["message"] = "Successfully edited quiz"
     return create_response(
         message=res["message"], status=res["status"], data=res["data"]
     )
