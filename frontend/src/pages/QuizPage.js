@@ -106,7 +106,6 @@ class QuizPage extends Component {
     this.setState({
       showEndModal: true
     });
-    // this.toggleModal();
     postQuizResults(quizResults);
   };
 
