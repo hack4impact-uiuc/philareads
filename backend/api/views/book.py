@@ -185,6 +185,7 @@ def delete_quiz(user_id):
         message="Successfully deleted book", status=200, data={"status": "success"}
     )
 
+
 @book.route("/edit_book", methods=["POST"])
 @admin_route
 def edit_book(user_id):
@@ -200,11 +201,11 @@ def edit_book(user_id):
             message="Book not found", status=422, data={"status": "fail"}
         )
 
-    book_to_edit.name = user_data["name"],
-    book_to_edit.author = user_data["author"],
-    book_to_edit.grade = user_data["grade"],
-    book_to_edit.year = user_data["year"],
-    book_to_edit.cover_url = user_data.get("cover_url", ""),
+    book_to_edit.name = (user_data["name"],)
+    book_to_edit.author = (user_data["author"],)
+    book_to_edit.grade = (user_data["grade"],)
+    book_to_edit.year = (user_data["year"],)
+    book_to_edit.cover_url = (user_data.get("cover_url", ""),)
 
     db.session.commit()
     return create_response(
