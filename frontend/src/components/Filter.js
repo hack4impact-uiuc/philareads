@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 class Filter extends Component {
   renderGrades = () => {
     return this.props.gradeArr.map(x => (
-      <FormGroup>
+      <FormGroup key={x}>
         <Label check>
           <Input type="checkbox" onChange={this.props.gradeFilterCallback} />
           {x}
@@ -26,7 +26,7 @@ class Filter extends Component {
 
   renderYears = () => {
     return this.props.yearArr.map(x => (
-      <FormGroup>
+      <FormGroup key={x}>
         <Label check>
           <Input type="checkbox" onChange={this.props.yearFilterCallback} />
           {x}
