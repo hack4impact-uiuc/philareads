@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import NoMatchPage from './pages/NoMatchPage';
@@ -12,13 +11,13 @@ import BookPage from './pages/BookPage';
 import QuizPage from './pages/QuizPage';
 import Logout from './components/Logout';
 import Search from './pages/Search';
-import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/admin/AdminPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
 import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
+import BadgesPage from './pages/BadgesPage';
 
 import './styles/App.scss';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
@@ -38,7 +37,7 @@ class App extends Component {
             {/*Ungrouped pages*/}
             <Route path="/parents" component={ParentsPage} />
             <Route path="/search" component={Search} />
-            <Route path="/profile" component={ProfilePage} />
+            <Route path="/profile/badges" component={BadgesPage} />
             {/*Admin pages*/}
             <Route exact path="/admin" component={AdminPage} />
             <Route
