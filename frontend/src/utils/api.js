@@ -131,6 +131,10 @@ function getBadges() {
           {
             year: 2018,
             graphic: 'gold_quiz'
+          },
+          {
+            year: 2019,
+            graphic: 'bronze_perfect'
           }
         ],
         badgesInProgress: [
