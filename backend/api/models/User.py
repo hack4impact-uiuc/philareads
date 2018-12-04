@@ -33,7 +33,9 @@ class User(Mixin, db.Model):
     name = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
-    attempted_quizzes = db.relationship("QuizResult", cascade="all,delete", backref="user", lazy=True)
+    attempted_quizzes = db.relationship(
+        "QuizResult", cascade="all,delete", backref="user", lazy=True
+    )
     badges = db.Column("options", MutableList.as_mutable(ARRAY(Integer)))
     is_admin = db.Column(db.Boolean, nullable=False)
 

@@ -62,14 +62,10 @@ def create_quiz_helper(user_data):
 
     linked_book = Book.query.get(user_data["book_id"])
     if linked_book is None:
-        return dict(
-            message="Book not found", status=422, data={"status": "fail"}
-        )
+        return dict(message="Book not found", status=422, data={"status": "fail"})
 
     if duplicate_quiz(user_data):
-        return dict(
-            data={"status": "fail"}, message="Quiz already exists.", status=409
-        )
+        return dict(data={"status": "fail"}, message="Quiz already exists.", status=409)
 
     new_quiz = Quiz(user_data["name"])
     new_quiz.book_id = linked_book.id
@@ -95,10 +91,10 @@ def create_quiz_helper(user_data):
 @quiz.route("/quiz", methods=["POST"])
 def create_quiz():
     res = create_quiz_helper(request.get_json())
-    return create_response(message=res["message"],
-            status=res["status"],
-            data=res["data"]
-            )
+    return create_response(
+        message=res["message"], status=res["status"], data=res["data"]
+    )
+
 
 @quiz.route("/quiz_results", methods=["GET"])
 def get_quiz_results():
@@ -287,7 +283,7 @@ def delete_quiz_by_id(user_data):
     db.session.delete(quiz_to_delete)
     db.session.commit()
     return True
-    
+
 
 @quiz.route("/delete_quiz", methods=["POST"])
 @admin_route
@@ -296,7 +292,9 @@ def delete_quiz(user_id):
     did_delete = delete_quiz_by_id(user_data)
     if not did_delete:
         return create_response(
-            message="Quiz id missing or quiz not found", status=422, data={"status": "fail"}
+            message="Quiz id missing or quiz not found",
+            status=422,
+            data={"status": "fail"},
         )
 
     return create_response(
@@ -305,6 +303,7 @@ def delete_quiz(user_id):
         data={"status": "success"},
     )
 
+
 @quiz.route("/edit_quiz", methods=["POST"])
 def edit_quiz():
     pdb.set_trace()
@@ -312,11 +311,12 @@ def edit_quiz():
     did_delete = delete_quiz_by_id(user_data)
     if not did_delete:
         return create_response(
-            message="Quiz id missing or quiz not found", status=422, data={"status": "fail"}
+            message="Quiz id missing or quiz not found",
+            status=422,
+            data={"status": "fail"},
         )
 
     res = create_quiz_helper(request.get_json())
-    return create_response(message=res["message"],
-            status=res["status"],
-            data=res["data"]
-            )
+    return create_response(
+        message=res["message"], status=res["status"], data=res["data"]
+    )
