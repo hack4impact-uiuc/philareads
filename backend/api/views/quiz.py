@@ -307,9 +307,16 @@ def delete_quiz(user_id):
 
 @quiz.route("/edit_quiz", methods=["POST"])
 def edit_quiz():
+    pdb.set_trace()
     user_data = request.get_json()
     did_delete = delete_quiz_by_id(user_data)
     if not did_delete:
         return create_response(
             message="Quiz id missing or quiz not found", status=422, data={"status": "fail"}
         )
+
+    res = create_quiz_helper(request.get_json())
+    return create_response(message=res["message"],
+            status=res["status"],
+            data=res["data"]
+            )
