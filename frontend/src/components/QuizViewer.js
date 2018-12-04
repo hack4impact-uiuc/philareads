@@ -115,6 +115,11 @@ class QuizViewer extends Component {
               {this.props.questionList.map((question, i) => (
                 <PaginationItem key={`${this.props.quizID},${i}`}>
                   <PaginationLink
+                    className={
+                      this.state.currentQuestion === i
+                        ? 'pagination-current'
+                        : ''
+                    }
                     onClick={() => this.setState({ currentQuestion: i })}
                   >
                     {i + 1}
