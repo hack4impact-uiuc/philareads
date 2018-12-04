@@ -19,14 +19,7 @@ class Book(Mixin, db.Model):
     cover_url = db.Column(db.String, nullable=True)
     quizzes = db.relationship("Quiz", backref="book", lazy=True)
 
-    def __init__(
-        self,
-        name: str,
-        author: str,
-        grade: int,
-        year: int,
-        cover_url: str,
-    ):
+    def __init__(self, name: str, author: str, grade: int, year: int, cover_url: str):
         self.name = name
         self.author = author
         self.grade = grade

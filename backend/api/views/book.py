@@ -13,11 +13,9 @@ import csv
 
 book = Blueprint("book", __name__)
 
+
 def invalid_book_data(user_data):
-    return invalid_model_helper(
-        user_data,
-        ["name", "author", "grade", "year"],
-    )
+    return invalid_model_helper(user_data, ["name", "author", "grade", "year"])
 
 
 @book.route("/book_from_csv", methods=["POST"])
@@ -42,7 +40,8 @@ def create_book_from_csv():
             row_dict["author"],
             row_dict["grade"],
             row_dict["year"],
-            row_dict.get("cover_url", ""), # if cover url exists then return it, otherwise use empty string
+            # if cover url exists then return it, otherwise use empty string
+            row_dict.get("cover_url", ""),
         )
 
         db.session.add(book)
@@ -84,7 +83,8 @@ def create_book():
         user_data["author"],
         user_data["grade"],
         user_data["year"],
-        user_data.get("cover_url", ""), # if cover url exists then return it, otherwise use empty string
+        # if cover url exists then return it, otherwise use empty string
+        user_data.get("cover_url", ""),
     )
     db.session.add(book)
     db.session.commit()
