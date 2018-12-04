@@ -1,18 +1,23 @@
 function URLParamToString(param) {
-  if (param === 'middle' || param === 4) {
+  // param's possible values:
+  // - In our BE we store it as "Middle" or "Intermediate"
+  // - In our app router we route as "/middle" or "/intermediate"
+  if (param.toLowerCase && param.toLowerCase() === 'middle') {
     return 'Middle School';
   }
-  if (param === 'intermediate' || param === 8) {
-    return 'Intermediate Level';
+  if (param.toLowerCase && param.toLowerCase() === 'intermediate') {
+    return 'Intermediate';
   }
 }
 
 function URLParamToQueryParam(param) {
-  if (param === 'middle') {
-    return 4;
+  // Desired return value should match BE
+  // - In our BE we store it as "Middle" or "Intermediate"
+  if (param.toLowerCase && param.toLowerCase() === 'middle') {
+    return 'Middle';
   }
-  if (param === 'intermediate') {
-    return 8;
+  if (param.toLowerCase && param.toLowerCase() === 'intermediate') {
+    return 'Intermediate';
   }
 }
 
