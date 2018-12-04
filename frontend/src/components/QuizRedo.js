@@ -15,15 +15,19 @@ class QuizRedo extends Component {
         </Button>
         <Modal isOpen={this.props.showEndModal} toggle={this.props.closeModal}>
           <ModalHeader toggle={this.props.closeModal}>
-            Quiz Complete!
+            You've completed the quiz!
           </ModalHeader>
           <ModalBody>
-            You've completed the quiz! Your total score is: 2/3. You can redo
-            this quiz, or move on to other activities!
+            You've completed the quiz with a total score is:{' '}
+            {this.props.numCorrectQ}/{this.props.numTotalQ}.<br />
+            You can redo this quiz, or move on to other activities!
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.props.closeModal}>
-              Cancel
+              Redo
+            </Button>
+            <Button color="secondary" onClick={this.props.closeModal}>
+              Close
             </Button>
           </ModalFooter>
         </Modal>

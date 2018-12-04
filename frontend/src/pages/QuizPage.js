@@ -6,6 +6,7 @@ import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Alert } from 'reactstrap';
 import '../styles/QuizPage.scss';
+import { type } from 'os';
 
 class QuizPage extends Component {
   constructor(props) {
@@ -15,17 +16,14 @@ class QuizPage extends Component {
       quizID: props.match.params.quizID,
       currentQuestions: [],
       showEndModal: false,
+      redoable: false,
+      numTotalQ: 0,
+      numCorrectQ: 0,
       alert: null
     };
     this.fetchBookData();
     this.fetchQuizData();
   }
-
-  toggle = () => {
-    this.setState({
-      showEndModal: false
-    });
-  };
 
   fetchBookData = async () => {
     const { message, success, result } = await getBookData(
@@ -79,6 +77,7 @@ class QuizPage extends Component {
       (acc, qnProp) => (qnProp['answeredCorrectly'] === 1 ? acc + 1 : acc),
       0
     );
+    // const num_correct = this.getNumCorrectAnswers;
     const questionResults = questionProps.map((qnProp, idx) => {
       const user_answer =
         qnProp['selectedAnswer'] === -1
@@ -104,7 +103,9 @@ class QuizPage extends Component {
     };
 
     this.setState({
-      showEndModal: true
+      showEndModal: true,
+      numTotalQ: num_total,
+      numCorrectQ: num_correct
     });
     postQuizResults(quizResults);
   };
@@ -146,6 +147,8 @@ class QuizPage extends Component {
               closeModal={this.closeModal}
               finishAttempt={this.finishAttempt}
               showEndModal={this.state.showEndModal}
+              numCorrectQ={this.state.numCorrectQ}
+              numTotalQ={this.state.numTotalQ}
             />
           </div>
         )}

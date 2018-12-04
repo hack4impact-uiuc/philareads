@@ -14,7 +14,6 @@ class QuizViewer extends Component {
         };
       }),
       currentQuestion: 0
-      // showEndModal: false
     };
   }
 
