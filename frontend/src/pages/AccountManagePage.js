@@ -1,188 +1,246 @@
 import React, { Component } from 'react';
-import AccountManage from '../components/AccountManage';
+import ReactDOM from 'react-dom';
+import {
+  Form,
+  FormGroup,
+  Input,
+  Button,
+  Alert,
+  Card,
+  FormFeedback
+} from 'reactstrap';
+import validateEmail from '../utils/validationHelpers';
+import '../styles/Login.scss';
+//import AccountManage from '../components/AccountManage';
 import { getUserData, postUserData, updatePassword } from '../utils/api';
-import { Button } from 'reactstrap';
 
 class AccountManagePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      email: '',
-      current_password: '',
-      new_password: '',
-      repeated_new_password: '',
-      match_error: '',
-      curr_password_error: '',
-      message: '',
-      password_success: '',
-      profile_success: ''
+      username: '',
+      changedName: '',
+      changedUsername: '',
+      profileSuccess: false,
+      alertMessage: '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
     };
+    this.currentPasswordInput = React.createRef();
     this.fetchUserData();
   }
 
   fetchUserData = async () => {
     const { result } = await getUserData();
-    this.setState({ name: result['name'], email: result['email'] });
+    console.log(result);
+    this.setState({ name: result['name'], username: result['username'] });
   };
 
-  handleProfileChange = () => {
-    let userData = {
-      name: this.state.name,
-      email: this.state.email
-    };
-    postUserData(userData);
-    this.setState({ profile_success: 'Profile successfully updated!' });
-  };
-
-  handlePasswordChange = async () => {
-    this.setState({ password_success: '' });
-
-    if (this.state.new_password === this.state.repeated_new_password) {
-      this.setState({ match_error: '' });
-    } else {
-      this.setState({
-        match_error: 'Passwords do not match',
-        password_success: false
-      });
+  canSubmitProfile() {
+    var canSubmit = false;
+    if (
+      (this.state.changedName.length > 0 &&
+        this.state.changedName != this.state.name) ||
+      (this.state.changedUsername.length > 0 &&
+        this.state.changedUsername != this.state.username)
+    ) {
+      canSubmit = true;
     }
+    return canSubmit;
+  }
 
-    let passwordData = {
-      old_password: this.state.current_password,
-      new_password: this.state.new_password
+  canSubmitPassword() {
+    var canSubmit = false;
+    if (
+      this.state.currentPassword.length > 0 &&
+      this.state.newPassword.length > 0 &&
+      this.state.newPassword === this.state.confirmPassword
+    ) {
+      canSubmit = true;
+    }
+    return canSubmit;
+  }
+
+  handleProfileSubmit = async () => {
+    let userData = {
+      name: this.state.changedName,
+      username: this.state.changedUsername
     };
+    console.log(postUserData(userData));
+
+    const { message } = await postUserData(userData);
+    this.setState({ message: message });
+
+    console.log(message);
+
+    if (message === 'Successfully updated user') {
+      this.setState({ alertMessage: 'Profile Updated!' });
+    } else {
+      this.setState({ alertMessage: 'Error updating profile' });
+    }
+  };
+
+  handlePasswordSubmit = async () => {
+    let passwordData = {
+      old_password: this.state.currentPassword,
+      new_password: this.state.newPassword
+    };
+
+    this.setState({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+    //console.log(this.currentPasswordInput.current.props.value)
+    //console.log(this.input.value)
+    //this.currentPasswordInput.setState({ value: ''})
 
     const { message } = await updatePassword(passwordData);
     this.setState({ message: message });
 
     if (message === 'Successfully changed the password') {
       this.setState({
-        curr_password_error: '',
-        password_success: 'Password succesfully updated!'
+        alertMessage: 'Password succesfully updated!'
       });
     } else {
       this.setState({
-        curr_password_error: 'Invalid Password'
+        alertMessage: 'Invalid Password'
       });
     }
   };
 
   render() {
     return (
-      <div>
-        <div className="container-fluid py-3">
-          <div className="row">
-            <div className="col-md-6 mx-auto">
-              <div className="card card-body">
-                <h3 className="text-center mb-4">Edit your profile</h3>
-                <fieldset>
-                  <div className="form-group has-error">
-                    <h5> Name </h5>
-                    <input
-                      className="form-control input-lg"
-                      defaultValue={this.state.name}
-                      name="name"
-                      type="text"
-                      onChange={txt =>
-                        this.setState({ name: txt.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="form-group has-error">
-                    <h5> Email </h5>
-                    <input
-                      className="form-control input-lg"
-                      defaultValue={this.state.email}
-                      name="email"
-                      type="text"
-                      onChange={txt =>
-                        this.setState({ email: txt.target.value })
-                      }
-                    />
-                  </div>
-                  <Button
-                    className="btn btn-lg btn-dark btn-block"
-                    onClick={this.handleProfileChange}
-                    size="lg"
-                    block
-                  >
-                    Update Profile
-                  </Button>
-                  <br />
-                  <div className="invalid-feedback d-block" align="center">
-                    <h5>{this.state.profile_success}</h5>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-          </div>
+      <div className="container">
+        <div className="text-center">
+          <Form className="form-signin" name="form">
+            {(this.state.alertMessage === 'Password succesfully updated!' ||
+              this.state.alertMessage === 'Profile Updated!') && (
+              <Alert color="success">
+                <h5 className="text-center">{this.state.alertMessage}</h5>
+              </Alert>
+            )}
+
+            {(this.state.alertMessage === 'Invalid Password' ||
+              this.state.alertMessage === 'Error updating profile') && (
+              <Alert color="danger">
+                <h5 className="text-center">{this.state.alertMessage}</h5>
+              </Alert>
+            )}
+
+            <Card className="login-card">
+              <h5 className="text-left"> Name </h5>
+              <FormGroup>
+                <Input
+                  className="form-control input-lg"
+                  defaultValue={this.state.name}
+                  name="name"
+                  type="text"
+                  onChange={txt =>
+                    this.setState({ changedName: txt.target.value })
+                  }
+                />
+              </FormGroup>
+              <h5 className="text-left"> Username </h5>
+              <FormGroup>
+                <Input
+                  className="form-control input-lg"
+                  defaultValue={this.state.username}
+                  name="username"
+                  type="text"
+                  onChange={txt =>
+                    this.setState({ changedUsername: txt.target.value })
+                  }
+                />
+              </FormGroup>
+              <FormGroup>
+                <Button
+                  disabled={!this.canSubmitProfile()}
+                  className="btn btn-lg btn-primary btn-block"
+                  color="primary"
+                  onClick={() => {
+                    this.handleProfileSubmit();
+                  }}
+                >
+                  Update Profile
+                </Button>
+              </FormGroup>
+            </Card>
+          </Form>
         </div>
 
-        <div className="container-fluid py-3">
-          <div className="row">
-            <div className="col-md-6 mx-auto">
-              <div className="card card-body">
-                <h3 className="text-center mb-4">Change Password</h3>
-                <fieldset>
-                  <h5> Current Password </h5>
-                  <div className="form-group has-error">
-                    <input
-                      className={'form-control input-lg' + false}
-                      name="current_password"
-                      type="password"
-                      onChange={txt =>
-                        this.setState({ current_password: txt.target.value })
-                      }
-                    />
-                    <div className="invalid-feedback d-block">
-                      <h6>{this.state.curr_password_error}</h6>
-                    </div>
-                  </div>
+        <div className="text-center">
+          <Form className="form-signin" name="form">
+            <Card className="login-card">
+              <h5 className="text-left"> Current Password </h5>
+              <FormGroup>
+                <Input
+                  name="currentPassword"
+                  type="password"
+                  ref={this.currentPasswordInput}
+                  onChange={txt =>
+                    this.setState({ currentPassword: txt.target.value })
+                  }
+                  value={this.state.currentPassword}
+                  className={'form-control '}
+                />
+              </FormGroup>
+              <h5 className="text-left"> New Password </h5>
+              <FormGroup>
+                <Input
+                  name="password"
+                  type="password"
+                  autoComplete="newPassword"
+                  onChange={txt =>
+                    this.setState({ newPassword: txt.target.value })
+                  }
+                  value={this.state.newPassword}
+                />
+              </FormGroup>
+              <h5 className="text-left"> Confirm Password </h5>
+              <FormGroup>
+                <Input
+                  name="passwordConfirm"
+                  type="password"
+                  ref="passwordConfirm"
+                  autoComplete="new-password"
+                  onBlur={() => this.forceUpdate()}
+                  onChange={txt =>
+                    this.setState({ confirmPassword: txt.target.value })
+                  }
+                  className={
+                    'form-control ' +
+                    (this.state.confirmPassword.length > 0 &&
+                      (this.state.confirmPassword === this.state.newPassword
+                        ? 'is-valid'
+                        : 'is-invalid'))
+                  }
+                  value={this.state.confirmPassword}
+                />
 
-                  <h5> New Password </h5>
-                  <div className="form-group has-error">
-                    <input
-                      className="form-control input-lg"
-                      name="new_password"
-                      type="password"
-                      onChange={txt =>
-                        this.setState({ new_password: txt.target.value })
-                      }
-                    />
-                  </div>
-
-                  <h5> Repeat New Password </h5>
-                  <div className="form-group has-error">
-                    <input
-                      className="form-control input-lg"
-                      name="repeated_new_password"
-                      type="password"
-                      onChange={txt =>
-                        this.setState({
-                          repeated_new_password: txt.target.value
-                        })
-                      }
-                    />
-                    <div className="invalid-feedback d-block">
-                      <h6>{this.state.match_error}</h6>
-                    </div>
-                  </div>
-                  <Button
-                    className="btn btn-lg btn-dark btn-block"
-                    onClick={this.handlePasswordChange}
-                    size="lg"
-                    block
-                  >
-                    Update Password
-                  </Button>
-                  <br />
-                  <div className="invalid-feedback d-block" align="center">
-                    <h5>{this.state.password_success}</h5>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-          </div>
+                {/* Find if the element is not in focus, and if so, render an error if invalid */}
+                {document.activeElement !==
+                  ReactDOM.findDOMNode(this.refs.confirmPassword) && (
+                  <FormFeedback invalid="true">
+                    Looks like your password doesnt match.
+                  </FormFeedback>
+                )}
+                <FormFeedback valid>Great! Your password matches.</FormFeedback>
+              </FormGroup>
+              <FormGroup>
+                <Button
+                  className="btn btn-lg btn-primary btn-block"
+                  disabled={!this.canSubmitPassword()}
+                  color="primary"
+                  onClick={this.handlePasswordSubmit}
+                >
+                  Update Password
+                </Button>
+              </FormGroup>
+            </Card>
+          </Form>
         </div>
       </div>
     );
