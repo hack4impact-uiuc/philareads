@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import '../../styles/ReadingOlympics.scss';
+import { URLParamToString } from '../../utils/formatHelpers';
 import { getROArchiveYears } from '../../utils/api';
 
 const pathToMiddle = 'middle';
@@ -78,7 +79,7 @@ class ROHome extends Component {
                   size="lg"
                   block
                 >
-                  Middle School Grades
+                  {URLParamToString(pathToMiddle)}
                 </Button>
                 <Button
                   className="navigation-button"
@@ -87,7 +88,7 @@ class ROHome extends Component {
                   size="lg"
                   block
                 >
-                  Intermediate Grades
+                  {URLParamToString(pathToIntermediate)}
                 </Button>
               </CardBody>
             </Card>
