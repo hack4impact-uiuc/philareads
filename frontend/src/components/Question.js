@@ -135,6 +135,9 @@ class Question extends Component {
     return color;
   };
 
+  shouldDisable = () =>
+    this.props.totalNumOfQuestions === this.props.questionNumber ? true : false;
+
   /**
    * @returns a Card component
    * the Card component contains the question and button
@@ -145,15 +148,27 @@ class Question extends Component {
         <Card>
           <CardBody>
             {this.renderQuestion()}
-            <Button
-              disabled={this.props.submitted}
-              outline={this.props.submitted}
-              color={this.getButtonColor()}
-              onClick={this.submitClick}
-              className="submit-question"
-            >
-              Submit
-            </Button>
+            {this.props.submitted ? (
+              <Button
+                disabled={this.shouldDisable()}
+                outline={this.shouldDisable()}
+                color="primary"
+                onClick={this.props.nextPage}
+                className="next-button"
+              >
+                Next
+              </Button>
+            ) : (
+              <Button
+                disabled={this.props.submitted}
+                outline={this.props.submitted}
+                color={this.getButtonColor()}
+                onClick={this.submitClick}
+                className="submit-question"
+              >
+                Submit
+              </Button>
+            )}
           </CardBody>
         </Card>
       </div>
@@ -169,7 +184,9 @@ Question.propTypes = {
   selectedAnswer: PropTypes.number.isRequired, //possible answer choices: 0 to last answer
   submitted: PropTypes.bool.isRequired,
   answeredCorrectly: PropTypes.number.isRequired, //default is unanswered; 0 incorrect; 1 correct
-  questionNumber: PropTypes.number.isRequired
+  questionNumber: PropTypes.number.isRequired,
+  nextPage: PropTypes.func.isRequired,
+  totalNumOfQuestions: PropTypes.number.isRequired
 };
 
 export default Question;
