@@ -9,9 +9,7 @@ import {
   Card,
   FormFeedback
 } from 'reactstrap';
-import validateEmail from '../utils/validationHelpers';
 import '../styles/Login.scss';
-//import AccountManage from '../components/AccountManage';
 import { getUserData, postUserData, updatePassword } from '../utils/api';
 
 class AccountManagePage extends Component {
@@ -42,9 +40,9 @@ class AccountManagePage extends Component {
     var canSubmit = false;
     if (
       (this.state.changedName.length > 0 &&
-        this.state.changedName != this.state.name) ||
+        this.state.changedName !== this.state.name) ||
       (this.state.changedUsername.length > 0 &&
-        this.state.changedUsername != this.state.username)
+        this.state.changedUsername !== this.state.username)
     ) {
       canSubmit = true;
     }
