@@ -34,7 +34,7 @@ else:
 huckfinn_book = {
     "name": "The Adventures of Huckleberry Finn",
     "author": "Mark Twain",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2018,
     "cover_url": "https://cdn3.volusion.com/jtoq7.b7owf/v/vspfiles/photos/ADVENTURES_OF_HUCKLEBERRY_FINN-2.jpg",
 }
@@ -45,7 +45,7 @@ print(r.json())
 wishtree_book = {
     "name": "Wishtree",
     "author": "Katherine Applegate",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/61al%2BP%2B9JDL._SX365_BO1,204,203,200_.jpg",
 }
@@ -55,7 +55,7 @@ print(r.json())
 boycalledbat_book = {
     "name": "A Boy Called Bat",
     "author": "Elana Arnold",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51ZW6vJvuIL._SX349_BO1,204,203,200_.jpg",
 }
@@ -65,7 +65,7 @@ print(r.json())
 rubyonoutside_book = {
     "name": "Ruby on the Outside",
     "author": "Nora Raleigh Baskin",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
 }
 r = requests.post(API_URL + "book", json=rubyonoutside_book)
@@ -74,7 +74,7 @@ print(r.json())
 pashmina_book = {
     "name": "Pashmina",
     "author": "Nidhi Chanani",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/91qAL9ZLi9L.jpg",
 }
@@ -84,7 +84,7 @@ print(r.json())
 losersclub_book = {
     "name": "The Losers' Club",
     "author": "Andrew Clements",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/515gx6DaIfL._SX329_BO1,204,203,200_.jpg",
 }
@@ -95,7 +95,7 @@ print(r.json())
 serafinablackcloak_book = {
     "name": "Serafina and the Black Cloak",
     "author": "Robert Beatty",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51eWzYTXg6L._SX339_BO1,204,203,200_.jpg",
 }
@@ -105,7 +105,7 @@ print(r.json())
 warifinallywon_book = {
     "name": "The War I Finally Won",
     "author": "Kimberly Brubaker Bradley",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51pLVzrgzGL._SX329_BO1,204,203,200_.jpg",
 }
@@ -115,7 +115,7 @@ print(r.json())
 waitingfornormal_book = {
     "name": "Waiting for Normal",
     "author": "Leslie Connor",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
 }
 r = requests.post(API_URL + "book", json=waitingfornormal_book)
@@ -124,7 +124,7 @@ print(r.json())
 onlyroad_book = {
     "name": "The Only Road",
     "author": "Alexandra Diaz",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
 }
 r = requests.post(API_URL + "book", json=onlyroad_book)
@@ -133,7 +133,7 @@ print(r.json())
 awfulfalafel_book = {
     "name": "It Ain't So Awful, Falafel",
     "author": "Firoozeh Dumas",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51miMQ66exL._SX333_BO1,204,203,200_.jpg",
 }

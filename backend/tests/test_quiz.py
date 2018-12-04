@@ -13,7 +13,7 @@ sample_book_json = """
 {
     "name": "Cracking the OLD PM interview",
     "author": "smart pm",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2018,
     "cover_url": "https://cloudflare.com/images/crackingpm.png",
     "reader_url": "https://onlinereader.com/books/crackingpm.pdf"
