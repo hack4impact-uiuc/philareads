@@ -23,7 +23,7 @@ class QuizRedo extends Component {
             You can redo this quiz, or move on to other activities!
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={this.props.closeModal}>
+            <Button color="secondary" onClick={this.props.redoQuiz}>
               Redo
             </Button>
             <Button color="secondary" onClick={this.props.closeModal}>

@@ -105,14 +105,26 @@ class QuizPage extends Component {
     this.setState({
       showEndModal: true,
       numTotalQ: num_total,
-      numCorrectQ: num_correct
+      numCorrectQ: num_correct,
+      redoable: true
     });
+
     postQuizResults(quizResults);
   };
 
   closeModal = () => {
     this.setState({
       showEndModal: !this.state.showEndModal
+    });
+  };
+
+  redoQuiz = questionProps => {
+    //get default state
+    //submit default state
+    this.setState({
+      showEndModal: false,
+      redoable: false,
+      numCorrectQ: 0
     });
   };
 
@@ -149,6 +161,7 @@ class QuizPage extends Component {
               showEndModal={this.state.showEndModal}
               numCorrectQ={this.state.numCorrectQ}
               numTotalQ={this.state.numTotalQ}
+              redoQuiz={this.redoQuiz}
             />
           </div>
         )}
