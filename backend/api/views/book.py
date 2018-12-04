@@ -15,15 +15,7 @@ book = Blueprint("book", __name__)
 
 
 def invalid_book_data(user_data):
-    if (
-        (not "name" in user_data)
-        or (not "author" in user_data)
-        or (not "grade" in user_data)
-        or (not "year" in user_data)
-        or (not "cover_url" in user_data)
-        or (not "reader_url" in user_data)
-    ):
-        return True
+    return invalid_model_helper(user_data, ["name", "author", "grade", "year"])
 
 
 @book.route("/book_from_csv", methods=["POST"])
@@ -48,8 +40,8 @@ def create_book_from_csv():
             row_dict["author"],
             row_dict["grade"],
             row_dict["year"],
-            row_dict["cover_url"],
-            row_dict["reader_url"],
+            # if cover url exists then return it, otherwise use empty string
+            row_dict.get("cover_url", ""),
         )
 
         db.session.add(book)
@@ -65,9 +57,9 @@ def create_book():
     user_data = request.get_json()
 
     # check all fields are entered
-    if "name" not in user_data or "author" not in user_data:
+    if invalid_book_data(user_data):
         return create_response(
-            message="Missing name field and/or author field",
+            message="Missing name, author, grade, or year field",
             status=400,
             data={"status": "failure"},
         )
@@ -76,6 +68,8 @@ def create_book():
     dup_book = (
         Book.query.filter_by(name=user_data["name"])
         .filter_by(author=user_data["author"])
+        .filter_by(grade=user_data["grade"])
+        .filter_by(year=user_data["year"])
         .first()
     )
     if not (dup_book is None):
@@ -89,8 +83,8 @@ def create_book():
         user_data["author"],
         user_data["grade"],
         user_data["year"],
-        user_data["cover_url"],
-        user_data["reader_url"],
+        # if cover url exists then return it, otherwise use empty string
+        user_data.get("cover_url", ""),
     )
     db.session.add(book)
     db.session.commit()

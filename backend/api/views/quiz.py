@@ -56,7 +56,6 @@ def duplicate_quiz(user_data):
 def create_quiz():
     user_data = request.get_json()
 
-    print("Got to 50")
     if invalid_quiz_data(user_data):
         return create_response(
             message="Missing required quiz information",
