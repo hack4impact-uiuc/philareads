@@ -14,7 +14,7 @@ class Book(Mixin, db.Model):
 
     name = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
-    grade = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.String, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     cover_url = db.Column(db.String, nullable=False)
     reader_url = db.Column(db.String, nullable=False)
