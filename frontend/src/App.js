@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
+import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import './styles/App.scss';
@@ -28,37 +28,44 @@ class App extends Component {
       <Router>
         <div>
           <Route path="/" component={PReadsNavbar} />
-          <Route exact path="/" component={Home} />
-          {/*Authentication pages*/}
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/logout" component={Logout} />
-          {/*Ungrouped pages*/}
-          <Route path="/parents" component={ParentsPage} />
-          <Route path="/search" component={Search} />
-          <Route path="/profile/badges" component={BadgesPage} />
-          {/*Admin pages*/}
-          <Route exact path="/admin" component={AdminPage} />
-          <Route
-            exact
-            path="/admin/book/csv_upload"
-            component={AdminCSVUploadPage}
-          />
-          <Route path="/admin/book/add" component={AdminAddBookPage} />
-          <Route path="/admin/book/edit" component={AdminEditBookPage} />
-          {/*Reading Olympics pages*/}
-          <Route exact path="/ReadingOlympics" component={ROHome} />
-          <Route
-            exact
-            path="/ReadingOlympics/:year/:grade(middle|intermediate)"
-            component={ROYearGradeView}
-          />
-          <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
-          <Route exact path="/ReadingOlympics/book/:id" component={BookPage} />
-          <Route
-            path="/ReadingOlympics/book/:id/:quizID"
-            component={QuizPage}
-          />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            {/*Authentication pages*/}
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/logout" component={Logout} />
+            {/*Ungrouped pages*/}
+            <Route path="/parents" component={ParentsPage} />
+            <Route path="/search" component={Search} />
+            <Route path="/profile/badges" component={BadgesPage} />
+            {/*Admin pages*/}
+            <Route exact path="/admin" component={AdminPage} />
+            <Route
+              exact
+              path="/admin/book/csv_upload"
+              component={AdminCSVUploadPage}
+            />
+            <Route path="/admin/book/add" component={AdminAddBookPage} />
+            <Route path="/admin/book/edit" component={AdminEditBookPage} />
+            {/*Reading Olympics pages*/}
+            <Route exact path="/ReadingOlympics" component={ROHome} />
+            <Route
+              exact
+              path="/ReadingOlympics/:year/:grade(middle|intermediate)"
+              component={ROYearGradeView}
+            />
+            <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
+            <Route
+              exact
+              path="/ReadingOlympics/book/:id"
+              component={BookPage}
+            />
+            <Route
+              path="/ReadingOlympics/book/:id/:quizID"
+              component={QuizPage}
+            />
+            <Route component={NoMatchPage} />
+          </Switch>
         </div>
       </Router>
     );
