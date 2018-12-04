@@ -12,6 +12,7 @@ import io
 import csv
 
 book = Blueprint("book", __name__)
+valid_grades = ["Middle", "Intermediate"]
 
 
 def invalid_book_data(user_data):
@@ -68,6 +69,13 @@ def create_book():
     if "name" not in user_data or "author" not in user_data:
         return create_response(
             message="Missing name field and/or author field",
+            status=400,
+            data={"status": "failure"},
+        )
+
+    if user_data["grade"] not in valid_grades:
+        return create_response(
+            message="Grade is not valid, must be Middle or Intermediate",
             status=400,
             data={"status": "failure"},
         )
