@@ -17,6 +17,10 @@ export default class PReadsNavbar extends React.Component {
       name: 'Home'
     },
     {
+      route: '/about',
+      name: 'About'
+    },
+    {
       route: '/ReadingOlympics',
       name: 'Reading Olympics'
     },

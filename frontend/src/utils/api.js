@@ -129,16 +129,19 @@ function getBadges() {
       results: {
         badgesEarned: [
           {
+            id: 1,
             year: 2018,
             graphic: 'gold_quiz'
           },
           {
+            id: 2,
             year: 2019,
             graphic: 'bronze_perfect'
           }
         ],
         badgesInProgress: [
           {
+            id: 3,
             type: 'completed-books',
             year: 2018,
             graphic: 'diamond_book',
@@ -146,6 +149,7 @@ function getBadges() {
             targetCount: 5
           },
           {
+            id: 4,
             type: 'completed-quizzes',
             year: 2018,
             graphic: 'diamond_quiz',
@@ -153,6 +157,7 @@ function getBadges() {
             targetCount: 5
           },
           {
+            id: 5,
             type: 'perfect-quizzes',
             year: 2018,
             graphic: 'diamond_perfect',

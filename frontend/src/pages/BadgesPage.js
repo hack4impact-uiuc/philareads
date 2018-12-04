@@ -39,7 +39,6 @@ class BadgesPage extends Component {
       result: { results },
       message
     } = await getBadges();
-    console.log(results);
 
     if (success) {
       this.setState({
@@ -64,7 +63,7 @@ class BadgesPage extends Component {
   renderInProgressBadges = () => {
     return this.state.badgesInProgress.map(badge => {
       return (
-        <Row className="bar">
+        <Row className="bar" key={badge.id}>
           <Col lg="3" align="center" className="ip-badge">
             <img src={badgeMap[badge.graphic]} width="50" />
           </Col>
@@ -79,7 +78,7 @@ class BadgesPage extends Component {
   renderEarnedBadges = () => {
     return this.state.badgesEarned.map(badge => {
       return (
-        <div class="earned-badge">
+        <div class="earned-badge" key={badge.id}>
           <img
             src={badgeMap[badge.graphic]}
             width="50"
