@@ -149,15 +149,15 @@ class Question extends Component {
           <CardBody>
             {this.renderQuestion()}
             {this.props.submitted ? (
-              <Button
-                disabled={this.shouldDisable()}
-                outline={this.shouldDisable()}
-                color="primary"
-                onClick={this.props.nextPage}
-                className="next-button"
-              >
-                Next
-              </Button>
+              !this.shouldDisable() && (
+                <Button
+                  color="primary"
+                  onClick={this.props.nextPage}
+                  className="next-button"
+                >
+                  Next
+                </Button>
+              )
             ) : (
               <Button
                 disabled={this.props.submitted}
