@@ -37,6 +37,10 @@
     color: white;
   }
 
+  .navigation-button + .navigation-button {
+    margin: 30px 0px;
+  }
+
   .image {
     width: 100px;
     height: auto;
