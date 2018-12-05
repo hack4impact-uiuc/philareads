@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class QuizRedo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   renderModal = () => {
     return (
       <div>
@@ -18,7 +13,7 @@ class QuizRedo extends Component {
             You've completed the quiz!
           </ModalHeader>
           <ModalBody>
-            You've completed the quiz with a total score is:{' '}
+            You've completed the quiz with a total score of:{' '}
             {this.props.numCorrectQ}/{this.props.numTotalQ}.<br />
             You can redo this quiz, or move on to other activities!
           </ModalBody>

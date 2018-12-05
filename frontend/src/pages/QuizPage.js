@@ -77,7 +77,6 @@ class QuizPage extends Component {
       (acc, qnProp) => (qnProp['answeredCorrectly'] === 1 ? acc + 1 : acc),
       0
     );
-    // const num_correct = this.getNumCorrectAnswers;
     const questionResults = questionProps.map((qnProp, idx) => {
       const user_answer =
         qnProp['selectedAnswer'] === -1
@@ -119,8 +118,6 @@ class QuizPage extends Component {
   };
 
   redoQuiz = questionProps => {
-    //get default state
-    //submit default state
     this.setState({
       showEndModal: false,
       redoable: false,
