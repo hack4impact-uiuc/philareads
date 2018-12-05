@@ -6,7 +6,6 @@ import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Alert } from 'reactstrap';
 import '../styles/QuizPage.scss';
-import { type } from 'os';
 
 class QuizPage extends Component {
   constructor(props) {
