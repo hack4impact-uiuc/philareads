@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
+import QuizRedo from '../components/QuizRedo';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Alert } from 'reactstrap';
@@ -12,7 +13,11 @@ class QuizPage extends Component {
     this.state = {
       bookID: props.match.params.id,
       quizID: props.match.params.quizID,
-      currentQuestions: [],
+      showEndModal: false,
+      redoable: false,
+      numTotalQ: 0,
+      numCorrectQ: 0,
+      numRedo: 0,
       alert: null
     };
     this.fetchBookData();
@@ -94,7 +99,30 @@ class QuizPage extends Component {
       date_taken: date_taken,
       attempted_questions: questionResults
     };
+
+    this.setState({
+      showEndModal: true,
+      numTotalQ: num_total,
+      numCorrectQ: num_correct,
+      redoable: true
+    });
+
     postQuizResults(quizResults);
+  };
+
+  closeModal = () => {
+    this.setState({
+      showEndModal: !this.state.showEndModal
+    });
+  };
+
+  redoQuiz = questionProps => {
+    this.setState({
+      showEndModal: false,
+      redoable: false,
+      numCorrectQ: 0,
+      numRedo: this.state.numRedo + 1
+    });
   };
 
   render() {
@@ -123,6 +151,15 @@ class QuizPage extends Component {
               questionList={this.getQuestions()}
               quizName={this.state.quizData['name']}
               finishAttempt={this.finishAttempt}
+              numRedo={this.state.numRedo}
+            />
+            <QuizRedo
+              closeModal={this.closeModal}
+              finishAttempt={this.finishAttempt}
+              showEndModal={this.state.showEndModal}
+              numCorrectQ={this.state.numCorrectQ}
+              numTotalQ={this.state.numTotalQ}
+              redoQuiz={this.redoQuiz}
             />
           </div>
         )}
