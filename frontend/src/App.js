@@ -27,6 +27,7 @@ import About from './pages/About';
 import './styles/App.scss';
 import AdminProtection from './pages/protection/AdminProtection';
 import AuthenticatedProtection from './pages/protection/AuthenticatedProtection';
+import AdminAddQuizPage from './pages/admin/AdminAddQuizPage';
 
 function withAdminProtection(WrappedComponent) {
   // Only render this page if an admin user is logged in.
@@ -105,6 +106,10 @@ class App extends Component {
               exact
               path="/ReadingOlympics/year/current"
               component={RORedirectToCurrent}
+            ></Route>
+            <Route 
+              path="/admin/quiz/add" 
+              component={withAdminProtection(AdminAddQuizPage)}
             />
             {/*Reading Olympics pages*/}
             <Route exact path="/ReadingOlympics" component={ROHome} />

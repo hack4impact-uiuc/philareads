@@ -194,6 +194,36 @@ function upgradeUser(user) {
   }).then(res => res.json());
 }
 
+  // return fetch(`${API_URL}/badges`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   credentials: 'include'
+  // }).then(res => res.json());
+function createQuiz(bookData) {
+  console.log('Creating/posting new quiz');
+  return fetch(`${API_URL}/quiz`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
+function getAllQuizzes() {
+  console.log('Getting all quizzes');
+  return fetch(`${API_URL}/books`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -204,6 +234,7 @@ export {
   getBookData,
   getQuizzes,
   createBook,
+  createQuiz,
   postQuizResults,
   getAllBooks,
   deleteBook,
@@ -212,5 +243,6 @@ export {
   updatePassword,
   getBadges,
   getAdvice,
-  upgradeUser
+  upgradeUser,
+  getAllQuizzes
 };
