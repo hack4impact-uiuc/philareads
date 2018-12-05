@@ -9,9 +9,9 @@ class BookInfo extends Component {
         <div className="container">
           <div className="row book-info-row  font-white">
             <div className="col col-lg-3">
-              {undefined && (
+              {this.props.bookObject.cover_url !== '' && (
                 <img
-                  alt="cannot be displayed"
+                  alt="Book cover cannot be displayed"
                   className="book-cover img-fluid"
                   src={this.props.bookObject.cover_url}
                 />
