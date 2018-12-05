@@ -156,6 +156,7 @@ sample_quiz = {
             "correct_option": "Tom Sawyer",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=sample_quiz)
 print(r.json())
@@ -176,6 +177,7 @@ sample_quiz = {
             "correct_option": "Tom Sawyer",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=sample_quiz)
 print(r.json())
@@ -206,6 +208,7 @@ wishtree1_quiz = {
             "correct_option": "A friend",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=wishtree1_quiz)
 print(r.json())
@@ -236,6 +239,7 @@ wishtree2_quiz = {
             "correct_option": "Chop it down",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=wishtree2_quiz)
 print(r.json())
@@ -265,6 +269,7 @@ wishtree3_quiz = {
             "correct_option": "Stephen",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=wishtree3_quiz)
 print(r.json())
@@ -290,6 +295,7 @@ boycalledbat1_quiz = {
             "correct_option": "Thor",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz)
 print(r.json())
@@ -315,6 +321,7 @@ rubyonoutside1_quiz = {
             "correct_option": "Margalit",
         },
     ],
+    "published": "True"
 }
 r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
 print(r.json())

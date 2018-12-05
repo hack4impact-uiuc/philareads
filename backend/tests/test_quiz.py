@@ -41,7 +41,8 @@ sample_good_json = """
             "options": ["A person", "A cow", "A dog"],
             "correct_option": "A cow"
         }
-    ]
+    ],
+    "published": true
 } """
 
 
