@@ -113,6 +113,8 @@ def get_quizzes(book_id):
     quizList = []
     # add all quizzes associated with book
     for quiz in book.quizzes:
+        if not quiz.published:
+            continue
         temp_quiz = {}
         questionList = []
         for question in quiz.questions:
@@ -183,4 +185,31 @@ def delete_quiz(user_id):
     db.session.commit()
     return create_response(
         message="Successfully deleted book", status=200, data={"status": "success"}
+    )
+
+
+@book.route("/edit_book", methods=["POST"])
+@admin_route
+def edit_book(user_id):
+    user_data = request.get_json()
+    if invalid_book_data(user_data):
+        return create_response(
+            message="Missing required book info", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit = Book.query.get(user_data["book_id"])
+    if book_to_edit is None:
+        return create_response(
+            message="Book not found", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit.name = user_data["name"]
+    book_to_edit.author = user_data["author"]
+    book_to_edit.grade = user_data["grade"]
+    book_to_edit.year = user_data["year"]
+    book_to_edit.cover_url = user_data.get("cover_url", "")
+
+    db.session.commit()
+    return create_response(
+        message="Successfully edited book", status=200, data={"status": "success"}
     )
