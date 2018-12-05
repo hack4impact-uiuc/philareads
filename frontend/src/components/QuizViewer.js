@@ -105,6 +105,8 @@ class QuizViewer extends Component {
             submitted={this.getQuestionProps()['submitted']}
             answeredCorrectly={this.getQuestionProps()['answeredCorrectly']}
             questionNumber={this.state.currentQuestion + 1}
+            nextPage={this.changePageNext}
+            totalNumOfQuestions={this.props.questionList.length}
           />
         )}
 
