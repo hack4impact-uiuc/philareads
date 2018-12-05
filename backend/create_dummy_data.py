@@ -332,3 +332,15 @@ rubyonoutside1_quiz = {
 }
 r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
 print(r.json())
+
+parent_advice1 = {
+    "text": "Being a part of your child's learning process is very effective. For example, read aloud with them and ask questions about stories as you read along. this will promote critical thinking and recollection quickly."
+}
+r = requests.post(API_URL + "parent_advice", json=parent_advice1)
+print(r.json())
+
+parent_advice2 = {
+    "text": "A healthy diet, exercise routine, and sleep schedule will help your child's brain be ready to intake more information and do some heavy brain lifting"
+}
+r = requests.post(API_URL + "parent_advice", json=parent_advice2)
+print(r.json())
