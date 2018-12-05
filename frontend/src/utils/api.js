@@ -194,13 +194,13 @@ function upgradeUser(user) {
   }).then(res => res.json());
 }
 
-  // return fetch(`${API_URL}/badges`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   credentials: 'include'
-  // }).then(res => res.json());
+// return fetch(`${API_URL}/badges`, {
+//   method: 'GET',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   },
+//   credentials: 'include'
+// }).then(res => res.json());
 function createQuiz(bookData) {
   console.log('Creating/posting new quiz');
   return fetch(`${API_URL}/quiz`, {
