@@ -78,6 +78,21 @@ class QuizViewer extends Component {
     );
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.numRedo !== this.props.numRedo) {
+      this.setState({
+        questionProps: this.props.questionList.map(question => {
+          return {
+            selectedAnswer: -1,
+            submitted: false,
+            answeredCorrectly: -1
+          };
+        }),
+        currentQuestion: 0
+      });
+    }
+  }
+
   render() {
     return (
       <div className="quiz-viewer">

@@ -14,11 +14,11 @@ class QuizPage extends Component {
     this.state = {
       bookID: props.match.params.id,
       quizID: props.match.params.quizID,
-      currentQuestions: [],
       showEndModal: false,
       redoable: false,
       numTotalQ: 0,
       numCorrectQ: 0,
+      numRedo: 0,
       alert: null
     };
     this.fetchBookData();
@@ -124,7 +124,8 @@ class QuizPage extends Component {
     this.setState({
       showEndModal: false,
       redoable: false,
-      numCorrectQ: 0
+      numCorrectQ: 0,
+      numRedo: this.state.numRedo + 1
     });
   };
 
@@ -154,6 +155,7 @@ class QuizPage extends Component {
               questionList={this.getQuestions()}
               quizName={this.state.quizData['name']}
               finishAttempt={this.finishAttempt}
+              numRedo={this.state.numRedo}
             />
             <QuizRedo
               closeModal={this.closeModal}
