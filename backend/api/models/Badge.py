@@ -38,10 +38,14 @@ class NthQuizBadge(Badge):
         Badge.__init__(
             self,
             badge_id,
-            f"{quantity} {get_quiz_word(1)} Completed!",
-            f"This award is given after completing {quantity} Quiz(zes)",
-            ""
+            f"{quantity} {get_quiz_word(quantity)} Completed!",
+            f"This award is given after completing {quantity} {get_quiz_word(quantity)}",
+            f"Congratulations on completing {quantity} {jget_quiz_word(quantity)}!",
+            "bronze_quiz"
         )
+
+    def can_receive(self, user, quiz_result):
+        return num_quiz_attempts(user) >= quantity
 
 class FirstQuizBadge(Badge):
     def __init__(self):
