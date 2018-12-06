@@ -91,7 +91,8 @@ def create_quiz_helper(user_data):
 
 
 @quiz.route("/quiz", methods=["POST"])
-def create_quiz():
+@admin_route
+def create_quiz(user_id):
     res = create_quiz_helper(request.get_json())
     return create_response(
         message=res["message"], status=res["status"], data=res["data"]
@@ -99,17 +100,8 @@ def create_quiz():
 
 
 @quiz.route("/quiz_results", methods=["GET"])
-def get_quiz_results():
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except jwt.ExpiredSignatureError:
-        return create_response(
-            message="Expired token", status=401, data={"status": "fail"}
-        )
-    except jwt.InvalidTokenError:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
+@authenticated_route
+def get_quiz_results(user_id):
     user = User.query.filter_by(id=user_id).first()
 
     # invalid user
@@ -200,18 +192,8 @@ def create_question_result(new_quiz_result, user_data):
 
 
 @quiz.route("/quiz_result", methods=["POST"])
-def create_quiz_result():
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except jwt.ExpiredSignatureError:
-        return create_response(
-            message="Expired token", status=401, data={"status": "fail"}
-        )
-    except jwt.InvalidTokenError:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
-
+@authenticated_route
+def create_quiz_result(user_id):
     user_data = request.get_json()
     if invalid_quiz_result_data(user_data):
         return create_response(
@@ -307,7 +289,8 @@ def delete_quiz(user_id):
 
 
 @quiz.route("/edit_quiz", methods=["POST"])
-def edit_quiz():
+@admin_route
+def edit_quiz(user_id):
     user_data = request.get_json()
     did_delete = delete_quiz_by_id(user_data)
     if not did_delete:
