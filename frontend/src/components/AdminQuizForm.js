@@ -94,8 +94,14 @@ class AdminQuizForm extends Component {
     }
   };
 
-  handleQuestionDelete = key => {
-    console.log('Deleting...' + key);
+  handleQuestionDelete = index => {
+    this.setState(state => {
+      var q = [...state.questions];
+      q.splice(index, 1);
+      return {
+        questions: q
+      };
+    });
   };
 
   addQuestion = () => {
@@ -124,11 +130,12 @@ class AdminQuizForm extends Component {
             value={this.state.title}
           />
         </FormGroup>
-        {this.state.questions.map(element => {
+        {/* questionKey and index are separate here - index is being used as index in array while questionKey is a unique counter value */}
+        {this.state.questions.map((element, index) => {
           return (
             <AdminQuestion
               key={element.questionKey}
-              questionKey={element.questionKey}
+              indexInQuestionArray={index}
               questionDeleteHandler={this.handleQuestionDelete}
             />
           );

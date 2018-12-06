@@ -19,7 +19,7 @@ class AdminQuestion extends Component {
   };
 
   deleteQuestion = () => {
-    this.props.questionDeleteHandler(this.props.questionKey);
+    this.props.questionDeleteHandler(this.props.indexInQuestionArray);
   };
   render() {
     return (
