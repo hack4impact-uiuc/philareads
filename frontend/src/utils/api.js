@@ -63,7 +63,7 @@ function getROCurrentYear() {
   // }).then(res => res.json());
 }
 
-function getROArchiveYears({ grade }) {
+function getROArchiveYears() {
   return fetch(`${API_URL}/years`, {
     method: 'GET'
   }).then(res => res.json());
