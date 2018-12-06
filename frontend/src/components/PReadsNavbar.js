@@ -6,7 +6,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
+  UncontrolledDropdown
 } from 'reactstrap';
 import Cookies from 'universal-cookie';
 
@@ -60,8 +64,8 @@ export default class PReadsNavbar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href={this.props.homePage}>
-            Philadelphia Reads
+          <NavbarBrand href={'/'} style={{ color: 'black' }}>
+            Philadephia READS
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -74,11 +78,6 @@ export default class PReadsNavbar extends React.Component {
                   </NavItem>
                 );
               })}
-              {this.isLoggedIn() && (
-                <NavItem>
-                  <NavLink href={'/logout'}>Logout</NavLink>
-                </NavItem>
-              )}
               {!this.isLoggedIn() && (
                 <NavItem>
                   <NavLink href={'/login'}>Login</NavLink>
@@ -90,6 +89,22 @@ export default class PReadsNavbar extends React.Component {
                 </NavItem>
               )}
             </Nav>
+
+            {this.isLoggedIn() && (
+              <UncontrolledDropdown>
+                <DropdownToggle tag="a" className="nav-link" caret>
+                  Account
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem tag="a" href="/account">
+                    Settings
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="/logout">
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
           </Collapse>
         </Navbar>
       </div>

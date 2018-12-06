@@ -88,6 +88,17 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function getUserData() {
+  return fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify()
+  }).then(res => res.json());
+}
+
 function createBook(bookData) {
   console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
@@ -119,6 +130,28 @@ function getAllBooks() {
       'Content-Type': 'application/json'
     },
     credentials: 'include'
+  }).then(res => res.json());
+}
+
+function postUserData(userData) {
+  return fetch(`${API_URL}/edit_user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(userData)
+  }).then(res => res.json());
+}
+
+function updatePassword(passwordData) {
+  return fetch(`${API_URL}/edit_password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(passwordData)
   }).then(res => res.json());
 }
 
@@ -170,14 +203,6 @@ function getBadges() {
 
     message: 'hi'
   };
-
-  // return fetch(`${API_URL}/badges`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   credentials: 'include'
-  // }).then(res => res.json());
 }
 
 export {
@@ -192,5 +217,8 @@ export {
   postQuizResults,
   getAllBooks,
   deleteBook,
+  getUserData,
+  postUserData,
+  updatePassword,
   getBadges
 };

@@ -17,6 +17,7 @@ import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
+import AccountManagePage from './pages/AccountManagePage';
 import BadgesPage from './pages/BadgesPage';
 
 import './styles/App.scss';
@@ -64,6 +65,7 @@ class App extends Component {
               path="/ReadingOlympics/book/:id/:quizID"
               component={QuizPage}
             />
+            <Route path="/account" component={AccountManagePage} />
             <Route component={NoMatchPage} />
           </Switch>
         </div>
