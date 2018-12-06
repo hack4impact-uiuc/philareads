@@ -23,8 +23,6 @@ class Register extends Component {
       password: '',
       password_confirm: '',
       email: '',
-      changedEmail: '',
-      changedName: '',
       isLoggedIn: this.isLoggedIn(),
       errors: []
     };
@@ -126,7 +124,7 @@ class Register extends Component {
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.emailInput) && (
                   <FormFeedback invalid="true">
-                    That email doesnt look valid.
+                    That email doesn't look valid.
                   </FormFeedback>
                 )}
                 <FormFeedback valid>Your email looks good!</FormFeedback>
@@ -162,7 +160,7 @@ class Register extends Component {
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.passwordConfirm) && (
                   <FormFeedback invalid="true">
-                    Looks like your password doesnt match.
+                    Looks like your password doesn't match.
                   </FormFeedback>
                 )}
                 <FormFeedback valid>Great! Your password matches.</FormFeedback>

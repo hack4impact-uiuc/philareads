@@ -16,10 +16,6 @@ import Cookies from 'universal-cookie';
 
 export default class PReadsNavbar extends React.Component {
   navigationOptions = [
-    // {
-    //   route: '/',
-    //   name: 'Home'
-    // },
     {
       route: '/ReadingOlympics',
       name: 'Reading Olympics'
@@ -57,7 +53,7 @@ export default class PReadsNavbar extends React.Component {
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand href={'/'} style={{ color: 'black' }}>
-            Philadephia Reads
+            Philadephia READS
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
