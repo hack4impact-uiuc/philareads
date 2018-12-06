@@ -12,7 +12,7 @@ authenticate = Blueprint("authenticate", __name__)
 def register_user():
     user_data = request.get_json()
     if (
-        (not "email" in user_data)
+        (not "username" in user_data)
         or (not "password" in user_data)
         or (not "name" in user_data)
     ):
@@ -20,7 +20,7 @@ def register_user():
             data={"status": "fail"}, message="Missing required information.", status=422
         )
 
-    duplicate_user = User.query.filter_by(email=user_data["email"]).first()
+    duplicate_user = User.query.filter_by(username=user_data["username"]).first()
 
     if duplicate_user is not None:
         return create_response(
@@ -28,7 +28,7 @@ def register_user():
         )
 
     user = User(
-        name=user_data["name"], password=user_data["password"], email=user_data["email"]
+        name=user_data["name"], password=user_data["password"], username=user_data["username"]
     )
 
     db.session.add(user)
@@ -46,12 +46,12 @@ def register_user():
 @authenticate.route("/login", methods=["POST"])
 def login_user():
     user_data = request.get_json()
-    if (not "email" in user_data) or (not "password" in user_data):
+    if (not "username" in user_data) or (not "password" in user_data):
         return create_response(
             message="Missing required information.", data={"status": "fail"}, status=422
         )
 
-    user = User.query.filter_by(email=user_data["email"]).first()
+    user = User.query.filter_by(username=user_data["username"]).first()
 
     if user is not None:
         if bcrypt.checkpw(
@@ -102,18 +102,18 @@ def upgrade_user():
 
     user_data = request.get_json()
 
-    if "user_email" not in user_data:
+    if "user_username" not in user_data:
         return create_response(
-            message="Missing email of user to upgrade",
+            message="Missing username of user to upgrade",
             status=422,
             data={"status": "fail"},
         )
 
-    user_to_upgrade = User.query.filter_by(email=user_data["user_email"]).first()
+    user_to_upgrade = User.query.filter_by(username=user_data["user_username"]).first()
 
     if user_to_upgrade is None:
         return create_response(
-            message="User with corresponding email not found",
+            message="User with corresponding username not found",
             status=422,
             data={"status": "fail"},
         )

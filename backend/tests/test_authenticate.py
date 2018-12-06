@@ -15,7 +15,7 @@ def test_double_register(client):
     client.post(
         "/register",
         data=json.dumps(
-            dict(name="double", password="password123", email="double@gmail.com")
+            dict(name="double", password="password123", username="double@gmail.com")
         ),
         content_type="application/json",
     )
@@ -23,7 +23,7 @@ def test_double_register(client):
     res = client.post(
         "/register",
         data=json.dumps(
-            dict(name="double", password="password123", email="double@gmail.com")
+            dict(name="double", password="password123", username="double@gmail.com")
         ),
         content_type="application/json",
     )
@@ -35,19 +35,19 @@ def test_register(client):
     res = client.post(
         "/register",
         data=json.dumps(
-            dict(name="rob", password="password123", email="rob_test@gmail.com")
+            dict(name="rob", password="password123", username="rob_test@gmail.com")
         ),
         content_type="application/json",
     )
 
     assert res.status_code == 201
 
-    user_in_db = User.query.filter_by(email="rob_test@gmail.com").first()
+    user_in_db = User.query.filter_by(username="rob_test@gmail.com").first()
     assert user_in_db is not None
 
 
 def test_successful_login(client):
-    user = User(name="bob", password="password123", email="test@gmail.com")
+    user = User(name="bob", password="password123", username="test@gmail.com")
 
     db.session.add(user)
     db.session.commit()
@@ -55,7 +55,7 @@ def test_successful_login(client):
     login_res = client.post(
         "/login",
         data=json.dumps(
-            dict(name="bob", password="password123", email="test@gmail.com")
+            dict(name="bob", password="password123", username="test@gmail.com")
         ),
         content_type="application/json",
     )
@@ -67,7 +67,7 @@ def test_nonexistent_user(client):
     login_res = client.post(
         "/login",
         data=json.dumps(
-            dict(name="tob", password="password123", email="doesnt_exist@gmail.com")
+            dict(name="tob", password="password123", username="doesnt_exist@gmail.com")
         ),
         content_type="application/json",
     )

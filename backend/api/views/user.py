@@ -25,20 +25,20 @@ def edit_user():
             message="User not found", status=400, data={"status": "fail"}
         )
 
-    # name or email not included in json
-    if ("name" not in user_data) or ("email" not in user_data):
+    # name or username not included in json
+    if ("name" not in user_data) or ("username" not in user_data):
         return create_response(
             message="Missing fields", status=400, data={"status": "fail"}
         )
 
-    # name or email left blank
-    if (len(user_data["name"]) == 0) or (len(user_data["email"]) == 0):
+    # name or username left blank
+    if (len(user_data["name"]) == 0) or (len(user_data["username"]) == 0):
         return create_response(
             message="Empty fields", status=400, data={"status": "fail"}
         )
 
     user.name = user_data["name"]
-    user.email = user_data["email"]
+    user.username = user_data["username"]
     db.session.commit()
 
     return create_response(
