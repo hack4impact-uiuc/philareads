@@ -26,9 +26,8 @@ class AdminQuestion extends Component {
       <div>
         <div className="question-form">
           <FontAwesomeIcon
-            className="times-icon"
+            className="times-icon fa-15x"
             icon="times"
-            size="1x"
             onClick={this.deleteQuestion}
           />
           <FormGroup>

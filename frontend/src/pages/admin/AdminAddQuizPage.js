@@ -29,7 +29,7 @@ class AdminAddQuizPage extends Component {
           <Col lg="2">
             <AdminNavigator />
           </Col>
-          <Col lg="6" className="admin-home">
+          <Col lg="9" className="admin-home">
             <h1>Add Quiz</h1>
             <hr />
             <AdminBookSelect handleBookSelect={this.handleBookSelect} />
