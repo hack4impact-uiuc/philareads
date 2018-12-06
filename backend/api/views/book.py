@@ -16,7 +16,9 @@ valid_grades = ["Middle", "Intermediate"]
 
 
 def invalid_book_data(user_data):
-    return invalid_model_helper(user_data, ["name", "author", "grade", "year"])
+    return invalid_model_helper(
+        user_data, ["name", "author", "grade", "year", "published"]
+    )
 
 
 @book.route("/book_from_csv", methods=["POST"])
@@ -43,6 +45,7 @@ def create_book_from_csv():
             row_dict["year"],
             # if cover url exists then return it, otherwise use empty string
             row_dict.get("cover_url", ""),
+            row_dict["published"],
         )
 
         db.session.add(book)
@@ -60,7 +63,7 @@ def create_book():
     # check all fields are entered
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing name, author, grade, or year field",
+            message="Missing required book information",
             status=400,
             data={"status": "failure"},
         )
@@ -93,6 +96,7 @@ def create_book():
         user_data["year"],
         # if cover url exists then return it, otherwise use empty string
         user_data.get("cover_url", ""),
+        user_data["published"],
     )
     db.session.add(book)
     db.session.commit()
@@ -135,7 +139,7 @@ def get_quizzes(book_id):
 @book.route("/books", methods=["GET"])
 def find_books():
     user_data = request.args
-    filtered_books = Book.query
+    filtered_books = Book.query.filter_by(published=True)
     props = ["id", "name", "author", "grade", "year", "cover_url", "reader_url"]
 
     for prop in props:
@@ -159,10 +163,36 @@ def find_books():
 
 @book.route("/years", methods=["GET"])
 def get_years():
-    years = [year_tuple[0] for year_tuple in db.session.query(Book.year).distinct()]
+    # pdb.set_trace()
+    published_books_years = Book.query.filter_by(published=True).with_entities(
+        Book.year
+    )
+    years = [year_tuple[0] for year_tuple in published_books_years.distinct()]
     years = sorted(years, reverse=True)
     return create_response(
         message="Successfully gathered years", status=200, data={"years": years}
+    )
+
+
+@book.route("/publish_books", methods=["POST"])
+@admin_route
+def publish_books(user_id):
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["year", "published"]):
+        return create_response(
+            message="Missing year or published field",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    books_to_change = Book.query.filter_by(year=user_data["year"])
+    books_to_change.update(dict(published=user_data["published"]))
+    db.session.commit()
+
+    return create_response(
+        message="Successfully changed published statuses",
+        status=200,
+        data={"status": "success"},
     )
 
 
