@@ -1,18 +1,31 @@
+// Human-readable text
+const middleDisplayText = 'Middle school';
+const intermediateDisplayText = 'Intermediate';
+
+// URL params
+const middleURLParam = 'middle';
+const intermediateURLParam = 'intermediate';
+
+// BE Storage/Return Values
+const middleDatabaseValue = 'Middle';
+const intermediateDatabaseValue = 'Intermediate';
+
 function URLParamToString(param) {
-  if (param === 'middle' || param === 4) {
-    return 'Middle School';
+  if (param === middleURLParam || param === middleDatabaseValue) {
+    return middleDisplayText;
   }
-  if (param === 'intermediate' || param === 8) {
-    return 'Intermediate Level';
+  if (param === intermediateURLParam || param === intermediateDatabaseValue) {
+    return intermediateDisplayText;
   }
 }
 
 function URLParamToQueryParam(param) {
-  if (param === 'middle') {
-    return 4;
+  // Desired return value should match BE
+  if (param === middleURLParam) {
+    return middleDatabaseValue;
   }
-  if (param === 'intermediate') {
-    return 8;
+  if (param === intermediateURLParam) {
+    return intermediateDatabaseValue;
   }
 }
 

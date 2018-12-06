@@ -5,9 +5,6 @@ class QuizRedo extends Component {
   renderModal = () => {
     return (
       <div>
-        <Button color="danger" onClick={this.props.finishAttmept}>
-          {this.props.buttonLabel}
-        </Button>
         <Modal isOpen={this.props.showEndModal} toggle={this.props.closeModal}>
           <ModalHeader toggle={this.props.closeModal}>
             You've completed the quiz!

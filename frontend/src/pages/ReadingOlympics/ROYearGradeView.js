@@ -44,9 +44,9 @@ class ROYearGradeView extends Component {
     return (
       <div className="reading-olympics">
         <div className="page-title">
-          <h1>{`Reading Olympics: ${URLParamToString(
-            this.props.match.params.grade
-          )} ${this.props.match.params.year}`}</h1>
+          <h1>{`Reading Olympics ${
+            this.props.match.params.year
+          }: ${URLParamToString(this.props.match.params.grade)}`}</h1>
         </div>
         {this.state.books && (
           <Catalog

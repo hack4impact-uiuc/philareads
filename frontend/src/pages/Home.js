@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Container,
   Row,
   Col,
@@ -10,11 +11,15 @@ import {
   CardText
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { URLParamToString } from '../utils/formatHelpers';
 import intermediate from './../images/home_intermediate.png';
 import parents from './../images/home_parents.png';
 import exercises from './../images/home_exercises.png';
 import search from './../images/home_search.png';
 import './../styles/Home.scss';
+
+const pathToMiddle = 'middle';
+const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
   render() {
@@ -26,25 +31,26 @@ class Home extends Component {
             <Col className="left-main-col">
               <Card className="parent">
                 <h2>Reading Olympics</h2>
-                <Card className="internal-card">
-                  <CardBody>
-                    <CardTitle>Middle</CardTitle>
-                    <CardText>Grades 1-3</CardText>
-                  </CardBody>
-                  <Link to="/ReadingOlympics/2019/middle">
-                    <span />
-                  </Link>
-                </Card>
-                <Card className="internal-card">
-                  <CardBody>
-                    <CardTitle>Intermediate</CardTitle>
-                    <CardText>Grades 4-6</CardText>
-                  </CardBody>
-                  <CardImg className="image" src={intermediate} />
-                  <Link to="/ReadingOlympics/2019/intermediate">
-                    <span />
-                  </Link>
-                </Card>
+                <CardBody>
+                  <Button
+                    className="navigation-button"
+                    onClick={this.onClickMiddleSchool}
+                    color="primary"
+                    size="lg"
+                    block
+                  >
+                    {URLParamToString(pathToMiddle)}
+                  </Button>
+                  <Button
+                    className="navigation-button"
+                    onClick={this.onClickIntermediate}
+                    color="primary"
+                    size="lg"
+                    block
+                  >
+                    {URLParamToString(pathToIntermediate)}
+                  </Button>
+                </CardBody>
               </Card>
             </Col>
             <Col className="right-sidebar">
