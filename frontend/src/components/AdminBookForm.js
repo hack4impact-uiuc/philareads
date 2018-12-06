@@ -197,7 +197,7 @@ class AdminBookForm extends Component {
                 required
               >
                 <option disabled hidden value="" />
-                <option value="Middle">{URLParamToString('middle')}</option>
+                <option value="Middle">{URLParamToString('Middle')}</option>
                 <option value="Intermediate">
                   {URLParamToString('intermediate')}
                 </option>
