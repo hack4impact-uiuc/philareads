@@ -10,6 +10,7 @@ import {
   Row,
   FormFeedback
 } from 'reactstrap';
+import AdminQuestion from '../components/AdminQuestion';
 import '../styles/admin/AdminQuizForm.scss';
 import { createQuiz } from '../utils/api.js';
 
@@ -18,15 +19,9 @@ class AdminQuizForm extends Component {
     super(props);
     this.state = {
       title: '',
-      author: '',
-      cover_url: '',
-      year: '',
-      grade: '',
-      reader_url: '',
       errors: [],
       numSubmits: 0,
-      coverURLValid: null,
-      bookURLValid: null
+      questions: []
     };
   }
 
@@ -70,58 +65,9 @@ class AdminQuizForm extends Component {
     });
   };
 
-  testBookURL = e => {
-    this.handleChange(e);
-    var patt = new RegExp(
-      /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/
-    );
-    this.setState({ bookURLValid: patt.test(e.target.value) });
-  };
-
-  testImage = () => {
-    var cover_url = this.state.cover_url;
-
-    return new Promise(function(resolve, reject) {
-      var timeout = 5000;
-      var timer,
-        img = new Image();
-      img.onerror = img.onabort = function() {
-        clearTimeout(timer);
-        reject('error');
-      };
-      img.onload = function() {
-        clearTimeout(timer);
-        resolve('success');
-      };
-      timer = setTimeout(function() {
-        // reset .src to invalid URL so it stops previous
-        // loading, but doesn't trigger new load
-        img.src = '//!!!!/test.jpg';
-        reject('timeout');
-      }, timeout);
-      img.src = cover_url;
-    }).then(
-      e => this.setState({ coverURLValid: true }),
-      e => {
-        return this.setState({ coverURLValid: false });
-      }
-    );
-  };
-
   canSubmitWithoutError() {
     var canSubmitWithoutError = false;
-    if (
-      this.state.title !== '' &&
-      this.state.author !== '' &&
-      this.state.cover_url !== '' &&
-      this.state.year !== '' &&
-      this.state.grade !== '' &&
-      this.state.reader_url !== '' &&
-      this.state.bookURLValid &&
-      this.state.coverURLValid &&
-      !isNaN(this.state.year) &&
-      !isNaN(this.state.grade)
-    ) {
+    if (true) {
       canSubmitWithoutError = true;
     }
     return canSubmitWithoutError;
@@ -147,6 +93,11 @@ class AdminQuizForm extends Component {
     }
   };
 
+  addQuestion = () => {
+    this.setState(state => ({
+      questions: [...state.questions, {}]
+    }));
+  };
   render() {
     return (
       <Form className="quiz-form">
@@ -167,104 +118,12 @@ class AdminQuizForm extends Component {
             value={this.state.title}
           />
         </FormGroup>
-        <FormGroup>
-          <Label>Quiz Author</Label>
-          <Input
-            type="text"
-            name="author"
-            onChange={this.handleChange}
-            placeholder="Ex: Mark Twain"
-            value={this.state.author}
-          />
-        </FormGroup>
-
-        <FormGroup inline={true} className="no-margin">
-          <Row>
-            <Col lg="6" className="year-grade">
-              <Label>Year</Label>
-              <Input
-                type="text"
-                name="year"
-                className={
-                  'form-control ' +
-                  (this.state.year !== '' &&
-                    (isNaN(this.state.year) ? 'is-invalid' : 'is-valid'))
-                }
-                onChange={this.handleChange}
-                maxLength="4"
-                pattern="[0-9]{4}"
-                required
-                placeholder="Ex: 2018"
-                value={this.state.year}
-              />
-              <FormFeedback invalid="true">
-                The year has to be a number.
-              </FormFeedback>
-            </Col>
-            <Col lg="6" className="year-grade">
-              <Label>Grade</Label>
-              <Input
-                type="text"
-                name="grade"
-                className={
-                  'form-control ' +
-                  (this.state.grade !== '' &&
-                    (isNaN(this.state.grade) ? 'is-invalid' : 'is-valid'))
-                }
-                maxLength="2"
-                pattern="[0-9]{1,2}"
-                onChange={this.handleChange}
-                placeholder="Ex: 8"
-                value={this.state.grade}
-              />
-              <FormFeedback invalid="true">
-                The grade has to be a number.
-              </FormFeedback>
-            </Col>
-          </Row>
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Quiz Image URL</Label>
-          <Input
-            type="text"
-            name="cover_url"
-            className={
-              'form-control ' +
-              (this.state.coverURLValid !== null &&
-                this.state.cover_url !== '' &&
-                (this.state.coverURLValid ? 'is-valid' : 'is-invalid'))
-            }
-            onBlur={this.testImage}
-            onChange={this.handleChange}
-            value={this.state.cover_url}
-            placeholder="Ex: http://google.com/file.png"
-          />
-          <FormFeedback invalid="true">
-            We're having trouble loading that image.
-          </FormFeedback>
-          <FormFeedback valid>Image looks good!</FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Reader URL</Label>
-          <Input
-            type="text"
-            className={
-              'form-control ' +
-              (this.state.reader_url !== '' &&
-                (this.state.bookURLValid ? 'is-valid' : 'is-invalid'))
-            }
-            name="reader_url"
-            onChange={this.testBookURL}
-            value={this.state.reader_url}
-            placeholder="Ex: http://book.com/file.pdf"
-          />
-          <FormFeedback invalid="true">
-            That doesn't look like a valid link.
-          </FormFeedback>
-          <FormFeedback valid>That link looks good!</FormFeedback>
-        </FormGroup>
+        {this.state.questions.map((element, index) => {
+          return <AdminQuestion />;
+        })}
+        <Button block onClick={this.addQuestion}>
+          Add Question
+        </Button>
 
         <FormGroup>
           <Button
@@ -272,7 +131,7 @@ class AdminQuizForm extends Component {
             disabled={!this.canSubmitWithoutError()}
             color={this.props.type === 'Edit' ? 'warning' : 'primary'}
           >
-            {this.props.type} Book
+            {this.props.type} Quiz
           </Button>
           {this.props.type === 'Edit' && (
             <Button

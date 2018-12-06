@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminQuizForm from '../../components/AdminQuizForm';
 import AdminNavigator from '../../components/AdminNavigator';
+import AdminBookSelect from '../../components/AdminBookSelect';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 class AdminAddQuizPage extends Component {
@@ -15,6 +16,12 @@ class AdminAddQuizPage extends Component {
     this.setState({ success: true });
   };
 
+  handleBookSelect = book => {
+    this.setState({
+      currentSelectedBook: book
+    });
+  };
+
   render() {
     return (
       <Container fluid>
@@ -25,6 +32,7 @@ class AdminAddQuizPage extends Component {
           <Col lg="6" className="admin-home">
             <h1>Add Quiz</h1>
             <hr />
+            <AdminBookSelect handleBookSelect={this.handleBookSelect} />
             {this.state.success ? (
               <Alert color="success">
                 Quiz was successfully created. Would you like to{' '}
