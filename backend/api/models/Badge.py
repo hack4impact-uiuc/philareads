@@ -27,13 +27,18 @@ class Badge:
             "graphic": self.graphic,
         }
 
+def get_quiz_word(quantity):
+    if quantity == 1:
+        return "Quiz"
+    return "Quizzes"
+
 class NthQuizBadge(Badge):
     def __init__(self, quantity):
         badge_id = int(str(1) + str(quantity))
         Badge.__init__(
             self,
             badge_id,
-            f"{quantity} Quiz(zes) Completed!",
+            f"{quantity} {get_quiz_word(1)} Completed!",
             f"This award is given after completing {quantity} Quiz(zes)",
             ""
         )
