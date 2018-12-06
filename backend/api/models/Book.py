@@ -20,7 +20,15 @@ class Book(Mixin, db.Model):
     quizzes = db.relationship("Quiz", backref="book", lazy=True)
     published = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name: str, author: str, grade: int, year: int, cover_url: str, published: bool):
+    def __init__(
+        self,
+        name: str,
+        author: str,
+        grade: int,
+        year: int,
+        cover_url: str,
+        published: bool,
+    ):
         self.name = name
         self.author = author
         self.grade = grade
