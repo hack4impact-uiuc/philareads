@@ -152,6 +152,7 @@ class QuizPage extends Component {
               quizName={this.state.quizData['name']}
               finishAttempt={this.finishAttempt}
               numRedo={this.state.numRedo}
+              redoQuiz={this.redoQuiz}
             />
             <QuizRedo
               closeModal={this.closeModal}

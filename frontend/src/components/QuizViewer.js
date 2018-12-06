@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Question from '../components/Question';
-import { Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import {
+  Button,
+  Progress,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from 'reactstrap';
 
 class QuizViewer extends Component {
   constructor(props) {
@@ -13,7 +19,8 @@ class QuizViewer extends Component {
           answeredCorrectly: -1
         };
       }),
-      currentQuestion: 0
+      currentQuestion: 0,
+      answered: 0
     };
   }
 
@@ -40,6 +47,20 @@ class QuizViewer extends Component {
         ]
       };
     });
+  };
+
+  renderProgress = () => {
+    let value = (this.state.answered / this.props.questionList.length) * 100;
+    console.log('numAnsweredQ: ' + this.state.answered);
+    console.log('numTotalQ: ' + this.props.questionList.length);
+    console.log('value: ' + value);
+
+    return (
+      <div container="text-center">
+        <h3>Quiz Progress</h3>
+        <Progress color="success" value={value} />
+      </div>
+    );
   };
 
   changePagePrev = () =>
@@ -78,7 +99,18 @@ class QuizViewer extends Component {
     );
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.questionProps !== this.state.questionProps) {
+      let numSubmittedTrue = 0;
+      this.state.questionProps.map(question => {
+        if (question.submitted === true) {
+          numSubmittedTrue++;
+        }
+      });
+      this.setState({
+        answered: numSubmittedTrue
+      });
+    }
     if (prevProps.numRedo !== this.props.numRedo) {
       this.setState({
         questionProps: this.props.questionList.map(question => {
@@ -124,6 +156,9 @@ class QuizViewer extends Component {
             totalNumOfQuestions={this.props.questionList.length}
           />
         )}
+
+        <br />
+        {this.renderProgress()}
 
         {this.props.questionList.length > 0 && (
           <div className="pagination">
