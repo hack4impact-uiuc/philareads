@@ -205,8 +205,6 @@ function getBadges() {
   };
 }
 
-
-
 export {
   register,
   login,
@@ -221,6 +219,6 @@ export {
   deleteBook,
   getUserData,
   postUserData,
-  updatePassword
+  updatePassword,
   getBadges
 };
