@@ -54,7 +54,7 @@ class QuizViewer extends Component {
     return (
       <div container="text-center">
         <h3 style={{ textAlign: 'center' }}>Quiz Progress</h3>
-        <div style={{ alignItems: 'inline' }}>
+        <div style={{ display: 'inline' }}>
           <Progress color="success" value={value} />
           {this.renderRedoButton()}
         </div>
