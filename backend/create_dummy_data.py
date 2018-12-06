@@ -37,6 +37,7 @@ huckfinn_book = {
     "grade": "Intermediate",
     "year": 2018,
     "cover_url": "https://cdn3.volusion.com/jtoq7.b7owf/v/vspfiles/photos/ADVENTURES_OF_HUCKLEBERRY_FINN-2.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=huckfinn_book)
 print(r.json())
@@ -48,6 +49,7 @@ wishtree_book = {
     "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/61al%2BP%2B9JDL._SX365_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=wishtree_book)
 print(r.json())
@@ -58,6 +60,7 @@ boycalledbat_book = {
     "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51ZW6vJvuIL._SX349_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=boycalledbat_book)
 print(r.json())
@@ -67,6 +70,7 @@ rubyonoutside_book = {
     "author": "Nora Raleigh Baskin",
     "grade": "Intermediate",
     "year": 2019,
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=rubyonoutside_book)
 print(r.json())
@@ -77,6 +81,7 @@ pashmina_book = {
     "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/91qAL9ZLi9L.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=pashmina_book)
 print(r.json())
@@ -87,6 +92,7 @@ losersclub_book = {
     "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/515gx6DaIfL._SX329_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=losersclub_book)
 print(r.json())
@@ -98,6 +104,7 @@ serafinablackcloak_book = {
     "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51eWzYTXg6L._SX339_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=serafinablackcloak_book)
 print(r.json())
@@ -108,6 +115,7 @@ warifinallywon_book = {
     "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51pLVzrgzGL._SX329_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=warifinallywon_book)
 print(r.json())
@@ -117,6 +125,7 @@ waitingfornormal_book = {
     "author": "Leslie Connor",
     "grade": "Middle",
     "year": 2019,
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=waitingfornormal_book)
 print(r.json())
@@ -126,6 +135,7 @@ onlyroad_book = {
     "author": "Alexandra Diaz",
     "grade": "Middle",
     "year": 2019,
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=onlyroad_book)
 print(r.json())
@@ -136,6 +146,7 @@ awfulfalafel_book = {
     "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51miMQ66exL._SX333_BO1,204,203,200_.jpg",
+    "published": "True",
 }
 r = requests.post(API_URL + "book", json=awfulfalafel_book)
 print(r.json())
