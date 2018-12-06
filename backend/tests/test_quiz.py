@@ -16,7 +16,8 @@ sample_book_json = """
     "grade": "Intermediate",
     "year": 2018,
     "cover_url": "https://cloudflare.com/images/crackingpm.png",
-    "reader_url": "https://onlinereader.com/books/crackingpm.pdf"
+    "reader_url": "https://onlinereader.com/books/crackingpm.pdf",
+    "published": true
 }
 
 """

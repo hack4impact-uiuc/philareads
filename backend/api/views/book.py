@@ -170,6 +170,21 @@ def get_years():
         message="Successfully gathered years", status=200, data={"years": years}
     )
 
+@book.route("/publish_books", methods=["POST"])
+def publish_books():
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["year", "published"]):
+        return create_response(
+            message="Missing year or published field", status=422, data={"status": "fail"}
+        )
+
+    books_to_change = Book.query.filter_by(year=user_data["year"])
+    books_to_change.update(dict(published=user_data["published"]))
+    db.session.commit()
+
+    return create_response(
+        message="Successfully changed published statuses", status=200, data={"status": "success"}
+    )
 
 @book.route("/delete_book", methods=["POST"])
 @admin_route
