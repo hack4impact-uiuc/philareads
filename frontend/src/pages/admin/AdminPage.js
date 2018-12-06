@@ -3,12 +3,8 @@ import { Container, Row, Col } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
+
 class AdminPage extends Component {
-  onDrop(files) {
-    this.setState({
-      files
-    });
-  }
   render() {
     return (
       <Container fluid>
