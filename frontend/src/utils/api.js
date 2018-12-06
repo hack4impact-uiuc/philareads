@@ -50,6 +50,19 @@ function getBooksByYearGrade({ year, grade }) {
   }).then(res => res.json());
 }
 
+function getROCurrentYear() {
+  return {
+    success: true,
+    result: {
+      results: 2019
+    },
+    message: ''
+  };
+  // return fetch(`${API_URL}/currentReading`, {
+  //   method: 'GET'
+  // }).then(res => res.json());
+}
+
 function getROArchiveYears({ grade }) {
   return fetch(`${API_URL}/years`, {
     method: 'GET'
@@ -57,7 +70,6 @@ function getROArchiveYears({ grade }) {
 }
 
 function getBookData(id) {
-  console.log('Getting book data');
   return fetch(`${API_URL}/books?id=${id}`, {
     method: 'GET',
     headers: {
@@ -67,7 +79,6 @@ function getBookData(id) {
 }
 
 function getQuizzes(bookID) {
-  console.log('Getting quiz data');
   return fetch(`${API_URL}/${bookID}/quizzes`, {
     method: 'GET',
     headers: {
@@ -77,7 +88,6 @@ function getQuizzes(bookID) {
 }
 
 function postQuizResults(quizResultsData) {
-  console.log('Posting quiz results');
   return fetch(`${API_URL}/quiz_result`, {
     method: 'POST',
     headers: {
@@ -100,7 +110,6 @@ function getUserData() {
 }
 
 function createBook(bookData) {
-  console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
     method: 'POST',
     headers: {
@@ -123,7 +132,6 @@ function deleteBook(bookData) {
 }
 
 function getAllBooks() {
-  console.log('Getting all books');
   return fetch(`${API_URL}/books`, {
     method: 'GET',
     headers: {
@@ -210,6 +218,7 @@ export {
   login,
   search,
   getBooksByYearGrade,
+  getROCurrentYear,
   getROArchiveYears,
   getBookData,
   getQuizzes,
