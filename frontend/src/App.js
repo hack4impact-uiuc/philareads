@@ -19,8 +19,6 @@ import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
 import AccountManagePage from './pages/AccountManagePage';
 import BadgesPage from './pages/BadgesPage';
-
-import './styles/App.scss';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
 
 class App extends Component {
@@ -39,6 +37,7 @@ class App extends Component {
             <Route path="/parents" component={ParentsPage} />
             <Route path="/search" component={Search} />
             <Route path="/profile/badges" component={BadgesPage} />
+            <Route path="/about" component={About} />
             {/*Admin pages*/}
             <Route exact path="/admin" component={AdminPage} />
             <Route

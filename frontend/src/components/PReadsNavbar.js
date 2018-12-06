@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown
 } from 'reactstrap';
 import Cookies from 'universal-cookie';
-
+import logo from '../images/philareadslogo.png';
 export default class PReadsNavbar extends React.Component {
   navigationOptions = [
     {
@@ -64,8 +64,8 @@ export default class PReadsNavbar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href={'/'} style={{ color: 'black' }}>
-            Philadephia READS
+          <NavbarBrand href="/">
+            <img src={logo} width="60" alt="philareads" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -78,6 +78,11 @@ export default class PReadsNavbar extends React.Component {
                   </NavItem>
                 );
               })}
+              {this.isLoggedIn() && (
+                <NavItem>
+                  <NavLink href={'/logout'}>Logout</NavLink>
+                </NavItem>
+              )}
               {!this.isLoggedIn() && (
                 <NavItem>
                   <NavLink href={'/login'}>Login</NavLink>
