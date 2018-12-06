@@ -110,6 +110,10 @@ class AdminQuizForm extends Component {
       questionCounter: state.questionCounter + 1
     }));
   };
+
+  handleElementChange = question => {
+    console.log(question);
+  };
   render() {
     return (
       <Form className="quiz-form">
@@ -136,6 +140,8 @@ class AdminQuizForm extends Component {
             <AdminQuestion
               key={element.questionKey}
               indexInQuestionArray={index}
+              question={element}
+              changeHandler={this.handleElementChange}
               questionDeleteHandler={this.handleQuestionDelete}
             />
           );

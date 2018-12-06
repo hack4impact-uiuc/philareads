@@ -18,6 +18,11 @@ class AdminQuestion extends Component {
     });
   };
 
+  handleChange = e => {
+    var questionCopy = this.props.question;
+    questionCopy[e.target.name] = e.target.value;
+    this.props.changeHandler(questionCopy);
+  };
   deleteQuestion = () => {
     this.props.questionDeleteHandler(this.props.indexInQuestionArray);
   };
@@ -35,8 +40,9 @@ class AdminQuestion extends Component {
 
             <Input
               type="text"
-              name="title"
+              name="question-title"
               placeholder="Ex: Who is Huck Finn's best friend?"
+              onChange={this.handleChange}
             />
           </FormGroup>
 
@@ -49,6 +55,7 @@ class AdminQuestion extends Component {
                   className="quiz-option"
                   name="option-a-input"
                   placeholder="Option A"
+                  onChange={this.handleChange}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -76,6 +83,7 @@ class AdminQuestion extends Component {
                   className="quiz-option"
                   name="option-b-input"
                   placeholder="Option B"
+                  onChange={this.handleChange}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -103,6 +111,7 @@ class AdminQuestion extends Component {
                   className="quiz-option"
                   name="option-c-input"
                   placeholder="Option C"
+                  onChange={this.handleChange}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -131,6 +140,7 @@ class AdminQuestion extends Component {
                   className="quiz-option"
                   name="option-d-input"
                   placeholder="Option D"
+                  onChange={this.handleChange}
                 />
               </Col>
               <Col lg="3" className="option-col">
