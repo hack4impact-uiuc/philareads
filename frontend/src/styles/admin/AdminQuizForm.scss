@@ -27,3 +27,42 @@
     margin-top: 10px;
   }
 }
+
+.question-form {
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #95a5a6;
+  border-style: solid;
+  label {
+    margin-bottom: 0.1rem;
+  }
+  // .quiz-option {
+  //     margin-bottom:.4rem;
+  // }
+  .option-col {
+    margin-bottom: 0.4rem;
+  }
+  .times-icon {
+    position: relative;
+    float: right;
+    margin-top: -5px;
+  }
+  .correct-btn {
+    margin-top: 0px;
+  }
+
+  // delete question x button styling
+  svg {
+    z-index: 999;
+  }
+  svg path {
+    color: gray;
+  }
+  svg:hover path {
+    color: black;
+    transition: 0.3s;
+  }
+}

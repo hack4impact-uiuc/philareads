@@ -21,7 +21,8 @@ class AdminQuizForm extends Component {
       title: '',
       errors: [],
       numSubmits: 0,
-      questions: []
+      questions: [],
+      questionCounter: 0
     };
   }
 
@@ -93,9 +94,14 @@ class AdminQuizForm extends Component {
     }
   };
 
+  handleQuestionDelete = key => {
+    console.log('Deleting...' + key);
+  };
+
   addQuestion = () => {
     this.setState(state => ({
-      questions: [...state.questions, {}]
+      questions: [...state.questions, { questionKey: state.questionCounter }],
+      questionCounter: state.questionCounter + 1
     }));
   };
   render() {
@@ -118,8 +124,14 @@ class AdminQuizForm extends Component {
             value={this.state.title}
           />
         </FormGroup>
-        {this.state.questions.map((element, index) => {
-          return <AdminQuestion />;
+        {this.state.questions.map(element => {
+          return (
+            <AdminQuestion
+              key={element.questionKey}
+              questionKey={element.questionKey}
+              questionDeleteHandler={this.handleQuestionDelete}
+            />
+          );
         })}
         <Button block onClick={this.addQuestion}>
           Add Question
