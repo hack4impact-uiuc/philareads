@@ -51,15 +51,28 @@ class QuizViewer extends Component {
 
   renderProgress = () => {
     let value = (this.state.answered / this.props.questionList.length) * 100;
-    console.log('numAnsweredQ: ' + this.state.answered);
-    console.log('numTotalQ: ' + this.props.questionList.length);
-    console.log('value: ' + value);
-
     return (
       <div container="text-center">
-        <h3>Quiz Progress</h3>
-        <Progress color="success" value={value} />
+        <h3 style={{ textAlign: 'center' }}>Quiz Progress</h3>
+        <div style={{ alignItems: 'inline' }}>
+          <Progress color="success" value={value} />
+          {this.renderRedoButton()}
+        </div>
       </div>
+    );
+  };
+
+  renderRedoButton = () => {
+    let color = '';
+    if (this.props.redoable === true) {
+      color = 'success';
+    } else {
+      color = 'secondary';
+    }
+    return (
+      <Button color={color} onClick={this.props.redoQuiz}>
+        Redo
+      </Button>
     );
   };
 

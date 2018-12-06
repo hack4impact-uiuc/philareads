@@ -117,12 +117,14 @@ class QuizPage extends Component {
   };
 
   redoQuiz = questionProps => {
-    this.setState({
-      showEndModal: false,
-      redoable: false,
-      numCorrectQ: 0,
-      numRedo: this.state.numRedo + 1
-    });
+    if (this.state.redoable === true) {
+      this.setState({
+        showEndModal: false,
+        redoable: false,
+        numCorrectQ: 0,
+        numRedo: this.state.numRedo + 1
+      });
+    }
   };
 
   render() {
