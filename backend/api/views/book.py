@@ -10,7 +10,6 @@ from api.core import (
 )
 import io
 import csv
-import pdb
 
 book = Blueprint("book", __name__)
 valid_grades = ["Middle", "Intermediate"]
@@ -176,7 +175,8 @@ def get_years():
 
 
 @book.route("/publish_books", methods=["POST"])
-def publish_books():
+@admin_route
+def publish_books(user_id):
     user_data = request.get_json()
     if invalid_model_helper(user_data, ["year", "published"]):
         return create_response(
