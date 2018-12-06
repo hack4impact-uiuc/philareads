@@ -155,6 +155,58 @@ function updatePassword(passwordData) {
   }).then(res => res.json());
 }
 
+function getBadges() {
+  return {
+    success: true,
+    result: {
+      results: {
+        badgesEarned: [
+          {
+            id: 1,
+            year: 2018,
+            graphic: 'gold_quiz'
+          },
+          {
+            id: 2,
+            year: 2019,
+            graphic: 'bronze_perfect'
+          }
+        ],
+        badgesInProgress: [
+          {
+            id: 3,
+            type: 'completed-books',
+            year: 2018,
+            graphic: 'diamond_book',
+            currentCount: 3,
+            targetCount: 5
+          },
+          {
+            id: 4,
+            type: 'completed-quizzes',
+            year: 2018,
+            graphic: 'diamond_quiz',
+            currentCount: 2,
+            targetCount: 5
+          },
+          {
+            id: 5,
+            type: 'perfect-quizzes',
+            year: 2018,
+            graphic: 'diamond_perfect',
+            currentCount: 1,
+            targetCount: 5
+          }
+        ]
+      }
+    },
+
+    message: 'hi'
+  };
+}
+
+
+
 export {
   register,
   login,
@@ -170,4 +222,5 @@ export {
   getUserData,
   postUserData,
   updatePassword
+  getBadges
 };

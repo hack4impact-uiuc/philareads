@@ -13,16 +13,15 @@ from api.models import (
     Badge,
     give_user_badges,
 )
-from api.core import create_response, serialize_list, logger
+from api.core import (
+    create_response,
+    serialize_list,
+    logger,
+    invalid_model_helper,
+    admin_route,
+)
 
 quiz = Blueprint("quiz", __name__)
-
-
-def invalid_model_helper(user_data, props):
-    for prop in props:
-        if prop not in user_data:
-            return True
-    return False
 
 
 def invalid_question_result_data(user_data):
@@ -39,7 +38,9 @@ def invalid_quiz_result_data(user_data):
 
 
 def invalid_quiz_data(user_data):
-    return invalid_model_helper(user_data, ["name", "questions", "book_id"])
+    return invalid_model_helper(
+        user_data, ["name", "questions", "book_id", "published"]
+    )
 
 
 # returns true if another quiz has the same name, and belongs to the same book
@@ -53,13 +54,9 @@ def duplicate_quiz(user_data):
     return False
 
 
-@quiz.route("/quiz", methods=["POST"])
-def create_quiz():
-    user_data = request.get_json()
-
-    print("Got to 50")
+def create_quiz_helper(user_data):
     if invalid_quiz_data(user_data):
-        return create_response(
+        return dict(
             message="Missing required quiz information",
             status=422,
             data={"status": "fail"},
@@ -67,16 +64,12 @@ def create_quiz():
 
     linked_book = Book.query.get(user_data["book_id"])
     if linked_book is None:
-        return create_response(
-            message="Book not found", status=422, data={"status": "fail"}
-        )
+        return dict(message="Book not found", status=422, data={"status": "fail"})
 
     if duplicate_quiz(user_data):
-        return create_response(
-            data={"status": "fail"}, message="Quiz already exists.", status=409
-        )
+        return dict(data={"status": "fail"}, message="Quiz already exists.", status=409)
 
-    new_quiz = Quiz(user_data["name"])
+    new_quiz = Quiz(user_data["name"], user_data["published"])
     new_quiz.book_id = linked_book.id
     linked_book.quizzes.append(new_quiz)
 
@@ -92,8 +85,16 @@ def create_quiz():
 
     db.session.commit()
 
-    return create_response(
+    return dict(
         message="Succesfully created new quiz", status=200, data={"status": "success"}
+    )
+
+
+@quiz.route("/quiz", methods=["POST"])
+def create_quiz():
+    res = create_quiz_helper(request.get_json())
+    return create_response(
+        message=res["message"], status=res["status"], data=res["data"]
     )
 
 
@@ -271,3 +272,54 @@ def create_quiz_result():
             status=200,
             data={"results": new_badges},
         )
+
+
+def delete_quiz_by_id(user_data):
+    if invalid_model_helper(user_data, ["quiz_id"]):
+        return False
+
+    quiz_to_delete = Quiz.query.get(user_data["quiz_id"])
+    if quiz_to_delete is None:
+        return False
+
+    db.session.delete(quiz_to_delete)
+    db.session.commit()
+    return True
+
+
+@quiz.route("/delete_quiz", methods=["POST"])
+@admin_route
+def delete_quiz(user_id):
+    user_data = request.get_json()
+    did_delete = delete_quiz_by_id(user_data)
+    if not did_delete:
+        return create_response(
+            message="Quiz id missing or quiz not found",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    return create_response(
+        message="Successfully created quiz result; new badges earned",
+        status=200,
+        data={"status": "success"},
+    )
+
+
+@quiz.route("/edit_quiz", methods=["POST"])
+def edit_quiz():
+    user_data = request.get_json()
+    did_delete = delete_quiz_by_id(user_data)
+    if not did_delete:
+        return create_response(
+            message="Quiz id missing or quiz not found",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    res = create_quiz_helper(request.get_json())
+    if res["message"].startswith("Suc"):
+        res["message"] = "Successfully edited quiz"
+    return create_response(
+        message=res["message"], status=res["status"], data=res["data"]
+    )

@@ -1,24 +1,22 @@
 from flask import Flask, jsonify, request, Blueprint, json
 from sqlalchemy import or_
-import pdb
-from api.models import Quiz, Question, db, Book
-from api.core import create_response, serialize_list, logger
+from api.models import Quiz, Question, db, Book, User
+from api.core import (
+    create_response,
+    serialize_list,
+    logger,
+    admin_route,
+    invalid_model_helper,
+)
 import io
 import csv
 
 book = Blueprint("book", __name__)
+valid_grades = ["Middle", "Intermediate"]
 
 
 def invalid_book_data(user_data):
-    if (
-        (not "name" in user_data)
-        or (not "author" in user_data)
-        or (not "grade" in user_data)
-        or (not "year" in user_data)
-        or (not "cover_url" in user_data)
-        or (not "reader_url" in user_data)
-    ):
-        return True
+    return invalid_model_helper(user_data, ["name", "author", "grade", "year"])
 
 
 @book.route("/book_from_csv", methods=["POST"])
@@ -43,8 +41,8 @@ def create_book_from_csv():
             row_dict["author"],
             row_dict["grade"],
             row_dict["year"],
-            row_dict["cover_url"],
-            row_dict["reader_url"],
+            # if cover url exists then return it, otherwise use empty string
+            row_dict.get("cover_url", ""),
         )
 
         db.session.add(book)
@@ -60,9 +58,16 @@ def create_book():
     user_data = request.get_json()
 
     # check all fields are entered
-    if "name" not in user_data or "author" not in user_data:
+    if invalid_book_data(user_data):
         return create_response(
-            message="Missing name field and/or author field",
+            message="Missing name, author, grade, or year field",
+            status=400,
+            data={"status": "failure"},
+        )
+
+    if user_data["grade"] not in valid_grades:
+        return create_response(
+            message="Grade is not valid, must be Middle or Intermediate",
             status=400,
             data={"status": "failure"},
         )
@@ -71,6 +76,8 @@ def create_book():
     dup_book = (
         Book.query.filter_by(name=user_data["name"])
         .filter_by(author=user_data["author"])
+        .filter_by(grade=user_data["grade"])
+        .filter_by(year=user_data["year"])
         .first()
     )
     if not (dup_book is None):
@@ -84,8 +91,8 @@ def create_book():
         user_data["author"],
         user_data["grade"],
         user_data["year"],
-        user_data["cover_url"],
-        user_data["reader_url"],
+        # if cover url exists then return it, otherwise use empty string
+        user_data.get("cover_url", ""),
     )
     db.session.add(book)
     db.session.commit()
@@ -106,6 +113,8 @@ def get_quizzes(book_id):
     quizList = []
     # add all quizzes associated with book
     for quiz in book.quizzes:
+        if not quiz.published:
+            continue
         temp_quiz = {}
         questionList = []
         for question in quiz.questions:
@@ -154,4 +163,53 @@ def get_years():
     years = sorted(years, reverse=True)
     return create_response(
         message="Successfully gathered years", status=200, data={"years": years}
+    )
+
+
+@book.route("/delete_book", methods=["POST"])
+@admin_route
+def delete_quiz(user_id):
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["book_id"]):
+        return create_response(
+            message="Missing book id", status=422, data={"status": "fail"}
+        )
+
+    book_to_delete = Book.query.get(user_data["book_id"])
+    if book_to_delete is None:
+        return create_response(
+            message="Book not found", status=422, data={"status": "fail"}
+        )
+
+    db.session.delete(book_to_delete)
+    db.session.commit()
+    return create_response(
+        message="Successfully deleted book", status=200, data={"status": "success"}
+    )
+
+
+@book.route("/edit_book", methods=["POST"])
+@admin_route
+def edit_book(user_id):
+    user_data = request.get_json()
+    if invalid_book_data(user_data):
+        return create_response(
+            message="Missing required book info", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit = Book.query.get(user_data["book_id"])
+    if book_to_edit is None:
+        return create_response(
+            message="Book not found", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit.name = user_data["name"]
+    book_to_edit.author = user_data["author"]
+    book_to_edit.grade = user_data["grade"]
+    book_to_edit.year = user_data["year"]
+    book_to_edit.cover_url = user_data.get("cover_url", "")
+
+    db.session.commit()
+    return create_response(
+        message="Successfully edited book", status=200, data={"status": "success"}
     )

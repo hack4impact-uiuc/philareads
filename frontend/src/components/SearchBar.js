@@ -12,21 +12,46 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: this.props.initialQuery.trim()
     };
   }
 
-  handleSearch = async () => {
-    if (this.state.query.trim() === '') {
+  componentDidUpdate(prevProps) {
+    const propQuery = this.props.initialQuery.trim();
+    if (propQuery !== prevProps.initialQuery.trim()) {
+      const callbackFunc =
+        propQuery === ''
+          ? this.props.resetCallback
+          : () => this.handleSearch(false);
+      this.setState({ query: propQuery }, callbackFunc);
+    }
+  }
+
+  componentDidMount() {
+    if (this.state.query.trim() !== '') {
+      // Setting results to something prevents the "Perform a search!" screen from flashing
+      const emptyResults = [];
+      this.props.searchCallback(emptyResults);
+      this.handleSearch(false);
+    }
+  }
+
+  handleSearch = async (showLoadingState = true) => {
+    const query = this.state.query.trim();
+
+    if (query === '') {
       return;
     }
-    this.props.loadCallback();
+
+    if (showLoadingState) {
+      this.props.loadCallback(query);
+    }
 
     const {
       success,
       result: { results },
       message
-    } = await search(this.state.query);
+    } = await search(query);
 
     if (success) {
       if (results.length === 0) {
@@ -72,6 +97,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
+  resetCallback: PropTypes.func.isRequired,
   loadCallback: PropTypes.func.isRequired,
   notFoundCallback: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired,

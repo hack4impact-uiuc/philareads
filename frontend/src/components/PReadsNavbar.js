@@ -17,12 +17,24 @@ import Cookies from 'universal-cookie';
 export default class PReadsNavbar extends React.Component {
   navigationOptions = [
     {
+      route: '/',
+      name: 'Home'
+    },
+    {
+      route: '/about',
+      name: 'About'
+    },
+    {
       route: '/ReadingOlympics',
       name: 'Reading Olympics'
     },
     {
       route: '/parents',
       name: 'For Parents'
+    },
+    {
+      route: '/profile/badges',
+      name: 'Profile'
     },
     {
       route: '/search',

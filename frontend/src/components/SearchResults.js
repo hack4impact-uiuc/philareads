@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CatalogCard from './CatalogCard';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
 import memoize from 'memoize-one';
@@ -18,7 +17,7 @@ class SearchResults extends Component {
   collectGrades = memoize(books => {
     let gradeSet = new Set();
     books.map(book => gradeSet.add(book.grade));
-    let gradeArr = Array.from(gradeSet);
+    const gradeArr = Array.from(gradeSet);
 
     // sort in descending order
     gradeArr.sort((a, b) => b - a);
@@ -28,7 +27,7 @@ class SearchResults extends Component {
   collectYears = memoize(books => {
     let yearSet = new Set();
     books.map(book => yearSet.add(book.year));
-    let yearArr = Array.from(yearSet);
+    const yearArr = Array.from(yearSet);
 
     // sort in descending order
     yearArr.sort((a, b) => b - a);
@@ -36,27 +35,35 @@ class SearchResults extends Component {
   });
 
   setGradeFilters = filterEvent => {
-    let grade = parseInt(filterEvent.target.parentElement.innerText);
-    let gradeFilterArr = this.state.gradeFilters;
-    let idx = gradeFilterArr.indexOf(grade);
-    if (idx == -1) {
-      gradeFilterArr.push(grade);
+    const { gradeFilters } = this.state;
+    const grade = parseInt(filterEvent.target.parentElement.innerText);
+    const idx = gradeFilters.indexOf(grade);
+    if (idx === -1) {
+      this.setState({ gradeFilters: [...gradeFilters, grade] });
     } else {
-      gradeFilterArr.splice(idx, 1);
+      this.setState({
+        gradeFilters: [
+          ...gradeFilters.splice(0, idx),
+          ...gradeFilters.splice(idx + 1)
+        ]
+      });
     }
-    this.setState({ gradeFilters: gradeFilterArr });
   };
 
   setYearFilters = filterEvent => {
-    let year = parseInt(filterEvent.target.parentElement.innerText);
-    let yearFilterArr = this.state.yearFilters;
-    let idx = yearFilterArr.indexOf(year);
-    if (idx == -1) {
-      yearFilterArr.push(year);
+    const { yearFilters } = this.state;
+    const year = parseInt(filterEvent.target.parentElement.innerText);
+    const idx = yearFilters.indexOf(year);
+    if (idx === -1) {
+      this.setState({ yearFilters: [...yearFilters, year] });
     } else {
-      yearFilterArr.splice(idx, 1);
+      this.setState({
+        yearFilters: [
+          ...yearFilters.splice(0, idx),
+          ...yearFilters.splice(idx + 1)
+        ]
+      });
     }
-    this.setState({ yearFilters: yearFilterArr });
   };
 
   shouldDisplayBook = book => {
@@ -71,7 +78,7 @@ class SearchResults extends Component {
   };
 
   renderResults = () => {
-    let filteredResults = this.props.results.filter(this.shouldDisplayBook);
+    const filteredResults = this.props.results.filter(this.shouldDisplayBook);
     return filteredResults.map(book => {
       return (
         <Card key={book.id} className="search-result">

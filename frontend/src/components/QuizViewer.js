@@ -78,6 +78,21 @@ class QuizViewer extends Component {
     );
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.numRedo !== this.props.numRedo) {
+      this.setState({
+        questionProps: this.props.questionList.map(question => {
+          return {
+            selectedAnswer: -1,
+            submitted: false,
+            answeredCorrectly: -1
+          };
+        }),
+        currentQuestion: 0
+      });
+    }
+  }
+
   render() {
     return (
       <div className="quiz-viewer">
@@ -105,6 +120,8 @@ class QuizViewer extends Component {
             submitted={this.getQuestionProps()['submitted']}
             answeredCorrectly={this.getQuestionProps()['answeredCorrectly']}
             questionNumber={this.state.currentQuestion + 1}
+            nextPage={this.changePageNext}
+            totalNumOfQuestions={this.props.questionList.length}
           />
         )}
 
@@ -115,6 +132,11 @@ class QuizViewer extends Component {
               {this.props.questionList.map((question, i) => (
                 <PaginationItem key={`${this.props.quizID},${i}`}>
                   <PaginationLink
+                    className={
+                      this.state.currentQuestion === i
+                        ? 'pagination-current'
+                        : ''
+                    }
                     onClick={() => this.setState({ currentQuestion: i })}
                   >
                     {i + 1}
