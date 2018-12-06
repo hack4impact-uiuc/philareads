@@ -17,7 +17,6 @@ class AdminProtection extends Component {
 
   checkIsAdmin = async () => {
     const { success, result, message } = await getUserData();
-    console.log(result.is_admin);
     if (success) {
       this.setState({ isAdmin: result.is_admin, isLoggedIn: true });
     } else {
