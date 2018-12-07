@@ -19,6 +19,7 @@ from api.core import (
     logger,
     invalid_model_helper,
     admin_route,
+    authenticated_route
 )
 
 quiz = Blueprint("quiz", __name__)

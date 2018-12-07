@@ -6,6 +6,7 @@ from api.core import (
     serialize_list,
     logger,
     admin_route,
+    authenticated_route,
     invalid_model_helper,
 )
 import io
