@@ -24,6 +24,7 @@ class Badge:
             "description": self.description,
             "congrats_text": self.congrats_text,
             "graphic": self.graphic,
+            "year": 2018 # if we get a table in to track current year we need to use that
         }
 
 
@@ -143,9 +144,9 @@ quiz_badges = [NthQuizBadge(1, "bronze_quiz"), NthQuizBadge(3, "silver_quiz"), N
 perfect_badges = [NthPerfectBadge(1, "bronze_perfect"), NthPerfectBadge(3, "silver_perfect"), NthPerfectBadge(5, "gold_perfect"), NthPerfectBadge(10, "diamond_perfect")]
 book_badges = [NthBookBadge(1, "bronze_book"), NthBookBadge(3, "silver_book"), NthBookBadge(5, "gold_book"), NthBookBadge(10, "diamond_book")]
 
-quiz_badge_category = NthQuizCategory(quiz_badges, "quizzes")
-perfect_badge_category = PerfectQuizCategory(perfect_badges, "perfects")
-book_badge_category = BookCategory(book_badges, "books")
+quiz_badge_category = NthQuizCategory(quiz_badges, "completed-quizzes")
+perfect_badge_category = PerfectQuizCategory(perfect_badges, "perfect-quizzes")
+book_badge_category = BookCategory(book_badges, "completed-books")
 
 all_badge_categories = [quiz_badge_category, perfect_badge_category, book_badge_category]
 
