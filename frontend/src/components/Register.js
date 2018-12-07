@@ -145,7 +145,7 @@ class Register extends Component {
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.passwordConfirm) && (
                   <FormFeedback invalid="true">
-                    Looks like your password doesnt match.
+                    Looks like your password doesn't match.
                   </FormFeedback>
                 )}
                 <FormFeedback valid>Great! Your password matches.</FormFeedback>
