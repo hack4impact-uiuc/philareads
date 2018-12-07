@@ -106,13 +106,26 @@ class AdminQuizForm extends Component {
 
   addQuestion = () => {
     this.setState(state => ({
-      questions: [...state.questions, { questionKey: state.questionCounter }],
+      questions: [
+        ...state.questions,
+        {
+          questionKey: state.questionCounter,
+          text: '',
+          options: ['', '', '', '']
+        }
+      ],
       questionCounter: state.questionCounter + 1
     }));
   };
 
-  handleElementChange = question => {
-    console.log(question);
+  handleElementChange = (question, idx) => {
+    this.setState(state => {
+      var questionCopy = state.questions.splice();
+      questionCopy[idx] = question;
+      return {
+        questions: questionCopy
+      };
+    });
   };
   render() {
     return (

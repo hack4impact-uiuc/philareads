@@ -20,8 +20,26 @@ class AdminQuestion extends Component {
 
   handleChange = e => {
     var questionCopy = this.props.question;
-    questionCopy[e.target.name] = e.target.value;
-    this.props.changeHandler(questionCopy);
+    // if(this.props.question['options'] === undefined){
+    //   this.props.question['options'] = ["","","",""]
+    // }
+    switch (e.target.name) {
+      case 'option-a-input':
+        questionCopy['options'][0] = e.target.value;
+        break;
+      case 'option-b-input':
+        questionCopy['options'][1] = e.target.value;
+        break;
+      case 'option-c-input':
+        questionCopy['options'][2] = e.target.value;
+        break;
+      case 'option-d-input':
+        questionCopy['options'][3] = e.target.value;
+        break;
+      default:
+        questionCopy[e.target.name] = e.target.value;
+    }
+    this.props.changeHandler(questionCopy, this.props.indexInQuestionArray);
   };
   deleteQuestion = () => {
     this.props.questionDeleteHandler(this.props.indexInQuestionArray);
@@ -40,9 +58,10 @@ class AdminQuestion extends Component {
 
             <Input
               type="text"
-              name="question-title"
+              name="text"
               placeholder="Ex: Who is Huck Finn's best friend?"
               onChange={this.handleChange}
+              value={this.props.question.text}
             />
           </FormGroup>
 
@@ -56,6 +75,7 @@ class AdminQuestion extends Component {
                   name="option-a-input"
                   placeholder="Option A"
                   onChange={this.handleChange}
+                  value={this.props.question.options[0]}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -84,6 +104,7 @@ class AdminQuestion extends Component {
                   name="option-b-input"
                   placeholder="Option B"
                   onChange={this.handleChange}
+                  value={this.props.question.options[1]}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -112,6 +133,7 @@ class AdminQuestion extends Component {
                   name="option-c-input"
                   placeholder="Option C"
                   onChange={this.handleChange}
+                  value={this.props.question.options[2]}
                 />
               </Col>
               <Col lg="3" className="option-col">
@@ -141,6 +163,7 @@ class AdminQuestion extends Component {
                   name="option-d-input"
                   placeholder="Option D"
                   onChange={this.handleChange}
+                  value={this.props.question.options[3]}
                 />
               </Col>
               <Col lg="3" className="option-col">
