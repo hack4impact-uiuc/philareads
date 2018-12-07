@@ -24,7 +24,7 @@ class Badge:
             "description": self.description,
             "congrats_text": self.congrats_text,
             "graphic": self.graphic,
-            "year": 2018 # if we get a table in to track current year we need to use that
+            "year": 2018,  # if we get a table in to track current year we need to use that
         }
 
 
@@ -55,11 +55,13 @@ class BadgeCategory:
     def get_progress(self, user, quiz_result):
         return 0
 
+
 def num_quiz_attempts(user):
     quiz_set = set()
     for quiz_result in user.attempted_quizzes:
         quiz_set.add(quiz_result.quiz_id)
     return len(quiz_set)
+
 
 def get_num_perfects(user):
     quiz_set = set()
@@ -67,7 +69,8 @@ def get_num_perfects(user):
     for quiz_result in user.attempted_quizzes:
         if quiz_result.num_correct == quiz_result.num_total:
             quiz_set.add(quiz_result.quiz_id)
-    return len(quiz_set) 
+    return len(quiz_set)
+
 
 def get_num_books(user):
     books = set()
@@ -78,27 +81,33 @@ def get_num_books(user):
         books.add(quiz.book_id)
     return len(books)
 
+
 class NthQuizCategory(BadgeCategory):
     def get_progress(self, user, quiz_result):
         return num_quiz_attempts(user)
+
 
 class PerfectQuizCategory(BadgeCategory):
     def get_progress(self, user, quiz_result):
         return get_num_perfects(user)
 
+
 class BookCategory(BadgeCategory):
     def get_progress(self, user, quiz_result):
         return get_num_books(user)
+
 
 def get_quiz_word(quantity):
     if quantity == 1:
         return "Quiz"
     return "Quizzes"
 
+
 def get_book_word(quantity):
     if quantity == 1:
         return "Book"
     return "Books"
+
 
 class NthQuizBadge(Badge):
     def __init__(self, quantity, graphic):
@@ -110,8 +119,9 @@ class NthQuizBadge(Badge):
             f"This award is given after completing {quantity} {get_quiz_word(quantity).lower()}",
             f"Congratulations on completing {quantity} {get_quiz_word(quantity).lower()}!",
             graphic,
-            quantity
+            quantity,
         )
+
 
 class NthPerfectBadge(Badge):
     def __init__(self, quantity, graphic):
@@ -123,8 +133,9 @@ class NthPerfectBadge(Badge):
             f"This award is given after completing {quantity} perfect {get_quiz_word(quantity).lower()}",
             f"Congratulations on completing {quantity} perfect {get_quiz_word(quantity).lower()}!",
             graphic,
-            quantity
+            quantity,
         )
+
 
 class NthBookBadge(Badge):
     def __init__(self, quantity, graphic):
@@ -136,19 +147,38 @@ class NthBookBadge(Badge):
             f"This award is given after completing quizzes from {quantity} {get_book_word(quantity).lower()}",
             f"Congratulations on completing quizzes from {quantity} {get_book_word(quantity).lower()}!",
             graphic,
-            quantity
+            quantity,
         )
-    
 
-quiz_badges = [NthQuizBadge(1, "bronze_quiz"), NthQuizBadge(3, "silver_quiz"), NthQuizBadge(5, "gold_quiz"), NthQuizBadge(10, "diamond_quiz")]
-perfect_badges = [NthPerfectBadge(1, "bronze_perfect"), NthPerfectBadge(3, "silver_perfect"), NthPerfectBadge(5, "gold_perfect"), NthPerfectBadge(10, "diamond_perfect")]
-book_badges = [NthBookBadge(1, "bronze_book"), NthBookBadge(3, "silver_book"), NthBookBadge(5, "gold_book"), NthBookBadge(10, "diamond_book")]
+
+quiz_badges = [
+    NthQuizBadge(1, "bronze_quiz"),
+    NthQuizBadge(3, "silver_quiz"),
+    NthQuizBadge(5, "gold_quiz"),
+    NthQuizBadge(10, "diamond_quiz"),
+]
+perfect_badges = [
+    NthPerfectBadge(1, "bronze_perfect"),
+    NthPerfectBadge(3, "silver_perfect"),
+    NthPerfectBadge(5, "gold_perfect"),
+    NthPerfectBadge(10, "diamond_perfect"),
+]
+book_badges = [
+    NthBookBadge(1, "bronze_book"),
+    NthBookBadge(3, "silver_book"),
+    NthBookBadge(5, "gold_book"),
+    NthBookBadge(10, "diamond_book"),
+]
 
 quiz_badge_category = NthQuizCategory(quiz_badges, "completed-quizzes")
 perfect_badge_category = PerfectQuizCategory(perfect_badges, "perfect-quizzes")
 book_badge_category = BookCategory(book_badges, "completed-books")
 
-all_badge_categories = [quiz_badge_category, perfect_badge_category, book_badge_category]
+all_badge_categories = [
+    quiz_badge_category,
+    perfect_badge_category,
+    book_badge_category,
+]
 
 # construct a map of badge ids to badge objects for quicker access
 all_badge_map = {}
@@ -156,30 +186,37 @@ for category in all_badge_categories:
     for badge in category.badges:
         all_badge_map[badge.id] = badge
 
+
 def give_user_badges(user, quiz_result):
     new_badges = []
     earned_badges_set = set(user.badges)
     for category in all_badge_categories:
-        new_badges.extend(category.get_newly_earned_badges(earned_badges_set, user, quiz_result))
+        new_badges.extend(
+            category.get_newly_earned_badges(earned_badges_set, user, quiz_result)
+        )
     for badge in new_badges:
         user.badges.append(badge.id)
 
     return [badge.serialize_to_json() for badge in new_badges]
 
+
 def get_user_badges(user):
     return [all_badge_map[badge_id] for badge_id in user.badges]
+
 
 def get_progress_on_badges(user):
     progress = []
     earned_badges_set = set(user.badges)
     for category in all_badge_categories:
-        next_badge_progress_or_none = category.get_progress_on_next_badge(earned_badges_set, user, None)
+        next_badge_progress_or_none = category.get_progress_on_next_badge(
+            earned_badges_set, user, None
+        )
         if next_badge_progress_or_none is not None:
             next_badge_progress, next_badge = next_badge_progress_or_none
             category_progress = {
                 "type": category.name,
                 "currentCount": next_badge_progress,
-                "targetCount": next_badge.quantity
+                "targetCount": next_badge.quantity,
             }
             category_progress.update(next_badge.serialize_to_json())
             progress.append(category_progress)

@@ -108,6 +108,7 @@ def user_info():
     user_data = user.serialize_to_json()
     return create_response(message="Success", status=200, data=user_data)
 
+
 # returns all in progress badges and already earned badges
 @user.route("/badges", methods=["GET"])
 @authenticated_route
@@ -121,6 +122,6 @@ def badges(user_id):
     badges_progress = Badge.get_progress_on_badges(user)
     response_dict = {
         "badgesEarned": [badge.serialize_to_json() for badge in earned_badges],
-        "badgesInProgress": badges_progress 
+        "badgesInProgress": badges_progress,
     }
     return create_response(message="Success", status=200, data=response_dict)
