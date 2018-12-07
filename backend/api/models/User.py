@@ -50,7 +50,9 @@ class User(Mixin, db.Model):
         self.is_admin = False
 
     def __repr__(self):
-        return f"<User name:{self.name}> password:{self.password} username:{self.username}"
+        return (
+            f"<User name:{self.name}> password:{self.password} username:{self.username}"
+        )
 
     def serialize_to_json(self):
         return {

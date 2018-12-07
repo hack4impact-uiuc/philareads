@@ -28,7 +28,9 @@ def register_user():
         )
 
     user = User(
-        name=user_data["name"], password=user_data["password"], username=user_data["username"]
+        name=user_data["name"],
+        password=user_data["password"],
+        username=user_data["username"],
     )
 
     db.session.add(user)
