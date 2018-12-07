@@ -63,9 +63,34 @@ class AccountManagePage extends Component {
 
   handleProfileSubmit = async () => {
     let userData = {
-      name: this.state.changedName,
-      username: this.state.changedUsername
+      name: this.state.name,
+      username: this.state.username
     };
+
+    if (
+      this.state.changedUsername.length > 0 &&
+      this.state.changedName.length > 0
+    ) {
+      userData = {
+        name: this.state.changedName,
+        username: this.state.changedUsername
+      };
+      console.log('here1');
+    } else if (this.state.changedUsername.length > 0) {
+      userData = {
+        name: this.state.name,
+        username: this.state.changedUsername
+      };
+      console.log('here2');
+    } else if (this.state.changedName.length > 0) {
+      userData = {
+        name: this.state.changedName,
+        username: this.state.username
+      };
+      console.log('here2');
+    }
+
+    console.log(userData);
     console.log(postUserData(userData));
 
     const { message } = await postUserData(userData);

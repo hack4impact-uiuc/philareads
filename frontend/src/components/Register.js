@@ -12,7 +12,6 @@ import {
 import { Redirect } from 'react-router';
 import { register } from '../utils/api.js';
 import Cookies from 'universal-cookie';
-import validateEmail from '../utils/validationHelpers';
 import '../styles/Login.scss';
 
 class Register extends Component {
@@ -22,7 +21,7 @@ class Register extends Component {
       name: '',
       password: '',
       password_confirm: '',
-      email: '',
+      username: '',
       isLoggedIn: this.isLoggedIn(),
       errors: []
     };
@@ -37,7 +36,7 @@ class Register extends Component {
   canSubmit() {
     var canSubmit = false;
     if (
-      validateEmail(this.state.email) &&
+      this.state.username.length > 0 &&
       this.state.name.length > 0 &&
       this.state.password.length > 0 &&
       this.state.password_confirm.length > 0 &&
@@ -53,7 +52,7 @@ class Register extends Component {
     const { success, result, message } = await register({
       name: this.state.name,
       password: this.state.password,
-      email: this.state.email
+      username: this.state.username
     });
     if (success) {
       const cookies = new Cookies();
@@ -106,28 +105,14 @@ class Register extends Component {
               </FormGroup>
               <FormGroup>
                 <Input
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
                   onChange={this.handleChange}
-                  ref="emailInput"
+                  ref="usernameInput"
                   onBlur={() => this.forceUpdate()}
-                  className={
-                    'form-control ' +
-                    (this.state.email.length > 0 &&
-                      (validateEmail(this.state.email)
-                        ? 'is-valid'
-                        : 'is-invalid'))
-                  }
-                  placeholder="Email"
+                  placeholder="Username"
                 />
-                {document.activeElement !==
-                  ReactDOM.findDOMNode(this.refs.emailInput) && (
-                  <FormFeedback invalid="true">
-                    That email doesn't look valid.
-                  </FormFeedback>
-                )}
-                <FormFeedback valid>Your email looks good!</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Input
@@ -160,7 +145,7 @@ class Register extends Component {
                 {document.activeElement !==
                   ReactDOM.findDOMNode(this.refs.passwordConfirm) && (
                   <FormFeedback invalid="true">
-                    Looks like your password doesn't match.
+                    Looks like your password doesnt match.
                   </FormFeedback>
                 )}
                 <FormFeedback valid>Great! Your password matches.</FormFeedback>
