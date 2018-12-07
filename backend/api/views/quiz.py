@@ -255,6 +255,7 @@ def create_quiz_result():
         db.session.add(db_question_result)
 
     new_badges = give_user_badges(user, new_quiz_result)
+    print("new badges: ", user.badges)
     user.attempted_quizzes.append(new_quiz_result)
     db.session.commit()
 
