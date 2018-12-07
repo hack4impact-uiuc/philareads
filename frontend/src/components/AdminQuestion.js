@@ -21,22 +21,25 @@ class AdminQuestion extends Component {
     switch (e.target.name) {
       case 'option-a-input':
         questionCopy['options'][0] = e.target.value;
-        questionCopy['correct_option'] = this.props.question.options[0];
         break;
       case 'option-b-input':
         questionCopy['options'][1] = e.target.value;
-        questionCopy['correct_option'] = this.props.question.options[1];
         break;
       case 'option-c-input':
         questionCopy['options'][2] = e.target.value;
-        questionCopy['correct_option'] = this.props.question.options[2];
         break;
       case 'option-d-input':
         questionCopy['options'][3] = e.target.value;
-        questionCopy['correct_option'] = this.props.question.options[3];
         break;
       default:
         questionCopy[e.target.name] = e.target.value;
+    }
+    if (questionCopy['correct_option_idx'] > -1) {
+      // If the there's a correct option set, update the value
+
+      questionCopy['correct_option'] =
+        questionCopy['options'][questionCopy['correct_option_idx']];
+      console.log(questionCopy['options'][questionCopy['correct_option_idx']]);
     }
     this.props.changeHandler(questionCopy, this.props.indexInQuestionArray);
   };

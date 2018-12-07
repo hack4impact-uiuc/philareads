@@ -112,8 +112,8 @@ class AdminQuizForm extends Component {
           questionKey: state.questionCounter,
           text: '',
           options: ['', '', '', ''],
-          correct_answer: '',
-          correct_answer_idx: -1
+          correct_option: '',
+          correct_option_idx: -1
         }
       ],
       questionCounter: state.questionCounter + 1
@@ -122,10 +122,10 @@ class AdminQuizForm extends Component {
 
   handleElementChange = (question, idx) => {
     this.setState(state => {
-      var questionCopy = state.questions.splice();
-      questionCopy[idx] = question;
+      var questionsCopy = JSON.parse(JSON.stringify(state.questions));
+      questionsCopy[idx] = question;
       return {
-        questions: questionCopy
+        questions: questionsCopy
       };
     });
   };
