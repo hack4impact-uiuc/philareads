@@ -5,17 +5,12 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 library.add(faTimes);
 class AdminQuestion extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      correctAnswerIndex: -1
-    };
-  }
-  handleCorrectAnswer = (e, x) => {
+  handleCorrectAnswer = (e, idx) => {
     e.preventDefault();
-    this.setState({
-      correctAnswerIndex: x
-    });
+    var questionCopy = this.props.question;
+    questionCopy['correct_option'] = this.props.question.options[idx];
+    questionCopy['correct_option_idx'] = idx;
+    this.props.changeHandler(questionCopy, this.props.indexInQuestionArray);
   };
 
   handleChange = e => {
@@ -26,15 +21,19 @@ class AdminQuestion extends Component {
     switch (e.target.name) {
       case 'option-a-input':
         questionCopy['options'][0] = e.target.value;
+        questionCopy['correct_option'] = this.props.question.options[0];
         break;
       case 'option-b-input':
         questionCopy['options'][1] = e.target.value;
+        questionCopy['correct_option'] = this.props.question.options[1];
         break;
       case 'option-c-input':
         questionCopy['options'][2] = e.target.value;
+        questionCopy['correct_option'] = this.props.question.options[2];
         break;
       case 'option-d-input':
         questionCopy['options'][3] = e.target.value;
+        questionCopy['correct_option'] = this.props.question.options[3];
         break;
       default:
         questionCopy[e.target.name] = e.target.value;
@@ -81,14 +80,14 @@ class AdminQuestion extends Component {
               <Col lg="3" className="option-col">
                 <Button
                   color={
-                    this.state.correctAnswerIndex === 0
+                    this.props.question['correct_option_idx'] === 0
                       ? 'success'
                       : 'secondary'
                   }
                   className="correct-btn"
                   onClick={e => this.handleCorrectAnswer(e, 0)}
                 >
-                  {this.state.correctAnswerIndex === 0
+                  {this.props.question['correct_option_idx'] === 0
                     ? 'Correct Answer'
                     : 'Mark Correct'}
                 </Button>
@@ -110,14 +109,14 @@ class AdminQuestion extends Component {
               <Col lg="3" className="option-col">
                 <Button
                   color={
-                    this.state.correctAnswerIndex === 1
+                    this.props.question['correct_option_idx'] === 1
                       ? 'success'
                       : 'secondary'
                   }
                   className="correct-btn"
                   onClick={e => this.handleCorrectAnswer(e, 1)}
                 >
-                  {this.state.correctAnswerIndex === 1
+                  {this.props.question['correct_option_idx'] === 1
                     ? 'Correct Answer'
                     : 'Mark Correct'}
                 </Button>
@@ -139,14 +138,14 @@ class AdminQuestion extends Component {
               <Col lg="3" className="option-col">
                 <Button
                   color={
-                    this.state.correctAnswerIndex === 2
+                    this.props.question['correct_option_idx'] === 2
                       ? 'success'
                       : 'secondary'
                   }
                   className="correct-btn"
                   onClick={e => this.handleCorrectAnswer(e, 2)}
                 >
-                  {this.state.correctAnswerIndex === 2
+                  {this.props.question['correct_option_idx'] === 2
                     ? 'Correct Answer'
                     : 'Mark Correct'}
                 </Button>
@@ -169,14 +168,14 @@ class AdminQuestion extends Component {
               <Col lg="3" className="option-col">
                 <Button
                   color={
-                    this.state.correctAnswerIndex === 3
+                    this.props.question['correct_option_idx'] === 3
                       ? 'success'
                       : 'secondary'
                   }
                   className="correct-btn"
                   onClick={e => this.handleCorrectAnswer(e, 3)}
                 >
-                  {this.state.correctAnswerIndex === 3
+                  {this.props.question['correct_option_idx'] === 3
                     ? 'Correct Answer'
                     : 'Mark Correct'}
                 </Button>

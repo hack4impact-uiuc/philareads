@@ -111,7 +111,9 @@ class AdminQuizForm extends Component {
         {
           questionKey: state.questionCounter,
           text: '',
-          options: ['', '', '', '']
+          options: ['', '', '', ''],
+          correct_answer: '',
+          correct_answer_idx: -1
         }
       ],
       questionCounter: state.questionCounter + 1
