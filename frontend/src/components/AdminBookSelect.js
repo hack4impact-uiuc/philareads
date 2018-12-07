@@ -27,18 +27,23 @@ class AdminBookSelect extends Component {
 
   changeSelection = e => {
     this.setState({
-      currentSelectedBook: this.state.books[e.target.selectedIndex]
+      currentSelectedBook: this.state.books[e.target.selectedIndex - 1]
     });
-    this.props.handleBookSelect(this.state.books[e.target.selectedIndex]);
+    // Subtract one from the selected index since we now have a disabled first field for book selection
+    this.props.handleBookSelect(this.state.books[e.target.selectedIndex - 1]);
   };
 
   render() {
     return (
       <div>
         <select className="form-control" onChange={this.changeSelection}>
+          <option disabled selected value>
+            {' '}
+            -- Select A Book --{' '}
+          </option>
           {this.state.books.map((element, id) => {
             return (
-              <option key={element['id']} value={element['id']}>
+              <option key={element['id']} value={element['ida']}>
                 {element['name'] + ' (' + element['author'] + ')'}
               </option>
             );

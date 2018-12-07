@@ -36,7 +36,6 @@ class AdminQuestion extends Component {
     }
     if (questionCopy['correct_option_idx'] > -1) {
       // If the there's a correct option set, update the value
-
       questionCopy['correct_option'] =
         questionCopy['options'][questionCopy['correct_option_idx']];
       console.log(questionCopy['options'][questionCopy['correct_option_idx']]);
@@ -56,7 +55,7 @@ class AdminQuestion extends Component {
             onClick={this.deleteQuestion}
           />
           <FormGroup>
-            <Label>Question</Label>
+            <Label>Question {this.props.indexInQuestionArray + 1}</Label>
 
             <Input
               type="text"
