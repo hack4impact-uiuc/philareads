@@ -32,7 +32,6 @@ class AccountManagePage extends Component {
 
   fetchUserData = async () => {
     const { result } = await getUserData();
-    console.log(result);
     this.setState({ name: result['name'], username: result['username'] });
   };
 
@@ -75,28 +74,20 @@ class AccountManagePage extends Component {
         name: this.state.changedName,
         username: this.state.changedUsername
       };
-      console.log('here1');
     } else if (this.state.changedUsername.length > 0) {
       userData = {
         name: this.state.name,
         username: this.state.changedUsername
       };
-      console.log('here2');
     } else if (this.state.changedName.length > 0) {
       userData = {
         name: this.state.changedName,
         username: this.state.username
       };
-      console.log('here2');
     }
-
-    console.log(userData);
-    console.log(postUserData(userData));
 
     const { message } = await postUserData(userData);
     this.setState({ message: message });
-
-    console.log(message);
 
     if (message === 'Successfully updated user') {
       this.setState({ alertMessage: 'Profile Updated!' });
@@ -116,9 +107,6 @@ class AccountManagePage extends Component {
       newPassword: '',
       confirmPassword: ''
     });
-    //console.log(this.currentPasswordInput.current.props.value)
-    //console.log(this.input.value)
-    //this.currentPasswordInput.setState({ value: ''})
 
     const { message } = await updatePassword(passwordData);
     this.setState({ message: message });
