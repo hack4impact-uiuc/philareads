@@ -9,6 +9,27 @@ import {
 } from 'reactstrap';
 
 class QuizRedo extends Component {
+  renderProgress = () => {
+    let correct = (this.props.numCorrectQ / this.props.numTotalQ) * 100;
+    let incorrect =
+      ((this.props.numTotalQ - this.props.numCorrectQ) / this.props.numTotalQ) *
+      100;
+    return (
+      <div
+        style={{
+          marginLeft: '50px',
+          marginRight: '50px',
+          marginBottom: '20px'
+        }}
+      >
+        <Progress multi>
+          <Progress bar color="success" value={correct} />
+          <Progress bar color="danger" value={incorrect} />
+        </Progress>
+      </div>
+    );
+  };
+
   renderModal = () => {
     return (
       <div>
@@ -21,21 +42,7 @@ class QuizRedo extends Component {
             {this.props.numCorrectQ}/{this.props.numTotalQ}.<br />
             You can redo this quiz, or move on to other activities!
           </ModalBody>
-          <div
-            style={{
-              marginLeft: '50px',
-              marginRight: '50px',
-              marginBottom: '20px'
-            }}
-          >
-            <Progress multi>
-              <Progress bar value="15" />
-              <Progress bar color="success" value="30" />
-              <Progress bar color="info" value="25" />
-              <Progress bar color="warning" value="20" />
-              <Progress bar color="danger" value="5" />
-            </Progress>
-          </div>
+          {this.renderProgress()}
           <ModalFooter>
             <Button color="secondary" onClick={this.props.redoQuiz}>
               Redo

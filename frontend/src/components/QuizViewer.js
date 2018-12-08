@@ -52,12 +52,13 @@ class QuizViewer extends Component {
   renderProgress = () => {
     let value = (this.state.answered / this.props.questionList.length) * 100;
     return (
-      <div container="text-center">
-        <h3 style={{ textAlign: 'center' }}>Quiz Progress</h3>
-        <div style={{ display: 'inline' }}>
-          <Progress color="success" value={value} />
-          {this.renderRedoButton()}
-        </div>
+      <div>
+        <Progress
+          color="success"
+          value={value}
+          style={{ display: 'inline-block', width: '75%' }}
+        />
+        {this.renderRedoButton()}
       </div>
     );
   };
@@ -70,7 +71,11 @@ class QuizViewer extends Component {
       color = 'secondary';
     }
     return (
-      <Button color={color} onClick={this.props.redoQuiz}>
+      <Button
+        color={color}
+        onClick={this.props.redoQuiz}
+        style={{ float: 'right' }}
+      >
         Redo
       </Button>
     );
