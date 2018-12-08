@@ -6,6 +6,7 @@ from api.core import (
     serialize_list,
     logger,
     admin_route,
+    authenticated_route,
     invalid_model_helper,
 )
 import io
@@ -22,7 +23,8 @@ def invalid_book_data(user_data):
 
 
 @book.route("/book_from_csv", methods=["POST"])
-def create_book_from_csv():
+@admin_route
+def create_book_from_csv(user_id):
     uploaded_csv = request.files["File"]
     if not uploaded_csv:
         return create_response(message="Missing CSV file", status=409)
@@ -57,7 +59,8 @@ def create_book_from_csv():
 
 
 @book.route("/book", methods=["POST"])
-def create_book():
+@admin_route
+def create_book(user_id):
     user_data = request.get_json()
 
     # check all fields are entered

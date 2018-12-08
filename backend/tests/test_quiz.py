@@ -68,7 +68,23 @@ sample_bad_json_data = """
 
 
 def test_create_valid_quiz(client):
-    print("creating book!")
+    # create a new admin user and use its credentials for all subsequent requests
+    user = User(name="admin", password="password123", email="test1@gmail.com")
+    user.is_admin = True
+
+    db.session.add(user)
+    db.session.commit()
+
+    login_res = client.post(
+        "/login",
+        data=json.dumps(
+            dict(name="admin", password="password123", email="test1@gmail.com")
+        ),
+        content_type="application/json",
+    )
+    auth_token = login_res.json["result"]["auth_token"]
+    client.set_cookie("localhost", "jwt", auth_token)
+
     client.post("/book", data=sample_book_json, content_type="application/json")
     # pdb.set_trace()
     res = client.post("/quiz", data=sample_good_json, content_type="application/json")
