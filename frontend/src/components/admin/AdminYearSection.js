@@ -24,10 +24,8 @@ import { Link } from 'react-router-dom';
 import AdminYearModal from './AdminYearModal';
 import {
   getROCurrentYear,
-  setROCurrentYear,
-  getAllBooks,
-  getBooksByYearGrade,
-  getQuizzes
+  setROActiveYear,
+  publishAllBooksInYear
 } from '../../utils/api';
 
 class AdminYearSection extends Component {
@@ -61,7 +59,6 @@ class AdminYearSection extends Component {
 
   allowSubmitChangeYear = () => {
     const { originalReadingOlympicsYear, readingOlympicsYear } = this.state;
-    console.log(readingOlympicsYear.length === 4);
     return (
       originalReadingOlympicsYear !== readingOlympicsYear &&
       !isNaN(readingOlympicsYear) &&
@@ -76,7 +73,7 @@ class AdminYearSection extends Component {
     }
     this.setState({ confirmationModalOpen: false });
     const { readingOlympicsYear } = this.state;
-    const { message, success } = await setROCurrentYear(
+    const { message, success } = await setROActiveYear(
       parseInt(readingOlympicsYear)
     );
     if (success) {
