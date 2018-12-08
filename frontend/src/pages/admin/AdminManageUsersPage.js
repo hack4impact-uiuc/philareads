@@ -23,7 +23,8 @@ class AdminManageUsersPage extends Component {
     this.state = {
       modal: false,
       username: '',
-      alert: null
+      success: null,
+      failure: null
     };
   }
 
@@ -33,9 +34,15 @@ class AdminManageUsersPage extends Component {
     });
   };
 
-  setStateAlert = message => {
+  setStateSuccess = message => {
     this.setState({
-      alert: message
+      success: message
+    });
+  };
+
+  setStateFailure = message => {
+    this.setState({
+      failure: message
     });
   };
 
@@ -52,18 +59,22 @@ class AdminManageUsersPage extends Component {
 
     if (success) {
       this.toggleModal();
-      this.setStateAlert(message);
+      this.setStateSuccess(message);
     } else {
       this.toggleModal();
-      this.setStateAlert(message);
+      this.setStateFailure(message);
     }
   };
 
   render() {
     let header;
-    if (this.state.alert !== null) {
-      header = <Alert color="danger">{this.state.alert}</Alert>;
+
+    if (this.state.success !== null) {
+      header = <Alert color="success">{this.state.success}</Alert>;
+    } else if (this.state.failure !== null) {
+      header = <Alert color="danger">{this.state.failure}</Alert>;
     }
+
     return (
       <Container fluid>
         <Row>
@@ -74,7 +85,7 @@ class AdminManageUsersPage extends Component {
             <h1>Upgrade an Account</h1>
             <hr />
             {header}
-            <h5>Make an accout an admin account.</h5>
+            <h5>Grant admin privileges to an existing account.</h5>
             <p>Account to Upgrade:</p>
             <Form>
               <Input
