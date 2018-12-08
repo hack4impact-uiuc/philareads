@@ -63,6 +63,19 @@ function getROCurrentYear() {
   // }).then(res => res.json());
 }
 
+function setROCurrentYear() {
+  return {
+    success: true,
+    result: {
+      results: 2019
+    },
+    message: ''
+  };
+  // return fetch(`${API_URL}/currentReading`, {
+  //   method: 'GET'
+  // }).then(res => res.json());
+}
+
 function getROArchiveYears() {
   return fetch(`${API_URL}/years`, {
     method: 'GET'
@@ -219,6 +232,7 @@ export {
   search,
   getBooksByYearGrade,
   getROCurrentYear,
+  setROCurrentYear,
   getROArchiveYears,
   getBookData,
   getQuizzes,

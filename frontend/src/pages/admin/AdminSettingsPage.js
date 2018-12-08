@@ -19,7 +19,15 @@ import {
 import { Link } from 'react-router-dom';
 import AdminNavigator from '../../components/AdminNavigator';
 import AdminPublishModal from '../../components/admin/AdminPublishModal';
-import { getAllBooks, getBooksByYearGrade, getQuizzes } from '../../utils/api';
+import AdminYearModal from '../../components/admin/AdminYearModal';
+import AdminYearSection from '../../components/admin/AdminYearSection';
+import {
+  getROCurrentYear,
+  setROCurrentYear,
+  getAllBooks,
+  getBooksByYearGrade,
+  getQuizzes
+} from '../../utils/api';
 import '../../styles/admin/AdminHome.scss';
 
 class AdminSettingsPage extends Component {
@@ -27,17 +35,14 @@ class AdminSettingsPage extends Component {
     super(props);
     this.state = {
       success: null,
+      successModalOpen: false,
       books: [],
       currentSelectedBook: null,
-      readingOlympicsYear: '',
       errors: [],
-      readingOlympicsYear: ''
+      numSubmits: 0
     };
     this.getBooks();
   }
-  handleSuccess = () => {
-    this.setState({ success: true });
-  };
 
   getBooks = async () => {
     const { message, success, result } = await getAllBooks();
@@ -84,49 +89,6 @@ class AdminSettingsPage extends Component {
     );
   }
 
-  renderActiveYear = () => {
-    return (
-      <Card>
-        <CardBody>
-          <CardText>
-            <Form>
-              <FormGroup>
-                <Label>Current Reading Olympics Year</Label>
-                <Input
-                  type="text"
-                  name="readingOlympicsYear"
-                  className={
-                    'form-control ' +
-                    (this.state.readingOlympicsYear !== '' &&
-                      (isNaN(this.state.readingOlympicsYear)
-                        ? 'is-invalid'
-                        : 'is-valid'))
-                  }
-                  onChange={this.handleChange}
-                  maxLength="4"
-                  pattern="[0-9]{4}"
-                  required
-                  placeholder="Ex: 2018"
-                  value={this.state.readingOlympicsYear}
-                />
-                <FormText>
-                  Specify the active Reading Olympics year, which determines
-                  where the button on the{' '}
-                  <Link to="/ReadingOlympics">Reading Olympics main page</Link>{' '}
-                  goes to.
-                </FormText>
-                <FormFeedback invalid="true">
-                  The year has to be a number.
-                </FormFeedback>
-              </FormGroup>
-              <Button>Update</Button>
-            </Form>
-          </CardText>
-        </CardBody>
-      </Card>
-    );
-  };
-
   handleDeletePress = e => {
     e.preventDefault();
     this.setState({ deleteButtonPressed: true });
@@ -151,23 +113,30 @@ class AdminSettingsPage extends Component {
     // }
   };
 
+  renderSuccessModal = () => {
+    if (this.state.success && this.state.successModalOpen) {
+      return <div>Success</div>;
+    }
+  };
+
   render() {
     return (
       <Container fluid>
-        <AdminPublishModal
-          handleYesDelete={this.deleteBook}
-          isOpen={this.state.deleteButtonPressed}
-          book={this.state.currentSelectedBook}
-          toggleModal={this.toggleModal}
-        />
         <Row>
           <Col lg="2">
             <AdminNavigator />
           </Col>
           <Col lg="6" className="admin-home">
-            {this.renderActiveYear()}
+            {this.renderSuccessModal()}
+            <AdminYearSection />
             {this.getDropdown()}
             <h1>View unpublished books</h1>
+            <AdminPublishModal
+              handleYesDelete={this.deleteBook}
+              isOpen={this.state.deleteButtonPressed}
+              book={this.state.currentSelectedBook}
+              toggleModal={this.toggleModal}
+            />
             <hr />
             <h1>View unpublished quizzes</h1>
             <hr />
