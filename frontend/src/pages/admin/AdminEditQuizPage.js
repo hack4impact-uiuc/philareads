@@ -37,7 +37,8 @@ class AdminEditQuizPage extends Component {
 
   handleBookSelect = book => {
     this.setState({
-      currentSelectedBook: book
+      currentSelectedBook: book,
+      currentSelectedQuiz: -1
     });
   };
 

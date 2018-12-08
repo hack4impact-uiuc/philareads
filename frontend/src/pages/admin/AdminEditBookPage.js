@@ -34,7 +34,7 @@ class AdminEditBookPage extends Component {
 
   deleteBook = async () => {
     this.toggleModal();
-    const { message, success, result } = await deleteBook();
+    const { message, success } = await deleteBook();
     if (success) {
       this.setState({ success: true });
     } else {

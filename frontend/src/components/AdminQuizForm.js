@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button,
-  Alert,
-  Col,
-  Row,
-  FormFeedback
-} from 'reactstrap';
+import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import AdminQuestion from '../components/AdminQuestion';
 import '../styles/admin/AdminQuizForm.scss';
 

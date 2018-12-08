@@ -35,7 +35,7 @@ class AdminBookSelect extends Component {
 
   render() {
     return (
-      <div>
+      <div className="book-select">
         <select
           className="form-control"
           onChange={this.changeSelection}

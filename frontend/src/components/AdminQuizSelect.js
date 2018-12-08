@@ -42,7 +42,7 @@ class AdminQuizSelect extends Component {
 
   render() {
     return (
-      <div>
+      <div className="quiz-select">
         <select
           className="form-control"
           onChange={this.changeSelection}
