@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Advice from '../components/Advice';
+import { Alert, Container } from 'reactstrap';
 import { getAdvice } from '../utils/api';
 import '../styles/ParentsPage.scss';
 class ParentsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      adviceID: props.match.params.id
+      adviceID: props.match.params.id,
+      adviceData: [],
+      alert: null
     };
     this.fetchAdviceData();
   }
@@ -25,8 +28,7 @@ class ParentsPage extends Component {
     );
     if (success) {
       if (result['results'].length > 0) {
-        this.setState({ adviceData: result['results'][0]['text'] });
-        console.log(this.state.adviceData);
+        this.setState({ adviceData: result['results'] });
       } else {
         // User somehow navigated to a book page of invalid ID.
         // Redirect them to the main ReadingOlympics page
@@ -37,14 +39,24 @@ class ParentsPage extends Component {
     }
   };
 
+  renderAdviceCards = () => {
+    return this.state.adviceData.map(advice => (
+      <Advice adviceCards={advice['text']} />
+    ));
+  };
+
   render() {
+    let header;
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
+    }
+
     return (
-      <div className="parents-page">
+      <Container className="parents-page">
         <h1 class="page-title">Parents Page</h1>
-        <div>
-          <Advice adviceCards={this.state.adviceData} />
-        </div>
-      </div>
+        {header}
+        {this.renderAdviceCards()}
+      </Container>
     );
   }
 }
