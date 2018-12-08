@@ -21,7 +21,7 @@ class AdminYearModal extends Component {
         <ModalFooter>
           <Button color="danger" onClick={this.props.handleConfirm}>
             Yes
-          </Button>{' '}
+          </Button>
           <Button color="primary" onClick={this.props.toggleModal}>
             Cancel
           </Button>

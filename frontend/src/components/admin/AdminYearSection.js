@@ -80,7 +80,7 @@ class AdminYearSection extends Component {
       this.setState({
         success: true,
         successModalOpen: true,
-        readingOlympicsYear: readingOlympicsYear
+        originalReadingOlympicsYear: readingOlympicsYear
       });
     } else {
       this.setState(state => ({
