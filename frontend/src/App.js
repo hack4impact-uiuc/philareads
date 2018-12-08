@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Search from './pages/Search';
 import AccountManagePage from './pages/AccountManagePage';
 import AdminPage from './pages/admin/AdminPage';
+import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
 import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
@@ -75,6 +76,10 @@ class App extends Component {
               exact
               path="/admin"
               component={withAdminProtection(AdminPage)}
+            />
+            <Route
+              path="/admin/settings"
+              component={withAdminProtection(AdminSettingsPage)}
             />
             <Route
               exact
