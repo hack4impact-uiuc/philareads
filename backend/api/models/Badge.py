@@ -1,4 +1,3 @@
-import pdb
 from api.models import Quiz
 
 # this file and the classes in it do not correspond to a table in the Database
