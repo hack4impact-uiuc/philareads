@@ -11,6 +11,7 @@ import BookPage from './pages/BookPage';
 import QuizPage from './pages/QuizPage';
 import Logout from './components/Logout';
 import Search from './pages/Search';
+import AccountManagePage from './pages/AccountManagePage';
 import AdminPage from './pages/admin/AdminPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
