@@ -11,6 +11,12 @@ class AdminNavigator extends Component {
       <Card className="admin-navigator">
         <CardBody>
           <CardTitle>Navigation</CardTitle>
+          Account
+          <ul>
+            <li>
+              <a href="/admin/manage_users">Upgrade User</a>
+            </li>
+          </ul>
           Books
           <ul>
             <li>

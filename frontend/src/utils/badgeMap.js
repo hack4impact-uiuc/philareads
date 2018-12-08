@@ -2,7 +2,7 @@ import Blank_Book from '../images/final_badges/Blank_Book.svg';
 import Blank_Quiz from '../images/final_badges/Blank_Quiz.svg';
 import Blank_Perfect from '../images/final_badges/Blank_Perfect.svg';
 import Bronze_Book from '../images/final_badges/Bronze_Book.svg';
-import Bronze_Quiz from '../images/final_badges/Bronze_Book.svg';
+import Bronze_Quiz from '../images/final_badges/Bronze_Quiz.svg';
 import Bronze_Perfect from '../images/final_badges/Bronze_Perfect.svg';
 import Silver_Book from '../images/final_badges/Silver_Book.svg';
 import Silver_Quiz from '../images/final_badges/Silver_Quiz.svg';

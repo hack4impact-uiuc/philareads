@@ -65,7 +65,9 @@ def create_quiz_helper(user_data):
 
     linked_book = Book.query.get(user_data["book_id"])
     if linked_book is None:
-        return dict(message="Book not found", status=422, data={"status": "fail"})
+        return dict(
+            message="Corresponding book not found", status=422, data={"status": "fail"}
+        )
 
     if duplicate_quiz(user_data):
         return dict(data={"status": "fail"}, message="Quiz already exists.", status=409)

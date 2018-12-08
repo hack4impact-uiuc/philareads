@@ -91,7 +91,9 @@ class Register extends Component {
     return (
       <div className="container">
         {/* Redirect to the kids page if JWT exists*/}
-        {this.state.isLoggedIn && <Redirect to="/" />}
+        {this.state.isLoggedIn && (
+          <Redirect to={{ pathname: '/', state: { referrer: 'register' } }} />
+        )}
         {this.getLoggedInMessage()}
         <div className="text-center">
           <Form className="form-signin" name="form">

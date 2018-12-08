@@ -48,4 +48,5 @@ class Book(Mixin, db.Model):
             "grade": self.grade,
             "year": self.year,
             "cover_url": self.cover_url,
+            "published": self.published,
         }

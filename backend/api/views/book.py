@@ -66,7 +66,7 @@ def create_book(user_id):
     # check all fields are entered
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing required book information",
+            message="Missing name, author, grade, year, or published",
             status=400,
             data={"status": "failure"},
         )
@@ -88,7 +88,7 @@ def create_book(user_id):
     )
     if not (dup_book is None):
         return create_response(
-            message="Duplicate book", status=409, data={"status": "failure"}
+            message="Book already exists", status=409, data={"status": "failure"}
         )
 
     # add book to database
@@ -107,6 +107,38 @@ def create_book(user_id):
     return create_response(message="Book added", status=200, data={"status": "success"})
 
 
+@book.route("/<book_id>/all_quizzes", methods=["GET"])
+@admin_route
+def get_all_quizzes(user_id, book_id):
+    book = Book.query.filter_by(id=book_id).first()
+
+    # check to see if book is valid
+    if book is None:
+        return create_response(
+            message="Book not found", status=400, data={"status": "failure"}
+        )
+
+    quizList = []
+    # add all quizzes associated with book
+    for quiz in book.quizzes:
+        temp_quiz = {}
+        questionList = []
+        for question in quiz.questions:
+            questionList.append(question.to_dict())
+
+        temp_quiz["name"] = quiz.name
+        temp_quiz["book_id"] = book_id
+        temp_quiz["quizzes"] = questionList
+        temp_quiz["published"] = quiz.published
+        quizList.append(temp_quiz)
+
+    return create_response(
+        message="Quizzes corresponding to book_id returned",
+        status=200,
+        data={"quizzes": quizList},
+    )
+
+
 @book.route("/<book_id>/quizzes", methods=["GET"])
 def get_quizzes(book_id):
     book = Book.query.filter_by(id=book_id).first()
@@ -114,7 +146,9 @@ def get_quizzes(book_id):
     # check to see if book is valid
     if book is None:
         return create_response(
-            message="Book not found", status=400, data={"status": "failure"}
+            message="Corresponding book does not exist",
+            status=400,
+            data={"status": "failure"},
         )
 
     quizList = []
@@ -130,12 +164,44 @@ def get_quizzes(book_id):
         temp_quiz["name"] = quiz.name
         temp_quiz["book_id"] = book_id
         temp_quiz["quizzes"] = questionList
+        temp_quiz["published"] = quiz.published
         quizList.append(temp_quiz)
 
     return create_response(
         message="Quizzes corresponding to book_id returned",
         status=200,
         data={"quizzes": quizList},
+    )
+
+
+@book.route("/all_books", methods=["GET"])
+@admin_route
+def find_all_books(user_id):
+    user_data = request.args
+    filtered_books = Book.query
+    props = ["id", "name", "author", "grade", "year", "cover_url", "reader_url"]
+
+    for prop in props:
+        if prop in user_data:
+            kwarg = {f"{prop}": user_data[prop]}
+            filtered_books = filtered_books.filter_by(**kwarg)
+
+    if "search_string" in user_data:
+        tokens = user_data["search_string"].split(" ")
+        for search in tokens:
+            case_ins_search = "%{0}%".format(
+                search
+            )  # https://stackoverflow.com/questions/4926757/sqlalchemy-query-where-a-column-contains-a-substring
+            filtered_books = filtered_books.filter(
+                or_(
+                    Book.name.ilike(case_ins_search), Book.author.ilike(case_ins_search)
+                )
+            )
+
+    books_json = [bk.serialize_to_json() for bk in filtered_books.all()]
+
+    return create_response(
+        message="Successfully queried books", status=200, data={"results": books_json}
     )
 
 
@@ -232,7 +298,9 @@ def edit_book(user_id):
     user_data = request.get_json()
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing required book info", status=422, data={"status": "fail"}
+            message="Missing name, author, grade, year, or published field",
+            status=422,
+            data={"status": "fail"},
         )
 
     book_to_edit = Book.query.get(user_data["book_id"])

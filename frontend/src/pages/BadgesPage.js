@@ -38,14 +38,14 @@ class BadgesPage extends Component {
     this.setStateLoading();
     const {
       success,
-      result: { results },
+      result: { badgesInProgress, badgesEarned },
       message
     } = await getBadges();
 
     if (success) {
       this.setState({
-        badgesInProgress: results.badgesInProgress,
-        badgesEarned: results.badgesEarned
+        badgesInProgress: badgesInProgress,
+        badgesEarned: badgesEarned
       });
     } else {
       this.setStateAlert(message);
@@ -95,37 +95,19 @@ class BadgesPage extends Component {
   render() {
     return (
       <div className="profile">
-        <Container fluid={true}>
+        <Container>
           <h1 className="page-title">Badges</h1>
-          <Row>
-            <Col lg="3">
-              <Card>
-                <CardBody>
-                  <CardText>
-                    <Link to="/profile/badges">Badges</Link>
-                  </CardText>
-                  <CardText>
-                    <Link to="/profile/quiz-history">Quiz History</Link>
-                  </CardText>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="9">
-              <Card>
-                <CardBody>
-                  <CardTitle>In Progress</CardTitle>
-                  {this.renderInProgressBadges()}
-                  <br />
-                  <CardTitle>Completed</CardTitle>
-                  <div className="earned-badges">
-                    <Row className="row-badges">
-                      {this.renderEarnedBadges()}
-                    </Row>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
+          <Card>
+            <CardBody>
+              <CardTitle>In Progress</CardTitle>
+              {this.renderInProgressBadges()}
+              <br />
+              <CardTitle>Completed</CardTitle>
+              <div className="earned-badges">
+                <Row className="row-badges">{this.renderEarnedBadges()}</Row>
+              </div>
+            </CardBody>
+          </Card>
         </Container>
       </div>
     );
