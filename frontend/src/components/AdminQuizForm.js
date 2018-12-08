@@ -27,14 +27,14 @@ class AdminQuizForm extends Component {
     };
   }
 
-  updateStateForProps = () => {};
-
   componentDidUpdate(previousProps) {
-    this.updateStateForProps();
-  }
-
-  componentDidMount() {
-    this.updateStateForProps();
+    console.log(this.props.quiz);
+    if (
+      previousProps.quiz.book_id !== this.props.quiz.book_id ||
+      previousProps.quiz.name !== this.props.quiz.name
+    ) {
+      this.setState({ questions: this.props.quiz.quizzes });
+    }
   }
 
   handleChange = event => {

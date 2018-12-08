@@ -213,9 +213,9 @@ function createQuiz(bookData) {
   }).then(res => res.json());
 }
 
-function getAllQuizzes() {
+function getAllQuizzes(book_id) {
   console.log('Getting all quizzes');
-  return fetch(`${API_URL}/books`, {
+  return fetch(`${API_URL}/${book_id}/quizzes`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
