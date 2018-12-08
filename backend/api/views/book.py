@@ -66,7 +66,7 @@ def create_book(user_id):
     # check all fields are entered
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing required book information",
+            message="Missing name, author, grade, year, or published",
             status=400,
             data={"status": "failure"},
         )
@@ -88,7 +88,7 @@ def create_book(user_id):
     )
     if not (dup_book is None):
         return create_response(
-            message="Duplicate book", status=409, data={"status": "failure"}
+            message="Book already exists", status=409, data={"status": "failure"}
         )
 
     # add book to database
@@ -114,7 +114,9 @@ def get_quizzes(book_id):
     # check to see if book is valid
     if book is None:
         return create_response(
-            message="Book not found", status=400, data={"status": "failure"}
+            message="Corresponding book does not exist",
+            status=400,
+            data={"status": "failure"},
         )
 
     quizList = []
@@ -232,7 +234,9 @@ def edit_book(user_id):
     user_data = request.get_json()
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing required book info", status=422, data={"status": "fail"}
+            message="Missing name, author, grade, year, or published field",
+            status=422,
+            data={"status": "fail"},
         )
 
     book_to_edit = Book.query.get(user_data["book_id"])
