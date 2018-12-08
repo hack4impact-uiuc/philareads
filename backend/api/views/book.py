@@ -138,6 +138,7 @@ def get_all_quizzes(user_id, book_id):
         data={"quizzes": quizList},
     )
 
+
 @book.route("/<book_id>/quizzes", methods=["GET"])
 def get_quizzes(book_id):
     book = Book.query.filter_by(id=book_id).first()
@@ -200,6 +201,7 @@ def find_all_books(user_id):
     return create_response(
         message="Successfully queried books", status=200, data={"results": books_json}
     )
+
 
 @book.route("/books", methods=["GET"])
 def find_books():
