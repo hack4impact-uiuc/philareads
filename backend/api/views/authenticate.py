@@ -17,14 +17,14 @@ def register_user():
         or (not "name" in user_data)
     ):
         return create_response(
-            data={"status": "fail"}, message="Missing required information.", status=422
+            data={"status": "fail"}, message="Missing username, password, or name", status=422
         )
 
     duplicate_user = User.query.filter_by(username=user_data["username"]).first()
 
     if duplicate_user is not None:
         return create_response(
-            data={"status": "fail"}, message="User already exists.", status=409
+            data={"status": "fail"}, message="Username already taken", status=409
         )
 
     user = User(
@@ -50,7 +50,7 @@ def login_user():
     user_data = request.get_json()
     if (not "username" in user_data) or (not "password" in user_data):
         return create_response(
-            message="Missing required information.", data={"status": "fail"}, status=422
+            message="Missing username or password", data={"status": "fail"}, status=422
         )
 
     user = User.query.filter_by(username=user_data["username"]).first()
@@ -76,7 +76,7 @@ def login_user():
                 )
 
     return create_response(
-        data={"status": "fail"}, message="Failed to log in.", status=401
+        data={"status": "fail"}, message="Account with that username not found", status=401
     )
 
 
