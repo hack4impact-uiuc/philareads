@@ -28,7 +28,9 @@ class BadgesPage extends Component {
       alert: [],
       loading: false
     };
+  }
 
+  componentDidMount() {
     this.getBadges();
   }
 
@@ -65,7 +67,7 @@ class BadgesPage extends Component {
       return (
         <Row className="bar" key={badge.id}>
           <Col lg="3" align="center" className="ip-badge">
-            <img src={badgeMap[badge.graphic]} width="50" />
+            <img src={badgeMap[badge.graphic]} width="50" alt={badge.graphic} />
           </Col>
           <Col lg="9" align="center">
             <Progress value={(badge.currentCount / badge.targetCount) * 100} />
@@ -78,11 +80,11 @@ class BadgesPage extends Component {
   renderEarnedBadges = () => {
     return this.state.badgesEarned.map(badge => {
       return (
-        <div class="earned-badge" key={badge.id}>
+        <div className="earned-badge" key={badge.id}>
           <img
             src={badgeMap[badge.graphic]}
             width="50"
-            class="completed-badge"
+            className="completed-badge"
           />
           <p align="center">{badge.year}</p>
         </div>

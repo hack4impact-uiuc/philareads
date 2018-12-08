@@ -19,8 +19,8 @@ import RORedirectToCurrent from './pages/ReadingOlympics/RORedirectToCurrent';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
-import AccountManagePage from './pages/AccountManagePage';
 import BadgesPage from './pages/BadgesPage';
+import About from './pages/About';
 
 import './styles/App.scss';
 import AdminProtection from './pages/protection/AdminProtection';
@@ -68,6 +68,7 @@ class App extends Component {
             <Route path="/parents" component={ParentsPage} />
             <Route path="/search" component={Search} />
             <Route path="/profile/badges" component={BadgesPage} />
+            <Route path="/about" component={About} />
             {/*Admin pages*/}
             <Route
               exact
