@@ -51,15 +51,12 @@ class QuizViewer extends Component {
             answered++;
           }
         });
-        console.log('Setting state to: ' + answered);
         return {
           questionProps: updatedQuestionProps,
           answered: answered
         };
       },
       () => {
-        console.log('Answered: ' + this.state.answered);
-        console.log('length: ' + this.props.questionList.length);
         if (this.state.answered === this.props.questionList.length) {
           this.props.finishAttempt(this.state.questionProps);
         }
