@@ -23,10 +23,6 @@ const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldShowAlert() {
     if (this.props.location.state) {
       return this.props.location.state.referrer;
