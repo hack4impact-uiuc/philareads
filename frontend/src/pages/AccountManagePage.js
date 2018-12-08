@@ -203,7 +203,6 @@ class AccountManagePage extends Component {
                 <Input
                   name="password"
                   type="password"
-                  autoComplete="newPassword"
                   onChange={txt =>
                     this.setState({ newPassword: txt.target.value })
                   }
@@ -216,7 +215,6 @@ class AccountManagePage extends Component {
                   name="passwordConfirm"
                   type="password"
                   ref="passwordConfirm"
-                  autoComplete="new-password"
                   onBlur={() => this.forceUpdate()}
                   onChange={txt =>
                     this.setState({ confirmPassword: txt.target.value })
