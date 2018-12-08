@@ -150,8 +150,9 @@ def find_books():
     if "search_string" in user_data:
         tokens = user_data["search_string"].split(" ")
         for search in tokens:
+            case_ins_search = '%{0}%'.format(search) # https://stackoverflow.com/questions/4926757/sqlalchemy-query-where-a-column-contains-a-substring
             filtered_books = filtered_books.filter(
-                or_(Book.name.contains(search), Book.author.contains(search))
+                or_(Book.name.ilike(case_ins_search), Book.author.ilike(case_ins_search))
             )
 
     books_json = [bk.serialize_to_json() for bk in filtered_books.all()]
