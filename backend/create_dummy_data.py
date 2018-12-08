@@ -14,6 +14,7 @@ r = requests.post(API_URL + "register", json=sample_user)
 result = r.json()["result"]
 print(result)
 user_token = result["auth_token"]
+credentials = {"jwt": user_token}
 
 # make david chang the admin
 print("making David Chang an admin")
@@ -39,7 +40,7 @@ huckfinn_book = {
     "cover_url": "https://cdn3.volusion.com/jtoq7.b7owf/v/vspfiles/photos/ADVENTURES_OF_HUCKLEBERRY_FINN-2.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=huckfinn_book)
+r = requests.post(API_URL + "book", json=huckfinn_book, cookies=credentials)
 print(r.json())
 
 # grade 8 books
@@ -51,7 +52,7 @@ wishtree_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/61al%2BP%2B9JDL._SX365_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=wishtree_book)
+r = requests.post(API_URL + "book", json=wishtree_book, cookies=credentials)
 print(r.json())
 
 boycalledbat_book = {
@@ -62,7 +63,7 @@ boycalledbat_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51ZW6vJvuIL._SX349_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=boycalledbat_book)
+r = requests.post(API_URL + "book", json=boycalledbat_book, cookies=credentials)
 print(r.json())
 
 rubyonoutside_book = {
@@ -72,7 +73,7 @@ rubyonoutside_book = {
     "year": 2019,
     "published": True,
 }
-r = requests.post(API_URL + "book", json=rubyonoutside_book)
+r = requests.post(API_URL + "book", json=rubyonoutside_book, cookies=credentials)
 print(r.json())
 
 pashmina_book = {
@@ -83,7 +84,7 @@ pashmina_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/91qAL9ZLi9L.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=pashmina_book)
+r = requests.post(API_URL + "book", json=pashmina_book, cookies=credentials)
 print(r.json())
 
 losersclub_book = {
@@ -94,7 +95,7 @@ losersclub_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/515gx6DaIfL._SX329_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=losersclub_book)
+r = requests.post(API_URL + "book", json=losersclub_book, cookies=credentials)
 print(r.json())
 
 # Books for grade 4
@@ -106,7 +107,7 @@ serafinablackcloak_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51eWzYTXg6L._SX339_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=serafinablackcloak_book)
+r = requests.post(API_URL + "book", json=serafinablackcloak_book, cookies=credentials)
 print(r.json())
 
 warifinallywon_book = {
@@ -117,7 +118,7 @@ warifinallywon_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51pLVzrgzGL._SX329_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=warifinallywon_book)
+r = requests.post(API_URL + "book", json=warifinallywon_book, cookies=credentials)
 print(r.json())
 
 waitingfornormal_book = {
@@ -127,7 +128,7 @@ waitingfornormal_book = {
     "year": 2019,
     "published": True,
 }
-r = requests.post(API_URL + "book", json=waitingfornormal_book)
+r = requests.post(API_URL + "book", json=waitingfornormal_book, cookies=credentials)
 print(r.json())
 
 onlyroad_book = {
@@ -137,7 +138,7 @@ onlyroad_book = {
     "year": 2019,
     "published": True,
 }
-r = requests.post(API_URL + "book", json=onlyroad_book)
+r = requests.post(API_URL + "book", json=onlyroad_book, cookies=credentials)
 print(r.json())
 
 awfulfalafel_book = {
@@ -148,7 +149,7 @@ awfulfalafel_book = {
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51miMQ66exL._SX333_BO1,204,203,200_.jpg",
     "published": True,
 }
-r = requests.post(API_URL + "book", json=awfulfalafel_book)
+r = requests.post(API_URL + "book", json=awfulfalafel_book, cookies=credentials)
 print(r.json())
 
 # sample quizzes
@@ -169,7 +170,7 @@ sample_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=sample_quiz)
+r = requests.post(API_URL + "quiz", json=sample_quiz, cookies=credentials)
 print(r.json())
 
 # sample quiz 2
@@ -190,7 +191,7 @@ sample_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=sample_quiz)
+r = requests.post(API_URL + "quiz", json=sample_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -221,7 +222,7 @@ wishtree1_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree1_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree1_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -252,7 +253,7 @@ wishtree2_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree2_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree2_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -282,7 +283,7 @@ wishtree3_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree3_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree3_quiz, cookies=credentials)
 print(r.json())
 
 # boy called bat quiz
@@ -308,7 +309,7 @@ boycalledbat1_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz)
+r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz, cookies=credentials)
 print(r.json())
 
 # ruby on outside quiz
@@ -334,5 +335,5 @@ rubyonoutside1_quiz = {
     ],
     "published": True,
 }
-r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
+r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz, cookies=credentials)
 print(r.json())
