@@ -225,6 +225,18 @@ function editQuiz(quizData) {
   }).then(res => res.json());
 }
 
+function deleteQuiz(quizData) {
+  console.log('Deleting quiz');
+  return fetch(`${API_URL}/delete_quiz`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(quizData)
+  }).then(res => res.json());
+}
+
 function getAllQuizzes(book_id) {
   console.log('Getting all quizzes');
   return fetch(`${API_URL}/${book_id}/quizzes`, {
@@ -257,5 +269,6 @@ export {
   getAdvice,
   upgradeUser,
   editQuiz,
-  getAllQuizzes
+  getAllQuizzes,
+  deleteQuiz
 };

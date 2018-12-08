@@ -17,7 +17,7 @@ class AdminQuizForm extends Component {
   constructor(props) {
     super(props);
     console.log(props);
-    if (props.quiz.name === undefined) {
+    if (props.quiz === undefined || props.quiz.name === undefined) {
       console.log('empty state');
       this.state = {
         quiz_name: '',
@@ -165,11 +165,7 @@ class AdminQuizForm extends Component {
             {this.props.type} Quiz
           </Button>
           {this.props.type === 'Edit' && (
-            <Button
-              disabled={!this.props.currentBook}
-              onClick={this.props.handleDeletePress}
-              color="danger"
-            >
+            <Button onClick={this.props.handleDeletePress} color="danger">
               Delete{' '}
               {this.props.currentBook &&
                 '"' + this.props.currentBook.name + '"'}

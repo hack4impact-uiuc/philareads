@@ -4,9 +4,10 @@ import AdminQuizForm from '../../components/AdminQuizForm';
 import AdminNavigator from '../../components/AdminNavigator';
 import AdminBookSelect from '../../components/AdminBookSelect';
 import AdminQuizSelect from '../../components/AdminQuizSelect';
+import AdminDeleteModal from '../../components/AdminDeleteModal';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
-import { editQuiz } from '../../utils/api.js';
+import { editQuiz, deleteQuiz } from '../../utils/api.js';
 class AdminEditQuizPage extends Component {
   constructor(props) {
     super(props);
@@ -15,11 +16,23 @@ class AdminEditQuizPage extends Component {
       errors: [],
       currentSelectedBook: -1,
       currentSelectedQuiz: -1,
-      numSubmits: 0
+      numSubmits: 0,
+      deleteButtonPressed: false
     };
   }
   handleSuccess = () => {
     this.setState({ errors: [], success: true });
+  };
+
+  handleDeletePress = e => {
+    e.preventDefault();
+    this.setState({ deleteButtonPressed: true });
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      deleteButtonPressed: !prevState.deleteButtonPressed
+    }));
   };
 
   handleBookSelect = book => {
@@ -105,9 +118,34 @@ class AdminEditQuizPage extends Component {
     }
   };
 
+  deleteQuiz = async e => {
+    e.preventDefault();
+    console.log(this.state.currentSelectedQuiz);
+    const { message, success } = await deleteQuiz({
+      quiz_id: this.state.currentSelectedQuiz['quizzes'][0]['quiz_id']
+    });
+    if (success) {
+      this.handleSuccess();
+      this.setState(state => ({
+        deleteButtonPressed: false
+      }));
+    } else {
+      this.setState(state => ({
+        deleteButtonPressed: false,
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
+      }));
+    }
+  };
   render() {
     return (
       <Container fluid>
+        <AdminDeleteModal
+          handleYesDelete={this.deleteQuiz}
+          isOpen={this.state.deleteButtonPressed}
+          book={this.state.currentSelectedQuiz}
+          toggleModal={this.toggleModal}
+        />
         <Row>
           <Col lg="2">
             <AdminNavigator />
@@ -144,6 +182,7 @@ class AdminEditQuizPage extends Component {
                   <AdminQuizForm
                     type="Edit"
                     handleSubmit={this.handleSubmit}
+                    handleDeletePress={this.handleDeletePress}
                     quiz={this.state.currentSelectedQuiz}
                   />
                 )))}
