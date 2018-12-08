@@ -25,10 +25,9 @@ const pathToIntermediate = 'intermediate';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.goBack();
   }
 
-  goBack() {
+  shouldShowAlert() {
     if (this.props.location.state) {
       return this.props.location.state.referrer;
     }
@@ -46,7 +45,7 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        {this.goBack() !== null && (
+        {this.shouldShowAlert() !== null && (
           <Alert color="success">
             <h5 className="text-center">You're now logged in</h5>
           </Alert>
