@@ -213,6 +213,17 @@ function getBadges() {
   };
 }
 
+function upgradeUser(user) {
+  return fetch(`${API_URL}/upgrade_user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(user)
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -229,5 +240,6 @@ export {
   getUserData,
   postUserData,
   updatePassword,
-  getBadges
+  getBadges,
+  upgradeUser
 };
