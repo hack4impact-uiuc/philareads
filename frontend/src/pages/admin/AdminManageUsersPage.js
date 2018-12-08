@@ -9,7 +9,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Alert
 } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
@@ -23,13 +24,19 @@ class AdminManageUsersPage extends Component {
       modal: false,
       username: '',
       loading: false,
-      alert: false
+      alert: null
     };
   }
 
   toggleModal = () => {
     this.setState({
       modal: !this.state.modal
+    });
+  };
+
+  setStateAlert = message => {
+    this.setState({
+      alert: message
     });
   };
 
@@ -41,19 +48,23 @@ class AdminManageUsersPage extends Component {
       result: { results },
       message
     } = await upgradeUser({
-      user_email: query
+      user_username: query
     });
 
     if (success) {
-      console.log('success');
       this.toggleModal();
+      this.setStateAlert(message);
     } else {
-      console.log('failure');
-      console.log(message);
+      this.toggleModal();
+      this.setStateAlert(message);
     }
   };
 
   render() {
+    let header;
+    if (this.state.alert !== null) {
+      header = <Alert color="danger">{this.state.alert}</Alert>;
+    }
     return (
       <Container fluid>
         <Row>
@@ -63,6 +74,7 @@ class AdminManageUsersPage extends Component {
           <Col lg="10">
             <h1>Upgrade an Account</h1>
             <hr />
+            {header}
             <h5>Make an accout an admin account.</h5>
             <p>Account to Upgrade:</p>
             <Form>
