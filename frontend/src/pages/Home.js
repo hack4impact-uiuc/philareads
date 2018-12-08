@@ -95,16 +95,6 @@ class Home extends Component {
               </Card>
               <Card>
                 <CardBody>
-                  <CardTitle>Exercising/Archives</CardTitle>
-                  <CardText>Start your reading exercises here!</CardText>
-                </CardBody>
-                <CardImg className="image" src={exercises} />
-                <Link to="/#">
-                  <span />
-                </Link>
-              </Card>
-              <Card>
-                <CardBody>
                   <CardTitle>Search</CardTitle>
                   <CardText>Search for your books here!</CardText>
                 </CardBody>
