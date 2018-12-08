@@ -23,7 +23,6 @@ class AdminManageUsersPage extends Component {
     this.state = {
       modal: false,
       username: '',
-      loading: false,
       alert: null
     };
   }
