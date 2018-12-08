@@ -69,8 +69,16 @@ class App extends Component {
             {/*Ungrouped pages*/}
             <Route path="/parents" component={ParentsPage} />
             <Route path="/search" component={Search} />
-            <Route path="/profile/badges" component={BadgesPage} />
             <Route path="/about" component={About} />
+            {/*Account pages*/}
+            <Route
+              path="/account"
+              component={withAuthenticatedProtection(AccountManagePage)}
+            />
+            <Route
+              path="/profile/badges"
+              component={withAuthenticatedProtection(BadgesPage)}
+            />
             {/*Admin pages*/}
             <Route
               exact
@@ -122,10 +130,7 @@ class App extends Component {
               path="/ReadingOlympics/book/:id/:quizID"
               component={QuizPage}
             />
-            <Route
-              path="/account"
-              component={withAuthenticatedProtection(AccountManagePage)}
-            />
+            {/*404 Page*/}
             <Route component={NoMatchPage} />
           </Switch>
         </div>
