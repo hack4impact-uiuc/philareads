@@ -43,14 +43,15 @@ class AdminQuizSelect extends Component {
   render() {
     return (
       <div>
-        <select className="form-control" onChange={this.changeSelection}>
-          <option disabled selected value>
-            {' '}
-            -- Select A Quiz --{' '}
-          </option>
+        <select
+          className="form-control"
+          onChange={this.changeSelection}
+          defaultValue="---Select Quiz---"
+        >
+          <option disabled>---Select Quiz---</option>
           {this.state.quizzes.map((element, id) => {
             return (
-              <option key={element['id']} value={element['ida']}>
+              <option key={id} value={element['id']}>
                 {element['name']}
               </option>
             );

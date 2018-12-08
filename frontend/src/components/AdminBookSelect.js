@@ -36,11 +36,12 @@ class AdminBookSelect extends Component {
   render() {
     return (
       <div>
-        <select className="form-control" onChange={this.changeSelection}>
-          <option disabled selected value>
-            {' '}
-            -- Select A Book --{' '}
-          </option>
+        <select
+          className="form-control"
+          onChange={this.changeSelection}
+          defaultValue="---Select Book---"
+        >
+          <option disabled>---Select Book---</option>
           {this.state.books.map((element, id) => {
             return (
               <option key={element['id']} value={element['ida']}>

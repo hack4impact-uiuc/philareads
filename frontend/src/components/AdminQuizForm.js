@@ -29,8 +29,9 @@ class AdminQuizForm extends Component {
 
   componentDidUpdate(previousProps) {
     if (
-      previousProps.quiz.book_id !== this.props.quiz.book_id ||
-      previousProps.quiz.name !== this.props.quiz.name
+      previousProps.quiz !== undefined &&
+      (previousProps.quiz.book_id !== this.props.quiz.book_id ||
+        previousProps.quiz.name !== this.props.quiz.name)
     ) {
       this.setState({ questions: this.props.quiz.quizzes });
     }
@@ -120,7 +121,7 @@ class AdminQuizForm extends Component {
         {this.state.questions.map((element, index) => {
           return (
             <AdminQuestion
-              key={element.questionKey}
+              key={index}
               indexInQuestionArray={index}
               question={element}
               changeHandler={this.handleElementChange}
