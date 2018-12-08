@@ -8,7 +8,8 @@ import {
   CardBody,
   CardTitle,
   CardImg,
-  CardText
+  CardText,
+  Alert
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
@@ -17,11 +18,32 @@ import parents from './../images/home_parents.png';
 import exercises from './../images/home_exercises.png';
 import search from './../images/home_search.png';
 import './../styles/Home.scss';
+import { getUserData } from '../utils/api';
+import Cookies from 'universal-cookie';
 
 const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      lastPage: ''
+    };
+    this.fetchUserData();
+    this.goBack();
+  }
+
+  goBack() {
+    if (this.props.location.state) {
+      console.log(this.props.location.state.referrer);
+      return this.props.location.state.referrer;
+    }
+    console.log('null');
+    return null;
+  }
+
   onClickMiddleSchool = () => {
     this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
   };
@@ -30,10 +52,24 @@ class Home extends Component {
     this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
   };
 
+  fetchUserData = async () => {
+    const cookies = new Cookies();
+    if (cookies.get('jwt') !== undefined) {
+      const { result } = await getUserData();
+      this.setState({ name: result['name'] });
+    }
+  };
+
   render() {
     return (
       <div className="home">
+        {this.goBack() !== null && (
+          <Alert color="success">
+            <h5 className="text-center">You're now logged in</h5>
+          </Alert>
+        )}
         <h1 className="page-title">Read at Home</h1>
+
         <Container>
           <Row>
             <Col className="left-main-col">
