@@ -69,7 +69,7 @@ sample_bad_json_data = """
 
 def test_create_valid_quiz(client):
     # create a new admin user and use its credentials for all subsequent requests
-    user = User(name="admin", password="password123", email="test1@gmail.com")
+    user = User(name="admin", password="password123", username="test1@gmail.com")
     user.is_admin = True
 
     db.session.add(user)
@@ -78,7 +78,7 @@ def test_create_valid_quiz(client):
     login_res = client.post(
         "/login",
         data=json.dumps(
-            dict(name="admin", password="password123", email="test1@gmail.com")
+            dict(name="admin", password="password123", username="test1@gmail.com")
         ),
         content_type="application/json",
     )
