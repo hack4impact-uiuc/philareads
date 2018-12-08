@@ -33,10 +33,6 @@ export default class PReadsNavbar extends React.Component {
       name: 'For Parents'
     },
     {
-      route: '/profile/badges',
-      name: 'Profile'
-    },
-    {
       route: '/search',
       name: 'Search'
     }
@@ -96,6 +92,9 @@ export default class PReadsNavbar extends React.Component {
                   Account
                 </DropdownToggle>
                 <DropdownMenu>
+                  <DropdownItem tag="a" href="/profile/badges">
+                    Profile
+                  </DropdownItem>
                   <DropdownItem tag="a" href="/account">
                     Settings
                   </DropdownItem>

@@ -76,7 +76,9 @@ class Login extends Component {
     return (
       <div className="container">
         {/* Redirect to home if JWT exists*/}
-        {this.state.isLoggedIn && <Redirect to="/" />}
+        {this.state.isLoggedIn && (
+          <Redirect to={{ pathname: '/', state: { referrer: 'login' } }} />
+        )}
         {this.getLoggedInMessage()}
 
         <div className="text-center">

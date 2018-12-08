@@ -8,7 +8,8 @@ import {
   CardBody,
   CardTitle,
   CardImg,
-  CardText
+  CardText,
+  Alert
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
@@ -22,6 +23,17 @@ const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  shouldShowAlert() {
+    if (this.props.location.state) {
+      return this.props.location.state.referrer;
+    }
+    return null;
+  }
+
   onClickMiddleSchool = () => {
     this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
   };
@@ -33,7 +45,13 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
+        {this.shouldShowAlert() !== null && (
+          <Alert color="success">
+            <h5 className="text-center">You're now logged in</h5>
+          </Alert>
+        )}
         <h1 className="page-title">Read at Home</h1>
+
         <Container>
           <Row>
             <Col className="left-main-col">
