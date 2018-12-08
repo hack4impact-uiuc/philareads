@@ -51,9 +51,11 @@ class CatalogCardBook extends Component {
           <CardTitle onClick={onClickBook}>
             {`${book.name} by ${book.author}`}
           </CardTitle>
-          <CardSubtitle>{`${URLParamToString(book.grade)}, ${
-            book.year
-          } Reading Olympics`}</CardSubtitle>
+          <CardSubtitle>
+            {URLParamToString(book.grade)}
+            <br />
+            {`Reading Olympics ${book.year}`}
+          </CardSubtitle>
           <CardText>{book.description}</CardText>
         </CardBody>
       </Card>

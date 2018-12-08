@@ -2,9 +2,6 @@
 ./docker_recreate.sh
 echo "Docker starting..."
 sleep 2
-echo "Database creating..."
-pipenv run python manage.py recreate_db
-sleep 1
 echo "Running server..."
 pipenv run python manage.py runserver &
 SERVER_PID=$!

@@ -4,7 +4,7 @@ API_URL = "http://localhost:5000/"
 
 # sample user
 sample_user = {
-    "email": "davidchang@chegg.com",
+    "username": "future_pm",
     "name": "David Chang",
     "password": "iwearcrocseveryday",
 }
@@ -14,6 +14,7 @@ r = requests.post(API_URL + "register", json=sample_user)
 result = r.json()["result"]
 print(result)
 user_token = result["auth_token"]
+credentials = {"jwt": user_token}
 
 # make david chang the admin
 print("making David Chang an admin")
@@ -34,124 +35,121 @@ else:
 huckfinn_book = {
     "name": "The Adventures of Huckleberry Finn",
     "author": "Mark Twain",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2018,
     "cover_url": "https://cdn3.volusion.com/jtoq7.b7owf/v/vspfiles/photos/ADVENTURES_OF_HUCKLEBERRY_FINN-2.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=huckfinn_book)
+r = requests.post(API_URL + "book", json=huckfinn_book, cookies=credentials)
 print(r.json())
 
 # grade 8 books
 wishtree_book = {
     "name": "Wishtree",
     "author": "Katherine Applegate",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/61al%2BP%2B9JDL._SX365_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=wishtree_book)
+r = requests.post(API_URL + "book", json=wishtree_book, cookies=credentials)
 print(r.json())
 
 boycalledbat_book = {
     "name": "A Boy Called Bat",
     "author": "Elana Arnold",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51ZW6vJvuIL._SX349_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=boycalledbat_book)
+r = requests.post(API_URL + "book", json=boycalledbat_book, cookies=credentials)
 print(r.json())
 
 rubyonoutside_book = {
     "name": "Ruby on the Outside",
     "author": "Nora Raleigh Baskin",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
-    "cover_url": "https://images.gr-assets.com/books/1425975367l/23309730.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=rubyonoutside_book)
+r = requests.post(API_URL + "book", json=rubyonoutside_book, cookies=credentials)
 print(r.json())
 
 pashmina_book = {
     "name": "Pashmina",
     "author": "Nidhi Chanani",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/91qAL9ZLi9L.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=pashmina_book)
+r = requests.post(API_URL + "book", json=pashmina_book, cookies=credentials)
 print(r.json())
 
 losersclub_book = {
     "name": "The Losers' Club",
     "author": "Andrew Clements",
-    "grade": 8,
+    "grade": "Intermediate",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/515gx6DaIfL._SX329_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=losersclub_book)
+r = requests.post(API_URL + "book", json=losersclub_book, cookies=credentials)
 print(r.json())
 
 # Books for grade 4
 serafinablackcloak_book = {
     "name": "Serafina and the Black Cloak",
     "author": "Robert Beatty",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51eWzYTXg6L._SX339_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=serafinablackcloak_book)
+r = requests.post(API_URL + "book", json=serafinablackcloak_book, cookies=credentials)
 print(r.json())
 
 warifinallywon_book = {
     "name": "The War I Finally Won",
     "author": "Kimberly Brubaker Bradley",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51pLVzrgzGL._SX329_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=warifinallywon_book)
+r = requests.post(API_URL + "book", json=warifinallywon_book, cookies=credentials)
 print(r.json())
 
 waitingfornormal_book = {
     "name": "Waiting for Normal",
     "author": "Leslie Connor",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
-    "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51RM53p%2B91L._SX334_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=waitingfornormal_book)
+r = requests.post(API_URL + "book", json=waitingfornormal_book, cookies=credentials)
 print(r.json())
 
 onlyroad_book = {
     "name": "The Only Road",
     "author": "Alexandra Diaz",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
-    "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51m1ZQW37cL._SX329_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=onlyroad_book)
+r = requests.post(API_URL + "book", json=onlyroad_book, cookies=credentials)
 print(r.json())
 
 awfulfalafel_book = {
     "name": "It Ain't So Awful, Falafel",
     "author": "Firoozeh Dumas",
-    "grade": 4,
+    "grade": "Middle",
     "year": 2019,
     "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51miMQ66exL._SX333_BO1,204,203,200_.jpg",
-    "reader_url": "google.com",
+    "published": True,
 }
-r = requests.post(API_URL + "book", json=awfulfalafel_book)
+r = requests.post(API_URL + "book", json=awfulfalafel_book, cookies=credentials)
 print(r.json())
 
 # sample quizzes
@@ -170,8 +168,9 @@ sample_quiz = {
             "correct_option": "Tom Sawyer",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=sample_quiz)
+r = requests.post(API_URL + "quiz", json=sample_quiz, cookies=credentials)
 print(r.json())
 
 # sample quiz 2
@@ -190,8 +189,9 @@ sample_quiz = {
             "correct_option": "Tom Sawyer",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=sample_quiz)
+r = requests.post(API_URL + "quiz", json=sample_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -220,8 +220,9 @@ wishtree1_quiz = {
             "correct_option": "A friend",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree1_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree1_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -250,8 +251,9 @@ wishtree2_quiz = {
             "correct_option": "Chop it down",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree2_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree2_quiz, cookies=credentials)
 print(r.json())
 
 # wish tree quiz
@@ -279,8 +281,9 @@ wishtree3_quiz = {
             "correct_option": "Stephen",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=wishtree3_quiz)
+r = requests.post(API_URL + "quiz", json=wishtree3_quiz, cookies=credentials)
 print(r.json())
 
 # boy called bat quiz
@@ -304,8 +307,9 @@ boycalledbat1_quiz = {
             "correct_option": "Thor",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz)
+r = requests.post(API_URL + "quiz", json=boycalledbat1_quiz, cookies=credentials)
 print(r.json())
 
 # ruby on outside quiz
@@ -329,6 +333,66 @@ rubyonoutside1_quiz = {
             "correct_option": "Margalit",
         },
     ],
+    "published": True,
 }
-r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
+r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz, cookies=credentials)
+print(r.json())
+
+before_reading_advice = """
+<strong>Before reading:</strong>
+<ol>
+<li>Looking at the title, cover and illustrations/pictures, what do you think will happen in this book?</li>
+<li>What makes you think that?</li>
+<li>What characters do you think might be in the book?</li>
+<li>Do you think there will be problem in the story? Why?</li>
+<li>What do you already know about the topic of this book?</li>
+<li>Does the topic or story relate to you or your family? How?</li>
+<li>Do you think it will be like any other book you’ve read? If so, which one, and how do you think it will be similar?</li>
+</ol>
+"""
+
+parent_advice1 = {"text": before_reading_advice}
+r = requests.post(API_URL + "parent_advice", json=parent_advice1, cookies=credentials)
+print(r.json())
+
+during_reading_advice = """
+<strong>During reading:</strong>
+<ol>
+<li>What has happened so far in the story? Can you tell me using sequence words? (first, then, next, after, finally, etc.)</li>
+<li>What do you predict will happen next?</li>
+<li>How do you think the story will end?</li>
+<li>Why do you think the character did ____________?</li>
+<li>What would you have done if you were the character?</li>
+<li>How would you have felt if you were the character?</li>
+<li>When you read, what pictures did you see in your head? How did you imagine it looked like?</li>
+<li>What are you wondering about as you read? What questions do you have?</li>
+<li>Think about the predictions you made before reading; do you still think the story will go that way? Why or why not? How do you think it will go now?</li>
+</ol>
+"""
+
+parent_advice2 = {"text": during_reading_advice}
+r = requests.post(API_URL + "parent_advice", json=parent_advice2, cookies=credentials)
+print(r.json())
+
+after_reading_advice = """
+<strong>After reading:</strong>
+<ol>
+<li>Why is the title a good title for the book/story? If you had to give it a different title, what would be another good title for it?</li>
+<li>Were your predictions correct? Where did you have to fix your prediction as you read?</li>
+<li>If there was a problem, did it get solved? How did the character try to solve the problem?</li>
+<li>What happened because of the problem?</li>
+<li>Did any of the characters change through the story? Who changed, and how did they change?</li>
+<li>Why do you think the author wrote this?</li>
+<li>What is the most important point that the author is trying to make in his/her writing?</li>
+<li>What was your favorite part? Why?</li>
+<li>If you could change one part, what would you change?</li>
+<li>If you could ask the author a question, what would you ask?</li>
+<li>Can you retell the story in sequence order (use your fingers and sequence words: first, second, then, next, etc.)</li>
+<li>Is there a character in the story that reminds you of someone you know? If so, who are they like, and why do you think that?</li>
+<li>Does this book remind you of another book you know? Does it remind you of something you’ve experienced in real life?</li>
+</ol>
+"""
+
+parent_advice3 = {"text": after_reading_advice}
+r = requests.post(API_URL + "parent_advice", json=parent_advice3, cookies=credentials)
 print(r.json())

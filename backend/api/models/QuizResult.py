@@ -15,9 +15,9 @@ class QuizResult(Mixin, db.Model):
     num_total = db.Column(db.Integer)
     date_taken = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
-    quiz_id = db.Column(db.Integer)
+    quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id"), nullable=True)
     attempted_questions = db.relationship(
-        "QuestionResult", backref="quizResult", lazy=True
+        "QuestionResult", cascade="all,delete", backref="quizResult", lazy=True
     )
 
     def __init__(

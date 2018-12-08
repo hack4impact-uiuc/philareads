@@ -14,11 +14,11 @@ class Book(Mixin, db.Model):
 
     name = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
-    grade = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.String, nullable=False)
     year = db.Column(db.Integer, nullable=False)
-    cover_url = db.Column(db.String, nullable=False)
-    reader_url = db.Column(db.String, nullable=False)
+    cover_url = db.Column(db.String, nullable=True)
     quizzes = db.relationship("Quiz", backref="book", lazy=True)
+    published = db.Column(db.Boolean, nullable=False)
 
     def __init__(
         self,
@@ -27,15 +27,15 @@ class Book(Mixin, db.Model):
         grade: int,
         year: int,
         cover_url: str,
-        reader_url: str,
+        published: bool,
     ):
         self.name = name
         self.author = author
         self.grade = grade
         self.year = year
         self.cover_url = cover_url
-        self.reader_url = reader_url
         self.quizzes = []
+        self.published = published
 
     def __repr__(self):
         return f"<Book> id:{self.id} name:{self.name} author:{self.author} quizzes:{self.quizzes}"
@@ -48,5 +48,4 @@ class Book(Mixin, db.Model):
             "grade": self.grade,
             "year": self.year,
             "cover_url": self.cover_url,
-            "reader_url": self.reader_url,
         }

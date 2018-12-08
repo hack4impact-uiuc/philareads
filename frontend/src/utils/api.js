@@ -50,14 +50,26 @@ function getBooksByYearGrade({ year, grade }) {
   }).then(res => res.json());
 }
 
-function getROArchiveYears({ grade }) {
+function getROCurrentYear() {
+  return {
+    success: true,
+    result: {
+      results: 2019
+    },
+    message: ''
+  };
+  // return fetch(`${API_URL}/currentReading`, {
+  //   method: 'GET'
+  // }).then(res => res.json());
+}
+
+function getROArchiveYears() {
   return fetch(`${API_URL}/years`, {
     method: 'GET'
   }).then(res => res.json());
 }
 
 function getBookData(id) {
-  console.log('Getting book data');
   return fetch(`${API_URL}/books?id=${id}`, {
     method: 'GET',
     headers: {
@@ -67,7 +79,6 @@ function getBookData(id) {
 }
 
 function getQuizzes(bookID) {
-  console.log('Getting quiz data');
   return fetch(`${API_URL}/${bookID}/quizzes`, {
     method: 'GET',
     headers: {
@@ -77,7 +88,6 @@ function getQuizzes(bookID) {
 }
 
 function postQuizResults(quizResultsData) {
-  console.log('Posting quiz results');
   return fetch(`${API_URL}/quiz_result`, {
     method: 'POST',
     headers: {
@@ -88,8 +98,18 @@ function postQuizResults(quizResultsData) {
   }).then(res => res.json());
 }
 
+function getUserData() {
+  return fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify()
+  }).then(res => res.json());
+}
+
 function createBook(bookData) {
-  console.log('Creating/posting new book');
   return fetch(`${API_URL}/book`, {
     method: 'POST',
     headers: {
@@ -112,7 +132,6 @@ function deleteBook(bookData) {
 }
 
 function getAllBooks() {
-  console.log('Getting all books');
   return fetch(`${API_URL}/books`, {
     method: 'GET',
     headers: {
@@ -122,16 +141,93 @@ function getAllBooks() {
   }).then(res => res.json());
 }
 
+function postUserData(userData) {
+  return fetch(`${API_URL}/edit_user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(userData)
+  }).then(res => res.json());
+}
+
+function updatePassword(passwordData) {
+  return fetch(`${API_URL}/edit_password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(passwordData)
+  }).then(res => res.json());
+}
+
+function getBadges() {
+  return {
+    success: true,
+    result: {
+      results: {
+        badgesEarned: [
+          {
+            id: 1,
+            year: 2018,
+            graphic: 'gold_quiz'
+          },
+          {
+            id: 2,
+            year: 2019,
+            graphic: 'bronze_perfect'
+          }
+        ],
+        badgesInProgress: [
+          {
+            id: 3,
+            type: 'completed-books',
+            year: 2018,
+            graphic: 'diamond_book',
+            currentCount: 3,
+            targetCount: 5
+          },
+          {
+            id: 4,
+            type: 'completed-quizzes',
+            year: 2018,
+            graphic: 'diamond_quiz',
+            currentCount: 2,
+            targetCount: 5
+          },
+          {
+            id: 5,
+            type: 'perfect-quizzes',
+            year: 2018,
+            graphic: 'diamond_perfect',
+            currentCount: 1,
+            targetCount: 5
+          }
+        ]
+      }
+    },
+
+    message: 'hi'
+  };
+}
+
 export {
   register,
   login,
   search,
   getBooksByYearGrade,
+  getROCurrentYear,
   getROArchiveYears,
   getBookData,
   getQuizzes,
   createBook,
   postQuizResults,
   getAllBooks,
-  deleteBook
+  deleteBook,
+  getUserData,
+  postUserData,
+  updatePassword,
+  getBadges
 };

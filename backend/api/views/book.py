@@ -6,28 +6,25 @@ from api.core import (
     serialize_list,
     logger,
     admin_route,
+    authenticated_route,
     invalid_model_helper,
 )
 import io
 import csv
 
 book = Blueprint("book", __name__)
+valid_grades = ["Middle", "Intermediate"]
 
 
 def invalid_book_data(user_data):
-    if (
-        (not "name" in user_data)
-        or (not "author" in user_data)
-        or (not "grade" in user_data)
-        or (not "year" in user_data)
-        or (not "cover_url" in user_data)
-        or (not "reader_url" in user_data)
-    ):
-        return True
+    return invalid_model_helper(
+        user_data, ["name", "author", "grade", "year", "published"]
+    )
 
 
 @book.route("/book_from_csv", methods=["POST"])
-def create_book_from_csv():
+@admin_route
+def create_book_from_csv(user_id):
     uploaded_csv = request.files["File"]
     if not uploaded_csv:
         return create_response(message="Missing CSV file", status=409)
@@ -48,8 +45,9 @@ def create_book_from_csv():
             row_dict["author"],
             row_dict["grade"],
             row_dict["year"],
-            row_dict["cover_url"],
-            row_dict["reader_url"],
+            # if cover url exists then return it, otherwise use empty string
+            row_dict.get("cover_url", ""),
+            row_dict["published"],
         )
 
         db.session.add(book)
@@ -61,13 +59,21 @@ def create_book_from_csv():
 
 
 @book.route("/book", methods=["POST"])
-def create_book():
+@admin_route
+def create_book(user_id):
     user_data = request.get_json()
 
     # check all fields are entered
-    if "name" not in user_data or "author" not in user_data:
+    if invalid_book_data(user_data):
         return create_response(
-            message="Missing name field and/or author field",
+            message="Missing required book information",
+            status=400,
+            data={"status": "failure"},
+        )
+
+    if user_data["grade"] not in valid_grades:
+        return create_response(
+            message="Grade is not valid, must be Middle or Intermediate",
             status=400,
             data={"status": "failure"},
         )
@@ -76,6 +82,8 @@ def create_book():
     dup_book = (
         Book.query.filter_by(name=user_data["name"])
         .filter_by(author=user_data["author"])
+        .filter_by(grade=user_data["grade"])
+        .filter_by(year=user_data["year"])
         .first()
     )
     if not (dup_book is None):
@@ -89,8 +97,9 @@ def create_book():
         user_data["author"],
         user_data["grade"],
         user_data["year"],
-        user_data["cover_url"],
-        user_data["reader_url"],
+        # if cover url exists then return it, otherwise use empty string
+        user_data.get("cover_url", ""),
+        user_data["published"],
     )
     db.session.add(book)
     db.session.commit()
@@ -111,6 +120,8 @@ def get_quizzes(book_id):
     quizList = []
     # add all quizzes associated with book
     for quiz in book.quizzes:
+        if not quiz.published:
+            continue
         temp_quiz = {}
         questionList = []
         for question in quiz.questions:
@@ -131,7 +142,7 @@ def get_quizzes(book_id):
 @book.route("/books", methods=["GET"])
 def find_books():
     user_data = request.args
-    filtered_books = Book.query
+    filtered_books = Book.query.filter_by(published=True)
     props = ["id", "name", "author", "grade", "year", "cover_url", "reader_url"]
 
     for prop in props:
@@ -142,8 +153,13 @@ def find_books():
     if "search_string" in user_data:
         tokens = user_data["search_string"].split(" ")
         for search in tokens:
+            case_ins_search = "%{0}%".format(
+                search
+            )  # https://stackoverflow.com/questions/4926757/sqlalchemy-query-where-a-column-contains-a-substring
             filtered_books = filtered_books.filter(
-                or_(Book.name.contains(search), Book.author.contains(search))
+                or_(
+                    Book.name.ilike(case_ins_search), Book.author.ilike(case_ins_search)
+                )
             )
 
     books_json = [bk.serialize_to_json() for bk in filtered_books.all()]
@@ -155,10 +171,36 @@ def find_books():
 
 @book.route("/years", methods=["GET"])
 def get_years():
-    years = [year_tuple[0] for year_tuple in db.session.query(Book.year).distinct()]
+    # pdb.set_trace()
+    published_books_years = Book.query.filter_by(published=True).with_entities(
+        Book.year
+    )
+    years = [year_tuple[0] for year_tuple in published_books_years.distinct()]
     years = sorted(years, reverse=True)
     return create_response(
         message="Successfully gathered years", status=200, data={"years": years}
+    )
+
+
+@book.route("/publish_books", methods=["POST"])
+@admin_route
+def publish_books(user_id):
+    user_data = request.get_json()
+    if invalid_model_helper(user_data, ["year", "published"]):
+        return create_response(
+            message="Missing year or published field",
+            status=422,
+            data={"status": "fail"},
+        )
+
+    books_to_change = Book.query.filter_by(year=user_data["year"])
+    books_to_change.update(dict(published=user_data["published"]))
+    db.session.commit()
+
+    return create_response(
+        message="Successfully changed published statuses",
+        status=200,
+        data={"status": "success"},
     )
 
 
@@ -181,4 +223,31 @@ def delete_quiz(user_id):
     db.session.commit()
     return create_response(
         message="Successfully deleted book", status=200, data={"status": "success"}
+    )
+
+
+@book.route("/edit_book", methods=["POST"])
+@admin_route
+def edit_book(user_id):
+    user_data = request.get_json()
+    if invalid_book_data(user_data):
+        return create_response(
+            message="Missing required book info", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit = Book.query.get(user_data["book_id"])
+    if book_to_edit is None:
+        return create_response(
+            message="Book not found", status=422, data={"status": "fail"}
+        )
+
+    book_to_edit.name = user_data["name"]
+    book_to_edit.author = user_data["author"]
+    book_to_edit.grade = user_data["grade"]
+    book_to_edit.year = user_data["year"]
+    book_to_edit.cover_url = user_data.get("cover_url", "")
+
+    db.session.commit()
+    return create_response(
+        message="Successfully edited book", status=200, data={"status": "success"}
     )

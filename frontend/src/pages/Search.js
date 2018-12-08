@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Alert } from 'reactstrap';
+import queryString from 'query-string';
 import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -17,7 +18,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      preSearch: true,
+      promptUser: true,
       loading: false,
       notFound: false,
       results: [],
@@ -25,17 +26,28 @@ class Search extends Component {
     };
   }
 
-  setStateLoading = () => {
-    this.setState({ preSearch: false, loading: true, notFound: false });
+  static getDerivedStateFromProps(props, state) {
+    const queryParams = queryString.parse(props.location.search);
+    // Provide empty string as default value
+    return { query: queryParams.query || '' };
+  }
+
+  setStatePromptUser = query => {
+    this.setState({ promptUser: true, loading: false, notFound: false });
+  };
+
+  setStateLoading = query => {
+    this.setState({ promptUser: false, loading: true, notFound: false });
+    this.props.history.push(`/search?query=${query}`);
   };
 
   setStateNotFound = () => {
-    this.setState({ preSearch: false, loading: false, notFound: true });
+    this.setState({ promptUser: false, loading: false, notFound: true });
   };
 
   setSearchResults = data => {
     this.setState({
-      preSearch: false,
+      promptUser: false,
       loading: false,
       notFound: false,
       results: data
@@ -52,7 +64,7 @@ class Search extends Component {
     let body = <SearchResults results={this.state.results} />;
     let header;
 
-    if (this.state.preSearch) {
+    if (this.state.promptUser) {
       body = (
         <div>
           <Row>
@@ -101,6 +113,8 @@ class Search extends Component {
         <Container fluid={true}>
           <Row>
             <SearchBar
+              initialQuery={this.state.query}
+              resetCallback={this.setStatePromptUser}
               loadCallback={this.setStateLoading}
               notFoundCallback={this.setStateNotFound}
               searchCallback={this.setSearchResults}

@@ -11,6 +11,7 @@ import {
   FormFeedback
 } from 'reactstrap';
 import '../styles/admin/AdminBookForm.scss';
+import { URLParamToString } from '../utils/formatHelpers';
 import { createBook } from '../utils/api.js';
 
 class AdminBookForm extends Component {
@@ -22,11 +23,9 @@ class AdminBookForm extends Component {
       cover_url: '',
       year: '',
       grade: '',
-      reader_url: '',
       errors: [],
       numSubmits: 0,
-      coverURLValid: null,
-      bookURLValid: null
+      coverURLValid: null
     };
   }
 
@@ -40,7 +39,6 @@ class AdminBookForm extends Component {
           title: this.props.currentBook.name,
           author: this.props.currentBook.author,
           cover_url: this.props.currentBook.cover_url,
-          reader_url: this.props.currentBook.reader_url,
           year: this.props.currentBook.year,
           grade: this.props.currentBook.grade,
           id: this.props.currentBook.id
@@ -68,14 +66,6 @@ class AdminBookForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-  };
-
-  testBookURL = e => {
-    this.handleChange(e);
-    var patt = new RegExp(
-      /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/
-    );
-    this.setState({ bookURLValid: patt.test(e.target.value) });
   };
 
   testImage = () => {
@@ -113,14 +103,10 @@ class AdminBookForm extends Component {
     if (
       this.state.title !== '' &&
       this.state.author !== '' &&
-      this.state.cover_url !== '' &&
       this.state.year !== '' &&
       this.state.grade !== '' &&
-      this.state.reader_url !== '' &&
-      this.state.bookURLValid &&
-      this.state.coverURLValid &&
       !isNaN(this.state.year) &&
-      !isNaN(this.state.grade)
+      !(this.state.cover_url !== '' && !this.state.coverURLValid)
     ) {
       canSubmitWithoutError = true;
     }
@@ -132,10 +118,9 @@ class AdminBookForm extends Component {
     const { message, success } = await createBook({
       name: this.state.title,
       author: this.state.author,
-      grade: parseInt(this.state.grade),
+      grade: this.state.grade,
       year: parseInt(this.state.year),
-      cover_url: this.state.cover_url,
-      reader_url: this.state.reader_url
+      cover_url: this.state.cover_url
     });
     if (success) {
       this.props.handleSuccess();
@@ -204,22 +189,19 @@ class AdminBookForm extends Component {
             <Col lg="6" className="year-grade">
               <Label>Grade</Label>
               <Input
-                type="text"
+                type="select"
                 name="grade"
-                className={
-                  'form-control ' +
-                  (this.state.grade !== '' &&
-                    (isNaN(this.state.grade) ? 'is-invalid' : 'is-valid'))
-                }
-                maxLength="2"
-                pattern="[0-9]{1,2}"
+                className={'form-control'}
                 onChange={this.handleChange}
-                placeholder="Ex: 8"
                 value={this.state.grade}
-              />
-              <FormFeedback invalid="true">
-                The grade has to be a number.
-              </FormFeedback>
+                required
+              >
+                <option disabled hidden value="" />
+                <option value="Middle">{URLParamToString('middle')}</option>
+                <option value="Intermediate">
+                  {URLParamToString('intermediate')}
+                </option>
+              </Input>
             </Col>
           </Row>
         </FormGroup>
@@ -244,26 +226,6 @@ class AdminBookForm extends Component {
             We're having trouble loading that image.
           </FormFeedback>
           <FormFeedback valid>Image looks good!</FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Reader URL</Label>
-          <Input
-            type="text"
-            className={
-              'form-control ' +
-              (this.state.reader_url !== '' &&
-                (this.state.bookURLValid ? 'is-valid' : 'is-invalid'))
-            }
-            name="reader_url"
-            onChange={this.testBookURL}
-            value={this.state.reader_url}
-            placeholder="Ex: http://book.com/file.pdf"
-          />
-          <FormFeedback invalid="true">
-            That doesn't look like a valid link.
-          </FormFeedback>
-          <FormFeedback valid>That link looks good!</FormFeedback>
         </FormGroup>
 
         <FormGroup>

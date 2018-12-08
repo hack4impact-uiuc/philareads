@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import '../../styles/ReadingOlympics.scss';
+import { URLParamToString } from '../../utils/formatHelpers';
 import { getROArchiveYears } from '../../utils/api';
 
 const pathToMiddle = 'middle';
@@ -16,21 +17,20 @@ class ROHome extends Component {
   }
 
   componentDidMount() {
-    getROArchiveYears({}).then(resJson => {
+    getROArchiveYears().then(resJson => {
       this.setState({
-        years: resJson.result.years
+        years: resJson.result.years,
+        currentYear: resJson.result.years[0]
       });
     });
   }
 
   onClickMiddleSchool = () => {
-    const { year } = this.props;
-    this.props.history.push(`/ReadingOlympics/${year}/${pathToMiddle}`);
+    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
   };
 
   onClickIntermediate = () => {
-    const { year } = this.props;
-    this.props.history.push(`/ReadingOlympics/${year}/${pathToIntermediate}`);
+    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
   };
 
   renderSearch = () => {
@@ -70,7 +70,7 @@ class ROHome extends Component {
           <Col className="left-main-col book-list">
             <Card className="main-content">
               <CardBody>
-                <h2>{this.props.year}</h2>
+                <h2>{this.state.currentYear}</h2>
                 <Button
                   className="navigation-button"
                   onClick={this.onClickMiddleSchool}
@@ -78,7 +78,7 @@ class ROHome extends Component {
                   size="lg"
                   block
                 >
-                  Middle School Grades
+                  {URLParamToString(pathToMiddle)}
                 </Button>
                 <Button
                   className="navigation-button"
@@ -87,7 +87,7 @@ class ROHome extends Component {
                   size="lg"
                   block
                 >
-                  Intermediate Grades
+                  {URLParamToString(pathToIntermediate)}
                 </Button>
               </CardBody>
             </Card>
@@ -101,9 +101,5 @@ class ROHome extends Component {
     );
   }
 }
-
-ROHome.defaultProps = {
-  year: 2019
-};
 
 export default ROHome;

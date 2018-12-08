@@ -60,7 +60,12 @@ class Catalog extends Component {
 
     return numArr.map(i => (
       <PaginationItem key={i}>
-        <PaginationLink onClick={() => this.changePage(i)}>{i}</PaginationLink>
+        <PaginationLink
+          className={this.state.page === i ? 'pagination-current' : ''}
+          onClick={() => this.changePage(i)}
+        >
+          {i}
+        </PaginationLink>
       </PaginationItem>
     ));
   };

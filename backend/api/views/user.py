@@ -8,16 +8,9 @@ user = Blueprint("user", __name__)
 
 # function that edits user model
 @user.route("/edit_user", methods=["POST"])
-def edit_user():
+@authenticated_route
+def edit_user(user_id):
     user_data = request.get_json()
-
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
-
     user = User.query.get(user_id)
 
     if user is None:
@@ -25,20 +18,20 @@ def edit_user():
             message="User not found", status=400, data={"status": "fail"}
         )
 
-    # name or email not included in json
-    if ("name" not in user_data) or ("email" not in user_data):
+    # name or username not included in json
+    if ("name" not in user_data) or ("username" not in user_data):
         return create_response(
             message="Missing fields", status=400, data={"status": "fail"}
         )
 
-    # name or email left blank
-    if (len(user_data["name"]) == 0) or (len(user_data["email"]) == 0):
+    # name or username left blank
+    if (len(user_data["name"]) == 0) or (len(user_data["username"]) == 0):
         return create_response(
             message="Empty fields", status=400, data={"status": "fail"}
         )
 
     user.name = user_data["name"]
-    user.email = user_data["email"]
+    user.username = user_data["username"]
     db.session.commit()
 
     return create_response(
@@ -48,16 +41,9 @@ def edit_user():
 
 # function that edits user password
 @user.route("/edit_password", methods=["POST"])
-def check_password():
+@authenticated_route
+def check_password(user_id):
     user_data = request.get_json()
-
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
-
     user = User.query.filter_by(id=user_id).first()
 
     if user is None:
@@ -87,18 +73,8 @@ def check_password():
 
 # function returns user data
 @user.route("/user", methods=["GET"])
-def user_info():
-    try:
-        user_id = User.decode_auth_token(request.cookies.get("jwt"))
-    except jwt.ExpiredSignatureError:
-        return create_response(
-            message="Expired token", status=401, data={"status": "fail"}
-        )
-    except jwt.InvalidTokenError:
-        return create_response(
-            message="Invalid token", status=401, data={"status": "fail"}
-        )
-
+@authenticated_route
+def user_info(user_id):
     user = User.query.get(user_id)
     if user is None:
         return create_response(

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { URLParamToString } from '../utils/formatHelpers';
 import '../styles/BookInfo.scss';
+
 class BookInfo extends Component {
   render() {
     return (
@@ -7,27 +9,25 @@ class BookInfo extends Component {
         <div className="container">
           <div className="row book-info-row  font-white">
             <div className="col col-lg-3">
-              <img
-                alt="cannot be displayed"
-                className="book-cover img-fluid"
-                src={this.props.bookObject.cover_url}
-              />
+              {this.props.bookObject.cover_url !== '' && (
+                <img
+                  alt="Book cover cannot be displayed"
+                  className="book-cover img-fluid"
+                  src={this.props.bookObject.cover_url}
+                />
+              )}
             </div>
-            <div className="col col-lg-6">
+            <div>
               <h1 className="book-title">{this.props.bookObject.name}</h1>
               <h3 className="light-font book-author">
                 By {this.props.bookObject.author}
               </h3>
 
-              <h3 className="light-font book-grade">
-                <b>Grade:</b> {this.props.bookObject.grade}
-              </h3>
               <h3 className="light-font book-year">
-                <b>Year:</b> {this.props.bookObject.year}
+                <b>{`Reading Olympics ${this.props.bookObject.year}`}</b>
               </h3>
-              <h3 className="light-font">
-                Click <a href={this.props.bookObject.reader_url}>here</a> to
-                download the book.
+              <h3 className="light-font book-grade">
+                <b>{`${URLParamToString(this.props.bookObject.grade)}`}</b>
               </h3>
             </div>
           </div>
