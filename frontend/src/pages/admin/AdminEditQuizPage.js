@@ -38,7 +38,6 @@ class AdminEditQuizPage extends Component {
       errors.push({ message: 'There are no questions.', key: key++ });
     }
 
-    console.log(formState);
     for (var question in formState.questions) {
       if (formState.questions[question].correct_option.length < 1) {
         errors.push({
@@ -74,7 +73,15 @@ class AdminEditQuizPage extends Component {
   };
 
   handleQuizSelect = quiz => {
-    this.setState({ currentSelectedQuiz: quiz });
+    var questions_with_idx = quiz['quizzes'].map((elem, idx) => {
+      return {
+        ...elem,
+        correct_option_idx: elem.options.indexOf(elem['correct_option'])
+      };
+    });
+    this.setState({
+      currentSelectedQuiz: { ...quiz, quizzes: questions_with_idx }
+    });
   };
   handleSubmit = async (event, formState) => {
     event.preventDefault();

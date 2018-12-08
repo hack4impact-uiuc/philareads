@@ -38,7 +38,6 @@ class AdminQuestion extends Component {
       // If the there's a correct option set, update the value
       questionCopy['correct_option'] =
         questionCopy['options'][questionCopy['correct_option_idx']];
-      console.log(questionCopy['options'][questionCopy['correct_option_idx']]);
     }
     this.props.changeHandler(questionCopy, this.props.indexInQuestionArray);
   };

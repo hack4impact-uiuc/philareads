@@ -28,7 +28,6 @@ class AdminQuizForm extends Component {
   }
 
   componentDidUpdate(previousProps) {
-    console.log(this.props.quiz);
     if (
       previousProps.quiz.book_id !== this.props.quiz.book_id ||
       previousProps.quiz.name !== this.props.quiz.name
