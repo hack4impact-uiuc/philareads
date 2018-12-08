@@ -4,14 +4,10 @@ import {
   CardTitle,
   CardText,
   Button,
-  CardImg,
-  CardSubtitle,
   CardBody,
   CardGroup,
   CardHeader,
-  CardFooter,
-  Row,
-  Col
+  CardFooter
 } from 'reactstrap';
 
 class Advice extends Component {

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Advice from '../components/Advice';
-import philareads1 from './../images/phila_reads_cover.jpg';
-import philareads2 from './../images/phila_reads_2.jpg';
-import philareads3 from './../images/phila_reads_3.jpg';
 import { getAdvice } from '../utils/api';
 import '../styles/ParentsPage.scss';
 class ParentsPage extends Component {
