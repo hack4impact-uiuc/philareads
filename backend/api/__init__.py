@@ -20,7 +20,7 @@ class RequestFormatter(logging.Formatter):
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    CORS(app)  # add CORS
+    CORS(app, supports_credentials=True)  # add CORS
 
     # check environment variables to see which config to load
     env = os.environ.get("FLASK_ENV", "dev")
@@ -62,9 +62,17 @@ def create_app(test_config=None):
     # import and register blueprints
     from api.views import main
     from api.views import authenticate
+    from api.views import quiz
+    from api.views import book
+    from api.views import user
+    from api.views import parentadvice
 
     app.register_blueprint(main.main)
     app.register_blueprint(authenticate.authenticate)
+    app.register_blueprint(quiz.quiz)
+    app.register_blueprint(book.book)
+    app.register_blueprint(user.user)
+    app.register_blueprint(parentadvice.parent_advice)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)

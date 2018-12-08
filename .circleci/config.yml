@@ -8,20 +8,23 @@ jobs:
       - run:
           command: |
             cd backend
-            pipenv install --skip-lock
-            pipenv install --skip-lock --dev
-            pipenv run black . --check 
+            pip install -r requirements-dev.txt --user
+            /home/circleci/.local/bin/black . --check
   backend_test:
     docker:
       - image: circleci/python:3.7
     steps:
       - checkout
       - run:
+          name: Install postgres
+          command: |
+            sudo apt-get -y update && sudo apt-get install postgresql
+      - run:
           command: |
             cd backend
-            pipenv install --skip-lock
-            pipenv install --skip-lock --dev
-            pipenv run pytest
+            pip install -r requirements.txt --user
+            pip install -r requirements-dev.txt --user
+            /home/circleci/.local/bin/pytest
   frontend_format:
     docker:
       - image: node:8.4.0
