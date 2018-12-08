@@ -213,6 +213,16 @@ function getBadges() {
   };
 }
 
+function getAdvice() {
+  return fetch(`${API_URL}/parent_advice`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -229,5 +239,6 @@ export {
   getUserData,
   postUserData,
   updatePassword,
-  getBadges
+  getBadges,
+  getAdvice
 };

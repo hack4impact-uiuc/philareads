@@ -37,38 +37,13 @@ class Advice extends Component {
     if (this.props.adviceCards === undefined) {
       return <div />;
     }
-    return this.props.adviceCards.map(
-      ({ title, subtitle, text, smallText, button, image }) => {
-        return (
-          <Col
-            sm="6"
-            md="4"
-            style={{ marginTop: '15px', marginBottom: '15px' }}
-          >
-            <Card
-              body
-              inverse
-              style={{
-                backgroundColor: '#333',
-                border: '1px solid black',
-                height: '100%'
-              }}
-            >
-              <CardImg src={image} alt="" />
-              <CardBody>
-                <CardTitle>{title}</CardTitle>
-                <CardSubtitle>{subtitle}</CardSubtitle>
-                <CardText>
-                  {text}
-                  <br />
-                  <small className="text-muted">{smallText}</small>
-                </CardText>
-                {button && <Button>{button}</Button>}
-              </CardBody>
-            </Card>
-          </Col>
-        );
-      }
+
+    return (
+      <Card body style={{ border: '1px solid gray' }}>
+        <CardBody>
+          <div dangerouslySetInnerHTML={{ __html: this.props.adviceCards }} />
+        </CardBody>
+      </Card>
     );
   };
 
@@ -77,10 +52,9 @@ class Advice extends Component {
     return (
       <div>
         <div id="mainAdvice" class="container">
+          {this.renderCards()}
+          <br />
           <CardGroup style={{ marginBottom: '50px' }}>
-            <Row sm="10" style={{ marginBottom: '50px' }}>
-              {this.renderCards()}
-            </Row>
             {this.renderFullOutCard()}
           </CardGroup>
         </div>
