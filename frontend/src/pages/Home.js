@@ -13,9 +13,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
-import intermediate from './../images/home_intermediate.png';
 import parents from './../images/home_parents.png';
-import exercises from './../images/home_exercises.png';
 import search from './../images/home_search.png';
 import './../styles/Home.scss';
 
