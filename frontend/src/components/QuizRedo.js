@@ -38,11 +38,13 @@ class QuizRedo extends Component {
             You've completed the quiz!
           </ModalHeader>
           <ModalBody>
-            You've completed the quiz with a total score of:{' '}
-            {this.props.numCorrectQ}/{this.props.numTotalQ}.<br />
+            You've completed the quiz with a total score of:
+            <h3 style={{ textAlign: 'center' }}>
+              {this.props.numCorrectQ}/{this.props.numTotalQ}
+            </h3>
+            {this.renderProgress()}
             You can redo this quiz, or move on to other activities!
           </ModalBody>
-          {this.renderProgress()}
           <ModalFooter>
             <Button color="secondary" onClick={this.props.redoQuiz}>
               Redo

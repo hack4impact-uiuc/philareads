@@ -150,19 +150,8 @@ class QuizViewer extends Component {
   render() {
     return (
       <div className="quiz-viewer">
-        <div className="quiz-header" class="flex-container">
-          <h1 className="quiz-title">
-            {this.props.quizName}
-            <Button
-              outline
-              color="primary"
-              onClick={() => this.props.finishAttempt(this.state.questionProps)}
-              className="finish-attempt"
-            >
-              Finish Attempt
-            </Button>
-          </h1>
-        </div>
+        <h1 className="quiz-title">{this.props.quizName}</h1>
+        <br />
         {this.props.questionList.length > 0 && (
           <Question
             key={`${this.props.quizID},${this.state.currentQuestion}`}
