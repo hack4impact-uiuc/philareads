@@ -6,7 +6,7 @@ import AdminBookSelect from '../../components/AdminBookSelect';
 import AdminQuizSelect from '../../components/AdminQuizSelect';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
-import { createQuiz } from '../../utils/api';
+import { editQuiz } from '../../utils/api.js';
 class AdminEditQuizPage extends Component {
   constructor(props) {
     super(props);
@@ -85,12 +85,14 @@ class AdminEditQuizPage extends Component {
   };
   handleSubmit = async (event, formState) => {
     event.preventDefault();
+    console.log(formState);
     if (this.frontendValidated(formState)) {
-      const { message, success } = await createQuiz({
+      const { message, success } = await editQuiz({
         name: formState.quiz_name,
         published: formState.published,
         book_id: this.state.currentSelectedBook.id,
-        questions: formState.questions
+        questions: formState.questions,
+        quiz_id: formState.questions[0].quiz_id
       });
       if (success) {
         this.handleSuccess();
@@ -120,27 +122,31 @@ class AdminEditQuizPage extends Component {
                 </Alert>
               );
             })}
-            <AdminBookSelect handleBookSelect={this.handleBookSelect} />
-            {this.state.currentSelectedBook.id !== undefined && (
-              <AdminQuizSelect
-                quiz_id={this.state.currentSelectedBook.id}
-                handleQuizSelect={this.handleQuizSelect}
-              />
+            {!this.state.success && (
+              <AdminBookSelect handleBookSelect={this.handleBookSelect} />
             )}
-            {this.state.success ? (
+            {!this.state.success &&
+              (this.state.currentSelectedBook.id !== undefined && (
+                <AdminQuizSelect
+                  quiz_id={this.state.currentSelectedBook.id}
+                  handleQuizSelect={this.handleQuizSelect}
+                />
+              ))}
+            {this.state.success && (
               <Alert color="success">
                 Quiz was successfully edited. Would you like to{' '}
                 <a href="/admin/quiz/edit"> edit another? </a>
               </Alert>
-            ) : (
-              this.state.currentSelectedBook.id > -1 && (
-                <AdminQuizForm
-                  type="Edit"
-                  handleSubmit={this.handleSubmit}
-                  quiz={this.state.currentSelectedQuiz}
-                />
-              )
             )}
+            {!this.state.success &&
+              (this.state.currentSelectedQuiz !== -1 &&
+                (this.state.currentSelectedBook.id > -1 && (
+                  <AdminQuizForm
+                    type="Edit"
+                    handleSubmit={this.handleSubmit}
+                    quiz={this.state.currentSelectedQuiz}
+                  />
+                )))}
           </Col>
         </Row>
       </Container>

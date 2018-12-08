@@ -213,6 +213,18 @@ function createQuiz(bookData) {
   }).then(res => res.json());
 }
 
+function editQuiz(quizData) {
+  console.log('Editing quiz');
+  return fetch(`${API_URL}/edit_quiz`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(quizData)
+  }).then(res => res.json());
+}
+
 function getAllQuizzes(book_id) {
   console.log('Getting all quizzes');
   return fetch(`${API_URL}/${book_id}/quizzes`, {
@@ -244,5 +256,6 @@ export {
   getBadges,
   getAdvice,
   upgradeUser,
+  editQuiz,
   getAllQuizzes
 };

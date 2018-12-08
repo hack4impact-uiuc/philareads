@@ -35,8 +35,6 @@ class AdminAddQuizPage extends Component {
     if (formState.questions.length === 0) {
       errors.push({ message: 'There are no questions.', key: key++ });
     }
-
-    console.log(formState);
     for (var question in formState.questions) {
       if (formState.questions[question].correct_option.length < 1) {
         errors.push({

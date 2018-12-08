@@ -12,28 +12,51 @@ import {
 } from 'reactstrap';
 import AdminQuestion from '../components/AdminQuestion';
 import '../styles/admin/AdminQuizForm.scss';
-import { createQuiz } from '../utils/api.js';
 
 class AdminQuizForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quiz_name: '',
-      errors: [],
-      numSubmits: 0,
-      questions: [],
-      published: false,
-      questionCounter: 0
-    };
+    console.log(props);
+    if (props.quiz.name === undefined) {
+      console.log('empty state');
+      this.state = {
+        quiz_name: '',
+        errors: [],
+        numSubmits: 0,
+        questions: [],
+        published: false,
+        questionCounter: 0
+      };
+    } else {
+      this.state = {
+        quiz_name: this.props.quiz.name,
+        errors: [],
+        numSubmits: 0,
+        questions: this.props.quiz.quizzes,
+        published:
+          this.props.quiz.published !== undefined
+            ? this.props.quiz.published
+            : true,
+        questionCounter: 0
+      };
+    }
   }
 
   componentDidUpdate(previousProps) {
+    console.log('Component did update' + this.props.quiz);
     if (
       previousProps.quiz !== undefined &&
       (previousProps.quiz.book_id !== this.props.quiz.book_id ||
         previousProps.quiz.name !== this.props.quiz.name)
     ) {
-      this.setState({ questions: this.props.quiz.quizzes });
+      this.setState({
+        questions: this.props.quiz.quizzes,
+        quiz_name: this.props.quiz.name,
+        published:
+          this.props.quiz.published !== undefined
+            ? this.props.quiz.published
+            : true
+      });
     }
   }
 
