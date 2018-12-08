@@ -104,6 +104,13 @@ def admin_route(route):
                 message="Invalid token", status=401, data={"status": "fail"}
             )
         user = User.query.get(user_id)
+        if user is None:
+            return create_response(
+                message="User with jwt id does not exist",
+                status=403,
+                data={"status": "fail"},
+            )
+
         if not user.is_admin:
             return create_response(
                 message="Your account is not an admin",

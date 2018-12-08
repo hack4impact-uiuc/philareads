@@ -12,3 +12,4 @@ from .QuizResult import QuizResult
 from .QuestionResult import QuestionResult
 from .Badge import give_user_badges
 from .ParentAdvice import ParentAdvice
+from .Year import Year
