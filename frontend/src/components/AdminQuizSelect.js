@@ -23,7 +23,7 @@ class AdminQuizSelect extends Component {
       const sortedByName = result['quizzes'].sort(
         (a, b) => (a['name'].toLowerCase() > b['name'].toLowerCase() ? 1 : -1)
       );
-      this.setState({ quizzes: sortedByName });
+      this.setState({ quizzes: sortedByName, currentSelectedQuiz: null });
     } else {
       this.setState(state => ({
         errors: [{ message: message, key: state.numSubmits }]
@@ -46,7 +46,11 @@ class AdminQuizSelect extends Component {
         <select
           className="form-control"
           onChange={this.changeSelection}
-          defaultValue="---Select Quiz---"
+          value={
+            this.state.currentSelectedQuiz !== null
+              ? this.state.currentSelectedQuiz.name
+              : '---Select Quiz---'
+          }
         >
           <option disabled>---Select Quiz---</option>
           {this.state.quizzes.map((element, id) => {
