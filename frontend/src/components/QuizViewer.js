@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Question from '../components/Question';
-import { Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import {
+  Button,
+  Progress,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from 'reactstrap';
 
 class QuizViewer extends Component {
   constructor(props) {
@@ -13,7 +19,8 @@ class QuizViewer extends Component {
           answeredCorrectly: -1
         };
       }),
-      currentQuestion: 0
+      currentQuestion: 0,
+      answered: 0
     };
   }
 
@@ -27,19 +34,62 @@ class QuizViewer extends Component {
 
   setQuestionProps = stateObject => {
     const { currentQuestion } = this.state;
-    this.setState(state => {
-      const { questionProps } = state;
-      return {
-        questionProps: [
+    this.setState(
+      state => {
+        const { questionProps } = this.state;
+        const updatedQuestionProps = [
           ...questionProps.slice(0, currentQuestion),
           {
             ...questionProps[currentQuestion],
             ...stateObject
           },
           ...questionProps.slice(currentQuestion + 1)
-        ]
-      };
-    });
+        ];
+        let answered = 0;
+        updatedQuestionProps.map(question => {
+          if (question.submitted === true) {
+            answered++;
+          }
+        });
+        return {
+          questionProps: updatedQuestionProps,
+          answered: answered
+        };
+      },
+      () => {
+        if (this.state.answered === this.props.questionList.length) {
+          this.props.finishAttempt(this.state.questionProps);
+        }
+      }
+    );
+  };
+
+  renderProgress = () => {
+    let value = (this.state.answered / this.props.questionList.length) * 100;
+    return (
+      <div class="flex-container" className="progressDiv">
+        <Progress color="success" value={value} />
+        {this.props.redoable && this.renderRedoButton()}
+      </div>
+    );
+  };
+
+  renderRedoButton = () => {
+    let color = '';
+    if (this.props.redoable === true) {
+      color = 'primary';
+    } else {
+      color = 'secondary';
+    }
+    return (
+      <Button
+        className="redoButton"
+        color={color}
+        onClick={this.props.redoQuiz}
+      >
+        Redo
+      </Button>
+    );
   };
 
   changePagePrev = () =>
@@ -88,7 +138,8 @@ class QuizViewer extends Component {
             answeredCorrectly: -1
           };
         }),
-        currentQuestion: 0
+        currentQuestion: 0,
+        answered: 0
       });
     }
   }
@@ -96,17 +147,8 @@ class QuizViewer extends Component {
   render() {
     return (
       <div className="quiz-viewer">
-        <h1 className="quiz-title">
-          {this.props.quizName}
-          <Button
-            outline
-            color="primary"
-            onClick={() => this.props.finishAttempt(this.state.questionProps)}
-            className="finish-attempt"
-          >
-            Finish Attempt
-          </Button>
-        </h1>
+        <h1 className="quiz-title">{this.props.quizName}</h1>
+        <br />
         {this.props.questionList.length > 0 && (
           <Question
             key={`${this.props.quizID},${this.state.currentQuestion}`}
@@ -124,6 +166,9 @@ class QuizViewer extends Component {
             totalNumOfQuestions={this.props.questionList.length}
           />
         )}
+
+        <br />
+        {this.renderProgress()}
 
         {this.props.questionList.length > 0 && (
           <div className="pagination">
