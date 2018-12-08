@@ -4,7 +4,6 @@ import { login } from '../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
 import '../styles/Login.scss';
-import validateEmail from '../utils/validationHelpers';
 
 class Login extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class Login extends Component {
     this.state = {
       name: '',
       password: '',
-      email: '',
+      username: '',
       isLoggedIn: this.isLoggedIn(),
       errors: []
     };
@@ -31,7 +30,7 @@ class Login extends Component {
     const { message, success, result } = await login({
       name: this.state.name,
       password: this.state.password,
-      email: this.state.email
+      username: this.state.username
     });
     if (success) {
       const cookies = new Cookies();
@@ -51,7 +50,7 @@ class Login extends Component {
 
   canSubmitWithoutError() {
     var canSubmitWithoutError = false;
-    if (validateEmail(this.state.email) && this.state.password.length > 0) {
+    if (this.state.username.length > 0 && this.state.password.length > 0) {
       // TODO: Add more validation
       canSubmitWithoutError = true;
     }
@@ -84,22 +83,15 @@ class Login extends Component {
           <Form className="form-signin">
             <Card className="login-card">
               <FormGroup>
-                <Label className="sr-only" for="email">
-                  Email
+                <Label className="sr-only" for="username">
+                  Username
                 </Label>
                 <Input
                   onChange={this.handleChange}
-                  className={
-                    'form-control ' +
-                    (this.state.email.length > 0 &&
-                      (validateEmail(this.state.email)
-                        ? 'is-valid'
-                        : 'is-invalid'))
-                  }
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Email address"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  placeholder="Username"
                 />
               </FormGroup>
               <FormGroup>

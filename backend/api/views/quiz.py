@@ -72,7 +72,6 @@ def create_quiz_helper(user_data):
 
     new_quiz = Quiz(user_data["name"], user_data["published"])
     new_quiz.book_id = linked_book.id
-    linked_book.quizzes.append(new_quiz)
 
     # write into database so that new_quiz has a PK
     db.session.add(new_quiz)
@@ -87,7 +86,7 @@ def create_quiz_helper(user_data):
     db.session.commit()
 
     return dict(
-        message="Succesfully created new quiz", status=200, data={"status": "success"}
+        message="Successfully created new quiz", status=200, data={"status": "success"}
     )
 
 
@@ -240,7 +239,6 @@ def create_quiz_result(user_id):
         db.session.add(db_question_result)
 
     new_badges = give_user_badges(user, new_quiz_result)
-    user.attempted_quizzes.append(new_quiz_result)
     db.session.commit()
 
     if len(new_badges) == 0:

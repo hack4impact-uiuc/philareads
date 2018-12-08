@@ -32,31 +32,33 @@ class User(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False, unique=True)
+    username = db.Column(db.String, nullable=False, unique=True)
     attempted_quizzes = db.relationship(
         "QuizResult", cascade="all,delete", backref="user", lazy=True
     )
     badges = db.Column("options", MutableList.as_mutable(ARRAY(Integer)))
     is_admin = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name: str, password: str, email: str):
+    def __init__(self, name: str, password: str, username: str):
         self.name = name
         self.password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt()).decode(
             "utf8"
         )
-        self.email = email
+        self.username = username
         self.attempted_quizzes = []
         self.badges = []
         self.is_admin = False
 
     def __repr__(self):
-        return f"<User name:{self.name}> password:{self.password} email:{self.email}"
+        return (
+            f"<User name:{self.name}> password:{self.password} username:{self.username}"
+        )
 
     def serialize_to_json(self):
         return {
             "id": self.id,
             "name": self.name,
-            "email": self.email,
+            "username": self.username,
             "badge_ids": self.badges,
             "is_admin": self.is_admin,
         }
