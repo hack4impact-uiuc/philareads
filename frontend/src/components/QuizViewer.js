@@ -34,30 +34,44 @@ class QuizViewer extends Component {
 
   setQuestionProps = stateObject => {
     const { currentQuestion } = this.state;
-    this.setState(state => {
-      const { questionProps } = state;
-      return {
-        questionProps: [
+    this.setState(
+      state => {
+        const { questionProps } = this.state;
+        const updatedQuestionProps = [
           ...questionProps.slice(0, currentQuestion),
           {
             ...questionProps[currentQuestion],
             ...stateObject
           },
           ...questionProps.slice(currentQuestion + 1)
-        ]
-      };
-    });
+        ];
+        let answered = 0;
+        updatedQuestionProps.map(question => {
+          if (question.submitted === true) {
+            answered++;
+          }
+        });
+        console.log('Setting state to: ' + answered);
+        return {
+          questionProps: updatedQuestionProps,
+          answered: answered
+        };
+      },
+      () => {
+        console.log('Answered: ' + this.state.answered);
+        console.log('length: ' + this.props.questionList.length);
+        if (this.state.answered === this.props.questionList.length) {
+          this.props.finishAttempt(this.state.questionProps);
+        }
+      }
+    );
   };
 
   renderProgress = () => {
     let value = (this.state.answered / this.props.questionList.length) * 100;
     return (
-      <div>
-        <Progress
-          color="success"
-          value={value}
-          style={{ display: 'inline-block', width: '75%' }}
-        />
+      <div class="flex-container" className="progressDiv">
+        <Progress color="success" value={value} />
         {this.renderRedoButton()}
       </div>
     );
@@ -72,9 +86,9 @@ class QuizViewer extends Component {
     }
     return (
       <Button
+        className="redoButton"
         color={color}
         onClick={this.props.redoQuiz}
-        style={{ float: 'right' }}
       >
         Redo
       </Button>
@@ -118,17 +132,6 @@ class QuizViewer extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.questionProps !== this.state.questionProps) {
-      let numSubmittedTrue = 0;
-      this.state.questionProps.map(question => {
-        if (question.submitted === true) {
-          numSubmittedTrue++;
-        }
-      });
-      this.setState({
-        answered: numSubmittedTrue
-      });
-    }
     if (prevProps.numRedo !== this.props.numRedo) {
       this.setState({
         questionProps: this.props.questionList.map(question => {
@@ -138,7 +141,8 @@ class QuizViewer extends Component {
             answeredCorrectly: -1
           };
         }),
-        currentQuestion: 0
+        currentQuestion: 0,
+        answered: 0
       });
     }
   }
@@ -146,17 +150,19 @@ class QuizViewer extends Component {
   render() {
     return (
       <div className="quiz-viewer">
-        <h1 className="quiz-title">
-          {this.props.quizName}
-          <Button
-            outline
-            color="primary"
-            onClick={() => this.props.finishAttempt(this.state.questionProps)}
-            className="finish-attempt"
-          >
-            Finish Attempt
-          </Button>
-        </h1>
+        <div className="quiz-header" class="flex-container">
+          <h1 className="quiz-title">
+            {this.props.quizName}
+            <Button
+              outline
+              color="primary"
+              onClick={() => this.props.finishAttempt(this.state.questionProps)}
+              className="finish-attempt"
+            >
+              Finish Attempt
+            </Button>
+          </h1>
+        </div>
         {this.props.questionList.length > 0 && (
           <Question
             key={`${this.props.quizID},${this.state.currentQuestion}`}
