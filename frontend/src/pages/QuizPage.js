@@ -155,6 +155,7 @@ class QuizPage extends Component {
               finishAttempt={this.finishAttempt}
               numRedo={this.state.numRedo}
               redoQuiz={this.redoQuiz}
+              redoable={this.state.redoable}
             />
             <QuizRedo
               closeModal={this.closeModal}

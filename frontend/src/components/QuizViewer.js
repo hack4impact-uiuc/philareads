@@ -69,7 +69,7 @@ class QuizViewer extends Component {
     return (
       <div class="flex-container" className="progressDiv">
         <Progress color="success" value={value} />
-        {this.renderRedoButton()}
+        {this.props.redoable && this.renderRedoButton()}
       </div>
     );
   };
@@ -77,7 +77,7 @@ class QuizViewer extends Component {
   renderRedoButton = () => {
     let color = '';
     if (this.props.redoable === true) {
-      color = 'success';
+      color = 'primary';
     } else {
       color = 'secondary';
     }
@@ -128,7 +128,7 @@ class QuizViewer extends Component {
     );
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.numRedo !== this.props.numRedo) {
       this.setState({
         questionProps: this.props.questionList.map(question => {
