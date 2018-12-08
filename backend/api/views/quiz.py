@@ -87,7 +87,7 @@ def create_quiz_helper(user_data):
     db.session.commit()
 
     return dict(
-        message="Succesfully created new quiz", status=200, data={"status": "success"}
+        message="Successfully created new quiz", status=200, data={"status": "success"}
     )
 
 

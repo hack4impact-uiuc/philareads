@@ -32,7 +32,6 @@ class AccountManagePage extends Component {
 
   fetchUserData = async () => {
     const { result } = await getUserData();
-    console.log(result);
     this.setState({ name: result['name'], username: result['username'] });
   };
 
@@ -63,15 +62,32 @@ class AccountManagePage extends Component {
 
   handleProfileSubmit = async () => {
     let userData = {
-      name: this.state.changedName,
-      username: this.state.changedUsername
+      name: this.state.name,
+      username: this.state.username
     };
-    console.log(postUserData(userData));
+
+    if (
+      this.state.changedUsername.length > 0 &&
+      this.state.changedName.length > 0
+    ) {
+      userData = {
+        name: this.state.changedName,
+        username: this.state.changedUsername
+      };
+    } else if (this.state.changedUsername.length > 0) {
+      userData = {
+        name: this.state.name,
+        username: this.state.changedUsername
+      };
+    } else if (this.state.changedName.length > 0) {
+      userData = {
+        name: this.state.changedName,
+        username: this.state.username
+      };
+    }
 
     const { message } = await postUserData(userData);
     this.setState({ message: message });
-
-    console.log(message);
 
     if (message === 'Successfully updated user') {
       this.setState({ alertMessage: 'Profile Updated!' });
@@ -91,9 +107,6 @@ class AccountManagePage extends Component {
       newPassword: '',
       confirmPassword: ''
     });
-    //console.log(this.currentPasswordInput.current.props.value)
-    //console.log(this.input.value)
-    //this.currentPasswordInput.setState({ value: ''})
 
     const { message } = await updatePassword(passwordData);
     this.setState({ message: message });
@@ -190,7 +203,6 @@ class AccountManagePage extends Component {
                 <Input
                   name="password"
                   type="password"
-                  autoComplete="newPassword"
                   onChange={txt =>
                     this.setState({ newPassword: txt.target.value })
                   }
@@ -203,7 +215,6 @@ class AccountManagePage extends Component {
                   name="passwordConfirm"
                   type="password"
                   ref="passwordConfirm"
-                  autoComplete="new-password"
                   onBlur={() => this.forceUpdate()}
                   onChange={txt =>
                     this.setState({ confirmPassword: txt.target.value })
