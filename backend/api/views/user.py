@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, Blueprint
-from api.models import User, db
+from api.models import User, db, Badge
 from api.core import create_response, serialize_list, logger, authenticated_route
 import bcrypt
 import jwt
@@ -83,3 +83,21 @@ def user_info(user_id):
 
     user_data = user.serialize_to_json()
     return create_response(message="Success", status=200, data=user_data)
+
+
+# returns all in progress badges and already earned badges
+@user.route("/badges", methods=["GET"])
+@authenticated_route
+def badges(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return create_response(
+            message="User not found", status=401, data={"status": "fail"}
+        )
+    earned_badges = Badge.get_user_badges(user)
+    badges_progress = Badge.get_progress_on_badges(user)
+    response_dict = {
+        "badgesEarned": [badge.serialize_to_json() for badge in earned_badges],
+        "badgesInProgress": badges_progress,
+    }
+    return create_response(message="Success", status=200, data=response_dict)
