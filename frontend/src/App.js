@@ -106,9 +106,9 @@ class App extends Component {
               exact
               path="/ReadingOlympics/year/current"
               component={RORedirectToCurrent}
-            ></Route>
-            <Route 
-              path="/admin/quiz/add" 
+            />
+            <Route
+              path="/admin/quiz/add"
               component={withAdminProtection(AdminAddQuizPage)}
             />
 
