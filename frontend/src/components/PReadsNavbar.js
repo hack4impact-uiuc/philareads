@@ -78,11 +78,6 @@ export default class PReadsNavbar extends React.Component {
                   </NavItem>
                 );
               })}
-              {this.isLoggedIn() && (
-                <NavItem>
-                  <NavLink href={'/logout'}>Logout</NavLink>
-                </NavItem>
-              )}
               {!this.isLoggedIn() && (
                 <NavItem>
                   <NavLink href={'/login'}>Login</NavLink>

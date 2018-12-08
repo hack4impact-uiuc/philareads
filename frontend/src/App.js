@@ -66,6 +66,7 @@ class App extends Component {
               path="/ReadingOlympics/book/:id/:quizID"
               component={QuizPage}
             />
+            <Route path="/account" component={AccountManagePage} />
             <Route component={NoMatchPage} />
           </Switch>
         </div>
