@@ -22,6 +22,14 @@ const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
+  onClickMiddleSchool = () => {
+    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
+  };
+
+  onClickIntermediate = () => {
+    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
+  };
+
   render() {
     return (
       <div className="home">

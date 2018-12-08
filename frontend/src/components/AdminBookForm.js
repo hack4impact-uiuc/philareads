@@ -118,7 +118,7 @@ class AdminBookForm extends Component {
     const { message, success } = await createBook({
       name: this.state.title,
       author: this.state.author,
-      grade: parseInt(this.state.grade),
+      grade: this.state.grade,
       year: parseInt(this.state.year),
       cover_url: this.state.cover_url
     });
