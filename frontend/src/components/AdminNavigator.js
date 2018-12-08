@@ -14,7 +14,7 @@ class AdminNavigator extends Component {
           Account
           <ul>
             <li>
-              <a href="/admin/manage_user">Upgrade User</a>
+              <a href="/admin/manage_users">Upgrade User</a>
             </li>
           </ul>
           Books
