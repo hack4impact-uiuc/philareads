@@ -26,7 +26,9 @@ def register_user():
 
     if duplicate_user is not None:
         return create_response(
-            data={"status": "fail"}, message="Username already taken. Maybe try adding some numbers at the end.  ", status=409
+            data={"status": "fail"},
+            message="Username already taken. Maybe try adding some numbers at the end.  ",
+            status=409,
         )
 
     user = User(
