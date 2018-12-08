@@ -82,8 +82,8 @@ def test_create_valid_quiz(client):
         ),
         content_type="application/json",
     )
-    auth_token = login_res.json['result']['auth_token']
-    client.set_cookie("localhost", 'jwt', auth_token)
+    auth_token = login_res.json["result"]["auth_token"]
+    client.set_cookie("localhost", "jwt", auth_token)
 
     client.post("/book", data=sample_book_json, content_type="application/json")
     # pdb.set_trace()
