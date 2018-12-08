@@ -173,6 +173,16 @@ function getBadges() {
   }).then(res => res.json());
 }
 
+function getAdvice() {
+  return fetch(`${API_URL}/parent_advice`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 function upgradeUser(user) {
   return fetch(`${API_URL}/upgrade_user`, {
     method: 'POST',
@@ -201,5 +211,6 @@ export {
   postUserData,
   updatePassword,
   getBadges,
+  getAdvice,
   upgradeUser
 };
