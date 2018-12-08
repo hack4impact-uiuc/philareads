@@ -114,7 +114,9 @@ def get_quizzes(book_id):
     # check to see if book is valid
     if book is None:
         return create_response(
-            message="Corresponding book does not exist", status=400, data={"status": "failure"}
+            message="Corresponding book does not exist",
+            status=400,
+            data={"status": "failure"},
         )
 
     quizList = []
@@ -232,7 +234,9 @@ def edit_book(user_id):
     user_data = request.get_json()
     if invalid_book_data(user_data):
         return create_response(
-            message="Missing name, author, grade, year, or published field", status=422, data={"status": "fail"}
+            message="Missing name, author, grade, year, or published field",
+            status=422,
+            data={"status": "fail"},
         )
 
     book_to_edit = Book.query.get(user_data["book_id"])

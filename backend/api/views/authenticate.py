@@ -17,7 +17,9 @@ def register_user():
         or (not "name" in user_data)
     ):
         return create_response(
-            data={"status": "fail"}, message="Missing username, password, or name", status=422
+            data={"status": "fail"},
+            message="Missing username, password, or name",
+            status=422,
         )
 
     duplicate_user = User.query.filter_by(username=user_data["username"]).first()
@@ -76,7 +78,9 @@ def login_user():
                 )
 
     return create_response(
-        data={"status": "fail"}, message="Account with that username not found", status=401
+        data={"status": "fail"},
+        message="Account with that username not found",
+        status=401,
     )
 
 
