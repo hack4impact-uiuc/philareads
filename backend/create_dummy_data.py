@@ -334,7 +334,7 @@ rubyonoutside1_quiz = {
 r = requests.post(API_URL + "quiz", json=rubyonoutside1_quiz)
 print(r.json())
 
-before_reading_advice = '''
+before_reading_advice = """
 <strong>Before reading:</strong>
 <ol>
 <li>Looking at the title, cover and illustrations/pictures, what do you think will happen in this book?</li>
@@ -345,15 +345,13 @@ before_reading_advice = '''
 <li>Does the topic or story relate to you or your family? How?</li>
 <li>Do you think it will be like any other book you’ve read? If so, which one, and how do you think it will be similar?</li>
 </ol>
-'''
+"""
 
-parent_advice1 = {
-    "text": before_reading_advice
-}
+parent_advice1 = {"text": before_reading_advice}
 r = requests.post(API_URL + "parent_advice", json=parent_advice1, cookies=credentials)
 print(r.json())
 
-during_reading_advice = '''
+during_reading_advice = """
 <strong>During reading:</strong>
 <ol>
 <li>What has happened so far in the story? Can you tell me using sequence words? (first, then, next, after, finally, etc.)</li>
@@ -366,15 +364,13 @@ during_reading_advice = '''
 <li>What are you wondering about as you read? What questions do you have?</li>
 <li>Think about the predictions you made before reading; do you still think the story will go that way? Why or why not? How do you think it will go now?</li>
 </ol>
-'''
+"""
 
-parent_advice2 = {
-    "text": during_reading_advice
-}
+parent_advice2 = {"text": during_reading_advice}
 r = requests.post(API_URL + "parent_advice", json=parent_advice2, cookies=credentials)
 print(r.json())
 
-after_reading_advice = '''
+after_reading_advice = """
 <strong>After reading:</strong>
 <ol>
 <li>Why is the title a good title for the book/story? If you had to give it a different title, what would be another good title for it?</li>
@@ -391,10 +387,8 @@ after_reading_advice = '''
 <li>Is there a character in the story that reminds you of someone you know? If so, who are they like, and why do you think that?</li>
 <li>Does this book remind you of another book you know? Does it remind you of something you’ve experienced in real life?</li>
 </ol>
-'''
+"""
 
-parent_advice3 = {
-    "text": after_reading_advice
-}
+parent_advice3 = {"text": after_reading_advice}
 r = requests.post(API_URL + "parent_advice", json=parent_advice3, cookies=credentials)
 print(r.json())
