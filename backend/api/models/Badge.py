@@ -4,9 +4,12 @@ from api.models import Quiz
 
 
 class Badge:
-    def __init__(self, id, title, description, congrats_text, graphic, quantity):
+    def __init__(
+        self, id, title, progress_text, description, congrats_text, graphic, quantity
+    ):
         self.id = id
         self.title = title
+        self.progress_text = progress_text
         self.description = description
         self.congrats_text = congrats_text
         self.graphic = graphic
@@ -20,6 +23,7 @@ class Badge:
         return {
             "id": self.id,
             "title": self.title,
+            "progress_text": self.progress_text,
             "description": self.description,
             "congrats_text": self.congrats_text,
             "graphic": self.graphic,
@@ -115,6 +119,7 @@ class NthQuizBadge(Badge):
             self,
             badge_id,
             f"{quantity} {get_quiz_word(quantity)} Completed!",
+            f"Complete {quantity} {get_quiz_word(quantity)}",
             f"This award is given after completing {quantity} {get_quiz_word(quantity).lower()}",
             f"Congratulations on completing {quantity} {get_quiz_word(quantity).lower()}!",
             graphic,
@@ -129,6 +134,7 @@ class NthPerfectBadge(Badge):
             self,
             badge_id,
             f"{quantity} Perfect {get_quiz_word(quantity)} Completed!",
+            f"Complete {quantity} Perfect {get_quiz_word(quantity)}",
             f"This award is given after completing {quantity} perfect {get_quiz_word(quantity).lower()}",
             f"Congratulations on completing {quantity} perfect {get_quiz_word(quantity).lower()}!",
             graphic,
@@ -143,6 +149,7 @@ class NthBookBadge(Badge):
             self,
             badge_id,
             f"Quizzes from {quantity} {get_book_word(quantity)} Completed!",
+            f"Complete Quizzes From {quantity} {get_book_word(quantity)}",
             f"This award is given after completing quizzes from {quantity} {get_book_word(quantity).lower()}",
             f"Congratulations on completing quizzes from {quantity} {get_book_word(quantity).lower()}!",
             graphic,
