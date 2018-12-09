@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 import { getAllQuizzes } from '../utils/api';
 class AdminQuizSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentSelectedQuiz: null,
-      quizzes: []
+      quizzes: [],
+      errors: [],
+      numSubmits: 0
     };
     this.getQuizzes();
   }
@@ -23,12 +26,16 @@ class AdminQuizSelect extends Component {
       const sortedByName = result['quizzes'].sort(
         (a, b) => (a['name'].toLowerCase() > b['name'].toLowerCase() ? 1 : -1)
       );
-      this.setState({ quizzes: sortedByName, currentSelectedQuiz: null });
+      this.setState({
+        quizzes: sortedByName,
+        currentSelectedQuiz: null,
+        errors: []
+      });
     } else {
       this.setState(state => ({
-        errors: [{ message: message, key: state.numSubmits }]
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1
       }));
-      //TODO: display errors if fetch doesn't work
     }
   };
 
@@ -41,26 +48,36 @@ class AdminQuizSelect extends Component {
   };
 
   render() {
+    const hasErrors = this.state.errors.length > 0;
     return (
       <div className="quiz-select">
-        <select
-          className="form-control"
-          onChange={this.changeSelection}
-          value={
-            this.state.currentSelectedQuiz !== null
-              ? this.state.currentSelectedQuiz.name
-              : '---Select Quiz---'
-          }
-        >
-          <option disabled>---Select Quiz---</option>
-          {this.state.quizzes.map((element, id) => {
-            return (
-              <option key={id} value={element['id']}>
-                {element['name']}
-              </option>
-            );
-          })}
-        </select>
+        {this.state.errors.map(({ message, key }) => {
+          return (
+            <Alert key={key} color="danger">
+              {message}
+            </Alert>
+          );
+        })}
+        {!hasErrors && (
+          <select
+            className="form-control"
+            onChange={this.changeSelection}
+            value={
+              this.state.currentSelectedQuiz !== null
+                ? this.state.currentSelectedQuiz.name
+                : '---Select Quiz---'
+            }
+          >
+            <option disabled>---Select Quiz---</option>
+            {this.state.quizzes.map((element, id) => {
+              return (
+                <option key={id} value={element['id']}>
+                  {element['name']}
+                </option>
+              );
+            })}
+          </select>
+        )}
       </div>
     );
   }

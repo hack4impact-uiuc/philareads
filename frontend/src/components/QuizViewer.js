@@ -45,12 +45,10 @@ class QuizViewer extends Component {
           },
           ...questionProps.slice(currentQuestion + 1)
         ];
-        let answered = 0;
-        updatedQuestionProps.map(question => {
-          if (question.submitted === true) {
-            answered++;
-          }
-        });
+        const answered = updatedQuestionProps.reduce(
+          (acc, question) => acc + (question.submitted ? 1 : 0),
+          0
+        );
         return {
           questionProps: updatedQuestionProps,
           answered: answered

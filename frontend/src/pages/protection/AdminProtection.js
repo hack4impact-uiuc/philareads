@@ -16,10 +16,12 @@ class AdminProtection extends Component {
   }
 
   checkIsAdmin = async () => {
-    const { success, result, message } = await getUserData();
+    const { success, result } = await getUserData();
     if (success) {
       this.setState({ isAdmin: result.is_admin, isLoggedIn: true });
     } else {
+      // This could either happen becaues the user is not logged in /
+      // the cookie is not accepted, or because the server is not up
       this.setState({ isLoggedIn: false, isAdmin: false });
     }
   };

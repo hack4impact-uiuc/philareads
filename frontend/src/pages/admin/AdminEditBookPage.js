@@ -14,7 +14,9 @@ class AdminEditBookPage extends Component {
       success: null,
       books: [],
       currentSelectedBook: null,
-      deleteButtonPressed: false
+      deleteButtonPressed: false,
+      errors: [],
+      numSubmits: 0
     };
   }
   handleSuccess = () => {
@@ -38,12 +40,12 @@ class AdminEditBookPage extends Component {
       book_id: this.state.currentSelectedBook.id
     });
     if (success) {
-      this.setState({ success: true });
+      this.setState({ success: true, errors: [] });
     } else {
       this.setState(state => ({
-        errors: [{ message: message, key: state.numSubmits }]
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1
       }));
-      //TODO: display errors if fetch doesn't work
     }
   };
 
@@ -69,6 +71,13 @@ class AdminEditBookPage extends Component {
           <Col lg="6" className="admin-edit">
             <h1>Edit Book</h1>
             <hr />
+            {this.state.errors.map(({ message, key }) => {
+              return (
+                <Alert key={key} color="danger">
+                  {message}
+                </Alert>
+              );
+            })}
             {this.state.success && (
               <Alert color="success">
                 Book was successfully modified. Would you like to{' '}

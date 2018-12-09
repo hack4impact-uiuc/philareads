@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardTitle,
-  CardText,
-  Button,
-  CardBody,
-  CardGroup,
-  CardHeader,
-  CardFooter
-} from 'reactstrap';
+import { Card, CardBody } from 'reactstrap';
 
 class Advice extends Component {
   renderCards = () => {

@@ -51,7 +51,7 @@ class AdminBookForm extends Component {
           this.testImage();
           // Can't reuse the testBookURL method since it relies on an event
           var patt = new RegExp(
-            /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/
+            /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
           );
           this.setState({ bookURLValid: patt.test(this.state.reader_url) });
         }
@@ -144,6 +144,7 @@ class AdminBookForm extends Component {
       ...additionalBookData
     });
     if (success) {
+      this.setState({ errors: [] });
       this.props.handleSuccess();
     } else {
       this.setState(state => ({

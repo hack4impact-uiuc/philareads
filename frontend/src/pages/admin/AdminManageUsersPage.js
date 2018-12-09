@@ -7,9 +7,7 @@ import {
   Input,
   Button,
   Modal,
-  ModalHeader,
   ModalBody,
-  ModalFooter,
   Alert
 } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
@@ -49,11 +47,7 @@ class AdminManageUsersPage extends Component {
   handleUpgrade = async () => {
     const query = this.state.username.trim();
 
-    const {
-      success,
-      result: { results },
-      message
-    } = await upgradeUser({
+    const { success, message } = await upgradeUser({
       user_username: query
     });
 

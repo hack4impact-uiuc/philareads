@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Card,
-  CardBody,
-  CardText,
-  CardTitle,
-  Media
-} from 'reactstrap';
+import { Container, Card, CardBody, Media } from 'reactstrap';
 import '../styles/About.scss';
 import logo from '../images/philareadslogo.png';
 

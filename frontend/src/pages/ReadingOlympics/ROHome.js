@@ -1,14 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import {
-  Container,
-  Col,
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Input
-} from 'reactstrap';
+import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
 import '../../styles/ReadingOlympics.scss';
 import RedirectingSearchBar from '../../components/RedirectingSearchBar';
 import { URLParamToString } from '../../utils/formatHelpers';

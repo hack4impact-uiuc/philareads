@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 import { getAllBooks } from '../utils/api';
 
 class AdminBookSelect extends Component {
@@ -6,7 +7,9 @@ class AdminBookSelect extends Component {
     super(props);
     this.state = {
       currentSelectedBook: null,
-      books: []
+      books: [],
+      errors: [],
+      numSubmits: 0
     };
     this.getBooks();
   }
@@ -16,12 +19,12 @@ class AdminBookSelect extends Component {
       const sortedByName = result['results'].sort(
         (a, b) => (a['name'].toLowerCase() > b['name'].toLowerCase() ? 1 : -1)
       );
-      this.setState({ books: sortedByName });
+      this.setState({ books: sortedByName, errors: [] });
     } else {
       this.setState(state => ({
-        errors: [{ message: message, key: state.numSubmits }]
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1
       }));
-      //TODO: display errors if fetch doesn't work
     }
   };
 
@@ -34,22 +37,32 @@ class AdminBookSelect extends Component {
   };
 
   render() {
+    const hasErrors = this.state.errors.length > 0;
     return (
       <div className="book-select">
-        <select
-          className="form-control"
-          onChange={this.changeSelection}
-          defaultValue="---Select Book---"
-        >
-          <option disabled>---Select Book---</option>
-          {this.state.books.map((element, id) => {
-            return (
-              <option key={element['id']} value={element['ida']}>
-                {element['name'] + ' (' + element['author'] + ')'}
-              </option>
-            );
-          })}
-        </select>
+        {this.state.errors.map(({ message, key }) => {
+          return (
+            <Alert key={key} color="danger">
+              {message}
+            </Alert>
+          );
+        })}
+        {!hasErrors && (
+          <select
+            className="form-control"
+            onChange={this.changeSelection}
+            defaultValue="---Select Book---"
+          >
+            <option disabled>---Select Book---</option>
+            {this.state.books.map((element, id) => {
+              return (
+                <option key={element['id']} value={element['ida']}>
+                  {element['name'] + ' (' + element['author'] + ')'}
+                </option>
+              );
+            })}
+          </select>
+        )}
       </div>
     );
   }

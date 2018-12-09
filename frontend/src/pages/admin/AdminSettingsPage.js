@@ -1,33 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Alert,
-  Card,
-  CardBody,
-  CardTitle,
-  CardText,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  FormFeedback,
-  FormText,
-  Button
-} from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col } from 'reactstrap';
 import AdminNavigator from '../../components/AdminNavigator';
-import AdminPublishModal from '../../components/admin/AdminPublishModal';
-import AdminYearModal from '../../components/admin/AdminYearModal';
 import AdminYearSection from '../../components/admin/AdminYearSection';
-import {
-  getROCurrentYear,
-  setROCurrentYear,
-  getAllBooks,
-  getBooksByYearGrade,
-  getQuizzes
-} from '../../utils/api';
 import '../../styles/admin/AdminHome.scss';
 
 class AdminSettingsPage extends Component {

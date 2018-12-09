@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Row,
-  Col,
   Alert,
   Card,
   CardBody,
-  CardTitle,
-  CardText,
   Form,
   FormGroup,
   Input,
   Label,
   FormFeedback,
   FormText,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -52,8 +43,11 @@ class AdminYearSection extends Component {
     if (success) {
       this.setState({
         originalReadingOlympicsYear: results,
-        readingOlympicsYear: results
+        readingOlympicsYear: results,
+        errors: []
       });
+    } else {
+      this.setError(message);
     }
   };
 
@@ -64,6 +58,13 @@ class AdminYearSection extends Component {
       !isNaN(readingOlympicsYear) &&
       readingOlympicsYear.length === 4
     );
+  };
+
+  setError = message => {
+    this.setState(state => ({
+      errors: [{ message: message, key: state.numSubmits }],
+      numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
+    }));
   };
 
   handleSubmit = async event => {
@@ -88,16 +89,10 @@ class AdminYearSection extends Component {
           originalReadingOlympicsYear: readingOlympicsYear
         });
       } else {
-        this.setState(state => ({
-          errors: [{ message: publishMessage, key: state.numSubmits }],
-          numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
-        }));
+        this.setError(publishMessage);
       }
     } else {
-      this.setState(state => ({
-        errors: [{ message: message, key: state.numSubmits }],
-        numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
-      }));
+      this.setError(message);
     }
   };
 

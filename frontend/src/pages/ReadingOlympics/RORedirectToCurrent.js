@@ -14,10 +14,14 @@ class RORedirectToCurrent extends Component {
   getROCurrentYear = async () => {
     const {
       success,
-      result: { results },
-      message
+      result: { results }
     } = await getROCurrentYear();
-    this.setState({ currentYear: results });
+    if (success) {
+      this.setState({ currentYear: results });
+    } else {
+      // Handle failure by going back to RO homepage
+      this.props.history.push('/readingolympics');
+    }
   };
 
   render() {
