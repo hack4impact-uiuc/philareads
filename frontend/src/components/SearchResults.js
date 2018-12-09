@@ -36,7 +36,7 @@ class SearchResults extends Component {
 
   setGradeFilters = filterEvent => {
     const { gradeFilters } = this.state;
-    const grade = parseInt(filterEvent.target.parentElement.innerText);
+    const grade = filterEvent.target.parentElement.innerText;
     const idx = gradeFilters.indexOf(grade);
     if (idx === -1) {
       this.setState({ gradeFilters: [...gradeFilters, grade] });
