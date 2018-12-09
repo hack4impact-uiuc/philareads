@@ -148,6 +148,18 @@ function createBook(bookData) {
   }).then(res => res.json());
 }
 
+function editBook(bookData) {
+  console.log(bookData);
+  return fetch(`${API_URL}/edit_book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
 function deleteBook(bookData) {
   return fetch(`${API_URL}/delete_book`, {
     method: 'POST',
@@ -288,6 +300,7 @@ export {
   getQuizzes,
   createBook,
   createQuiz,
+  editBook,
   postQuizResults,
   getAllBooks,
   deleteBook,
