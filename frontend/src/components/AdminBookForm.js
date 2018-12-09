@@ -12,13 +12,15 @@ import {
 } from 'reactstrap';
 import '../styles/admin/AdminBookForm.scss';
 import { URLParamToString } from '../utils/formatHelpers';
-import { createBook } from '../utils/api.js';
+import { createBook, editBook } from '../utils/api.js';
 
 class AdminBookForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
+      wasPublished: false,
+      published: false,
       author: '',
       cover_url: '',
       year: '',
@@ -37,6 +39,8 @@ class AdminBookForm extends Component {
       this.setState(
         {
           title: this.props.currentBook.name,
+          wasPublished: this.props.currentBook.published,
+          published: this.props.currentBook.published,
           author: this.props.currentBook.author,
           cover_url: this.props.currentBook.cover_url,
           year: this.props.currentBook.year,
@@ -113,14 +117,31 @@ class AdminBookForm extends Component {
     return canSubmitWithoutError;
   }
 
+  getSubmitButtonString = () => {
+    if (this.state.published && !this.state.wasPublished) {
+      return `${this.props.type} and Publish`;
+    } else if (!this.state.published && this.state.wasPublished) {
+      if (this.props.type === 'Edit') {
+        return `${this.props.type} and Unpublish`;
+      }
+    } else {
+      return this.props.type;
+    }
+  };
+
   handleSubmit = async event => {
     event.preventDefault();
-    const { message, success } = await createBook({
+    const apiCall = this.props.type === 'Edit' ? editBook : createBook;
+    const additionalBookData =
+      this.props.type === 'Edit' ? { book_id: this.state.id } : {};
+    const { message, success } = await apiCall({
       name: this.state.title,
       author: this.state.author,
       grade: this.state.grade,
       year: parseInt(this.state.year),
-      cover_url: this.state.cover_url
+      cover_url: this.state.cover_url,
+      published: this.state.published,
+      ...additionalBookData
     });
     if (success) {
       this.props.handleSuccess();
@@ -130,6 +151,12 @@ class AdminBookForm extends Component {
         numSubmits: state.numSubmits + 1 //this is here so a new key is used, regenerating the element so the user knows the button was clicked.
       }));
     }
+  };
+
+  togglePublish = e => {
+    this.setState({
+      published: e.target.checked
+    });
   };
 
   render() {
@@ -150,6 +177,16 @@ class AdminBookForm extends Component {
             onChange={this.handleChange}
             placeholder="Ex: The Adventures of Huckleberry Finn"
             value={this.state.title}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label className="checkbox-label">Published?</Label>
+          <Input
+            className="published-checkbox"
+            type="checkbox"
+            name="published"
+            onChange={this.togglePublish}
+            checked={this.state.published}
           />
         </FormGroup>
         <FormGroup>
@@ -234,7 +271,7 @@ class AdminBookForm extends Component {
             disabled={!this.canSubmitWithoutError()}
             color={this.props.type === 'Edit' ? 'warning' : 'primary'}
           >
-            {this.props.type} Book
+            {this.getSubmitButtonString()} Book
           </Button>
           {this.props.type === 'Edit' && (
             <Button

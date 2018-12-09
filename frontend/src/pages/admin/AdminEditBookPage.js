@@ -34,7 +34,9 @@ class AdminEditBookPage extends Component {
 
   deleteBook = async () => {
     this.toggleModal();
-    const { message, success } = await deleteBook();
+    const { message, success } = await deleteBook({
+      book_id: this.state.currentSelectedBook.id
+    });
     if (success) {
       this.setState({ success: true });
     } else {
@@ -67,22 +69,24 @@ class AdminEditBookPage extends Component {
           <Col lg="6" className="admin-edit">
             <h1>Edit Book</h1>
             <hr />
-            <AdminBookSelect handleBookSelect={this.handleBookSelect} />
-            {this.state.success ? (
+            {this.state.success && (
               <Alert color="success">
                 Book was successfully modified. Would you like to{' '}
-                <a href="/admin/book/add"> edit another? </a>
+                <a href="/admin/book/edit">edit another</a>?
               </Alert>
-            ) : (
-              this.state.currentSelectedBook !== null && (
+            )}
+            {!this.state.success && (
+              <AdminBookSelect handleBookSelect={this.handleBookSelect} />
+            )}
+            {!this.state.success &&
+              (this.state.currentSelectedBook !== null && (
                 <AdminBookForm
                   type="Edit"
                   currentBook={this.state.currentSelectedBook}
                   handleSuccess={this.handleSuccess}
                   handleDeletePress={this.handleDeletePress}
                 />
-              )
-            )}
+              ))}
           </Col>
         </Row>
       </Container>

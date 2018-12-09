@@ -148,6 +148,18 @@ function createBook(bookData) {
   }).then(res => res.json());
 }
 
+function editBook(bookData) {
+  console.log(bookData);
+  return fetch(`${API_URL}/edit_book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(bookData)
+  }).then(res => res.json());
+}
+
 function deleteBook(bookData) {
   return fetch(`${API_URL}/delete_book`, {
     method: 'POST',
@@ -160,7 +172,9 @@ function deleteBook(bookData) {
 }
 
 function getAllBooks() {
-  return fetch(`${API_URL}/books`, {
+  // This includes unpublished books.
+  // Therefore, the response should only be shown to an admin user.
+  return fetch(`${API_URL}/all_books`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -288,6 +302,7 @@ export {
   getQuizzes,
   createBook,
   createQuiz,
+  editBook,
   postQuizResults,
   getAllBooks,
   deleteBook,
