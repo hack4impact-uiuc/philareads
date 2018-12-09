@@ -172,6 +172,8 @@ function deleteBook(bookData) {
 }
 
 function getAllBooks() {
+  // This includes unpublished books.
+  // Therefore, the response should only be shown to an admin user.
   return fetch(`${API_URL}/all_books`, {
     method: 'GET',
     headers: {
