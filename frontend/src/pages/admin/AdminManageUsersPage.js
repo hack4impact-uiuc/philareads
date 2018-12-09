@@ -96,7 +96,7 @@ class AdminManageUsersPage extends Component {
                 onKeyPress={event => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
-                    this.handleSearch();
+                    this.toggleModal();
                   }
                 }}
               />

@@ -24,10 +24,6 @@
     margin: 24px;
   }
 
-  .parent {
-    background-color: bisque;
-  }
-
   h2 {
     margin: 30px;
   }
@@ -35,6 +31,11 @@
   .button {
     background-color: #007bff;
     color: white;
+  }
+
+  .navigation-button {
+    background-color: #ff9966;
+    color: black;
   }
 
   .navigation-button + .navigation-button {

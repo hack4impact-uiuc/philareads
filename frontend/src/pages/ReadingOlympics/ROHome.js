@@ -74,7 +74,6 @@ class ROHome extends Component {
                 <Button
                   className="navigation-button"
                   onClick={this.onClickMiddleSchool}
-                  color="primary"
                   size="lg"
                   block
                 >
@@ -83,7 +82,6 @@ class ROHome extends Component {
                 <Button
                   className="navigation-button"
                   onClick={this.onClickIntermediate}
-                  color="primary"
                   size="lg"
                   block
                 >
