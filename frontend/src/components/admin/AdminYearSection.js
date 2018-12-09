@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Row,
-  Col,
   Alert,
   Card,
   CardBody,
-  CardTitle,
-  CardText,
   Form,
   FormGroup,
   Input,
   Label,
   FormFeedback,
   FormText,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';

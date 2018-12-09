@@ -9,14 +9,12 @@ import {
   CardTitle,
   CardImg,
   CardText,
-  Alert,
-  Input
+  Alert
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
 import RedirectingSearchBar from '../components/RedirectingSearchBar';
 import parents from './../images/home_parents.png';
-import search from './../images/home_search.png';
 import './../styles/Home.scss';
 
 const pathToMiddle = 'middle';

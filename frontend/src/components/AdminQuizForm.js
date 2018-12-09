@@ -116,7 +116,7 @@ class AdminQuizForm extends Component {
 
   // Get the text on the "publish" button
   getButtonText() {
-    if (this.props.type == 'Add' && this.state.published) {
+    if (this.props.type === 'Add' && this.state.published) {
       return this.props.type + ' and Publish Quiz';
     }
     if (this.state.published && !this.state.orig_published) {
