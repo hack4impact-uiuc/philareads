@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardSubtitle
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { URLParamToString } from '../utils/formatHelpers';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -58,6 +59,9 @@ class CatalogCardBook extends Component {
           </CardSubtitle>
           <CardText>{book.description}</CardText>
         </CardBody>
+        <Link to={`/ReadingOlympics/book/${book.id}`}>
+          <span />
+        </Link>
       </Card>
     );
   }
