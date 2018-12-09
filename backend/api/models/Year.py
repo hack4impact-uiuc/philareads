@@ -18,4 +18,3 @@ class Year(Mixin, db.Model):
 
     def __repr__(self):
         return f"<Year> id:{self.id} year:{self.year}"
-

@@ -6,6 +6,7 @@ import pdb
 
 year = Blueprint("year", __name__)
 
+
 def init_year():
     now = datetime.datetime.now()
     cur_year = now.year
@@ -14,6 +15,7 @@ def init_year():
     year_obj = Year(cur_year)
     db.session.add(year_obj)
     db.session.commit()
+
 
 @year.route("/year", methods=["GET"])
 @admin_route
@@ -26,13 +28,14 @@ def get_year(user_id):
         message="Successfully retrieved year", data={"year": cur_year}, status=200
     )
 
+
 @year.route("/year", methods=["POST"])
 @admin_route
 def set_year(user_id):
     user_data = request.get_json()
     if "year" not in user_data:
         return create_response(message="Missing year", status=409)
-    
+
     cur_year = Year.query.get(1)
     cur_year.year = user_data["year"]
 
