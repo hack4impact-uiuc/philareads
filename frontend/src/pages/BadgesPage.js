@@ -64,7 +64,13 @@ class BadgesPage extends Component {
       return (
         <Row className="bar" key={badge.id}>
           <Col lg="3" align="center" className="ip-badge">
-            <img src={badgeMap[badge.graphic]} width="50" alt={badge.graphic} />
+            <img
+              src={badgeMap[badge.graphic]}
+              width="50"
+              alt={badge.graphic}
+              title={badge.description}
+            />
+            <p>{badge.progress_text}</p>
           </Col>
           <Col lg="9" align="center">
             <Progress
@@ -85,9 +91,15 @@ class BadgesPage extends Component {
             alt={badge.graphic}
             src={badgeMap[badge.graphic]}
             width="50"
+            align="center"
             className="completed-badge"
+            title={badge.description}
           />
-          <p align="center">{badge.year}</p>
+          <p align="center">
+            {badge.title}
+            <br />
+            {badge.year}
+          </p>
         </div>
       );
     });
