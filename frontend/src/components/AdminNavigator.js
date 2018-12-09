@@ -8,6 +8,13 @@ class AdminNavigator extends Component {
     return (
       <Card className="admin-navigator">
         <CardBody>
+          <CardTitle>Navigation</CardTitle>
+          <b>Account</b>
+          <ul>
+            <li>
+              <a href="/admin/manage_users">Upgrade User</a>
+            </li>
+          </ul>
           <b>Page Settings</b>
           <ul>
             <li>

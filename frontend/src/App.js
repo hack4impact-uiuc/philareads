@@ -17,6 +17,7 @@ import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
 import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
+import AdminManageUsersPage from './pages/admin/AdminManageUsersPage';
 import RORedirectToCurrent from './pages/ReadingOlympics/RORedirectToCurrent';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
@@ -102,6 +103,11 @@ class App extends Component {
               path="/admin/book/edit"
               component={withAdminProtection(AdminEditBookPage)}
             />
+            <Route
+              path="/admin/manage_users"
+              component={withAdminProtection(AdminManageUsersPage)}
+            />
+
             {/*Reading Olympics default year reroutes*/}
             <Route
               exact

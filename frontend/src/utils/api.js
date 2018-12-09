@@ -192,53 +192,34 @@ function updatePassword(passwordData) {
 }
 
 function getBadges() {
-  return {
-    success: true,
-    result: {
-      results: {
-        badgesEarned: [
-          {
-            id: 1,
-            year: 2018,
-            graphic: 'gold_quiz'
-          },
-          {
-            id: 2,
-            year: 2019,
-            graphic: 'bronze_perfect'
-          }
-        ],
-        badgesInProgress: [
-          {
-            id: 3,
-            type: 'completed-books',
-            year: 2018,
-            graphic: 'diamond_book',
-            currentCount: 3,
-            targetCount: 5
-          },
-          {
-            id: 4,
-            type: 'completed-quizzes',
-            year: 2018,
-            graphic: 'diamond_quiz',
-            currentCount: 2,
-            targetCount: 5
-          },
-          {
-            id: 5,
-            type: 'perfect-quizzes',
-            year: 2018,
-            graphic: 'diamond_perfect',
-            currentCount: 1,
-            targetCount: 5
-          }
-        ]
-      }
+  return fetch(`${API_URL}/badges`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
     },
+    credentials: 'include'
+  }).then(res => res.json());
+}
 
-    message: 'hi'
-  };
+function getAdvice() {
+  return fetch(`${API_URL}/parent_advice`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
+function upgradeUser(user) {
+  return fetch(`${API_URL}/upgrade_user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(user)
+  }).then(res => res.json());
 }
 
 export {
@@ -259,5 +240,7 @@ export {
   getUserData,
   postUserData,
   updatePassword,
-  getBadges
+  getBadges,
+  getAdvice,
+  upgradeUser
 };

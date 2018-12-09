@@ -11,12 +11,22 @@
     float: right;
   }
 
-  .finish-attempt {
-    margin-left: 10px;
-  }
-
   .next-button {
     float: right;
     outline: none;
+  }
+
+  .progressDiv {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .progress {
+      width: 75%;
+      margin-right: 5%;
+    }
+    .redoButton {
+      float: right;
+    }
   }
 }
