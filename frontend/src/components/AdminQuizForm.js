@@ -126,7 +126,7 @@ class AdminQuizForm extends Component {
             name="published"
             onChange={this.togglePublish}
             placeholder="Ex: The Adventures of Huckleberry Finn"
-            value={this.state.title}
+            checked={this.state.published}
           />
         </FormGroup>
 
