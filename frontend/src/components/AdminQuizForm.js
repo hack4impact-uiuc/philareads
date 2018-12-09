@@ -11,8 +11,6 @@ class AdminQuizForm extends Component {
       console.log('empty state');
       this.state = {
         quiz_name: '',
-        errors: [],
-        numSubmits: 0,
         questions: [],
         orig_published: false,
         published: false,
@@ -21,8 +19,6 @@ class AdminQuizForm extends Component {
     } else {
       this.state = {
         quiz_name: this.props.quiz.name,
-        errors: [],
-        numSubmits: 0,
         questions: this.props.quiz.quizzes,
         published:
           this.props.quiz.published !== undefined
