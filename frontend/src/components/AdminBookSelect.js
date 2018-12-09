@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 import { getAllBooks } from '../utils/api';
 
 class AdminBookSelect extends Component {
@@ -6,7 +7,9 @@ class AdminBookSelect extends Component {
     super(props);
     this.state = {
       currentSelectedBook: null,
-      books: []
+      books: [],
+      errors: [],
+      numSubmits: 0
     };
     this.getBooks();
   }
@@ -19,9 +22,9 @@ class AdminBookSelect extends Component {
       this.setState({ books: sortedByName });
     } else {
       this.setState(state => ({
-        errors: [{ message: message, key: state.numSubmits }]
+        errors: [{ message: message, key: state.numSubmits }],
+        numSubmits: state.numSubmits + 1
       }));
-      //TODO: display errors if fetch doesn't work
     }
   };
 
@@ -36,6 +39,13 @@ class AdminBookSelect extends Component {
   render() {
     return (
       <div className="book-select">
+        {this.state.errors.map(({ message, key }) => {
+          return (
+            <Alert key={key} color="danger">
+              {message}
+            </Alert>
+          );
+        })}
         <select
           className="form-control"
           onChange={this.changeSelection}
