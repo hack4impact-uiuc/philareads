@@ -1,0 +1,78 @@
+.quiz-form {
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #95a5a6;
+  border-style: solid;
+  font-weight: 600;
+
+  label {
+    margin-bottom: 0.3rem;
+  }
+  // When screen size is < large, tidy up margins
+  @media only screen and (max-width: 992px) {
+    .year-grade {
+      margin-bottom: 1rem;
+    }
+    .no-margin {
+      margin-bottom: 0px;
+    }
+  }
+
+  .btn {
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+
+  .published-checkbox {
+    margin-left: 1rem;
+  }
+}
+
+.question-form {
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #7f8c8d;
+  border-style: solid;
+  box-shadow: 1px 1px 1px 1px rgba(3, 15, 28, 0.131);
+  label {
+    margin-bottom: 0.3rem;
+  }
+  // .quiz-option {
+  //     margin-bottom:.4rem;
+  // }
+  .option-col {
+    margin-bottom: 0.4rem;
+  }
+  .times-icon {
+    position: relative;
+    float: right;
+    margin-top: -10px;
+    margin-right: -5px;
+  }
+  .correct-btn {
+    margin-top: 0px;
+  }
+
+  // delete question x button styling
+  .fa-15x {
+    font-size: 1.5rem;
+  }
+  svg {
+    z-index: 999;
+    width: 30px;
+  }
+  svg path {
+    color: #e74c3c;
+  }
+  svg:hover path {
+    color: #c0392b;
+    transition: 0.3s;
+  }
+}
