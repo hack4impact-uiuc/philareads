@@ -93,6 +93,12 @@ class AdminManageUsersPage extends Component {
                 onChange={event => {
                   this.setState({ username: event.target.value });
                 }}
+                onKeyPress={event => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    this.handleSearch();
+                  }
+                }}
               />
               <br />
               <Button

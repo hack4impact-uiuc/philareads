@@ -60,11 +60,11 @@ export default class PReadsNavbar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="navbar-color" expand="md">
+        <Navbar className="navbar-light" expand="md">
           <NavbarBrand href="/">
             <img src={logo} width="80" alt="philareads" />
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} className="hamburger-color" />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
               {this.navigationOptions.map(({ route, name }) => {
