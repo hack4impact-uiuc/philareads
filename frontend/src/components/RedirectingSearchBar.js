@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faSearch);
+import { Input } from 'reactstrap';
 
 class RedirectingSearchBar extends Component {
   constructor(props) {
@@ -27,15 +22,12 @@ class RedirectingSearchBar extends Component {
 
   render() {
     return (
-      <div class="flex-container">
-        <FontAwesomeIcon className="sm-search-icon" icon="search" size="1x" />
-        <Input
-          type="text"
-          placeholder="Search for a book..."
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-        />
-      </div>
+      <Input
+        type="text"
+        placeholder="Search for a book..."
+        onChange={this.handleChange}
+        onKeyPress={this.handleKeyPress}
+      />
     );
   }
 }
