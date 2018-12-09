@@ -14,7 +14,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import '../styles/ReadingOlympics.scss';
-
+import book from '../images/book-fa.png';
 library.add(faBook);
 
 class CatalogCardBook extends Component {
@@ -24,7 +24,12 @@ class CatalogCardBook extends Component {
     if (cover_url === undefined || cover_url === null || cover_url === '') {
       return (
         <div className="book-image-container">
-          <FontAwesomeIcon className="book-icon" icon="book" size="8x" />
+          <CardImg
+            className="book-image empty"
+            src={book}
+            onClick={onClickBook}
+            alt=""
+          />
         </div>
       );
     }
