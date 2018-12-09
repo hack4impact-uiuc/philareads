@@ -43,7 +43,8 @@ class AdminYearSection extends Component {
     if (success) {
       this.setState({
         originalReadingOlympicsYear: results,
-        readingOlympicsYear: results
+        readingOlympicsYear: results,
+        errors: []
       });
     } else {
       this.setError(message);

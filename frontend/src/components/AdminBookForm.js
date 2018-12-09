@@ -144,6 +144,7 @@ class AdminBookForm extends Component {
       ...additionalBookData
     });
     if (success) {
+      this.setState({ errors: [] });
       this.props.handleSuccess();
     } else {
       this.setState(state => ({
