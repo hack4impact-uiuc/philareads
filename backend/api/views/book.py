@@ -314,6 +314,7 @@ def edit_book(user_id):
     book_to_edit.grade = user_data["grade"]
     book_to_edit.year = user_data["year"]
     book_to_edit.cover_url = user_data.get("cover_url", "")
+    book_to_edit.published = user_data["published"]
 
     db.session.commit()
     return create_response(
