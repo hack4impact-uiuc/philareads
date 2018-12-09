@@ -69,14 +69,15 @@ class AdminEditBookPage extends Component {
           <Col lg="6" className="admin-edit">
             <h1>Edit Book</h1>
             <hr />
-            <AdminBookSelect handleBookSelect={this.handleBookSelect} />
             {this.state.success && (
               <Alert color="success">
                 Book was successfully modified. Would you like to{' '}
                 <a href="/admin/book/edit">edit another</a>?
               </Alert>
             )}
-            {!this.state.success && this.getDropdown()}
+            {!this.state.success && (
+              <AdminBookSelect handleBookSelect={this.handleBookSelect} />
+            )}
             {!this.state.success &&
               (this.state.currentSelectedBook !== null && (
                 <AdminBookForm
