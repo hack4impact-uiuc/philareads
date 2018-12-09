@@ -239,7 +239,7 @@ function deleteQuiz(quizData) {
 
 function getAllQuizzes(book_id) {
   console.log('Getting all quizzes');
-  return fetch(`${API_URL}/${book_id}/quizzes`, {
+  return fetch(`${API_URL}/${book_id}/all_quizzes`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
