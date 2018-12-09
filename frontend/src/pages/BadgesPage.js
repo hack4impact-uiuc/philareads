@@ -70,7 +70,10 @@ class BadgesPage extends Component {
             <img src={badgeMap[badge.graphic]} width="50" alt={badge.graphic} />
           </Col>
           <Col lg="9" align="center">
-            <Progress value={(badge.currentCount / badge.targetCount) * 100} />
+            <Progress
+              color="success"
+              value={(badge.currentCount / badge.targetCount) * 100}
+            />
           </Col>
         </Row>
       );

@@ -23,8 +23,6 @@ import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
 import BadgesPage from './pages/BadgesPage';
 import About from './pages/About';
-
-import './styles/App.scss';
 import AdminProtection from './pages/protection/AdminProtection';
 import AuthenticatedProtection from './pages/protection/AuthenticatedProtection';
 
