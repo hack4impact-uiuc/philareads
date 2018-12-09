@@ -5,7 +5,6 @@ import {
   Col,
   Card,
   CardBody,
-  CardText,
   CardTitle,
   Progress
 } from 'reactstrap';
@@ -13,9 +12,7 @@ import { badgeMap } from '../utils/badgeMap.js';
 import '../styles/BadgesPage.scss';
 import { getBadges } from '../utils/api';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 
 library.add(faSpinner);
 
@@ -82,6 +79,7 @@ class BadgesPage extends Component {
       return (
         <div className="earned-badge" key={badge.id}>
           <img
+            alt={badge.graphic}
             src={badgeMap[badge.graphic]}
             width="50"
             className="completed-badge"
