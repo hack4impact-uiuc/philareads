@@ -63,6 +63,34 @@ function getROCurrentYear() {
   // }).then(res => res.json());
 }
 
+function setROActiveYear(readingOlympicsYear) {
+  return {
+    success: true,
+    result: {
+      results: 2019
+    },
+    message: ''
+  };
+  // return fetch(`${API_URL}/setYearOrSomething`, {
+  //   method: 'POST',
+  //   body: JSON.stringify({ year: readingOlympicsYear})
+  // }).then(res => res.json());
+}
+
+function publishAllBooksInYear(readingOlympicsYear) {
+  return {
+    success: true,
+    result: {
+      // idk does it return anything?
+    },
+    message: ''
+  };
+  // return fetch(`${API_URL}/setYearOrSomething`, {
+  //   method: 'POST',
+  //   body: JSON.stringify({ year: readingOlympicsYear})
+  // }).then(res => res.json());
+}
+
 function getROArchiveYears() {
   return fetch(`${API_URL}/years`, {
     method: 'GET'
@@ -200,6 +228,7 @@ export {
   search,
   getBooksByYearGrade,
   getROCurrentYear,
+  setROActiveYear,
   getROArchiveYears,
   getBookData,
   getQuizzes,
@@ -207,6 +236,7 @@ export {
   postQuizResults,
   getAllBooks,
   deleteBook,
+  publishAllBooksInYear,
   getUserData,
   postUserData,
   updatePassword,

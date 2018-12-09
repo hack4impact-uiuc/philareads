@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
 import { Card, CardTitle, CardBody } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 class AdminNavigator extends Component {
-  onDrop(files) {
-    this.setState({
-      files
-    });
-  }
+  // TODO Highlight active page
   render() {
     return (
       <Card className="admin-navigator">
         <CardBody>
           <CardTitle>Navigation</CardTitle>
-          Account
+          <b>Account</b>
           <ul>
             <li>
-              <a href="/admin/manage_users">Upgrade User</a>
+              <Link to="/admin/manage_users">Upgrade User</Link>
             </li>
           </ul>
-          Books
+          <b>Page Settings</b>
           <ul>
             <li>
-              <a href="/admin/book/csv_upload">Upload CSV</a>
-            </li>
-            <li>
-              <a href="/admin/book/add">Add</a>
-            </li>
-            <li>
-              <a href="/admin/book/edit">Edit</a>
+              <Link to="/admin/settings">Manage</Link>
             </li>
           </ul>
-          Quizzes
+          <b>Books</b>
           <ul>
             <li>
-              <a href="/admin/quiz/add">Add</a>
+              <Link to="/admin/book/csv_upload">Upload CSV</Link>
             </li>
             <li>
-              <a href="/admin/quiz/edit">Edit</a>
+              <Link to="/admin/book/add">Add</Link>
+            </li>
+            <li>
+              <Link to="/admin/book/edit">Edit</Link>
+            </li>
+          </ul>
+          <b>Quizzes</b>
+          <ul>
+            <li>
+              <Link to="/admin/quiz/add">Add</Link>
+            </li>
+            <li>
+              <Link to="/admin/quiz/edit">Edit</Link>
+            </li>
+          </ul>
+          <b>Parent Advice</b>
+          <ul>
+            <li>
+              <Link to="/admin/parents/add">Add</Link>
+            </li>
+            <li>
+              <Link to="/admin/parents/edit">Edit</Link>
             </li>
           </ul>
         </CardBody>

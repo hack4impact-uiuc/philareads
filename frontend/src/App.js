@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Search from './pages/Search';
 import AccountManagePage from './pages/AccountManagePage';
 import AdminPage from './pages/admin/AdminPage';
+import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
 import AdminEditBookPage from './pages/admin/AdminEditBookPage';
 import AdminCSVUploadPage from './pages/admin/AdminCSVUploadPage';
@@ -69,13 +70,25 @@ class App extends Component {
             {/*Ungrouped pages*/}
             <Route path="/parents" component={ParentsPage} />
             <Route path="/search" component={Search} />
-            <Route path="/profile/badges" component={BadgesPage} />
             <Route path="/about" component={About} />
+            {/*Account pages*/}
+            <Route
+              path="/account"
+              component={withAuthenticatedProtection(AccountManagePage)}
+            />
+            <Route
+              path="/profile/badges"
+              component={withAuthenticatedProtection(BadgesPage)}
+            />
             {/*Admin pages*/}
             <Route
               exact
               path="/admin"
               component={withAdminProtection(AdminPage)}
+            />
+            <Route
+              path="/admin/settings"
+              component={withAdminProtection(AdminSettingsPage)}
             />
             <Route
               exact
@@ -123,10 +136,7 @@ class App extends Component {
               path="/ReadingOlympics/book/:id/:quizID"
               component={QuizPage}
             />
-            <Route
-              path="/account"
-              component={withAuthenticatedProtection(AccountManagePage)}
-            />
+            {/*404 Page*/}
             <Route component={NoMatchPage} />
           </Switch>
         </div>
