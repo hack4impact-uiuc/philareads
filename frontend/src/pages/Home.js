@@ -9,7 +9,8 @@ import {
   CardTitle,
   CardImg,
   CardText,
-  Alert
+  Alert,
+  Input
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
@@ -21,6 +22,13 @@ const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ''
+    };
+  }
+
   shouldShowAlert() {
     if (this.props.location.state) {
       return this.props.location.state.referrer;
@@ -76,6 +84,29 @@ class Home extends Component {
             <Col className="right-sidebar">
               <Card>
                 <CardBody>
+                  <CardTitle>Search</CardTitle>
+                  <Input
+                    type="text"
+                    bsSize="lg"
+                    placeholder="Search for a book..."
+                    onChange={event => {
+                      this.setState({ query: event.target.value });
+                    }}
+                    onKeyPress={event => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                        console.log(this.state.query);
+                        this.props.history.push(
+                          `/search?query=${this.state.query}`
+                        );
+                      }
+                    }}
+                  />
+                </CardBody>
+                <CardImg className="image" src={search} />
+              </Card>
+              <Card>
+                <CardBody>
                   <CardTitle>For Parents</CardTitle>
                   <CardText>
                     Click here for some advice on how to make the most out of
@@ -84,16 +115,6 @@ class Home extends Component {
                 </CardBody>
                 <CardImg className="image" src={parents} />
                 <Link to="/parents">
-                  <span />
-                </Link>
-              </Card>
-              <Card>
-                <CardBody>
-                  <CardTitle>Search</CardTitle>
-                  <CardText>Search for your books here!</CardText>
-                </CardBody>
-                <CardImg className="image" src={search} />
-                <Link to="/search">
                   <span />
                 </Link>
               </Card>

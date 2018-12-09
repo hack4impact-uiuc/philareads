@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
+import {
+  Container,
+  Col,
+  Button,
+  Card,
+  CardBody,
+  CardTitle,
+  Input
+} from 'reactstrap';
 import '../../styles/ReadingOlympics.scss';
 import { URLParamToString } from '../../utils/formatHelpers';
 import { getROArchiveYears } from '../../utils/api';
@@ -12,7 +20,8 @@ class ROHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      years: []
+      years: [],
+      query: ''
     };
   }
 
@@ -38,7 +47,21 @@ class ROHome extends Component {
       <Card className="search">
         <CardBody>
           <CardTitle>Search</CardTitle>
-          Need to import Search component
+          <Input
+            type="text"
+            bsSize="lg"
+            placeholder="Search for a book..."
+            onChange={event => {
+              this.setState({ query: event.target.value });
+            }}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                console.log(this.state.query);
+                this.props.history.push(`/search?query=${this.state.query}`);
+              }
+            }}
+          />
         </CardBody>
       </Card>
     );
