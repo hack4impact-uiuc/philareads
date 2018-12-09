@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
+import RedirectingSearchBar from '../components/RedirectingSearchBar';
 import parents from './../images/home_parents.png';
 import search from './../images/home_search.png';
 import './../styles/Home.scss';
@@ -22,13 +23,6 @@ const pathToMiddle = 'middle';
 const pathToIntermediate = 'intermediate';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ''
-    };
-  }
-
   shouldShowAlert() {
     if (this.props.location.state) {
       return this.props.location.state.referrer;
@@ -85,25 +79,8 @@ class Home extends Component {
               <Card>
                 <CardBody>
                   <CardTitle>Search</CardTitle>
-                  <Input
-                    type="text"
-                    bsSize="lg"
-                    placeholder="Search for a book..."
-                    onChange={event => {
-                      this.setState({ query: event.target.value });
-                    }}
-                    onKeyPress={event => {
-                      if (event.key === 'Enter') {
-                        event.preventDefault();
-                        console.log(this.state.query);
-                        this.props.history.push(
-                          `/search?query=${this.state.query}`
-                        );
-                      }
-                    }}
-                  />
+                  <RedirectingSearchBar history={this.props.history} />
                 </CardBody>
-                <CardImg className="image" src={search} />
               </Card>
               <Card>
                 <CardBody>

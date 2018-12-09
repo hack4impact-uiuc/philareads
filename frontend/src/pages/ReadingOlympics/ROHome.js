@@ -10,6 +10,7 @@ import {
   Input
 } from 'reactstrap';
 import '../../styles/ReadingOlympics.scss';
+import RedirectingSearchBar from '../../components/RedirectingSearchBar';
 import { URLParamToString } from '../../utils/formatHelpers';
 import { getROArchiveYears } from '../../utils/api';
 
@@ -20,8 +21,7 @@ class ROHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      years: [],
-      query: ''
+      years: []
     };
   }
 
@@ -47,21 +47,7 @@ class ROHome extends Component {
       <Card className="search">
         <CardBody>
           <CardTitle>Search</CardTitle>
-          <Input
-            type="text"
-            bsSize="lg"
-            placeholder="Search for a book..."
-            onChange={event => {
-              this.setState({ query: event.target.value });
-            }}
-            onKeyPress={event => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                console.log(this.state.query);
-                this.props.history.push(`/search?query=${this.state.query}`);
-              }
-            }}
-          />
+          <RedirectingSearchBar history={this.props.history} />
         </CardBody>
       </Card>
     );
