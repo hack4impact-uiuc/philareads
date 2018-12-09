@@ -34,7 +34,9 @@ class AdminCSVUploadPage extends Component {
             <hr />
             {/* TODO: Insert actual CSV template */}
             <p>
-              Please click <a href="/">here</a> to download the CSV template.
+              Please click{' '}
+              <a href={process.env.PUBLIC_URL + '/createbook.csv'}>here</a> to
+              download the CSV template.
             </p>
 
             <Dropzone
