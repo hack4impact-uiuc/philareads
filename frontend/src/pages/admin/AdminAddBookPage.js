@@ -28,7 +28,7 @@ class AdminAddBookPage extends Component {
             {this.state.success ? (
               <Alert color="success">
                 Book was successfully created. Would you like to{' '}
-                <a href="/admin/book/add"> create another? </a>
+                <a href="/admin/book/add">create another</a>?
               </Alert>
             ) : (
               <AdminBookForm type="Add" handleSuccess={this.handleSuccess} />

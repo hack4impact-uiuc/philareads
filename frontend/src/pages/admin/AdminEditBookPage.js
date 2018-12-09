@@ -73,7 +73,7 @@ class AdminEditBookPage extends Component {
             {this.state.success && (
               <Alert color="success">
                 Book was successfully modified. Would you like to{' '}
-                <a href="/admin/book/edit"> edit another? </a>
+                <a href="/admin/book/edit">edit another</a>?
               </Alert>
             )}
             {!this.state.success && this.getDropdown()}
