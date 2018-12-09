@@ -12,7 +12,7 @@ class AdminNavigator extends Component {
           <b>Account</b>
           <ul>
             <li>
-              <a href="/admin/manage_users">Upgrade User</a>
+              <Link to="/admin/manage_users">Upgrade User</Link>
             </li>
           </ul>
           <b>Page Settings</b>
