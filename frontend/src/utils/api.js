@@ -172,7 +172,7 @@ function deleteBook(bookData) {
 }
 
 function getAllBooks() {
-  return fetch(`${API_URL}/books`, {
+  return fetch(`${API_URL}/all_books`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
