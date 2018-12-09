@@ -12,6 +12,14 @@
   label {
     margin-bottom: 0.3rem;
   }
+
+  .checkbox-label {
+    margin-right: 8px;
+  }
+
+  .published-checkbox {
+    margin-left: inherit;
+  }
   // When screen size is < large, tidy up margins
   @media only screen and (max-width: 992px) {
     .year-grade {
