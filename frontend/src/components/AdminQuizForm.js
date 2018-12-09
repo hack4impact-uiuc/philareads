@@ -14,6 +14,7 @@ class AdminQuizForm extends Component {
         errors: [],
         numSubmits: 0,
         questions: [],
+        orig_published: false,
         published: false,
         questionCounter: 0
       };
@@ -24,6 +25,10 @@ class AdminQuizForm extends Component {
         numSubmits: 0,
         questions: this.props.quiz.quizzes,
         published:
+          this.props.quiz.published !== undefined
+            ? this.props.quiz.published
+            : true,
+        orig_published:
           this.props.quiz.published !== undefined
             ? this.props.quiz.published
             : true,
@@ -43,6 +48,10 @@ class AdminQuizForm extends Component {
         questions: this.props.quiz.quizzes,
         quiz_name: this.props.quiz.name,
         published:
+          this.props.quiz.published !== undefined
+            ? this.props.quiz.published
+            : true,
+        orig_published:
           this.props.quiz.published !== undefined
             ? this.props.quiz.published
             : true
@@ -104,6 +113,20 @@ class AdminQuizForm extends Component {
       };
     });
   };
+
+  // Get the text on the "publish" button
+  getButtonText() {
+    if (this.props.type == 'Add' && this.state.published) {
+      return this.props.type + ' and Publish Quiz';
+    }
+    if (this.state.published && !this.state.orig_published) {
+      return this.props.type + ' and Publish Quiz';
+    }
+    if (!this.state.published && this.state.orig_published) {
+      return this.props.type + ' and Unpublish Quiz';
+    }
+    return this.props.type + ' Quiz';
+  }
   render() {
     return (
       <Form className="quiz-form">
@@ -152,7 +175,7 @@ class AdminQuizForm extends Component {
             disabled={!this.canSubmitWithoutError()}
             color={this.props.type === 'Edit' ? 'warning' : 'primary'}
           >
-            {this.props.type} Quiz
+            {this.getButtonText()}
           </Button>
           {this.props.type === 'Edit' && (
             <Button onClick={this.props.handleDeletePress} color="danger">
