@@ -66,6 +66,7 @@ def create_app(test_config=None):
     from api.views import book
     from api.views import user
     from api.views import parentadvice
+    from api.views import year
 
     app.register_blueprint(main.main)
     app.register_blueprint(authenticate.authenticate)
@@ -73,6 +74,7 @@ def create_app(test_config=None):
     app.register_blueprint(book.book)
     app.register_blueprint(user.user)
     app.register_blueprint(parentadvice.parent_advice)
+    app.register_blueprint(year.year)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
