@@ -5,7 +5,7 @@ from sqlalchemy import *
 
 
 class Year(Mixin, db.Model):
-    """Book Table."""
+    """Year Table."""
 
     __tablename__ = "year"
 
