@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 const API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://localhost:5000' // change this to prod endpoint
+    ? 'http://localhost:5000' // change this to prod endpoint
     : 'http://localhost:5000';
 
 function register(formData) {
@@ -290,6 +290,16 @@ function getAllQuizzes(book_id) {
   }).then(res => res.json());
 }
 
+function bookFromCSV(book) {
+  var formData = new FormData();
+  formData.append('File', book);
+  return fetch(`${API_URL}/book_from_csv`, {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
 export {
   register,
   login,
@@ -315,5 +325,6 @@ export {
   upgradeUser,
   editQuiz,
   getAllQuizzes,
-  deleteQuiz
+  deleteQuiz,
+  bookFromCSV
 };
