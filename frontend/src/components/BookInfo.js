@@ -8,7 +8,7 @@ class BookInfo extends Component {
       <div className="blue-gradient book-info">
         <div className="container">
           <div className="row book-info-row  font-white">
-            <div className="col col-lg-3">
+            <div className="col-lg-3 col-md-6">
               {this.props.bookObject.cover_url !== '' && (
                 <img
                   alt="Book cover cannot be displayed"
@@ -17,7 +17,7 @@ class BookInfo extends Component {
                 />
               )}
             </div>
-            <div>
+            <div className="col-lg-9 col-md-6">
               <h1 className="book-title">{this.props.bookObject.name}</h1>
               <h3 className="light-font book-author">
                 By {this.props.bookObject.author}
