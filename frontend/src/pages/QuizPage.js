@@ -150,7 +150,7 @@ class QuizPage extends Component {
             {header}
             <Link to={'/ReadingOlympics/book/' + this.state.bookID}>
               <Button className="back-button" color="primary">
-                Back to {this.state.bookData.name} Info
+                Back to Book Info
               </Button>
             </Link>
             <QuizViewer
