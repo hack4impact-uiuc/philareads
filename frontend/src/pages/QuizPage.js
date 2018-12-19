@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import QuizRedo from '../components/QuizRedo';
+import { Link } from 'react-router-dom';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Alert, Button } from 'reactstrap';
@@ -147,13 +148,11 @@ class QuizPage extends Component {
         {this.dataLoaded() && (
           <div>
             {header}
-            <Button
-              className="back-button"
-              color="primary"
-              href={'/ReadingOlympics/book/' + this.state.bookID}
-            >
-              Back to {this.state.bookData.name} Info
-            </Button>
+            <Link to={'/ReadingOlympics/book/' + this.state.bookID}>
+              <Button className="back-button" color="primary">
+                Back to {this.state.bookData.name} Info
+              </Button>
+            </Link>
             <QuizViewer
               quizID={this.props.match.params.quizID}
               questionList={this.getQuestions()}
