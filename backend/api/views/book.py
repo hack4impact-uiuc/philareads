@@ -32,7 +32,7 @@ def create_book_from_csv(user_id):
     stream = io.StringIO(uploaded_csv.stream.read().decode("UTF8"), newline=None)
     parsed_data = csv.reader(stream)
     header = next(parsed_data)
-    header = [col.replace(" ", "_") for col in next(parsed_data)]
+    header = [col.replace(" ", "_") for col in header]
     for row in parsed_data:
         row_dict = {
             key.lower(): value for key, value in zip(header, row)
@@ -40,29 +40,20 @@ def create_book_from_csv(user_id):
         if invalid_book_data(row_dict):
             return create_response(message=f"Invalid book data {row}", status=409)
 
-        book = Book(
-            row_dict["name"],
-            row_dict["author"],
-            row_dict["grade"],
-            row_dict["year"],
-            # if cover url exists then return it, otherwise use empty string
-            row_dict.get("cover_url", ""),
-            row_dict["published"],
-        )
+        response, status = create_book_helper(row_dict)
+        # get back response message
+        message = json.loads(response.data)['message']
+        if status != 200:
+            pass
+            return create_response(
+                message=f"Error: {message} at row: {row}", status=status
+            )
 
-        db.session.add(book)
-
-    db.session.commit()
     return create_response(
-        message="Successfully created a book from csv file", status=200
+        message="Successfully created all books from csv file", status=200
     )
 
-
-@book.route("/book", methods=["POST"])
-@admin_route
-def create_book(user_id):
-    user_data = request.get_json()
-
+def create_book_helper(user_data):
     # check all fields are entered
     if invalid_book_data(user_data):
         return create_response(
@@ -105,6 +96,13 @@ def create_book(user_id):
     db.session.commit()
 
     return create_response(message="Book added", status=200, data={"status": "success"})
+
+
+@book.route("/book", methods=["POST"])
+@admin_route
+def create_book(user_id):
+    user_data = request.get_json()
+    return create_book_helper(user_data)
 
 
 @book.route("/<book_id>/all_quizzes", methods=["GET"])
