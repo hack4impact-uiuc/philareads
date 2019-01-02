@@ -48,6 +48,11 @@ class AdminCSVUploadPage extends Component {
             {this.state.success && (
               <Alert color="success">Books were successfully created.</Alert>
             )}
+            {this.state.errors &&
+              this.state.errors.length > 0 &&
+              this.state.errors.map(error => (
+                <Alert color="danger">{error.message}</Alert>
+              ))}
             <hr />
             {/* TODO: Insert actual CSV template */}
             <p>
