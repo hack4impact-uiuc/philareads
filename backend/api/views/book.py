@@ -42,7 +42,7 @@ def create_book_from_csv(user_id):
 
         response, status = create_book_helper(row_dict)
         # get back response message
-        message = json.loads(response.data)['message']
+        message = json.loads(response.data)["message"]
         if status != 200:
             pass
             return create_response(
@@ -52,6 +52,7 @@ def create_book_from_csv(user_id):
     return create_response(
         message="Successfully created all books from csv file", status=200
     )
+
 
 def create_book_helper(user_data):
     # check all fields are entered
