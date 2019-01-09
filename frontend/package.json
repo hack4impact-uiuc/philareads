@@ -45,7 +45,8 @@
     "test": "react-scripts test",
     "format": "prettier --single-quote --write '{src,test}/**/*.{js,jsx,json,scss}'",
     "format:check": "prettier --single-quote --list-different \"{src,test}/**/*.js\"",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "now-build": "react-scripts build && mv build dist"
   },
   "eslintConfig": {
     "extends": "react-app"

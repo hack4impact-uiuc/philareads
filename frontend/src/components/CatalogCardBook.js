@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { URLParamToString } from '../utils/formatHelpers';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import '../styles/ReadingOlympics.scss';
 import book from '../images/book-fa.png';

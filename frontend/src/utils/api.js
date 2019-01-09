@@ -1,9 +1,16 @@
 import 'whatwg-fetch';
 
-const API_URL =
+let API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://localhost:5000' // change this to prod endpoint
+    ? 'https://philareads-backend.herokuapp.com' // change this to prod endpoint
     : 'http://localhost:5000';
+
+// because of a development server deploy with Now we have to use this code
+// to determine whether or not to use the heroku backend.
+const hostname = window && window.location && window.location.hostname;
+if (hostname === 'philareads.now.sh') {
+  API_URL = 'https://philareads-backend.herokuapp.com';
+}
 
 function register(formData) {
   return fetch(`${API_URL}/register`, {
