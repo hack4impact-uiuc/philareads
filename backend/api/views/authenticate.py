@@ -45,7 +45,9 @@ def register_user():
         return create_response(
             message="Failed to generate auth_token", status=400, data={"status": "fail"}
         )
-    return create_response(data={"auth_token": auth_token}, status=201)
+    resp = make_response(create_response(data={"auth_token": auth_token}, status=201))
+    resp.set_cookie('jwt', auth_token)
+    return resp
 
 
 # function that is called when you visit /login
