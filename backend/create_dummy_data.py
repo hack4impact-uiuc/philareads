@@ -6,8 +6,7 @@ API_URL = "http://localhost:5000/"
 if len(sys.argv) > 1 and sys.argv[1] == "prod_api":
     API_URL = "https://philareads-backend.herokuapp.com/"
 
-print(API_URL)
-sys.exit()
+print("using: ", API_URL)
 # sample user
 sample_user = {
     "username": "future_pm",
