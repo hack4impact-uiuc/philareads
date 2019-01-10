@@ -56,7 +56,7 @@ class AdminBookSelect extends Component {
             <option disabled>---Select Book---</option>
             {this.state.books.map((element, id) => {
               return (
-                <option key={element['id']} value={element['ida']}>
+                <option key={element['id']} value={element['id']}>
                   {element['name'] + ' (' + element['author'] + ')'}
                 </option>
               );
