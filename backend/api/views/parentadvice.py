@@ -76,7 +76,7 @@ def delete_parent_advice(user_id):
 @parent_advice.route("/parent_advice", methods=["GET"])
 def get_parent_advice():
     all_advices = ParentAdvice.query.all()
-    advice_list = [advice.to_dict() for advice in all_advices]
+    advice_list = [advice.serialize_to_json() for advice in all_advices]
 
     return create_response(
         message="Successfully returned parent advice",

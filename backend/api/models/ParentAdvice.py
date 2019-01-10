@@ -17,3 +17,9 @@ class ParentAdvice(Mixin, db.Model):
 
     def __repr__(self):
         return f"<ParentAdvice> id:{self.id} text:{self.text}"
+
+    def serialize_to_json(self):
+        return {
+            "id": self.id,
+            "text": self.text,
+        }
