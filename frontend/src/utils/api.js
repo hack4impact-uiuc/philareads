@@ -28,7 +28,10 @@ function login(formData) {
 function search(searchString) {
   const query = `search_string=${searchString}`;
   return fetch(`${API_URL}/books?${query}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }).then(res => res.json());
 }
 
@@ -46,35 +49,31 @@ function getBooksByYearGrade({ year, grade }) {
     query += `grade=${grade ? grade : ''}`;
   }
   return fetch(`${API_URL}/books?${query}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }).then(res => res.json());
 }
 
 function getROCurrentYear() {
-  return {
-    success: true,
-    result: {
-      results: 2019
-    },
-    message: ''
-  };
-  // return fetch(`${API_URL}/currentReading`, {
-  //   method: 'GET'
-  // }).then(res => res.json());
+  return fetch(`${API_URL}/year`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json());
 }
 
 function setROActiveYear(readingOlympicsYear) {
-  return {
-    success: true,
-    result: {
-      results: 2019
+  return fetch(`${API_URL}/year`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-    message: ''
-  };
-  // return fetch(`${API_URL}/setYearOrSomething`, {
-  //   method: 'POST',
-  //   body: JSON.stringify({ year: readingOlympicsYear})
-  // }).then(res => res.json());
+    credentials: 'include',
+    body: JSON.stringify({ year: readingOlympicsYear })
+  }).then(res => res.json());
 }
 
 function publishAllBooksInYear(readingOlympicsYear) {
@@ -87,13 +86,20 @@ function publishAllBooksInYear(readingOlympicsYear) {
   };
   // return fetch(`${API_URL}/setYearOrSomething`, {
   //   method: 'POST',
+  // headers: {
+  //   'Content-Type': 'application/json'
+  // },
+  // credentials: 'include',
   //   body: JSON.stringify({ year: readingOlympicsYear})
   // }).then(res => res.json());
 }
 
 function getROArchiveYears() {
   return fetch(`${API_URL}/years`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }).then(res => res.json());
 }
 
@@ -225,6 +231,39 @@ function getAdvice() {
   }).then(res => res.json());
 }
 
+function createAdvice(adviceData) {
+  return fetch(`${API_URL}/parent_advice`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(adviceData)
+  }).then(res => res.json());
+}
+
+function editAdvice(adviceData) {
+  return fetch(`${API_URL}/edit_parent_advice`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(adviceData)
+  }).then(res => res.json());
+}
+
+function deleteAdvice(adviceData) {
+  return fetch(`${API_URL}/delete_parent_advice`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(adviceData)
+  }).then(res => res.json());
+}
+
 function upgradeUser(user) {
   return fetch(`${API_URL}/upgrade_user`, {
     method: 'POST',
@@ -236,13 +275,6 @@ function upgradeUser(user) {
   }).then(res => res.json());
 }
 
-// return fetch(`${API_URL}/badges`, {
-//   method: 'GET',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   },
-//   credentials: 'include'
-// }).then(res => res.json());
 function createQuiz(bookData) {
   console.log('Creating/posting new quiz');
   return fetch(`${API_URL}/quiz`, {
@@ -322,6 +354,9 @@ export {
   updatePassword,
   getBadges,
   getAdvice,
+  createAdvice,
+  editAdvice,
+  deleteAdvice,
   upgradeUser,
   editQuiz,
   getAllQuizzes,
