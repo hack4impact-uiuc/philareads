@@ -30,7 +30,6 @@ class ParentsPage extends Component {
       if (result['results'].length > 0) {
         this.setState({ adviceData: result['results'] });
       } else {
-        // User somehow navigated to a book page of invalid ID.
         // Redirect them to the main ReadingOlympics page
         this.props.history.push('/ReadingOlympics');
       }
