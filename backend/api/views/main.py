@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import request, send_from_directory, render_template
+
 # from api.core import create_response, serialize_list, logger
 from api.models import Question, db
 import os
@@ -14,16 +15,18 @@ def index():
     # logger.info("Hello World!")
     return "<h1>Hello World!</h1>"
 
+
 # serve the react frontend
-@main.route('/', defaults={'path': ''})
-@main.route('/<path:path>')
+@main.route("/", defaults={"path": ""})
+@main.route("/<path:path>")
 def serve(path):
     print("user entered this: ", path)
-    return send_from_directory('../../react_frontend/build', 'index.html')
+    return send_from_directory("../../react_frontend/build", "index.html")
     # if path != "" and os.path.exists("react_frontend/build/" + path):
     #     return send_from_directory('react_frontend/build', path)
     # else:
     #     return send_from_directory('react_frontend/build', 'index.html')
+
 
 # @main.route("/create_debug_question", methods=["POST"])
 # def create_empty_question():

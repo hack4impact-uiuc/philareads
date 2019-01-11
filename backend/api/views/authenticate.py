@@ -46,7 +46,7 @@ def register_user():
             message="Failed to generate auth_token", status=400, data={"status": "fail"}
         )
     resp = make_response(create_response(data={"auth_token": auth_token}, status=201))
-    resp.set_cookie('jwt', auth_token)
+    resp.set_cookie("jwt", auth_token)
     return resp
 
 
@@ -72,11 +72,15 @@ def login_user():
                     "auth_token": auth_token.decode(),
                 }
 
-                resp = make_response(create_response(
-                    message="Successfully logged in.", data=responseObject, status=200
-                ))
-                resp.set_cookie('jwt', responseObject["auth_token"])
-                return resp 
+                resp = make_response(
+                    create_response(
+                        message="Successfully logged in.",
+                        data=responseObject,
+                        status=200,
+                    )
+                )
+                resp.set_cookie("jwt", responseObject["auth_token"])
+                return resp
             except:
                 return create_response(
                     message="Failed to generate auth_token",

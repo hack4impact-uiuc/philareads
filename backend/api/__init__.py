@@ -68,13 +68,13 @@ def create_app(test_config=None):
     from api.views import parentadvice
     from api.views import year
 
-    app.register_blueprint(main.main, url_prefix='/frontend')
-    app.register_blueprint(authenticate.authenticate, url_prefix='/api')
-    app.register_blueprint(quiz.quiz, url_prefix='/api')
-    app.register_blueprint(book.book, url_prefix='/api')
-    app.register_blueprint(user.user, url_prefix='/api')
-    app.register_blueprint(parentadvice.parent_advice, url_prefix='/api')
-    app.register_blueprint(year.year, url_prefix='/api')
+    app.register_blueprint(main.main, url_prefix="/frontend")
+    app.register_blueprint(authenticate.authenticate, url_prefix="/api")
+    app.register_blueprint(quiz.quiz, url_prefix="/api")
+    app.register_blueprint(book.book, url_prefix="/api")
+    app.register_blueprint(user.user, url_prefix="/api")
+    app.register_blueprint(parentadvice.parent_advice, url_prefix="/api")
+    app.register_blueprint(year.year, url_prefix="/api")
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)

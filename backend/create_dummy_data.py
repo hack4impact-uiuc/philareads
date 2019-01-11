@@ -1,5 +1,5 @@
 import requests
-import sys 
+import sys
 
 API_URL = "http://localhost:5000/api/"
 
