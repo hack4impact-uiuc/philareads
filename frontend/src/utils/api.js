@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 let API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://philareads.herokuapp.com/api' // change this to prod endpoint
+    ? '/api' // change this to prod endpoint
     : 'http://localhost:5000/api';
 
 function register(formData) {

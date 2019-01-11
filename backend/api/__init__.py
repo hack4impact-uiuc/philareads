@@ -1,7 +1,7 @@
 import os
 import logging
 
-from flask import Flask, request, send_from_directory, render_template
+from flask import Flask, request
 from flask_cors import CORS
 from flask_migrate import Migrate
 from sqlalchemy_utils import create_database, database_exists
@@ -68,7 +68,9 @@ def create_app(test_config=None):
     from api.views import parentadvice
     from api.views import year
 
-    app.register_blueprint(main.main, url_prefix="/frontend")
+    # main blueprint serves the react frontend
+    app.register_blueprint(main.main)
+    # the rest of the blueprints are api routes
     app.register_blueprint(authenticate.authenticate, url_prefix="/api")
     app.register_blueprint(quiz.quiz, url_prefix="/api")
     app.register_blueprint(book.book, url_prefix="/api")
@@ -78,15 +80,5 @@ def create_app(test_config=None):
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
-
-    # # Serve React App
-    # @app.route('/', defaults={'path': ''})
-    # @app.route('/<path:path>')
-    # def serve(path):
-    #     return render_template("index.html")
-    #     if path != "" and os.path.exists("react_app/build/" + path):
-    #         return send_from_directory('react_app/build', path)
-    #     else:
-    #         return send_from_directory('react_app/build', 'index.html')
 
     return app
