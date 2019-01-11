@@ -77,7 +77,7 @@ def create_app(test_config=None):
     app.register_blueprint(year.year, url_prefix='/api')
 
     # register error Handler
-    # app.register_error_handler(Exception, all_exception_handler)
+    app.register_error_handler(Exception, all_exception_handler)
 
     # # Serve React App
     # @app.route('/', defaults={'path': ''})
