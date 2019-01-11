@@ -1,11 +1,7 @@
 from api.models import db, User
 from flask import current_app, json
 
-
-def test_index(client):
-    rs = client.get("/")
-    assert rs.status_code == 200
-
+API_PREFIX = "/api"
 
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
@@ -13,7 +9,7 @@ def setup():
 
 def test_double_register(client):
     client.post(
-        "/register",
+        API_PREFIX + "/register",
         data=json.dumps(
             dict(name="double", password="password123", username="double@gmail.com")
         ),
@@ -21,7 +17,7 @@ def test_double_register(client):
     )
 
     res = client.post(
-        "/register",
+        API_PREFIX + "/register",
         data=json.dumps(
             dict(name="double", password="password123", username="double@gmail.com")
         ),
@@ -33,7 +29,7 @@ def test_double_register(client):
 
 def test_register(client):
     res = client.post(
-        "/register",
+        API_PREFIX + "/register",
         data=json.dumps(
             dict(name="rob", password="password123", username="rob_test@gmail.com")
         ),
@@ -53,7 +49,7 @@ def test_successful_login(client):
     db.session.commit()
 
     login_res = client.post(
-        "/login",
+        API_PREFIX + "/login",
         data=json.dumps(
             dict(name="bob", password="password123", username="test@gmail.com")
         ),
@@ -65,7 +61,7 @@ def test_successful_login(client):
 
 def test_nonexistent_user(client):
     login_res = client.post(
-        "/login",
+        API_PREFIX + "/login",
         data=json.dumps(
             dict(name="tob", password="password123", username="doesnt_exist@gmail.com")
         ),

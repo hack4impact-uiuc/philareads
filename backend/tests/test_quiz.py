@@ -3,6 +3,7 @@ import pytest
 import pdb
 from flask import current_app, json
 
+API_PREFIX = "/api"
 
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
@@ -76,7 +77,7 @@ def test_create_valid_quiz(client):
     db.session.commit()
 
     login_res = client.post(
-        "/login",
+        API_PREFIX + "/login",
         data=json.dumps(
             dict(name="admin", password="password123", username="test1@gmail.com")
         ),
@@ -85,9 +86,9 @@ def test_create_valid_quiz(client):
     auth_token = login_res.json["result"]["auth_token"]
     client.set_cookie("localhost", "jwt", auth_token)
 
-    client.post("/book", data=sample_book_json, content_type="application/json")
+    client.post(API_PREFIX + "/book", data=sample_book_json, content_type="application/json")
     # pdb.set_trace()
-    res = client.post("/quiz", data=sample_good_json, content_type="application/json")
+    res = client.post(API_PREFIX + "/quiz", data=sample_good_json, content_type="application/json")
     #
     db_quiz = Quiz.query.filter_by(name="Gatsby Quiz")
     assert not (db_quiz is None)
@@ -97,7 +98,7 @@ def test_create_valid_quiz(client):
 def test_create_invalid_quiz(client):
     begin_num_quizzes = len(Quiz.query.all())
     res = client.post(
-        "/quiz", data=sample_bad_json_data, content_type="application/json"
+        API_PREFIX + "/quiz", data=sample_bad_json_data, content_type="application/json"
     )
 
     assert (
