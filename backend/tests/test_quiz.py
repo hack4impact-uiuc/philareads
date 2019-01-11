@@ -5,6 +5,7 @@ from flask import current_app, json
 
 API_PREFIX = "/api"
 
+
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
 
@@ -86,9 +87,13 @@ def test_create_valid_quiz(client):
     auth_token = login_res.json["result"]["auth_token"]
     client.set_cookie("localhost", "jwt", auth_token)
 
-    client.post(API_PREFIX + "/book", data=sample_book_json, content_type="application/json")
+    client.post(
+        API_PREFIX + "/book", data=sample_book_json, content_type="application/json"
+    )
     # pdb.set_trace()
-    res = client.post(API_PREFIX + "/quiz", data=sample_good_json, content_type="application/json")
+    res = client.post(
+        API_PREFIX + "/quiz", data=sample_good_json, content_type="application/json"
+    )
     #
     db_quiz = Quiz.query.filter_by(name="Gatsby Quiz")
     assert not (db_quiz is None)

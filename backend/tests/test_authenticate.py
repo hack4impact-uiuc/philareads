@@ -3,6 +3,7 @@ from flask import current_app, json
 
 API_PREFIX = "/api"
 
+
 def setup():
     current_app.config["SECRET_KEY"] = "secret_key"
 
