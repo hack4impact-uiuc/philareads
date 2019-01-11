@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b2bb0db3465ab2fd8845",
+    "revision": "5f5c1b91a8e83ae52eda",
     "url": "/static/css/main.bbb936b8.chunk.css"
   },
   {
-    "revision": "b2bb0db3465ab2fd8845",
-    "url": "/static/js/main.b2bb0db3.chunk.js"
+    "revision": "5f5c1b91a8e83ae52eda",
+    "url": "/static/js/main.5f5c1b91.chunk.js"
   },
   {
     "revision": "270c1a0cad0ef2b4899a",
@@ -88,7 +88,7 @@ self.__precacheManifest = [
     "url": "/static/media/philareadslogo.f1be6888.png"
   },
   {
-    "revision": "e3c2c13338cc3afed1b21f09bf18e4dd",
+    "revision": "948fd9db4ab9d7dffae798b88bb77cbb",
     "url": "/index.html"
   }
 ];

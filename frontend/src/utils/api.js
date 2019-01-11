@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 let API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'http://localhost:5000/api' // change this to prod endpoint
+    ? 'http://localhost:' + process.env.PORT + '/api' // change this to prod endpoint
     : 'http://localhost:5000/api';
 
 function register(formData) {
