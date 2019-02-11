@@ -12,7 +12,6 @@ main = Blueprint("main", __name__)
 @main.route("/<path:path>")
 def serve_frontend(path):
     static_folder = current_app.static_folder
-    print("using this new path now", static_folder)
     if path != "" and os.path.exists(static_folder + "/" + path):
         return send_from_directory(static_folder, path)
     else:
