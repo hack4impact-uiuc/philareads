@@ -1,8 +1,0 @@
-{
-  "name": "philareads-frontend",
-  "type": "npm",
-  "alias": "philareads.now.sh",
-  "env": {
-    "NODE_ENV": "production"
-  }
-}
