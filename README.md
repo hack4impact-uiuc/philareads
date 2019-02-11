@@ -11,4 +11,4 @@ Philadelphia READS provides out-of-school programs to increase literacy rates am
 ## Our Solution
 We worked with Philadelphia READs and their professionals to develop a tablet-friendly web application that allows students to prepare for the Reading Olympics, and provides helpful information for parents on how to be involved in their children's learning.
 
-More information can be found [here](https://uiuc.hack4impact.org/projects/?name=pr)
+More information and additional features can be found [here](https://uiuc.hack4impact.org/projects/?name=pr)
