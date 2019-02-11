@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import BookInfo from '../components/BookInfo';
 import QuizViewer from '../components/QuizViewer';
 import QuizRedo from '../components/QuizRedo';
+import { Link } from 'react-router-dom';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Alert } from 'reactstrap';
+import { Row, Alert, Button } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -133,7 +134,7 @@ class QuizPage extends Component {
       header = <Alert color="danger">{this.state.alert}</Alert>;
     }
     return (
-      <div>
+      <div class="quiz-page">
         {!this.dataLoaded() && (
           <Row>
             <FontAwesomeIcon
@@ -147,7 +148,11 @@ class QuizPage extends Component {
         {this.dataLoaded() && (
           <div>
             {header}
-            <BookInfo bookObject={this.state.bookData} />
+            <Link to={'/ReadingOlympics/book/' + this.state.bookID}>
+              <Button className="back-button" color="primary">
+                Back to Book Info
+              </Button>
+            </Link>
             <QuizViewer
               quizID={this.props.match.params.quizID}
               questionList={this.getQuestions()}
