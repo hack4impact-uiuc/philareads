@@ -4,9 +4,9 @@ API_URL = "http://localhost:5000/"
 
 # sample user
 sample_user = {
-    "username": "future_pm",
-    "name": "David Chang",
-    "password": "iwearcrocseveryday",
+    "username": "admin",
+    "name": "Philadelphia READS",
+    "password": "admin",
 }
 
 # create a user
