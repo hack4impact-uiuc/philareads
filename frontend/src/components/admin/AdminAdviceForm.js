@@ -10,6 +10,7 @@ import {
   Row,
   FormFeedback
 } from 'reactstrap';
+import '../../styles/admin/AdminAdviceForm.scss';
 import { createAdvice, editAdvice } from '../../utils/api.js';
 
 class AdminAdviceForm extends Component {
@@ -70,7 +71,7 @@ class AdminAdviceForm extends Component {
         <FormGroup>
           <Label>Advice</Label>
           <Input
-            type="text"
+            type="textarea"
             name="text"
             onChange={this.handleChange}
             value={this.state.text}
