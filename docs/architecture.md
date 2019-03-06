@@ -15,3 +15,17 @@ We use [SQLAlchemy](https://www.sqlalchemy.org/) as an ORM, and [PostgreSQL](htt
 
 ## Deployment
 When the app is deployed the frontend is being served as static files (generated from `npm run build`) via the flask backend. These files are served from the `backend/api/react_frontend` directory.
+
+To deploy the application to heroku, follow the instructions given on the heroku dashboard which include
+1. Installing the Heroku CLI
+2. Logging into Heroku using the philareads credentials
+
+From here do not clone the repository as heroku instructs instead
+
+3. git clone https://github.com/hack4impact-uiuc/philareads.git
+4. cd philareads
+5. git subtree push --prefix backend heroku master
+
+The last command pushes just the backend which should have the production frontend to heroku.
+
+The app should then be live at https://philareads.herokuapp.com
