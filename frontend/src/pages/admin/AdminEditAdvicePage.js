@@ -11,7 +11,7 @@ import {
   Button
 } from 'reactstrap';
 import AdminAdviceForm from '../../components/admin/AdminAdviceForm';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import AdminAdviceSelect from '../../components/admin/AdminAdviceSelect';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
@@ -83,7 +83,6 @@ class AdminEditAdvicePage extends Component {
   };
 
   render() {
-    const selectedAdvice = { text: 'hello', id: 2 };
     return (
       <Container fluid>
         {this.renderDeleteModal()}

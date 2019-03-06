@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button,
-  Alert,
-  Col,
-  Row,
-  FormFeedback
-} from 'reactstrap';
+import { Form, FormGroup, Input, Label, Button, Alert } from 'reactstrap';
 import '../../styles/admin/AdminAdviceForm.scss';
 import { createAdvice, editAdvice } from '../../utils/api.js';
 

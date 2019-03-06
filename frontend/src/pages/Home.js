@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { URLParamToString } from '../utils/formatHelpers';
-import RedirectingSearchBar from '../components/RedirectingSearchBar';
+import RedirectingSearchBar from '../components/search/RedirectingSearchBar';
 import parents from './../images/home_parents.png';
 import './../styles/Home.scss';
 

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Advice from '../components/Advice';
 import { Alert, Container } from 'reactstrap';
 import { getAdvice } from '../utils/api';
-import '../styles/ParentsPage.scss';
-class ParentsPage extends Component {
+class AdvicePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,4 +59,4 @@ class ParentsPage extends Component {
   }
 }
 
-export default ParentsPage;
+export default AdvicePage;

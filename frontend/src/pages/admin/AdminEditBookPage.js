@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
-import AdminBookForm from '../../components/AdminBookForm';
-import AdminDeleteModal from '../../components/AdminDeleteModal';
-import AdminNavigator from '../../components/AdminNavigator';
-import AdminBookSelect from '../../components/AdminBookSelect';
+import AdminBookForm from '../../components/admin/AdminBookForm';
+import AdminDeleteModal from '../../components/admin/AdminDeleteModal';
+import AdminNavigator from '../../components/admin/AdminNavigator';
+import AdminBookSelect from '../../components/admin/AdminBookSelect';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { deleteBook } from '../../utils/api';

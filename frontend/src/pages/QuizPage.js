@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import BookInfo from '../components/BookInfo';
-import QuizViewer from '../components/QuizViewer';
-import QuizRedo from '../components/QuizRedo';
+import QuizViewer from '../components/quiz/QuizViewer';
+import QuizRedo from '../components/quiz/QuizRedo';
 import { Link } from 'react-router-dom';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

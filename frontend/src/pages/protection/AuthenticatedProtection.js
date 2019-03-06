@@ -20,7 +20,7 @@ class AuthenticatedProtection extends Component {
   }
 
   checkValidToken = async () => {
-    const { success, result } = await getUserData();
+    const { success } = await getUserData();
     if (!success) {
       // Remove invalid token from cookies
       const cookies = new Cookies();

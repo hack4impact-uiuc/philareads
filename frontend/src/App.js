@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import NoMatchPage from './pages/NoMatchPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/account/RegisterPage';
+import LoginPage from './pages/account/LoginPage';
 import './styles/App.scss';
-import ParentsPage from './pages/ParentsPage';
+import AdvicePage from './pages/AdvicePage';
 import BookPage from './pages/BookPage';
 import QuizPage from './pages/QuizPage';
-import Logout from './components/Logout';
+import Logout from './components/account/Logout';
 import Search from './pages/Search';
-import AccountManagePage from './pages/AccountManagePage';
+import AccountManagePage from './pages/account/AccountManagePage';
 import AdminPage from './pages/admin/AdminPage';
 import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 import AdminAddBookPage from './pages/admin/AdminAddBookPage';
@@ -22,7 +22,7 @@ import RORedirectToCurrent from './pages/ReadingOlympics/RORedirectToCurrent';
 import ROHome from './pages/ReadingOlympics/ROHome';
 import ROYearGradeView from './pages/ReadingOlympics/ROYearGradeView';
 import ROYearView from './pages/ReadingOlympics/ROYearView';
-import BadgesPage from './pages/BadgesPage';
+import BadgesPage from './pages/account/BadgesPage';
 import About from './pages/About';
 import AdminProtection from './pages/protection/AdminProtection';
 import AuthenticatedProtection from './pages/protection/AuthenticatedProtection';
@@ -69,7 +69,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/logout" component={Logout} />
             {/*Ungrouped pages*/}
-            <Route path="/parents" component={ParentsPage} />
+            <Route path="/parents" component={AdvicePage} />
             <Route path="/search" component={Search} />
             <Route path="/about" component={About} />
             {/*Account pages*/}

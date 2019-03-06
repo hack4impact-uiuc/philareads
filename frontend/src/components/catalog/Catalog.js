@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import CatalogCard from './CatalogCard';
-import '../styles/Catalog.scss';
+import '../../styles/Catalog.scss';
 
 class Catalog extends Component {
   state = {

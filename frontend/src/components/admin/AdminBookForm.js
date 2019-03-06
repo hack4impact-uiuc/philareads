@@ -10,9 +10,9 @@ import {
   Row,
   FormFeedback
 } from 'reactstrap';
-import '../styles/admin/AdminBookForm.scss';
-import { URLParamToString } from '../utils/formatHelpers';
-import { createBook, editBook } from '../utils/api.js';
+import '../../styles/admin/AdminBookForm.scss';
+import { URLParamToString } from '../../utils/formatHelpers';
+import { createBook, editBook } from '../../utils/api.js';
 
 class AdminBookForm extends Component {
   constructor(props) {

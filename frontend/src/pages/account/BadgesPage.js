@@ -8,9 +8,9 @@ import {
   CardTitle,
   Progress
 } from 'reactstrap';
-import { badgeMap } from '../utils/badgeMap.js';
-import '../styles/BadgesPage.scss';
-import { getBadges } from '../utils/api';
+import { badgeMap } from '../../utils/badgeMap.js';
+import '../../styles/BadgesPage.scss';
+import { getBadges } from '../../utils/api';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
