@@ -45,10 +45,10 @@ class AdminNavigator extends Component {
           <b>Parent Advice</b>
           <ul>
             <li>
-              <Link to="/admin/parents/add">Add</Link>
+              <Link to="/admin/advice/add">Add</Link>
             </li>
             <li>
-              <Link to="/admin/parents/edit">Edit</Link>
+              <Link to="/admin/advice/edit">Edit</Link>
             </li>
           </ul>
         </CardBody>

@@ -28,6 +28,8 @@ import AdminProtection from './pages/protection/AdminProtection';
 import AuthenticatedProtection from './pages/protection/AuthenticatedProtection';
 import AdminAddQuizPage from './pages/admin/AdminAddQuizPage';
 import AdminEditQuizPage from './pages/admin/AdminEditQuizPage';
+import AdminAddAdvicePage from './pages/admin/AdminAddAdvicePage';
+import AdminEditAdvicePage from './pages/admin/AdminEditAdvicePage';
 function withAdminProtection(WrappedComponent) {
   // Only render this page if an admin user is logged in.
   return class extends Component {
@@ -122,10 +124,17 @@ class App extends Component {
               path="/admin/quiz/add"
               component={withAdminProtection(AdminAddQuizPage)}
             />
-
             <Route
               path="/admin/quiz/edit"
               component={withAdminProtection(AdminEditQuizPage)}
+            />
+            <Route
+              path="/admin/advice/add"
+              component={withAdminProtection(AdminAddAdvicePage)}
+            />
+            <Route
+              path="/admin/advice/edit"
+              component={withAdminProtection(AdminEditAdvicePage)}
             />
             {/*Reading Olympics pages*/}
             <Route exact path="/ReadingOlympics" component={ROHome} />

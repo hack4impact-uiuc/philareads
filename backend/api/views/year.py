@@ -18,8 +18,7 @@ def init_year():
 
 
 @year.route("/year", methods=["GET"])
-@admin_route
-def get_year(user_id):
+def get_year():
     if len(Year.query.all()) == 0:
         init_year()
 

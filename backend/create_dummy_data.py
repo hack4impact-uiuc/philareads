@@ -3,11 +3,7 @@ import requests
 API_URL = "http://localhost:5000/"
 
 # sample user
-sample_user = {
-    "username": "future_pm",
-    "name": "David Chang",
-    "password": "iwearcrocseveryday",
-}
+sample_user = {"username": "admin", "name": "Philadelphia READS", "password": "admin"}
 
 # create a user
 r = requests.post(API_URL + "register", json=sample_user)

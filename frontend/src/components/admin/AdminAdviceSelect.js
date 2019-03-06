@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { Alert } from 'reactstrap';
-import { getAllBooks } from '../utils/api';
+import { getAdvice } from '../../utils/api';
 
-class AdminBookSelect extends Component {
+class AdminAdviceSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSelectedBook: null,
-      books: [],
+      selectedAdvice: null,
+      allAdvice: [],
       errors: [],
       numSubmits: 0
     };
-    this.getBooks();
+    this.getAdvice();
   }
-  getBooks = async () => {
-    const { message, success, result } = await getAllBooks();
+  getAdvice = async () => {
+    const { message, success, result } = await getAdvice();
     if (success) {
       const sortedByName = result['results'].sort(
-        (a, b) => (a['name'].toLowerCase() > b['name'].toLowerCase() ? 1 : -1)
+        (a, b) => (a['text'].toLowerCase() > b['text'].toLowerCase() ? 1 : -1)
       );
-      this.setState({ books: sortedByName, errors: [] });
+      this.setState({ allAdvice: sortedByName, errors: [] });
     } else {
       this.setState(state => ({
         errors: [{ message: message, key: state.numSubmits }],
@@ -30,16 +30,16 @@ class AdminBookSelect extends Component {
 
   changeSelection = e => {
     this.setState({
-      currentSelectedBook: this.state.books[e.target.selectedIndex - 1]
+      selectedAdvice: this.state.allAdvice[e.target.selectedIndex - 1]
     });
-    // Subtract one from the selected index since we now have a disabled first field for book selection
-    this.props.handleBookSelect(this.state.books[e.target.selectedIndex - 1]);
+    // Subtract one from the selected index since we now have a disabled first field for selection
+    this.props.handleSelect(this.state.allAdvice[e.target.selectedIndex - 1]);
   };
 
   render() {
     const hasErrors = this.state.errors.length > 0;
     return (
-      <div className="book-select">
+      <div className="advice-select">
         {this.state.errors.map(({ message, key }) => {
           return (
             <Alert key={key} color="danger">
@@ -51,13 +51,13 @@ class AdminBookSelect extends Component {
           <select
             className="form-control"
             onChange={this.changeSelection}
-            defaultValue="---Select Book---"
+            defaultValue="---Select Parent Advice---"
           >
-            <option disabled>---Select Book---</option>
-            {this.state.books.map((element, id) => {
+            <option disabled>---Select Parent Advice---</option>
+            {this.state.allAdvice.map((element, id) => {
               return (
                 <option key={element['id']} value={element['id']}>
-                  {element['name'] + ' (' + element['author'] + ')'}
+                  {element['text']}
                 </option>
               );
             })}
@@ -68,4 +68,4 @@ class AdminBookSelect extends Component {
   }
 }
 
-export default AdminBookSelect;
+export default AdminAdviceSelect;
