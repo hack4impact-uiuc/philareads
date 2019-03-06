@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { getUserData } from '../../utils/api';
 import Cookies from 'universal-cookie';
+import { getUserData } from '../../utils/api';
 
 // NOTE: This component only expects a SINGLE child in this.props.children.
 //       The child should be a complete page.
@@ -21,6 +21,11 @@ class AuthenticatedProtection extends Component {
 
   checkValidToken = async () => {
     const { success, result } = await getUserData();
+    if (!success) {
+      // Remove invalid token from cookies
+      const cookies = new Cookies();
+      cookies.remove('jwt', { path: '/' });
+    }
     this.setState({ isLoggedIn: success });
   };
 

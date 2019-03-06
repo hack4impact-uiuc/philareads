@@ -34,7 +34,7 @@ class Login extends Component {
     });
     if (success) {
       const cookies = new Cookies();
-      cookies.set('jwt', result['auth_token']);
+      cookies.set('jwt', result['auth_token'], { path: '/' });
       this.setState({ isLoggedIn: this.isLoggedIn() });
     } else {
       // TODO: Display message if login wasn't successful
