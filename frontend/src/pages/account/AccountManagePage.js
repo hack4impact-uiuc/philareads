@@ -9,8 +9,8 @@ import {
   Card,
   FormFeedback
 } from 'reactstrap';
-import '../styles/Login.scss';
-import { getUserData, postUserData, updatePassword } from '../utils/api';
+import '../../styles/Login.scss';
+import { getUserData, postUserData, updatePassword } from '../../utils/api';
 
 class AccountManagePage extends Component {
   constructor(props) {
