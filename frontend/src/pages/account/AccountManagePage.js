@@ -9,7 +9,7 @@ import {
   Card,
   FormFeedback
 } from 'reactstrap';
-import '../../styles/Login.scss';
+import '../../styles/AccountManagePage.scss';
 import { getUserData, postUserData, updatePassword } from '../../utils/api';
 
 class AccountManagePage extends Component {
@@ -125,8 +125,9 @@ class AccountManagePage extends Component {
   render() {
     return (
       <div className="container">
+        <h1 class="page-title">Account Settings</h1>
         <div className="text-center">
-          <Form className="form-signin" name="form">
+          <Form className="form-settings" name="form">
             {(this.state.alertMessage === 'Password succesfully updated!' ||
               this.state.alertMessage === 'Profile Updated!') && (
               <Alert color="success">
@@ -141,7 +142,7 @@ class AccountManagePage extends Component {
               </Alert>
             )}
 
-            <Card className="login-card">
+            <Card className="settings-card">
               <h5 className="text-left"> Name </h5>
               <FormGroup>
                 <Input
@@ -183,8 +184,8 @@ class AccountManagePage extends Component {
         </div>
 
         <div className="text-center">
-          <Form className="form-signin" name="form">
-            <Card className="login-card">
+          <Form className="form-settings" name="form">
+            <Card className="settings-card">
               <h5 className="text-left"> Current Password </h5>
               <FormGroup>
                 <Input
