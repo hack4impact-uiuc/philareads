@@ -6,10 +6,10 @@ import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import './styles/App.scss';
-import ParentsPage from './pages/ParentsPage';
+import AdvicePage from './pages/AdvicePage';
 import BookPage from './pages/BookPage';
 import QuizPage from './pages/QuizPage';
-import Logout from './components/Logout';
+import Logout from './components/account/Logout';
 import Search from './pages/Search';
 import AccountManagePage from './pages/AccountManagePage';
 import AdminPage from './pages/admin/AdminPage';
@@ -69,7 +69,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/logout" component={Logout} />
             {/*Ungrouped pages*/}
-            <Route path="/parents" component={ParentsPage} />
+            <Route path="/parents" component={AdvicePage} />
             <Route path="/search" component={Search} />
             <Route path="/about" component={About} />
             {/*Account pages*/}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 

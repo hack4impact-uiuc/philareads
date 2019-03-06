@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
-import AdminQuestion from '../components/AdminQuestion';
-import '../styles/admin/AdminQuizForm.scss';
+import AdminQuestion from './AdminQuestion';
+import '../../styles/admin/AdminQuizForm.scss';
 
 class AdminQuizForm extends Component {
   constructor(props) {

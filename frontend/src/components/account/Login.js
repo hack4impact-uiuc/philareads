@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Label, Alert, Button, Card } from 'reactstrap';
-import { login } from '../utils/api.js';
+import { login } from '../../utils/api.js';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
-import '../styles/Login.scss';
+import '../../styles/Login.scss';
 
 class Login extends Component {
   constructor(props) {

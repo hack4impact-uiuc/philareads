@@ -1,3 +1,5 @@
+// Page for 404 and invalid URLs
+
 import React, { Component } from 'react';
 import {
   Container,

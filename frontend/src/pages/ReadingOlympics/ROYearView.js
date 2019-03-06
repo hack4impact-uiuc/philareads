@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Catalog from '../../components/Catalog';
-import CatalogCardBook from '../../components/CatalogCardBook';
+import Catalog from '../../components/catalog/Catalog';
+import CatalogCardBook from '../../components/catalog/CatalogCardBook';
 import '../../styles/ReadingOlympics.scss';
 import { getBooksByYearGrade } from '../../utils/api';
 

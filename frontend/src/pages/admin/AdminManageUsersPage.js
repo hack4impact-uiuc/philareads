@@ -10,7 +10,7 @@ import {
   ModalBody,
   Alert
 } from 'reactstrap';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { upgradeUser } from '../../utils/api';

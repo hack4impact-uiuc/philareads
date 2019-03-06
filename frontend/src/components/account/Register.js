@@ -10,9 +10,9 @@ import {
   FormFeedback
 } from 'reactstrap';
 import { Redirect } from 'react-router';
-import { register } from '../utils/api.js';
+import { register } from '../../utils/api.js';
 import Cookies from 'universal-cookie';
-import '../styles/Login.scss';
+import '../../styles/Login.scss';
 
 class Register extends Component {
   constructor(props) {

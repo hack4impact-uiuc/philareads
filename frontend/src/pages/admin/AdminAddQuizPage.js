@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
-import AdminQuizForm from '../../components/AdminQuizForm';
-import AdminNavigator from '../../components/AdminNavigator';
-import AdminBookSelect from '../../components/AdminBookSelect';
+import AdminQuizForm from '../../components/admin/AdminQuizForm';
+import AdminNavigator from '../../components/admin/AdminNavigator';
+import AdminBookSelect from '../../components/admin/AdminBookSelect';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { createQuiz } from '../../utils/api';

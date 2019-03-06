@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert } from 'reactstrap';
-import { getAllBooks } from '../utils/api';
+import { getAllBooks } from '../../utils/api';
 
 class AdminBookSelect extends Component {
   constructor(props) {

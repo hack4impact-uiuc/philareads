@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Alert } from 'reactstrap';
 import queryString from 'query-string';
-import SearchBar from '../components/SearchBar';
-import SearchResults from '../components/SearchResults';
+import SearchBar from '../components/search/SearchBar';
+import SearchResults from '../components/search/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert } from 'reactstrap';
-import { getAllQuizzes } from '../utils/api';
+import { getAllQuizzes } from '../../utils/api';
 class AdminQuizSelect extends Component {
   constructor(props) {
     super(props);

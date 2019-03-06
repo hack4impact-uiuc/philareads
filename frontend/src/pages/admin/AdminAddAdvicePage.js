@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminAdviceForm from '../../components/admin/AdminAdviceForm';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 

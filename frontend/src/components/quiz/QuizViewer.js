@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Question from '../components/Question';
+import Question from './Question';
 import {
   Button,
   Progress,

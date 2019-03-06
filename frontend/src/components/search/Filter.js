@@ -9,7 +9,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import '../styles/Filter.scss';
+import '../../styles/Filter.scss';
 import PropTypes from 'prop-types';
 
 class Filter extends Component {

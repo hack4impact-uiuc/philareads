@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
-import AdminBookForm from '../../components/AdminBookForm';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminBookForm from '../../components/admin/AdminBookForm';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 class AdminAddBookPage extends Component {

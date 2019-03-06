@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Catalog from '../components/Catalog';
+import Catalog from '../components/catalog/Catalog';
 import BookInfo from '../components/BookInfo';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

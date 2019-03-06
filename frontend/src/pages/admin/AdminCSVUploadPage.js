@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
-import AdminNavigator from '../../components/AdminNavigator';
+import AdminNavigator from '../../components/admin/AdminNavigator';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminCSVUpload.scss';
 import { bookFromCSV } from '../../utils/api';
