@@ -10,7 +10,7 @@ class AdminDeleteModal extends Component {
           isOpen={this.props.isOpen}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Confirm</ModalHeader>
+          <ModalHeader toggle={this.props.toggleModal}>Confirm</ModalHeader>
           <ModalBody>
             Are you sure you want to delete{' '}
             <i>{this.props.book !== null && this.props.book['name']}</i>?

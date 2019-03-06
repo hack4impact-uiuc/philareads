@@ -50,7 +50,7 @@ class CatalogCardBook extends Component {
     const { book, onClickBook } = this.props;
 
     return (
-      <Card>
+      <Card className="book-card">
         <CardBody>
           {this.renderBookImage()}
           <CardTitle onClick={onClickBook}>

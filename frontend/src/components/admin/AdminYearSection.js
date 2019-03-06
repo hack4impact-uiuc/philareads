@@ -37,13 +37,13 @@ class AdminYearSection extends Component {
   getROCurrentYear = async () => {
     const {
       success,
-      result: { results },
+      result: { year },
       message
     } = await getROCurrentYear();
     if (success) {
       this.setState({
-        originalReadingOlympicsYear: results,
-        readingOlympicsYear: results,
+        originalReadingOlympicsYear: year,
+        readingOlympicsYear: year,
         errors: []
       });
     } else {
