@@ -12,5 +12,4 @@ test.db
 *.swp
 *.swo
 *~
-api/react_frontend/build
 .DS_Store
