@@ -8,6 +8,7 @@ class AdvicePage extends Component {
     this.state = {
       adviceID: props.match.params.id,
       adviceData: [],
+      adviceLoaded: false,
       alert: null
     };
     this.fetchAdviceData();
@@ -26,18 +27,19 @@ class AdvicePage extends Component {
       this.props.match.params.id
     );
     if (success) {
-      if (result['results'].length > 0) {
-        this.setState({ adviceData: result['results'] });
-      } else {
-        // Redirect them to the main ReadingOlympics page
-        this.props.history.push('/ReadingOlympics');
-      }
+      this.setState({ adviceData: result['results'], adviceLoaded: true });
     } else {
       this.setState({ alert: message });
     }
   };
 
   renderAdviceCards = () => {
+    if (this.state.adviceLoaded && this.state.adviceData.length === 0) {
+      return (
+        <Advice adviceCards="There is no advice right now. Check back later!" />
+      );
+    }
+
     return this.state.adviceData.map(advice => (
       <Advice adviceCards={advice['text']} />
     ));

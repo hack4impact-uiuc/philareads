@@ -17,7 +17,6 @@ class Advice extends Component {
   };
 
   render() {
-    console.log(this.props.adviceCards);
     return (
       <div>
         <div id="mainAdvice" class="container">

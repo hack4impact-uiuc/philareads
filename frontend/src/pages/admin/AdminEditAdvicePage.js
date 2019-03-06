@@ -114,6 +114,7 @@ class AdminEditAdvicePage extends Component {
                 <AdminAdviceForm
                   type="Edit"
                   handleSuccess={this.handleSuccess}
+                  handleDeletePress={this.handleDeletePress}
                   advice={this.state.selectedAdvice}
                   key={this.state.selectedAdvice.id}
                 />
