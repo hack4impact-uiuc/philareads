@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request, Blueprint, make_response
 from api.models import User, db
 from api.core import create_response, serialize_list, logger
 import bcrypt
@@ -45,7 +45,9 @@ def register_user():
         return create_response(
             message="Failed to generate auth_token", status=400, data={"status": "fail"}
         )
-    return create_response(data={"auth_token": auth_token}, status=201)
+    resp = make_response(create_response(data={"auth_token": auth_token}, status=201))
+    resp.set_cookie("jwt", auth_token)
+    return resp
 
 
 # function that is called when you visit /login
@@ -69,9 +71,16 @@ def login_user():
                     "status": "success",
                     "auth_token": auth_token.decode(),
                 }
-                return create_response(
-                    message="Successfully logged in.", data=responseObject, status=200
+
+                resp = make_response(
+                    create_response(
+                        message="Successfully logged in.",
+                        data=responseObject,
+                        status=200,
+                    )
                 )
+                resp.set_cookie("jwt", responseObject["auth_token"])
+                return resp
             except:
                 return create_response(
                     message="Failed to generate auth_token",

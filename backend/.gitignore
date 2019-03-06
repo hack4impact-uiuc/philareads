@@ -12,3 +12,4 @@ test.db
 *.swp
 *.swo
 *~
+.DS_Store

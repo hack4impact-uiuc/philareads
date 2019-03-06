@@ -1,2 +1,3 @@
-web: gunicorn api:app
+web: pipenv run gunicorn manage:app
+recreate: python manage.py recreate_db
 worker: python manage.py runworker

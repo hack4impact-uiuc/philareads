@@ -1,17 +1,21 @@
 from flask import Blueprint
-from flask import request
+from flask import request, send_from_directory, current_app
+
 from api.core import create_response, serialize_list, logger
 from api.models import Question, db
+import os
 
 main = Blueprint("main", __name__)
 
-
-# function that is called when you visit /
-@main.route("/")
-def index():
-    # access the logger with the logger from api.core and uses the standard logging module
-    logger.info("Hello World!")
-    return "<h1>Hello World!</h1>"
+# serve the react frontend
+@main.route("/", defaults={"path": ""})
+@main.route("/<path:path>")
+def serve_frontend(path):
+    static_folder = current_app.static_folder
+    if path != "" and os.path.exists(static_folder + "/" + path):
+        return send_from_directory(static_folder, path)
+    else:
+        return send_from_directory(static_folder, "index.html")
 
 
 # @main.route("/create_debug_question", methods=["POST"])

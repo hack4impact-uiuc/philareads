@@ -1,9 +1,9 @@
 import 'whatwg-fetch';
 
-const API_URL =
+let API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'http://localhost:5000' // change this to prod endpoint
-    : 'http://localhost:5000';
+    ? '/api' // change this to prod endpoint
+    : 'http://localhost:5000/api';
 
 function register(formData) {
   return fetch(`${API_URL}/register`, {
@@ -11,6 +11,7 @@ function register(formData) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(formData)
   }).then(res => res.json());
 }
@@ -21,6 +22,7 @@ function login(formData) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(formData)
   }).then(res => res.json());
 }

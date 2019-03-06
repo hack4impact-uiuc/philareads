@@ -1,7 +1,12 @@
 import requests
+import sys
 
-API_URL = "http://localhost:5000/"
+API_URL = "http://localhost:5000/api/"
 
+if len(sys.argv) > 1 and sys.argv[1] == "prod":
+    API_URL = "https://philareads.herokuapp.com/api/"
+
+print("Using: ", API_URL)
 # sample user
 sample_user = {"username": "admin", "name": "Philadelphia READS", "password": "admin"}
 

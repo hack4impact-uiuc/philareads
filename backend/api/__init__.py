@@ -18,7 +18,7 @@ class RequestFormatter(logging.Formatter):
 
 
 def create_app(test_config=None):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="react_frontend/build")
 
     CORS(app, supports_credentials=True)  # add CORS
 
@@ -68,13 +68,15 @@ def create_app(test_config=None):
     from api.views import parentadvice
     from api.views import year
 
+    # main blueprint serves the react frontend
     app.register_blueprint(main.main)
-    app.register_blueprint(authenticate.authenticate)
-    app.register_blueprint(quiz.quiz)
-    app.register_blueprint(book.book)
-    app.register_blueprint(user.user)
-    app.register_blueprint(parentadvice.parent_advice)
-    app.register_blueprint(year.year)
+    # the rest of the blueprints are api routes
+    app.register_blueprint(authenticate.authenticate, url_prefix="/api")
+    app.register_blueprint(quiz.quiz, url_prefix="/api")
+    app.register_blueprint(book.book, url_prefix="/api")
+    app.register_blueprint(user.user, url_prefix="/api")
+    app.register_blueprint(parentadvice.parent_advice, url_prefix="/api")
+    app.register_blueprint(year.year, url_prefix="/api")
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
