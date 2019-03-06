@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import { getUserData } from '../../utils/api';
 import Cookies from 'universal-cookie';
 
 // NOTE: This component only expects a SINGLE child in this.props.children.
