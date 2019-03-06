@@ -87,6 +87,12 @@ def login_user():
                     status=400,
                     data={"status": "fail"},
                 )
+        else:
+            return create_response(
+                message="Username/password combination is incorrect",
+                status=401,
+                data={"status": "fail"},
+            )
 
     return create_response(
         data={"status": "fail"},
