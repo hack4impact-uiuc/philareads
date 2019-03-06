@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 
 function Logout(props) {
   const cookies = new Cookies();
-  cookies.remove('jwt');
+  cookies.remove('jwt', { path: '/' });
   return <Redirect to="/" />;
 }
 

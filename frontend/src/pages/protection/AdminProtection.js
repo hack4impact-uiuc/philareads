@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import Cookies from 'universal-cookie';
 import { getUserData } from '../../utils/api';
 
 // NOTE: This component only expects a SINGLE child in this.props.children.
@@ -22,6 +23,10 @@ class AdminProtection extends Component {
     } else {
       // This could either happen becaues the user is not logged in /
       // the cookie is not accepted, or because the server is not up
+
+      // In case the cookie is the problem, clear the invalid login token.
+      const cookies = new Cookies();
+      cookies.remove('jwt', { path: '/' });
       this.setState({ isLoggedIn: false, isAdmin: false });
     }
   };
