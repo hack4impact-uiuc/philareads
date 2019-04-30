@@ -12,3 +12,4 @@ echo "DONE"
 echo "run server with:"
 echo "pipenv run python manage.py runserver"
 kill $SERVER_PID
+$SHELL

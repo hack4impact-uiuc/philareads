@@ -24,8 +24,7 @@ services:
       - .:/app
     depends_on:
       - postgres
-    entrypoint: 
-      - /app/docker_script.sh
+    entrypoint: ['bash', '/app/docker_script.sh']
 
 volumes:
   flask-app-db:
