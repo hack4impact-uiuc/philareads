@@ -2,7 +2,12 @@
 Welcome to our contribution guide!
 
 ## Getting Started
-To start, follow the README instructions in both the `backend/` and `frontend/` folders to run this application.
+You'll need docker and docker-compose installed on your local machine.
+
+`docker-compose -f docker-compose-dev.yml up`
+
+If you need to rebuild the images after making changes to the docker side of things you should add `--build` to the above command.
+
 
 ## Issue Guidelines
 Issues are how we keep track of our work and the progress of our development. Use Issues to define features, Epics, submitting bugs, etc. They are also where general discussions are made. 

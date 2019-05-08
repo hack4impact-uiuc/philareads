@@ -1,5 +1,6 @@
-*
+**
 !api
 !manage.py
 !Pipfile
 !Pipfile.lock
+!docker_script.sh
