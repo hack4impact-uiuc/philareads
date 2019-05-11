@@ -1,0 +1,665 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.7 (Debian 10.7-1.pgdg90+1)
+-- Dumped by pg_dump version 10.7 (Debian 10.7-1.pgdg90+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: book; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public.book (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    author character varying NOT NULL,
+    grade character varying NOT NULL,
+    year integer NOT NULL,
+    cover_url character varying,
+    published boolean NOT NULL
+);
+
+
+ALTER TABLE public.book OWNER TO testusr;
+
+--
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.book_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.book_id_seq OWNER TO testusr;
+
+--
+-- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
+
+
+--
+-- Name: parent_advice; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public.parent_advice (
+    id integer NOT NULL,
+    text character varying NOT NULL
+);
+
+
+ALTER TABLE public.parent_advice OWNER TO testusr;
+
+--
+-- Name: parent_advice_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.parent_advice_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.parent_advice_id_seq OWNER TO testusr;
+
+--
+-- Name: parent_advice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.parent_advice_id_seq OWNED BY public.parent_advice.id;
+
+
+--
+-- Name: question; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public.question (
+    id integer NOT NULL,
+    text character varying NOT NULL,
+    options character varying[],
+    correct_option character varying,
+    quiz_id integer NOT NULL
+);
+
+
+ALTER TABLE public.question OWNER TO testusr;
+
+--
+-- Name: questionResult; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public."questionResult" (
+    id integer NOT NULL,
+    user_answer character varying NOT NULL,
+    correct_answer character varying NOT NULL,
+    correct boolean NOT NULL,
+    quiz_num integer,
+    question_id integer,
+    quiz_result_id integer,
+    question_num integer
+);
+
+
+ALTER TABLE public."questionResult" OWNER TO testusr;
+
+--
+-- Name: questionResult_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public."questionResult_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."questionResult_id_seq" OWNER TO testusr;
+
+--
+-- Name: questionResult_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public."questionResult_id_seq" OWNED BY public."questionResult".id;
+
+
+--
+-- Name: question_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.question_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.question_id_seq OWNER TO testusr;
+
+--
+-- Name: question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.question_id_seq OWNED BY public.question.id;
+
+
+--
+-- Name: quiz; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public.quiz (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    book_id integer,
+    published boolean NOT NULL
+);
+
+
+ALTER TABLE public.quiz OWNER TO testusr;
+
+--
+-- Name: quizResult; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public."quizResult" (
+    id integer NOT NULL,
+    num_correct integer,
+    num_total integer,
+    date_taken timestamp without time zone NOT NULL,
+    user_id integer,
+    quiz_id integer
+);
+
+
+ALTER TABLE public."quizResult" OWNER TO testusr;
+
+--
+-- Name: quizResult_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public."quizResult_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."quizResult_id_seq" OWNER TO testusr;
+
+--
+-- Name: quizResult_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public."quizResult_id_seq" OWNED BY public."quizResult".id;
+
+
+--
+-- Name: quiz_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.quiz_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.quiz_id_seq OWNER TO testusr;
+
+--
+-- Name: quiz_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.quiz_id_seq OWNED BY public.quiz.id;
+
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    password character varying NOT NULL,
+    username character varying NOT NULL,
+    options integer[],
+    is_admin boolean NOT NULL
+);
+
+
+ALTER TABLE public."user" OWNER TO testusr;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO testusr;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- Name: year; Type: TABLE; Schema: public; Owner: testusr
+--
+
+CREATE TABLE public.year (
+    id integer NOT NULL,
+    year integer NOT NULL
+);
+
+
+ALTER TABLE public.year OWNER TO testusr;
+
+--
+-- Name: year_id_seq; Type: SEQUENCE; Schema: public; Owner: testusr
+--
+
+CREATE SEQUENCE public.year_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.year_id_seq OWNER TO testusr;
+
+--
+-- Name: year_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: testusr
+--
+
+ALTER SEQUENCE public.year_id_seq OWNED BY public.year.id;
+
+
+--
+-- Name: book id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
+
+
+--
+-- Name: parent_advice id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.parent_advice ALTER COLUMN id SET DEFAULT nextval('public.parent_advice_id_seq'::regclass);
+
+
+--
+-- Name: question id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.question ALTER COLUMN id SET DEFAULT nextval('public.question_id_seq'::regclass);
+
+
+--
+-- Name: questionResult id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."questionResult" ALTER COLUMN id SET DEFAULT nextval('public."questionResult_id_seq"'::regclass);
+
+
+--
+-- Name: quiz id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.quiz ALTER COLUMN id SET DEFAULT nextval('public.quiz_id_seq'::regclass);
+
+
+--
+-- Name: quizResult id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."quizResult" ALTER COLUMN id SET DEFAULT nextval('public."quizResult_id_seq"'::regclass);
+
+
+--
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- Name: year id; Type: DEFAULT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.year ALTER COLUMN id SET DEFAULT nextval('public.year_id_seq'::regclass);
+
+
+--
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public.book (id, name, author, grade, year, cover_url, published) FROM stdin;
+1	The Adventures of Huckleberry Finn	Mark Twain	Intermediate	2018	https://cdn3.volusion.com/jtoq7.b7owf/v/vspfiles/photos/ADVENTURES_OF_HUCKLEBERRY_FINN-2.jpg	t
+2	Wishtree	Katherine Applegate	Intermediate	2019	https://images-na.ssl-images-amazon.com/images/I/61al%2BP%2B9JDL._SX365_BO1,204,203,200_.jpg	t
+3	A Boy Called Bat	Elana Arnold	Intermediate	2019	https://images-na.ssl-images-amazon.com/images/I/51ZW6vJvuIL._SX349_BO1,204,203,200_.jpg	t
+4	Ruby on the Outside	Nora Raleigh Baskin	Intermediate	2019		t
+5	Pashmina	Nidhi Chanani	Intermediate	2019	https://images-na.ssl-images-amazon.com/images/I/91qAL9ZLi9L.jpg	t
+6	The Losers' Club	Andrew Clements	Intermediate	2019	https://images-na.ssl-images-amazon.com/images/I/515gx6DaIfL._SX329_BO1,204,203,200_.jpg	t
+7	Serafina and the Black Cloak	Robert Beatty	Middle	2019	https://images-na.ssl-images-amazon.com/images/I/51eWzYTXg6L._SX339_BO1,204,203,200_.jpg	t
+8	The War I Finally Won	Kimberly Brubaker Bradley	Middle	2019	https://images-na.ssl-images-amazon.com/images/I/51pLVzrgzGL._SX329_BO1,204,203,200_.jpg	t
+9	Waiting for Normal	Leslie Connor	Middle	2019		t
+10	The Only Road	Alexandra Diaz	Middle	2019		t
+11	It Ain't So Awful, Falafel	Firoozeh Dumas	Middle	2019	https://images-na.ssl-images-amazon.com/images/I/51miMQ66exL._SX333_BO1,204,203,200_.jpg	t
+\.
+
+
+--
+-- Data for Name: parent_advice; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public.parent_advice (id, text) FROM stdin;
+1	\n<strong>Before reading:</strong>\n<ol>\n<li>Looking at the title, cover and illustrations/pictures, what do you think will happen in this book?</li>\n<li>What makes you think that?</li>\n<li>What characters do you think might be in the book?</li>\n<li>Do you think there will be problem in the story? Why?</li>\n<li>What do you already know about the topic of this book?</li>\n<li>Does the topic or story relate to you or your family? How?</li>\n<li>Do you think it will be like any other book you’ve read? If so, which one, and how do you think it will be similar?</li>\n</ol>\n
+2	\n<strong>During reading:</strong>\n<ol>\n<li>What has happened so far in the story? Can you tell me using sequence words? (first, then, next, after, finally, etc.)</li>\n<li>What do you predict will happen next?</li>\n<li>How do you think the story will end?</li>\n<li>Why do you think the character did ____________?</li>\n<li>What would you have done if you were the character?</li>\n<li>How would you have felt if you were the character?</li>\n<li>When you read, what pictures did you see in your head? How did you imagine it looked like?</li>\n<li>What are you wondering about as you read? What questions do you have?</li>\n<li>Think about the predictions you made before reading; do you still think the story will go that way? Why or why not? How do you think it will go now?</li>\n</ol>\n
+3	\n<strong>After reading:</strong>\n<ol>\n<li>Why is the title a good title for the book/story? If you had to give it a different title, what would be another good title for it?</li>\n<li>Were your predictions correct? Where did you have to fix your prediction as you read?</li>\n<li>If there was a problem, did it get solved? How did the character try to solve the problem?</li>\n<li>What happened because of the problem?</li>\n<li>Did any of the characters change through the story? Who changed, and how did they change?</li>\n<li>Why do you think the author wrote this?</li>\n<li>What is the most important point that the author is trying to make in his/her writing?</li>\n<li>What was your favorite part? Why?</li>\n<li>If you could change one part, what would you change?</li>\n<li>If you could ask the author a question, what would you ask?</li>\n<li>Can you retell the story in sequence order (use your fingers and sequence words: first, second, then, next, etc.)</li>\n<li>Is there a character in the story that reminds you of someone you know? If so, who are they like, and why do you think that?</li>\n<li>Does this book remind you of another book you know? Does it remind you of something you’ve experienced in real life?</li>\n</ol>\n
+\.
+
+
+--
+-- Data for Name: question; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public.question (id, text, options, correct_option, quiz_id) FROM stdin;
+1	Who wrote Huckleberry Finn?	{"Mark Twain","JK Rowling",Steinbeck,"Tony Morrison"}	Mark Twain	1
+2	Who is Huckleberry Finn's Best Friend?	{"Tom Sawyer","His dad","Jake Wiggins","His dog"}	Tom Sawyer	1
+3	Who wrote Chuckleberry Finn?	{"Mark Twain","JK Rofling",Steinbeck,"Tony Morrison"}	Mark Twain	2
+4	Who is Chuckleberry Finn's Best Friend?	{"Tom Sawyer","His dad","Jake Wiggins","His cat"}	Tom Sawyer	2
+5	In the beginning, the narrator is introduced as?	{Samar,"Red, a 200-year-old oak tree",Bongo,Francesca}	Red, a 200-year-old oak tree	3
+6	Which time of year do people write down their wishes for Red?	{"June 1st",Christmas,"May 1st","Every Monday Morning"}	May 1st	3
+7	What does Samar wish for?	{"An A on CS 233 Exam","A friend","Her mother to recover from sickness","Acceptance into the philaReads dev team"}	A friend	3
+8	What is the name of the Irish orphan that arrived in 1848	{Maeve,Ciara,Anna,Siobhan}	Maeve	4
+9	What does the name of the adopted child 'Amadora' mean?	{"Gift of life","Gift of hope","Gift of love","Gift of strength"}	Gift of love	4
+10	What did the arborists choose to do with Red?	{"Chop it down","Write wishes on it","Preserve it"}	Chop it down	4
+11	In response to the arborists, what does Stephen and his classmates write on Red	{STAY,GOODBYE,FAREWELL,"DONT LEAVE"}	STAY	5
+12	What does Francesca read to ultimately change her mind about chopping down Red	{"Maeve's journal","A letter written by Stephen's classmates","The wishes on Red"}	Maeve's journal	5
+13	In the end, who does Samar become good friends with?	{Red,Francesca,Bongo,Stephen}	Stephen	5
+14	What grade is Bat in?	{2nd,4th,1st,3rd}	3rd	6
+15	What is Bat's mother's occupation?	{Veterinarian,Nurse,Teacher,Scientist}	Veterinarian	6
+16	What is the name of Bat's skunk?	{Winnie,Thor,Bongo,Stripe}	Thor	6
+17	How old is Ruby at the start of the book?	{8,15,10,11}	11	7
+18	Why can't Ruby see her mother? Where is she?	{Hospital,DMV,Prison,"Dev night"}	Prison	7
+19	What is the name of Ruby's new friend?	{Madeline,Maggie,Margalit,Margaret}	Margalit	7
+\.
+
+
+--
+-- Data for Name: questionResult; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public."questionResult" (id, user_answer, correct_answer, correct, quiz_num, question_id, quiz_result_id, question_num) FROM stdin;
+\.
+
+
+--
+-- Data for Name: quiz; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public.quiz (id, name, book_id, published) FROM stdin;
+1	Huck Finn Quiz 1	1	t
+2	Huck Finn Quiz 2	1	t
+3	Wish Tree Quiz 1	2	t
+4	Wish Tree Quiz 2	2	t
+5	Wish Tree Quiz 3	2	t
+6	A Boy Called Bat Quiz 1	3	t
+7	Ruby on the Outside Quiz 1	4	t
+\.
+
+
+--
+-- Data for Name: quizResult; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public."quizResult" (id, num_correct, num_total, date_taken, user_id, quiz_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public."user" (id, name, password, username, options, is_admin) FROM stdin;
+1	Philadelphia READS	$2b$12$dxGhO.TbHBQo/58LOzRWNeQ2cuN7v3ldnMsNUnOwz.PdMHd/O.vT6	admin	{}	t
+\.
+
+
+--
+-- Data for Name: year; Type: TABLE DATA; Schema: public; Owner: testusr
+--
+
+COPY public.year (id, year) FROM stdin;
+1	2019
+\.
+
+
+--
+-- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.book_id_seq', 11, true);
+
+
+--
+-- Name: parent_advice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.parent_advice_id_seq', 3, true);
+
+
+--
+-- Name: questionResult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public."questionResult_id_seq"', 1, false);
+
+
+--
+-- Name: question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.question_id_seq', 19, true);
+
+
+--
+-- Name: quizResult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public."quizResult_id_seq"', 1, false);
+
+
+--
+-- Name: quiz_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.quiz_id_seq', 7, true);
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 1, true);
+
+
+--
+-- Name: year_id_seq; Type: SEQUENCE SET; Schema: public; Owner: testusr
+--
+
+SELECT pg_catalog.setval('public.year_id_seq', 1, true);
+
+
+--
+-- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: parent_advice parent_advice_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.parent_advice
+    ADD CONSTRAINT parent_advice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: questionResult questionResult_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."questionResult"
+    ADD CONSTRAINT "questionResult_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: question question_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.question
+    ADD CONSTRAINT question_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: quizResult quizResult_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."quizResult"
+    ADD CONSTRAINT "quizResult_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: quiz quiz_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.quiz
+    ADD CONSTRAINT quiz_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_username_key; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+--
+-- Name: year year_pkey; Type: CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.year
+    ADD CONSTRAINT year_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: questionResult questionResult_quiz_result_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."questionResult"
+    ADD CONSTRAINT "questionResult_quiz_result_id_fkey" FOREIGN KEY (quiz_result_id) REFERENCES public."quizResult"(id);
+
+
+--
+-- Name: question question_quiz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.question
+    ADD CONSTRAINT question_quiz_id_fkey FOREIGN KEY (quiz_id) REFERENCES public.quiz(id);
+
+
+--
+-- Name: quizResult quizResult_quiz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."quizResult"
+    ADD CONSTRAINT "quizResult_quiz_id_fkey" FOREIGN KEY (quiz_id) REFERENCES public.quiz(id);
+
+
+--
+-- Name: quizResult quizResult_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public."quizResult"
+    ADD CONSTRAINT "quizResult_user_id_fkey" FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: quiz quiz_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: testusr
+--
+
+ALTER TABLE ONLY public.quiz
+    ADD CONSTRAINT quiz_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.book(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
