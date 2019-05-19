@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint, make_response
+from flask import Flask, jsonify, request, Blueprint, make_response, current_app
 from api.models import User, db
 from api.core import create_response, serialize_list, logger
 import bcrypt
