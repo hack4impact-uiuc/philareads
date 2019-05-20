@@ -10,8 +10,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - flask-app-db:/var/lib/postgresql/data
+      - ./testdb_seed:/docker-entrypoint-initdb.d/testdb_seed.sql
     ports:
-      - 5432:5432
+      - 5431:5432
   client:
     build:
       dockerfile: Dockerfile.dev
