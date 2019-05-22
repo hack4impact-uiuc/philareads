@@ -3,15 +3,14 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   DropdownToggle,
   DropdownItem,
   DropdownMenu,
   UncontrolledDropdown
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import logo from '../images/philareadslogo_transparent.png';
 import '../styles/PReadsNavbar.scss';
@@ -61,9 +60,9 @@ export default class PReadsNavbar extends React.Component {
     return (
       <div>
         <Navbar className="navbar-light" expand="md">
-          <NavbarBrand href="/">
+          <Link to='/' className='navbar-brand'>
             <img src={logo} width="80" alt="philareads" />
-          </NavbarBrand>
+          </Link>
           <NavbarToggler onClick={this.toggle} className="hamburger-color" />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
@@ -71,18 +70,18 @@ export default class PReadsNavbar extends React.Component {
                 // Maps each route component to navigation links in the Bootstrap navbar
                 return (
                   <NavItem key={name}>
-                    <NavLink href={route}>{name}</NavLink>
+                    <Link to={route} className='nav-link'>{name}</Link>
                   </NavItem>
                 );
               })}
               {!this.isLoggedIn() && (
                 <NavItem>
-                  <NavLink href={'/login'}>Login</NavLink>
+                  <Link to='/login' className='nav-link'>Login</Link>
                 </NavItem>
               )}
               {!this.isLoggedIn() && (
                 <NavItem>
-                  <NavLink href={'/register'}>Register</NavLink>
+                  <Link to='/register' className='nav-link'>Register</Link>
                 </NavItem>
               )}
             </Nav>
