@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import AdminAdviceForm from '../../components/admin/AdminAdviceForm';
 import AdminNavigator from '../../components/admin/AdminNavigator';
 import AdminAdviceSelect from '../../components/admin/AdminAdviceSelect';
@@ -103,7 +104,7 @@ class AdminEditAdvicePage extends Component {
             {this.state.success && (
               <Alert color="success">
                 Advice was successfully modified. Would you like to{' '}
-                <a href="/admin/advice/edit">edit another</a>?
+                <Link to="/admin/advice/edit">edit another</Link>?
               </Alert>
             )}
             {!this.state.success && (
