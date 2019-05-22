@@ -60,7 +60,7 @@ export default class PReadsNavbar extends React.Component {
     return (
       <div>
         <Navbar className="navbar-light" expand="md">
-          <Link to='/' className='navbar-brand'>
+          <Link to="/" className="navbar-brand">
             <img src={logo} width="80" alt="philareads" />
           </Link>
           <NavbarToggler onClick={this.toggle} className="hamburger-color" />
@@ -70,18 +70,24 @@ export default class PReadsNavbar extends React.Component {
                 // Maps each route component to navigation links in the Bootstrap navbar
                 return (
                   <NavItem key={name}>
-                    <Link to={route} className='nav-link'>{name}</Link>
+                    <Link to={route} className="nav-link">
+                      {name}
+                    </Link>
                   </NavItem>
                 );
               })}
               {!this.isLoggedIn() && (
                 <NavItem>
-                  <Link to='/login' className='nav-link'>Login</Link>
+                  <Link to="/login" className="nav-link">
+                    Login
+                  </Link>
                 </NavItem>
               )}
               {!this.isLoggedIn() && (
                 <NavItem>
-                  <Link to='/register' className='nav-link'>Register</Link>
+                  <Link to="/register" className="nav-link">
+                    Register
+                  </Link>
                 </NavItem>
               )}
             </Nav>
