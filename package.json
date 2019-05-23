@@ -1,0 +1,16 @@
+{
+  "name": "philareads",
+  "version": "1.0.0",
+  "description": "We partnered with the non-profit Philadelphia READS to help them create a tablet-friendly web application that would serve as a supplement to one of their core reading programs.",
+  "scripts": {
+    "dev:start": "docker-compose -f docker-compose-dev.yml up",
+    "dev:start-build": "docker-compose -f docker-compose-dev.yml up --build",
+    "dev:down": "docker-compose -f docker-compose-dev.yml down",
+    "dev:purge-db": "docker volume rm flask-app-db",
+    "dev:first-start": "npm run dev:down && npm run dev:purge-db && npm run dev:start-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajdeleon/philareads.git"
+  }
+}

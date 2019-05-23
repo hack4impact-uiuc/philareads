@@ -1,39 +1,44 @@
 # Local Setup
-To run this app you must have node.js/npm and python3.7 installed.
+The development process uses `docker-compose`
 
-## Frontend
-Assuming you have node and npm installed, run the following commands
-```
-cd frontend
-npm install
-```
-This will install all needed dependencies into the node_modules folder. Then to run the local development frontend server do
-```
-npm start
-```
-The site should be displayed in the default browser at  `http://localhost:3000`
+[Docker](https://docs.docker.com/v17.12/install/) and [docker-compose](https://docs.docker.com/compose/install/) installation instructions
 
-## Backend
-It is recommended to use pipenv and python3.7 when working with the backend to make dependency management as easy as possible. Follow the instructions [here](https://pipenv.readthedocs.io/en/latest/install/) to install pipenv
-
-Additionally it is recommended to have docker so that an instance of postgresql can run on your local machine as well. 
-
-Once these pieces of software are installed start up a postgresql instance with
+## Bring the project up
+#### To start the project for the first time run:
 ```
-docker run -e POSTGRES_USER=testusr -e POSTGRES_PASSWORD=password -e POSTGRES_DB=testdb -p 5432:5432 -v flask-app-db:/var/lib/postgresql/data -d postgres:10
+docker-compose -f docker-compose-dev.yml up --build
 ```
 
-Then, install the python dependencies:
-
+#### After your first time running the project you will no longer need to build the docker images so you can leave out the `--build`:
 ```
-pipenv install
-pipenv install --dev
+docker-compose -f docker-compose-dev.yml up
 ```
 
-Then start up the server with
+This will bring up the Frontend, Backend, and Postgres database. You can access the frontend at [http://localhost:3000](http://localhost:3000)
+
+#### To reset and reseed the database, first remove the postgres volume and then rebuild and start again:
 ```
-./reset_db_with_sample_data.sh
-pipenv run python manage.py runserver
+docker volume rm flask-app-db
 ```
 
-The server should now be running and available at http://localhost:5000
+#### Each of these commands can easily be run using npm commands. For a full list of the available scripts run `npm run` from the main project directory:
+```
+Scripts available in philareads via `npm run-script`:
+  dev:start docker-compose -f docker-compose-dev.yml up
+  dev:start-build docker-compose -f docker-compose-dev.yml up --build
+  dev:down docker-compose -f docker-compose-dev.yml down
+  dev:purge-db docker volume rm flask-app-db
+  dev:first-start npm run dev:down && npm run dev:purge-db && npm run dev:start-build
+```
+
+For example to start the project for the first time run:
+```
+npm run dev:first-start
+```
+
+#### Troubleshooting docker
+If you run into issues with the docker process you can review logs that will make it easier for the team to help you:
+
+```
+docker-compose -f docker-compose-dev.yml logs
+```
