@@ -31,8 +31,12 @@ class AccountManagePage extends Component {
   }
 
   fetchUserData = async () => {
-    const { result } = await getUserData();
-    this.setState({ name: result['name'], username: result['username'] });
+    try {
+      const { result } = await getUserData();
+      this.setState({ name: result['name'], username: result['username'] });
+    } catch (e) {
+      console.error('error getting user data', e);
+    }
   };
 
   canSubmitProfile() {
@@ -86,13 +90,17 @@ class AccountManagePage extends Component {
       };
     }
 
-    const { message } = await postUserData(userData);
-    this.setState({ message: message });
+    try {
+      const { message } = await postUserData(userData);
+      this.setState({ message: message });
 
-    if (message === 'Successfully updated user') {
-      this.setState({ alertMessage: 'Profile Updated!' });
-    } else {
-      this.setState({ alertMessage: 'Error updating profile' });
+      if (message === 'Successfully updated user') {
+        this.setState({ alertMessage: 'Profile Updated!' });
+      } else {
+        this.setState({ alertMessage: 'Error updating profile' });
+      }
+    } catch (e) {
+      console.error('error updating user', e);
     }
   };
 
@@ -108,17 +116,21 @@ class AccountManagePage extends Component {
       confirmPassword: ''
     });
 
-    const { message } = await updatePassword(passwordData);
-    this.setState({ message: message });
+    try {
+      const { message } = await updatePassword(passwordData);
+      this.setState({ message: message });
 
-    if (message === 'Successfully changed the password') {
-      this.setState({
-        alertMessage: 'Password succesfully updated!'
-      });
-    } else {
-      this.setState({
-        alertMessage: 'Invalid Password'
-      });
+      if (message === 'Successfully changed the password') {
+        this.setState({
+          alertMessage: 'Password succesfully updated!'
+        });
+      } else {
+        this.setState({
+          alertMessage: 'Invalid Password'
+        });
+      }
+    } catch (e) {
+      console.error('error updating password', e);
     }
   };
 
