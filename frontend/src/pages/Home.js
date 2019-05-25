@@ -28,14 +28,6 @@ class Home extends Component {
     return null;
   }
 
-  onClickMiddleSchool = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
-  };
-
-  onClickIntermediate = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
-  };
-
   render() {
     return (
       <div className="home">
@@ -54,7 +46,8 @@ class Home extends Component {
                 <CardBody>
                   <Button
                     className="navigation-button"
-                    onClick={this.onClickMiddleSchool}
+                    tag={Link}
+                    to="/readingolympics/current/middle"
                     color="primary"
                     size="lg"
                     block
@@ -63,7 +56,8 @@ class Home extends Component {
                   </Button>
                   <Button
                     className="navigation-button"
-                    onClick={this.onClickIntermediate}
+                    tag={Link}
+                    to="/readingolympics/current/intermediate"
                     color="primary"
                     size="lg"
                     block

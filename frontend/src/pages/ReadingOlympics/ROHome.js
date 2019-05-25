@@ -26,14 +26,6 @@ class ROHome extends Component {
     });
   }
 
-  onClickMiddleSchool = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
-  };
-
-  onClickIntermediate = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
-  };
-
   renderSearch = () => {
     return (
       <Card className="search">
@@ -74,7 +66,8 @@ class ROHome extends Component {
                 <h2>{this.state.currentYear}</h2>
                 <Button
                   className="navigation-button"
-                  onClick={this.onClickMiddleSchool}
+                  tag={Link}
+                  to="/readingolympics/current/middle"
                   size="lg"
                   block
                 >
@@ -82,7 +75,8 @@ class ROHome extends Component {
                 </Button>
                 <Button
                   className="navigation-button"
-                  onClick={this.onClickIntermediate}
+                  tag={Link}
+                  to="/readingolympics/current/intermediate"
                   size="lg"
                   block
                 >
