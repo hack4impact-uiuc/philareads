@@ -125,7 +125,7 @@ class AccountManagePage extends Component {
   render() {
     return (
       <div className="container">
-        <h1 class="page-title">Account Settings</h1>
+        <h1 className="page-title">Account Settings</h1>
         <div className="text-center">
           <Form className="form-settings" name="form">
             {(this.state.alertMessage === 'Password succesfully updated!' ||
