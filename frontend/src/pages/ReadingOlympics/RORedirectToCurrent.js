@@ -5,22 +5,30 @@ import { getROCurrentYear } from '../../utils/api';
 class RORedirectToCurrent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       currentYear: undefined
     };
+  }
+
+  componentWillMount() {
     this.getROCurrentYear();
   }
 
   getROCurrentYear = async () => {
-    const {
-      success,
-      result: { year }
-    } = await getROCurrentYear();
-    if (success) {
-      this.setState({ currentYear: year });
-    } else {
-      // Handle failure by going back to RO homepage
-      this.props.history.push('/readingolympics');
+    try {
+      const {
+        success,
+        result: { year }
+      } = await getROCurrentYear();
+      if (success) {
+        this.setState({ currentYear: year });
+      } else {
+        // Handle failure by going back to RO homepage
+        this.props.history.push('/readingolympics');
+      }
+    } catch (e) {
+      console.error('error fetching current year', e);
     }
   };
 
