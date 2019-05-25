@@ -10,6 +10,7 @@ import '../styles/QuizPage.scss';
 class QuizPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       bookID: props.match.params.id,
       quizID: props.match.params.quizID,
@@ -20,38 +21,49 @@ class QuizPage extends Component {
       numRedo: 0,
       alert: null
     };
+  }
+
+  componentWillMount() {
     this.fetchBookData();
     this.fetchQuizData();
   }
 
   fetchBookData = async () => {
-    const { message, success, result } = await getBookData(
-      this.props.match.params.id
-    );
-    if (success) {
-      if (result['results'].length > 0) {
-        this.setState({ bookData: result['results'][0] });
+    try {
+      const { message, success, result } = await getBookData(
+        this.props.match.params.id
+      );
+      if (success) {
+        if (result['results'].length > 0) {
+          this.setState({ bookData: result['results'][0] });
+        } else {
+          // User somehow navigated to a book page of invalid ID.
+          // Redirect them to the main ReadingOlympics page
+          this.props.history.push('/ReadingOlympics');
+        }
       } else {
-        // User somehow navigated to a book page of invalid ID.
-        // Redirect them to the main ReadingOlympics page
-        this.props.history.push('/ReadingOlympics');
+        this.setState({ alert: message });
       }
-    } else {
-      this.setState({ alert: message });
+    } catch (e) {
+      console.error('error fetching book data', e);
     }
   };
 
   fetchQuizData = async () => {
-    const { id, quizID } = this.props.match.params;
-    const { message, success, result } = await getQuizzes(id);
-    if (success) {
-      this.setState({
-        quizData: result['quizzes'].filter(
-          quiz => quiz['quizzes'][0]['quiz_id'].toString() === quizID
-        )[0]
-      });
-    } else {
-      this.setState({ alert: message });
+    try {
+      const { id, quizID } = this.props.match.params;
+      const { message, success, result } = await getQuizzes(id);
+      if (success) {
+        this.setState({
+          quizData: result['quizzes'].filter(
+            quiz => quiz['quizzes'][0]['quiz_id'].toString() === quizID
+          )[0]
+        });
+      } else {
+        this.setState({ alert: message });
+      }
+    } catch (e) {
+      console.error('error fetching quiz data', e);
     }
   };
 
