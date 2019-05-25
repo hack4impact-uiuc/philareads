@@ -8,6 +8,7 @@ import { Button, Row, Alert } from 'reactstrap';
 class BookPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       bookID: props.match.params.id,
       quizIndex: -1,
@@ -15,35 +16,46 @@ class BookPage extends Component {
       currentQuestions: [],
       alert: null
     };
+  }
+
+  componentWillMount() {
     this.fetchBookData();
     this.fetchQuizData();
   }
 
   fetchBookData = async () => {
-    const { message, success, result } = await getBookData(
-      this.props.match.params.id
-    );
-    if (success) {
-      if (result['results'].length > 0) {
-        this.setState({ bookData: result['results'][0] });
+    try {
+      const { message, success, result } = await getBookData(
+        this.props.match.params.id
+      );
+      if (success) {
+        if (result['results'].length > 0) {
+          this.setState({ bookData: result['results'][0] });
+        } else {
+          // User somehow navigated to a book page of invalid ID.
+          // Redirect them to the main ReadingOlympics page
+          this.props.history.push('/ReadingOlympics');
+        }
       } else {
-        // User somehow navigated to a book page of invalid ID.
-        // Redirect them to the main ReadingOlympics page
-        this.props.history.push('/ReadingOlympics');
+        this.setState({ alert: message });
       }
-    } else {
-      this.setState({ alert: message });
+    } catch (e) {
+      console.error('error fetch book data', e);
     }
   };
 
   fetchQuizData = async () => {
-    const { message, success, result } = await getQuizzes(
-      this.props.match.params.id
-    );
-    if (success) {
-      this.setState({ quizData: result['quizzes'] });
-    } else {
-      this.setState({ alert: message });
+    try {
+      const { message, success, result } = await getQuizzes(
+        this.props.match.params.id
+      );
+      if (success) {
+        this.setState({ quizData: result['quizzes'] });
+      } else {
+        this.setState({ alert: message });
+      }
+    } catch (e) {
+      console.error('error fetch quiz data', e);
     }
   };
 
