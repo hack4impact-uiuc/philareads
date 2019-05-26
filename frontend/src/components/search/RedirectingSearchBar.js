@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input } from 'reactstrap';
+import AutoComplete from '../search/AutoComplete';
 
 class RedirectingSearchBar extends Component {
   constructor(props) {
@@ -22,12 +22,20 @@ class RedirectingSearchBar extends Component {
 
   render() {
     return (
-      <Input
-        type="text"
-        placeholder="Search for a book..."
-        onChange={this.handleChange}
-        onKeyPress={this.handleKeyPress}
+      <AutoComplete
+        suggestions={[
+          'cat in the hat',
+          'mouse on a motorcycle',
+          'dog in the house',
+          'Serafina and the Black Cloak'
+        ]}
       />
+      // <Input
+      //   type="text"
+      //   placeholder="Search for a book..."
+      //   onChange={this.handleChange}
+      //   onKeyPress={this.handleKeyPress}
+      // />
     );
   }
 }
