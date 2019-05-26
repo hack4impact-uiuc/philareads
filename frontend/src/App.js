@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './history';
 import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import NoMatchPage from './pages/NoMatchPage';
@@ -59,7 +60,7 @@ function withAuthenticatedProtection(WrappedComponent) {
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <Route path="/" component={PReadsNavbar} />
           <Switch>
