@@ -40,8 +40,8 @@ class AdvicePage extends Component {
       );
     }
 
-    return this.state.adviceData.map(advice => (
-      <Advice adviceCards={advice['text']} />
+    return this.state.adviceData.map((advice, i) => (
+      <Advice key={i} adviceCards={advice['text']} />
     ));
   };
 
@@ -53,7 +53,7 @@ class AdvicePage extends Component {
 
     return (
       <Container className="parents-page">
-        <h1 class="page-title">Parents Page</h1>
+        <h1 className="page-title">Parents Page</h1>
         {header}
         {this.renderAdviceCards()}
       </Container>

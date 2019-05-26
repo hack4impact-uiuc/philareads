@@ -19,7 +19,7 @@ class Advice extends Component {
   render() {
     return (
       <div>
-        <div id="mainAdvice" class="container">
+        <div id="mainAdvice" className="container">
           {this.renderCards()}
           <br />
         </div>

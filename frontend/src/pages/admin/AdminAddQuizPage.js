@@ -3,6 +3,7 @@ import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminQuizForm from '../../components/admin/AdminQuizForm';
 import AdminNavigator from '../../components/admin/AdminNavigator';
 import AdminBookSelect from '../../components/admin/AdminBookSelect';
+import { Link } from 'react-router-dom';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { createQuiz } from '../../utils/api';
@@ -110,7 +111,7 @@ class AdminAddQuizPage extends Component {
             {this.state.success ? (
               <Alert color="success">
                 Quiz was successfully created. Would you like to{' '}
-                <a href="/admin/quiz/add"> create another? </a>
+                <Link to="/admin/quiz/add"> create another? </Link>
               </Alert>
             ) : (
               this.state.currentSelectedBook.id > -1 && (

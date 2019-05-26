@@ -4,6 +4,7 @@ import BookInfo from '../components/BookInfo';
 import { getBookData, getQuizzes } from '../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Row, Alert } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class BookPage extends Component {
   constructor(props) {
@@ -59,18 +60,13 @@ class BookPage extends Component {
     return cards;
   };
 
-  selectQuiz = id => {
-    this.props.history.push(
-      `/ReadingOlympics/book/${this.props.match.params.id}/${id}`
-    );
-  };
-
   renderFunc = card => {
     return (
       <Button
         color="success"
         className="btn btn-block"
-        onClick={() => this.selectQuiz(card.id)}
+        tag={Link}
+        to={`/ReadingOlympics/book/${this.props.match.params.id}/${card.id}`}
       >
         {card.title}
       </Button>

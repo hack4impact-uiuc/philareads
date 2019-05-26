@@ -5,6 +5,7 @@ import AdminNavigator from '../../components/admin/AdminNavigator';
 import AdminBookSelect from '../../components/admin/AdminBookSelect';
 import AdminQuizSelect from '../../components/admin/AdminQuizSelect';
 import AdminDeleteModal from '../../components/admin/AdminDeleteModal';
+import { Link } from 'react-router-dom';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { editQuiz, deleteQuiz } from '../../utils/api.js';
@@ -174,7 +175,7 @@ class AdminEditQuizPage extends Component {
             {this.state.success && (
               <Alert color="success">
                 Quiz was successfully edited. Would you like to{' '}
-                <a href="/admin/quiz/edit"> edit another? </a>
+                <Link to="/admin/quiz/edit"> edit another? </Link>
               </Alert>
             )}
             {!this.state.success &&

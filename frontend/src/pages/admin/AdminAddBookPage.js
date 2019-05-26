@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminBookForm from '../../components/admin/AdminBookForm';
 import AdminNavigator from '../../components/admin/AdminNavigator';
+import { Link } from 'react-router-dom';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 class AdminAddBookPage extends Component {
@@ -28,7 +29,7 @@ class AdminAddBookPage extends Component {
             {this.state.success ? (
               <Alert color="success">
                 Book was successfully created. Would you like to{' '}
-                <a href="/admin/book/add">create another</a>?
+                <Link to="/admin/book/add">create another</Link>?
               </Alert>
             ) : (
               <AdminBookForm type="Add" handleSuccess={this.handleSuccess} />
