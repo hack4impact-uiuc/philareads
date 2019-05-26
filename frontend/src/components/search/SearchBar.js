@@ -5,7 +5,6 @@ import { search } from '../../utils/api';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import AutoComplete from './AutoComplete';
 
 library.add(faSearch);
 
@@ -94,13 +93,6 @@ class SearchBar extends Component {
             />
           </FormGroup>
         </Form>
-        <AutoComplete
-          suggestions={[
-            'cat in the hat',
-            'mouse on a motorcycle',
-            'dog in the house'
-          ]}
-        />
       </>
     );
   }
