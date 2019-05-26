@@ -84,7 +84,9 @@ class User(Mixin, db.Model):
         :param auth_token:
         :return: integer|string
         """
-        payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
+        payload = jwt.decode(
+            auth_token, current_app.config.get("SECRET_KEY"), algorithms="HS256"
+        )
         return payload["sub"]
         # try:
         # payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
