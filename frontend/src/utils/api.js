@@ -191,6 +191,16 @@ function getAllBooks() {
   }).then(res => res.json());
 }
 
+async function getAllPublishedBooks() {
+  try {
+    let response = await fetch(`${API_URL}/books`);
+    let data = await response.json();
+    return data;
+  } catch (err) {
+    console.log('There was an error fetching books');
+  }
+}
+
 function postUserData(userData) {
   return fetch(`${API_URL}/edit_user`, {
     method: 'POST',
@@ -349,6 +359,7 @@ export {
   editBook,
   postQuizResults,
   getAllBooks,
+  getAllPublishedBooks,
   deleteBook,
   publishAllBooksInYear,
   getUserData,
