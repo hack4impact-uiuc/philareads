@@ -14,13 +14,12 @@ input {
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
-  max-height: 143px;
+  max-height: 163px;
   overflow-y: auto;
   padding-left: 0;
 }
 
 .suggestions li {
-  padding: 0.5rem;
 }
 
 .suggestion-active,
@@ -36,5 +35,11 @@ input {
 }
 
 .link {
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+}
+
+.link:hover {
   text-decoration: none;
 }
