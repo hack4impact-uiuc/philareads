@@ -10,6 +10,7 @@ import {
   CardTitle
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 
 const secondsBeforeRedirect = 10;
 
@@ -49,28 +50,30 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div className="no-match-page">
-        <h1 className="page-title">Page Not Found</h1>
-        <Container className="container">
-          <Col>
-            <Card className="main-content">
-              <CardBody>
-                <CardTitle>Uh oh! This page does not exist.</CardTitle>
-                <CardText>
-                  <p>
-                    You could have reached this page through a stale link, or a
-                    mistyped URL.
-                  </p>
-                  <p>
-                    You'll be redirected to the <Link to="/">homepage</Link> in{' '}
-                    {this.state.timeRemaining} seconds.
-                  </p>
-                </CardText>
-              </CardBody>
-            </Card>
-          </Col>
-        </Container>
-      </div>
+      <DocumentTitle title="Oops...">
+        <div className="no-match-page">
+          <h1 className="page-title">Page Not Found</h1>
+          <Container className="container">
+            <Col>
+              <Card className="main-content">
+                <CardBody>
+                  <CardTitle>Uh oh! This page does not exist.</CardTitle>
+                  <CardText>
+                    <p>
+                      You could have reached this page through a stale link, or
+                      a mistyped URL.
+                    </p>
+                    <p>
+                      You'll be redirected to the <Link to="/">homepage</Link>{' '}
+                      in {this.state.timeRemaining} seconds.
+                    </p>
+                  </CardText>
+                </CardBody>
+              </Card>
+            </Col>
+          </Container>
+        </div>
+      </DocumentTitle>
     );
   }
 }

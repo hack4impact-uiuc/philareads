@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Row, Alert, Button } from 'reactstrap';
+import DocumentTitle from 'react-document-title';
+
 import QuizViewer from '../components/quiz/QuizViewer';
 import QuizRedo from '../components/quiz/QuizRedo';
 import { Link } from 'react-router-dom';
 import { getBookData, getQuizzes, postQuizResults } from '../utils/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Alert, Button } from 'reactstrap';
 import '../styles/QuizPage.scss';
 
 class QuizPage extends Component {
@@ -133,45 +135,47 @@ class QuizPage extends Component {
       header = <Alert color="danger">{this.state.alert}</Alert>;
     }
     return (
-      <div class="quiz-page">
-        {!this.dataLoaded() && (
-          <Row>
-            <FontAwesomeIcon
-              className="icon spinner"
-              icon="spinner"
-              pulse
-              size="10x"
-            />
-          </Row>
-        )}
-        {this.dataLoaded() && (
-          <div>
-            {header}
-            <Link to={'/ReadingOlympics/book/' + this.state.bookID}>
-              <Button className="back-button" color="primary">
-                Back to Book Info
-              </Button>
-            </Link>
-            <QuizViewer
-              quizID={this.props.match.params.quizID}
-              questionList={this.getQuestions()}
-              quizName={this.state.quizData['name']}
-              finishAttempt={this.finishAttempt}
-              numRedo={this.state.numRedo}
-              redoQuiz={this.redoQuiz}
-              redoable={this.state.redoable}
-            />
-            <QuizRedo
-              closeModal={this.closeModal}
-              finishAttempt={this.finishAttempt}
-              showEndModal={this.state.showEndModal}
-              numCorrectQ={this.state.numCorrectQ}
-              numTotalQ={this.state.numTotalQ}
-              redoQuiz={this.redoQuiz}
-            />
-          </div>
-        )}
-      </div>
+      <DocumentTitle title="Quiz">
+        <div className="quiz-page">
+          {!this.dataLoaded() && (
+            <Row>
+              <FontAwesomeIcon
+                className="icon spinner"
+                icon="spinner"
+                pulse
+                size="10x"
+              />
+            </Row>
+          )}
+          {this.dataLoaded() && (
+            <div>
+              {header}
+              <Link to={'/ReadingOlympics/book/' + this.state.bookID}>
+                <Button className="back-button" color="primary">
+                  Back to Book Info
+                </Button>
+              </Link>
+              <QuizViewer
+                quizID={this.props.match.params.quizID}
+                questionList={this.getQuestions()}
+                quizName={this.state.quizData['name']}
+                finishAttempt={this.finishAttempt}
+                numRedo={this.state.numRedo}
+                redoQuiz={this.redoQuiz}
+                redoable={this.state.redoable}
+              />
+              <QuizRedo
+                closeModal={this.closeModal}
+                finishAttempt={this.finishAttempt}
+                showEndModal={this.state.showEndModal}
+                numCorrectQ={this.state.numCorrectQ}
+                numTotalQ={this.state.numTotalQ}
+                redoQuiz={this.redoQuiz}
+              />
+            </div>
+          )}
+        </div>
+      </DocumentTitle>
     );
   }
 }
