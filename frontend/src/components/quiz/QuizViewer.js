@@ -65,7 +65,7 @@ class QuizViewer extends Component {
   renderProgress = () => {
     let value = (this.state.answered / this.props.questionList.length) * 100;
     return (
-      <div class="flex-container" className="progressDiv">
+      <div className="flex-container progressDiv">
         <Progress color="success" value={value} />
         {this.props.redoable && this.renderRedoButton()}
       </div>
