@@ -6,26 +6,18 @@ import '../../styles/components/AutoComplete.scss';
 const AutoComplete = props => {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState('');
-
-  const onClick = suggestion => {
-    setActiveSuggestion(0);
-    setShowSuggestions(false);
-    setUserInput(suggestion);
-    setFilteredSuggestions([]);
-  };
 
   const onKeyDown = e => {
     if (e.keyCode === 13) {
       setActiveSuggestion(0);
       setUserInput(filteredSuggestions[activeSuggestion]);
-      history.push(`/search?query${userInput}`);
+      history.push(`/search?query=${filteredSuggestions[activeSuggestion]}`);
     } else if (e.keyCode === 38) {
       if (activeSuggestion === 0) return;
       setActiveSuggestion(activeSuggestion - 1);
     } else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) return;
+      if (activeSuggestion === filteredSuggestions.length - 1) return;
       setActiveSuggestion(activeSuggestion + 1);
     }
   };
@@ -76,6 +68,7 @@ const AutoComplete = props => {
   return (
     <>
       <input
+        placeholder="Search for a book..."
         type="text"
         value={userInput}
         onChange={onInputChange}
