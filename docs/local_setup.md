@@ -42,3 +42,8 @@ If you run into issues with the docker process you can review logs that will mak
 ```
 docker-compose -f docker-compose-dev.yml logs
 ```
+
+#### Note to Windows users
+Everything should work well for you using docker for windows, but you may run into issues with the `/backend/docker_script.sh` script because dos may not be able to read it and it will result in the build process failing.
+
+To solve this issue use [dos2unix](http://dos2unix.sourceforge.net/) to convert the file to a dos friendly format.
