@@ -30,14 +30,6 @@ class Home extends Component {
     return null;
   }
 
-  onClickMiddleSchool = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
-  };
-
-  onClickIntermediate = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
-  };
-
   render() {
     return (
       <DocumentTitle title="Home">

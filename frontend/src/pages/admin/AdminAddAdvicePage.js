@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import AdminAdviceForm from '../../components/admin/AdminAdviceForm';
 import AdminNavigator from '../../components/admin/AdminNavigator';
+import { Link } from 'react-router-dom';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 
@@ -29,7 +30,7 @@ class AdminAddAdvicePage extends Component {
             {this.state.success ? (
               <Alert color="success">
                 Advice successfully created. Would you like to{' '}
-                <a href="/admin/advice/add">create another</a>?
+                <Link to="/admin/advice/add">create another</Link>?
               </Alert>
             ) : (
               <AdminAdviceForm type="Add" handleSuccess={this.handleSuccess} />

@@ -42,8 +42,8 @@ class AdvicePage extends Component {
       );
     }
 
-    return this.state.adviceData.map(advice => (
-      <Advice adviceCards={advice['text']} />
+    return this.state.adviceData.map((advice, i) => (
+      <Advice key={i} adviceCards={advice['text']} />
     ));
   };
 

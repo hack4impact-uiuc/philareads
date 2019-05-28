@@ -28,14 +28,6 @@ class ROHome extends Component {
     });
   }
 
-  onClickMiddleSchool = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToMiddle}`);
-  };
-
-  onClickIntermediate = () => {
-    this.props.history.push(`/ReadingOlympics/current/${pathToIntermediate}`);
-  };
-
   renderSearch = () => {
     return (
       <Card className="search">

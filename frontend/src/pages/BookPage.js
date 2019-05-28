@@ -61,18 +61,13 @@ class BookPage extends Component {
     return cards;
   };
 
-  selectQuiz = id => {
-    this.props.history.push(
-      `/ReadingOlympics/book/${this.props.match.params.id}/${id}`
-    );
-  };
-
   renderFunc = card => {
     return (
       <Button
         color="success"
         className="btn btn-block"
-        onClick={() => this.selectQuiz(card.id)}
+        tag={Link}
+        to={`/ReadingOlympics/book/${this.props.match.params.id}/${card.id}`}
       >
         {card.title}
       </Button>

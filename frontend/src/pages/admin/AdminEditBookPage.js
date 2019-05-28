@@ -4,6 +4,7 @@ import AdminBookForm from '../../components/admin/AdminBookForm';
 import AdminDeleteModal from '../../components/admin/AdminDeleteModal';
 import AdminNavigator from '../../components/admin/AdminNavigator';
 import AdminBookSelect from '../../components/admin/AdminBookSelect';
+import { Link } from 'react-router-dom';
 import '../../styles/admin/AdminNavigator.scss';
 import '../../styles/admin/AdminHome.scss';
 import { deleteBook } from '../../utils/api';
@@ -81,7 +82,7 @@ class AdminEditBookPage extends Component {
             {this.state.success && (
               <Alert color="success">
                 Book was successfully modified. Would you like to{' '}
-                <a href="/admin/book/edit">edit another</a>?
+                <Link to="/admin/book/edit">edit another</Link>?
               </Alert>
             )}
             {!this.state.success && (
