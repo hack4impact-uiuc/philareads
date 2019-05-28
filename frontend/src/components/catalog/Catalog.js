@@ -70,19 +70,33 @@ class Catalog extends Component {
     ));
   };
 
+  currentPageIsFirstPage = () => {
+    return this.state.page === 1;
+  };
+
   renderPaginationPrev = () => {
+    // hide when on first page
     return (
-      <PaginationItem>
-        <PaginationLink previous onClick={() => this.changePagePrev()} />
-      </PaginationItem>
+      !this.currentPageIsFirstPage() && (
+        <PaginationItem>
+          <PaginationLink previous onClick={() => this.changePagePrev()} />
+        </PaginationItem>
+      )
     );
   };
 
+  currentPageIsLastPage = () => {
+    return this.getNumPageItems() === this.state.page;
+  };
+
   renderPaginationNext = () => {
+    // hide when on last page
     return (
-      <PaginationItem>
-        <PaginationLink next onClick={() => this.changePageNext()} />
-      </PaginationItem>
+      !this.currentPageIsLastPage() && (
+        <PaginationItem>
+          <PaginationLink next onClick={() => this.changePageNext()} />
+        </PaginationItem>
+      )
     );
   };
 
