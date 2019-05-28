@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Row, Alert } from 'reactstrap';
 import queryString from 'query-string';
-import SearchBar from '../components/search/SearchBar';
-import SearchResults from '../components/search/SearchResults';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import DocumentTitle from 'react-document-title';
+
+import SearchBar from '../components/search/SearchBar';
+import SearchResults from '../components/search/SearchResults';
 import '../styles/Search.scss';
 
 library.add(faSearch);
@@ -108,22 +110,24 @@ class Search extends Component {
     }
 
     return (
-      <div className="search">
-        {header}
-        <Container fluid={true}>
-          <Row>
-            <SearchBar
-              initialQuery={this.state.query}
-              resetCallback={this.setStatePromptUser}
-              loadCallback={this.setStateLoading}
-              notFoundCallback={this.setStateNotFound}
-              searchCallback={this.setSearchResults}
-              alertCallback={this.setStateAlert}
-            />
-          </Row>
-          {body}
-        </Container>
-      </div>
+      <DocumentTitle title="Search">
+        <div className="search">
+          {header}
+          <Container fluid={true}>
+            <Row>
+              <SearchBar
+                initialQuery={this.state.query}
+                resetCallback={this.setStatePromptUser}
+                loadCallback={this.setStateLoading}
+                notFoundCallback={this.setStateNotFound}
+                searchCallback={this.setSearchResults}
+                alertCallback={this.setStateAlert}
+              />
+            </Row>
+            {body}
+          </Container>
+        </div>
+      </DocumentTitle>
     );
   }
 }

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Container, Col, Button, Card, CardBody, CardTitle } from 'reactstrap';
+import DocumentTitle from 'react-document-title';
+
 import '../../styles/ReadingOlympics.scss';
 import RedirectingSearchBar from '../../components/search/RedirectingSearchBar';
 import { URLParamToString } from '../../utils/formatHelpers';
@@ -55,42 +57,44 @@ class ROHome extends Component {
 
   render() {
     return (
-      <div className="reading-olympics">
-        <div className="page-title">
-          <h1>Reading Olympics</h1>
+      <DocumentTitle title="Reading Olympics">
+        <div className="reading-olympics">
+          <div className="page-title">
+            <h1>Reading Olympics</h1>
+          </div>
+          <Container className="container">
+            <Col className="left-main-col book-list">
+              <Card className="main-content">
+                <CardBody>
+                  <h2>{this.state.currentYear}</h2>
+                  <Button
+                    className="navigation-button"
+                    tag={Link}
+                    to="/readingolympics/current/middle"
+                    size="lg"
+                    block
+                  >
+                    {URLParamToString(pathToMiddle)}
+                  </Button>
+                  <Button
+                    className="navigation-button"
+                    tag={Link}
+                    to="/readingolympics/current/intermediate"
+                    size="lg"
+                    block
+                  >
+                    {URLParamToString(pathToIntermediate)}
+                  </Button>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col className="right-sidebar">
+              {this.renderSearch()}
+              {this.renderArchive()}
+            </Col>
+          </Container>
         </div>
-        <Container className="container">
-          <Col className="left-main-col book-list">
-            <Card className="main-content">
-              <CardBody>
-                <h2>{this.state.currentYear}</h2>
-                <Button
-                  className="navigation-button"
-                  tag={Link}
-                  to="/readingolympics/current/middle"
-                  size="lg"
-                  block
-                >
-                  {URLParamToString(pathToMiddle)}
-                </Button>
-                <Button
-                  className="navigation-button"
-                  tag={Link}
-                  to="/readingolympics/current/intermediate"
-                  size="lg"
-                  block
-                >
-                  {URLParamToString(pathToIntermediate)}
-                </Button>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col className="right-sidebar">
-            {this.renderSearch()}
-            {this.renderArchive()}
-          </Col>
-        </Container>
-      </div>
+      </DocumentTitle>
     );
   }
 }

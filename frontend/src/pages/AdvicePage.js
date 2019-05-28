@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
+
 import Advice from '../components/Advice';
 import { Alert, Container } from 'reactstrap';
 import { getAdvice } from '../utils/api';
@@ -52,11 +54,13 @@ class AdvicePage extends Component {
     }
 
     return (
-      <Container className="parents-page">
-        <h1 className="page-title">Parents Page</h1>
-        {header}
-        {this.renderAdviceCards()}
-      </Container>
+      <DocumentTitle title="Parents">
+        <Container className="parents-page">
+          <h1 className="page-title">Parents Page</h1>
+          {header}
+          {this.renderAdviceCards()}
+        </Container>
+      </DocumentTitle>
     );
   }
 }

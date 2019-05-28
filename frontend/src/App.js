@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
+
 import PReadsNavbar from './components/PReadsNavbar';
 import Home from './pages/Home';
 import NoMatchPage from './pages/NoMatchPage';
@@ -30,6 +32,7 @@ import AdminAddQuizPage from './pages/admin/AdminAddQuizPage';
 import AdminEditQuizPage from './pages/admin/AdminEditQuizPage';
 import AdminAddAdvicePage from './pages/admin/AdminAddAdvicePage';
 import AdminEditAdvicePage from './pages/admin/AdminEditAdvicePage';
+
 function withAdminProtection(WrappedComponent) {
   // Only render this page if an admin user is logged in.
   return class extends Component {
@@ -59,105 +62,110 @@ function withAuthenticatedProtection(WrappedComponent) {
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Route path="/" component={PReadsNavbar} />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            {/*Authentication pages*/}
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/logout" component={Logout} />
-            {/*Ungrouped pages*/}
-            <Route path="/parents" component={AdvicePage} />
-            <Route path="/search" component={Search} />
-            <Route path="/about" component={About} />
-            {/*Account pages*/}
-            <Route
-              path="/account"
-              component={withAuthenticatedProtection(AccountManagePage)}
-            />
-            <Route
-              path="/profile/badges"
-              component={withAuthenticatedProtection(BadgesPage)}
-            />
-            {/*Admin pages*/}
-            <Route
-              exact
-              path="/admin"
-              component={withAdminProtection(AdminPage)}
-            />
-            <Route
-              path="/admin/settings"
-              component={withAdminProtection(AdminSettingsPage)}
-            />
-            <Route
-              exact
-              path="/admin/book/csv_upload"
-              component={withAdminProtection(AdminCSVUploadPage)}
-            />
-            <Route
-              path="/admin/book/add"
-              component={withAdminProtection(AdminAddBookPage)}
-            />
-            <Route
-              path="/admin/book/edit"
-              component={withAdminProtection(AdminEditBookPage)}
-            />
-            <Route
-              path="/admin/manage_users"
-              component={withAdminProtection(AdminManageUsersPage)}
-            />
+      <DocumentTitle title="Read at Home - Philadelphia READS">
+        <Router>
+          <div>
+            <Route path="/" component={PReadsNavbar} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              {/*Authentication pages*/}
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/logout" component={Logout} />
+              {/*Ungrouped pages*/}
+              <Route path="/parents" component={AdvicePage} />
+              <Route path="/search" component={Search} />
+              <Route path="/about" component={About} />
+              {/*Account pages*/}
+              <Route
+                path="/account"
+                component={withAuthenticatedProtection(AccountManagePage)}
+              />
+              <Route
+                path="/profile/badges"
+                component={withAuthenticatedProtection(BadgesPage)}
+              />
+              {/*Admin pages*/}
+              <Route
+                exact
+                path="/admin"
+                component={withAdminProtection(AdminPage)}
+              />
+              <Route
+                path="/admin/settings"
+                component={withAdminProtection(AdminSettingsPage)}
+              />
+              <Route
+                exact
+                path="/admin/book/csv_upload"
+                component={withAdminProtection(AdminCSVUploadPage)}
+              />
+              <Route
+                path="/admin/book/add"
+                component={withAdminProtection(AdminAddBookPage)}
+              />
+              <Route
+                path="/admin/book/edit"
+                component={withAdminProtection(AdminEditBookPage)}
+              />
+              <Route
+                path="/admin/manage_users"
+                component={withAdminProtection(AdminManageUsersPage)}
+              />
 
-            {/*Reading Olympics default year reroutes*/}
-            <Route
-              exact
-              path="/ReadingOlympics/current/:grade(middle|intermediate)"
-              component={RORedirectToCurrent}
-            />
-            <Route
-              exact
-              path="/ReadingOlympics/year/current"
-              component={RORedirectToCurrent}
-            />
-            <Route
-              path="/admin/quiz/add"
-              component={withAdminProtection(AdminAddQuizPage)}
-            />
-            <Route
-              path="/admin/quiz/edit"
-              component={withAdminProtection(AdminEditQuizPage)}
-            />
-            <Route
-              path="/admin/advice/add"
-              component={withAdminProtection(AdminAddAdvicePage)}
-            />
-            <Route
-              path="/admin/advice/edit"
-              component={withAdminProtection(AdminEditAdvicePage)}
-            />
-            {/*Reading Olympics pages*/}
-            <Route exact path="/ReadingOlympics" component={ROHome} />
-            <Route
-              exact
-              path="/ReadingOlympics/:year/:grade(middle|intermediate)"
-              component={ROYearGradeView}
-            />
-            <Route path="/ReadingOlympics/year/:year" component={ROYearView} />
-            <Route
-              exact
-              path="/ReadingOlympics/book/:id"
-              component={BookPage}
-            />
-            <Route
-              path="/ReadingOlympics/book/:id/:quizID"
-              component={QuizPage}
-            />
-            {/*404 Page*/}
-            <Route component={NoMatchPage} />
-          </Switch>
-        </div>
-      </Router>
+              {/*Reading Olympics default year reroutes*/}
+              <Route
+                exact
+                path="/ReadingOlympics/current/:grade(middle|intermediate)"
+                component={RORedirectToCurrent}
+              />
+              <Route
+                exact
+                path="/ReadingOlympics/year/current"
+                component={RORedirectToCurrent}
+              />
+              <Route
+                path="/admin/quiz/add"
+                component={withAdminProtection(AdminAddQuizPage)}
+              />
+              <Route
+                path="/admin/quiz/edit"
+                component={withAdminProtection(AdminEditQuizPage)}
+              />
+              <Route
+                path="/admin/advice/add"
+                component={withAdminProtection(AdminAddAdvicePage)}
+              />
+              <Route
+                path="/admin/advice/edit"
+                component={withAdminProtection(AdminEditAdvicePage)}
+              />
+              {/*Reading Olympics pages*/}
+              <Route exact path="/ReadingOlympics" component={ROHome} />
+              <Route
+                exact
+                path="/ReadingOlympics/:year/:grade(middle|intermediate)"
+                component={ROYearGradeView}
+              />
+              <Route
+                path="/ReadingOlympics/year/:year"
+                component={ROYearView}
+              />
+              <Route
+                exact
+                path="/ReadingOlympics/book/:id"
+                component={BookPage}
+              />
+              <Route
+                path="/ReadingOlympics/book/:id/:quizID"
+                component={QuizPage}
+              />
+              {/*404 Page*/}
+              <Route component={NoMatchPage} />
+            </Switch>
+          </div>
+        </Router>
+      </DocumentTitle>
     );
   }
 }

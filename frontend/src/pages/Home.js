@@ -12,6 +12,8 @@ import {
   Alert
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
+
 import { URLParamToString } from '../utils/formatHelpers';
 import RedirectingSearchBar from '../components/search/RedirectingSearchBar';
 import parents from './../images/home_parents.png';
@@ -30,67 +32,68 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home">
-        {this.shouldShowAlert() !== null && (
-          <Alert color="success">
-            <h5 className="text-center">You're now logged in</h5>
-          </Alert>
-        )}
-        <h1 className="page-title">Read at Home</h1>
-
-        <Container>
-          <Row>
-            <Col className="left-main-col">
-              <Card className="parent">
-                <h2>Reading Olympics</h2>
-                <CardBody>
-                  <Button
-                    className="navigation-button"
-                    tag={Link}
-                    to="/readingolympics/current/middle"
-                    color="primary"
-                    size="lg"
-                    block
-                  >
-                    {URLParamToString(pathToMiddle)}
-                  </Button>
-                  <Button
-                    className="navigation-button"
-                    tag={Link}
-                    to="/readingolympics/current/intermediate"
-                    color="primary"
-                    size="lg"
-                    block
-                  >
-                    {URLParamToString(pathToIntermediate)}
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col className="right-sidebar">
-              <Card>
-                <CardBody>
-                  <CardTitle>Search</CardTitle>
-                  <RedirectingSearchBar history={this.props.history} />
-                </CardBody>
-              </Card>
-              <Card>
-                <CardBody>
-                  <CardTitle>For Parents</CardTitle>
-                  <CardText>
-                    Click here for some advice on how to make the most out of
-                    your child's leaning experience with the Reading Olympics.
-                  </CardText>
-                </CardBody>
-                <CardImg className="image" src={parents} />
-                <Link to="/parents">
-                  <span />
-                </Link>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <DocumentTitle title="Home">
+        <div className="home">
+          {this.shouldShowAlert() !== null && (
+            <Alert color="success">
+              <h5 className="text-center">You're now logged in</h5>
+            </Alert>
+          )}
+          <h1 className="page-title">Read at Home</h1>
+          <Container>
+            <Row>
+              <Col className="left-main-col">
+                <Card className="parent">
+                  <h2>Reading Olympics</h2>
+                  <CardBody>
+                    <Button
+                      className="navigation-button"
+                      tag={Link}
+                      to="/readingolympics/current/middle"
+                      color="primary"
+                      size="lg"
+                      block
+                    >
+                      {URLParamToString(pathToMiddle)}
+                    </Button>
+                    <Button
+                      className="navigation-button"
+                      tag={Link}
+                      to="/readingolympics/current/intermediate"
+                      color="primary"
+                      size="lg"
+                      block
+                    >
+                      {URLParamToString(pathToIntermediate)}
+                    </Button>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col className="right-sidebar">
+                <Card>
+                  <CardBody>
+                    <CardTitle>Search</CardTitle>
+                    <RedirectingSearchBar history={this.props.history} />
+                  </CardBody>
+                </Card>
+                <Card>
+                  <CardBody>
+                    <CardTitle>For Parents</CardTitle>
+                    <CardText>
+                      Click here for some advice on how to make the most out of
+                      your child's leaning experience with the Reading Olympics.
+                    </CardText>
+                  </CardBody>
+                  <CardImg className="image" src={parents} />
+                  <Link to="/parents">
+                    <span />
+                  </Link>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </DocumentTitle>
     );
   }
 }

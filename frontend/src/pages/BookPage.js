@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Row, Alert } from 'reactstrap';
+import DocumentTitle from 'react-document-title';
+
 import Catalog from '../components/catalog/Catalog';
 import BookInfo from '../components/BookInfo';
 import { getBookData, getQuizzes } from '../utils/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Row, Alert } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 class BookPage extends Component {
   constructor(props) {
@@ -85,30 +86,32 @@ class BookPage extends Component {
       header = <Alert color="danger">{this.state.alert}</Alert>;
     }
     return (
-      <div>
-        {!this.dataLoaded() && (
-          <Row>
-            <FontAwesomeIcon
-              className="icon spinner"
-              icon="spinner"
-              pulse
-              size="10x"
-            />
-          </Row>
-        )}
-        {this.dataLoaded() && (
-          <div>
-            {header}
-            <BookInfo bookObject={this.state.bookData} />
-            <h1 className="quiz-title">Quizzes</h1>
-            <Catalog
-              className="quiz-catalog"
-              renderFunc={this.renderFunc}
-              cards={this.getCards()}
-            />
-          </div>
-        )}
-      </div>
+      <DocumentTitle title="Book">
+        <div>
+          {!this.dataLoaded() && (
+            <Row>
+              <FontAwesomeIcon
+                className="icon spinner"
+                icon="spinner"
+                pulse
+                size="10x"
+              />
+            </Row>
+          )}
+          {this.dataLoaded() && (
+            <div>
+              {header}
+              <BookInfo bookObject={this.state.bookData} />
+              <h1 className="quiz-title">Quizzes</h1>
+              <Catalog
+                className="quiz-catalog"
+                renderFunc={this.renderFunc}
+                cards={this.getCards()}
+              />
+            </div>
+          )}
+        </div>
+      </DocumentTitle>
     );
   }
 }

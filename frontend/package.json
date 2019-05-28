@@ -20,6 +20,7 @@
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
     "react": "^16.8.6",
+    "react-document-title": "^2.0.3",
     "react-dom": "^16.8.6",
     "react-dropzone": "^7.0.1",
     "react-router-dom": "^4.3.1",
