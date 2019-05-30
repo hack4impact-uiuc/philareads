@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Row, Alert } from 'reactstrap';
 import DocumentTitle from 'react-document-title';
+import { Link } from 'react-router-dom';
 
 import Catalog from '../components/catalog/Catalog';
 import BookInfo from '../components/BookInfo';
