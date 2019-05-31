@@ -13,7 +13,8 @@ class Login extends Component {
       password: '',
       username: '',
       isLoggedIn: this.isLoggedIn(),
-      errors: []
+      errors: [],
+      loading: false
     };
   }
 
@@ -25,7 +26,7 @@ class Login extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errors: [] });
+    this.setState({ errors: [], loading: true });
 
     const { message, success, result } = await login({
       name: this.state.name,
@@ -35,9 +36,10 @@ class Login extends Component {
     if (success) {
       const cookies = new Cookies();
       cookies.set('jwt', result['auth_token'], { path: '/' });
-      this.setState({ isLoggedIn: this.isLoggedIn() });
+      this.setState({ isLoggedIn: this.isLoggedIn(), loading: false });
     } else {
       // TODO: Display message if login wasn't successful
+      this.setState({ loading: false });
       this.handleAPIErrors(message);
     }
   };
@@ -113,7 +115,7 @@ class Login extends Component {
                   type="submit"
                   onClick={this.handleSubmit}
                 >
-                  Login
+                  {this.state.loading ? <div className="spinner" /> : 'Login'}
                 </Button>
               </FormGroup>
             </Card>
