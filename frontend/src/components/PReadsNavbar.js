@@ -93,7 +93,7 @@ export default class PReadsNavbar extends React.Component {
             </Nav>
 
             {this.isLoggedIn() && (
-              <UncontrolledDropdown>
+              <UncontrolledDropdown style={{ cursor: 'pointer' }}>
                 <DropdownToggle tag="a" className="nav-link" caret>
                   Account
                 </DropdownToggle>
