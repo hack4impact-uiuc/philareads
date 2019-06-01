@@ -13,25 +13,24 @@ class AdvicePage extends Component {
       adviceLoaded: false,
       alert: null
     };
+  }
+
+  componentWillMount() {
     this.fetchAdviceData();
   }
 
-  navigationOptions = [
-    {
-      route: '/parents',
-      name: 'Advice',
-      component: Advice
-    }
-  ];
-
   fetchAdviceData = async () => {
-    const { message, success, result } = await getAdvice(
-      this.props.match.params.id
-    );
-    if (success) {
-      this.setState({ adviceData: result['results'], adviceLoaded: true });
-    } else {
-      this.setState({ alert: message });
+    try {
+      const { message, success, result } = await getAdvice(
+        this.props.match.params.id
+      );
+      if (success) {
+        this.setState({ adviceData: result['results'], adviceLoaded: true });
+      } else {
+        this.setState({ alert: message });
+      }
+    } catch (e) {
+      console.error('error fetching advice', e);
     }
   };
 

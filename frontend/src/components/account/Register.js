@@ -49,21 +49,25 @@ class Register extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    const { success, result, message } = await register({
-      name: this.state.name,
-      password: this.state.password,
-      username: this.state.username
-    });
-    if (success) {
-      const cookies = new Cookies();
-      cookies.set('jwt', result['auth_token'], { path: '/' });
-      this.setState({ errors: [], isLoggedIn: this.isLoggedIn() });
-    } else {
-      // We can possibly remove this in future if we realize we're only needing to set
-      // at most one alert. This is currently in here to allow us to add/display multiple alerts
-      // but clear them out after POST requests.
-      this.setState({ errors: [] });
-      this.handleAPIErrors(message);
+    try {
+      const { success, result, message } = await register({
+        name: this.state.name,
+        password: this.state.password,
+        username: this.state.username
+      });
+      if (success) {
+        const cookies = new Cookies();
+        cookies.set('jwt', result['auth_token'], { path: '/' });
+        this.setState({ errors: [], isLoggedIn: this.isLoggedIn() });
+      } else {
+        // We can possibly remove this in future if we realize we're only needing to set
+        // at most one alert. This is currently in here to allow us to add/display multiple alerts
+        // but clear them out after POST requests.
+        this.setState({ errors: [] });
+        this.handleAPIErrors(message);
+      }
+    } catch (e) {
+      console.error('error registering', e);
     }
   };
 

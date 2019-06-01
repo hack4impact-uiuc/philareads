@@ -27,18 +27,22 @@ class Login extends Component {
     event.preventDefault();
     this.setState({ errors: [] });
 
-    const { message, success, result } = await login({
-      name: this.state.name,
-      password: this.state.password,
-      username: this.state.username
-    });
-    if (success) {
-      const cookies = new Cookies();
-      cookies.set('jwt', result['auth_token'], { path: '/' });
-      this.setState({ isLoggedIn: this.isLoggedIn() });
-    } else {
-      // TODO: Display message if login wasn't successful
-      this.handleAPIErrors(message);
+    try {
+      const { message, success, result } = await login({
+        name: this.state.name,
+        password: this.state.password,
+        username: this.state.username
+      });
+      if (success) {
+        const cookies = new Cookies();
+        cookies.set('jwt', result['auth_token'], { path: '/' });
+        this.setState({ isLoggedIn: this.isLoggedIn() });
+      } else {
+        // TODO: Display message if login wasn't successful
+        this.handleAPIErrors(message);
+      }
+    } catch (e) {
+      console.error('error logging in', e);
     }
   };
 
