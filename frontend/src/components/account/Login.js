@@ -40,7 +40,7 @@ class Login extends Component {
         this.setState({ isLoggedIn: this.isLoggedIn(), loading: false });
       } else {
         // TODO: Display message if login wasn't successful
-        this.setState({ loading: false});
+        this.setState({ loading: false });
         this.handleAPIErrors(message);
       }
     } catch (e) {
