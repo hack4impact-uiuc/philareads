@@ -1,4 +1,5 @@
 from api.models import Quiz
+from api.models.Year import Year
 
 # this file and the classes in it do not correspond to a table in the Database
 
@@ -20,6 +21,8 @@ class Badge:
         return user.progress >= self.quantity
 
     def serialize_to_json(self):
+        if len(Year.query.all()) == 0:
+            raise ValueError("Year not initialized")
         return {
             "id": self.id,
             "title": self.title,
@@ -27,7 +30,7 @@ class Badge:
             "description": self.description,
             "congrats_text": self.congrats_text,
             "graphic": self.graphic,
-            "year": 2018,  # if we get a table in to track current year we need to use that
+            "year": Year.query.get(1).year,
         }
 
 
