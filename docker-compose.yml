@@ -19,6 +19,8 @@ services:
       context: ./frontend
     ports:
       - 80:80
+    depends_on:
+      - app
   app:
     restart: always
     build:
