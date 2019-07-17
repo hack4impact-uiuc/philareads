@@ -98,13 +98,13 @@ export default class PReadsNavbar extends React.Component {
                   Account
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem tag="a" href="/profile/badges">
+                  <DropdownItem tag={Link} to="/profile/badges">
                     Profile
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/account">
+                  <DropdownItem tag={Link} to="/account">
                     Settings
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/logout">
+                  <DropdownItem tag={Link} to="/logout">
                     Logout
                   </DropdownItem>
                 </DropdownMenu>
