@@ -1,7 +1,7 @@
 .reading-olympics {
   .container {
     display: flex;
-    flex-direction: 'row';
+    flex-direction: "row";
     flex-wrap: wrap-reverse;
   }
 
@@ -30,7 +30,11 @@
   }
   .book-image-container {
     text-align: center;
-    margin-bottom: 10px;
+    padding: 0 50px;
+    width: 100%;
+    // margin-bottom: 10px;
+    // object-fit: scale-down;
+    // overflow: hidden;
   }
   .book-card {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -39,13 +43,26 @@
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
 
-  .book-image {
-    max-height: 300px;
-    width: auto;
-    border-radius: 10px;
+  .book-image-container .book-image {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
-  .empty {
-    padding: 50px;
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
+
+  .book-image {
+    max-height: 300px;
+
+    width: 100%;
+    //object-fit: contain;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+    border-radius: 10px;
+  }
+  // .empty {
+  //   padding: 50px;
+  // }
 }
