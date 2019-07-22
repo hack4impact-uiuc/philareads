@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Collapse,
   Navbar,
@@ -9,33 +9,34 @@ import {
   DropdownItem,
   DropdownMenu,
   UncontrolledDropdown
-} from 'reactstrap';
-import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-import logo from '../images/philareadslogo_transparent.png';
-import '../styles/PReadsNavbar.scss';
+} from "reactstrap";
+import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+import logo from "../images/philareadslogo_transparent.png";
+import "../styles/PReadsNavbar.scss";
 export default class PReadsNavbar extends React.Component {
   navigationOptions = [
     {
-      route: '/',
-      name: 'Home'
+      route: "/",
+      name: "Home"
     },
     {
-      route: '/about',
-      name: 'About'
+      route: "/about",
+      name: "About"
     },
     {
-      route: '/ReadingOlympics',
-      name: 'Reading Olympics'
+      route: "/ReadingOlympics",
+      name: "Reading Olympics"
     },
     {
-      route: '/parents',
-      name: 'For Parents'
+      route: "/parents",
+      name: "For Parents"
     },
     {
-      route: '/search',
-      name: 'Search'
-    }
+      route: "/search",
+      name: "Search"
+    },
+    { route: "admin", name: "Admin" }
   ];
 
   constructor(props) {
@@ -53,7 +54,7 @@ export default class PReadsNavbar extends React.Component {
 
   isLoggedIn() {
     const cookies = new Cookies();
-    return cookies.get('jwt') !== undefined;
+    return cookies.get("jwt") !== undefined;
   }
 
   render() {
@@ -93,7 +94,7 @@ export default class PReadsNavbar extends React.Component {
             </Nav>
 
             {this.isLoggedIn() && (
-              <UncontrolledDropdown style={{ cursor: 'pointer' }}>
+              <UncontrolledDropdown style={{ cursor: "pointer" }}>
                 <DropdownToggle tag="a" className="nav-link" caret>
                   Account
                 </DropdownToggle>
