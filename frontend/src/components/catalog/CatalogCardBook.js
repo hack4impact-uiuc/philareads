@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Card,
   CardImg,
@@ -6,21 +6,21 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { URLParamToString } from "../../utils/formatHelpers";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import "../../styles/ReadingOlympics.scss";
-import book from "../../images/book-fa.png";
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { URLParamToString } from '../../utils/formatHelpers';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import '../../styles/ReadingOlympics.scss';
+import book from '../../images/book-fa.png';
 library.add(faBook);
 
 class CatalogCardBook extends Component {
   renderBookImage = () => {
     const { onClickBook } = this.props;
     const { cover_url } = this.props.book;
-    if (cover_url === undefined || cover_url === null || cover_url === "") {
+    if (cover_url === undefined || cover_url === null || cover_url === '') {
       return (
         <div className="book-image-container">
           <CardImg
