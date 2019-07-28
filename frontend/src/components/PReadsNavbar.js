@@ -35,7 +35,8 @@ export default class PReadsNavbar extends React.Component {
     {
       route: '/search',
       name: 'Search'
-    }
+    },
+    { route: 'admin', name: 'Admin' }
   ];
 
   constructor(props) {
