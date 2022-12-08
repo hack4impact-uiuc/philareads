@@ -1,7 +1,7 @@
 -i https://pypi.python.org/simple
 alembic==1.0.10
 bcrypt==3.1.4
-certifi==2019.3.9
+certifi==2022.12.7
 cffi==1.12.3
 chardet==3.0.4
 click==7.0
